@@ -1,0 +1,49 @@
+//
+//  PrefixHeader.pch
+//  购菜App-商家版
+//
+//  Created by 黄栋春 on 16/6/12.
+//  Copyright © 2016年 huangdongchun. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "UIView+HDCExtension.h"
+#import "Masonry.h"
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef DEBUG // 处于开发阶段
+#define HDCLog(...) NSLog(__VA_ARGS__)
+#else // 处于开发阶段
+#define HDCLog(...)
+#endif
+
+// RGB颜色
+#define HDCColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+// 随机色
+#define HDCRandomColor HDCColor(arc4random_uniform(256), arc4random_uniform(256),arc4random_uniform(256))
+
+/** 背景色 */
+#define HDCBackViewColor [UIColor colorWithRed:238/255.0 green:238/255.0 blue:238/255.0 alpha:1.0]
+
+/** 版本判断 */
+#define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
+
+/** 顶部距离 */
+#define Top self.view.height * 0.12 + self.view.height * 0.1
+/** 输入框高度 */
+#define textFieldHeight self.view.height - (self.view.height * 0.1 + self.view.height * 0.1 + self.view.height * 0.75)
+
+#define WhiteColor [UIColor whiteColor]
+
+#define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
+#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
+/**
+ *  绿色
+ */
+#define greenColor HDCColor(46, 192, 70)
+
+#endif /* PrefixHeader_pch */
