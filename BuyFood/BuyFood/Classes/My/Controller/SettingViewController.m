@@ -15,6 +15,8 @@
 #import "FeedBackViewController.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) NSArray* array;
+
 
 @end
 
@@ -26,15 +28,24 @@
     [self.view setBackgroundColor:HDCColor(46, 192, 70)];
     /** 设置去掉导航条下面的线*/
     
-    //[self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    //self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    self.navigationController.navigationBar.hidden = YES;
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+//    self.navigationController.navigationBar.hidden = YES;
     // 解决navigationBar影响tableView的问题
     self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置表头视图
     [self setUpHeaderView];
     // 设置tableView
     [self setTableView];
+    
+    self.array = @[@"震动提示",
+                   @"投诉订单",
+                   @"联系市场经理",
+                   @"店铺信息",
+                   @"修改密码",
+                   @"意见反馈",
+                   @"清除缓存",
+                   @"退出登录"];
 }
 /** 设置表头视图 */
 - (void)setUpHeaderView
@@ -86,67 +97,39 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 9;
+    return self.array.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *ID = @"status";
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-        cell.textLabel.textColor = HDCColor(102, 102, 102);
-        if (indexPath.row == 0)
-        {
-            cell.textLabel.text = @"震动提示";
-            UISwitch* switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.width * 0.8, cell.contentView.height * 0.15, cell.contentView.width * 0.14, self.view.height * 0.04)];
-            [cell.contentView addSubview:switchBtn];
-        }
-        else if (indexPath.row == 1)
-        {
-            cell.textLabel.text = @"投诉订单";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else if (indexPath.row == 2)
-        {
-            cell.textLabel.text = @"联系市场经理";
-            UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.width * 0.8 + 15, cell.contentView.height * 0.2, cell.contentView.width * 0.2, self.view.height * 0.04)];
-            nameLabel.text = @"张三";
-            nameLabel.textColor = HDCColor(153, 153, 153);
-            [cell.contentView addSubview:nameLabel];
-        }
-        else if (indexPath.row == 3)
-        {
-            cell.textLabel.text = @"店铺信息";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else if (indexPath.row == 4)
-        {
-            cell.textLabel.text = @"修改密码";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else if (indexPath.row == 5)
-        {
-            cell.textLabel.text = @"修改手机";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else if (indexPath.row == 6)
-        {
-            cell.textLabel.text = @"意见反馈";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else if (indexPath.row == 7)
-        {
-            cell.textLabel.text = @"清除缓存";
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        else
-        {
-            cell.textLabel.text = @"退出登录";
-            cell.textLabel.textColor = HDCColor(233, 91, 30);
-        }
     }
-        return cell;
+    cell.textLabel.textColor = HDCColor(102, 102, 102);
+    if (indexPath.row == 0)
+    {
+        UISwitch* switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.width * 0.8, cell.contentView.height * 0.15, cell.contentView.width * 0.14, self.view.height * 0.04)];
+        [cell.contentView addSubview:switchBtn];
+    }
+    else if (indexPath.row == 2)
+    {
+        UILabel* nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.width * 0.8 + 15, cell.contentView.height * 0.2, cell.contentView.width * 0.2, self.view.height * 0.04)];
+        nameLabel.text = @"张三";
+        nameLabel.textColor = HDCColor(153, 153, 153);
+        [cell.contentView addSubview:nameLabel];
+    }
+    else if (indexPath.row == self.array.count - 1)
+    {
+        cell.textLabel.textColor = HDCColor(233, 91, 30);
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    cell.textLabel.text = self.array[indexPath.row];
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,13 +149,13 @@
     }
     if (indexPath.row == 5)
     {
-        [self.navigationController pushViewController:[[ChangePhoneNumViewController alloc] init] animated:YES];
-    }
-    if (indexPath.row == 6)
-    {
         [self.navigationController pushViewController:[[FeedBackViewController alloc] init] animated:YES];
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.navigationController.navigationBar.hidden = YES;
+}
 
 @end
