@@ -7,15 +7,15 @@
 //
 
 #import "UntreatedOrderViewController.h"
-#import "PickUpViewController.h"
-#import "DispatchViewController.h"
+#import "DistributionViewController.h"
+#import "InviteViewController.h"
 
 @interface UntreatedOrderViewController ()
 
 /** 自提订单 */
-@property (nonatomic, strong) PickUpViewController* pickUpVC;
+@property (nonatomic, strong) InviteViewController* pickUpVC;
 /** 配送订单 */
-@property (nonatomic, strong) DispatchViewController* dispatchVC;
+@property (nonatomic, strong) DistributionViewController* dispatchVC;
 
 
 @end
@@ -34,8 +34,8 @@
 // 默认的加载视图
 - (void)superInitView
 {
-    self.pickUpVC = [[PickUpViewController alloc] init];
-    self.dispatchVC = [[DispatchViewController alloc] init];
+    self.pickUpVC = [[InviteViewController alloc] init];
+    self.dispatchVC = [[DistributionViewController alloc] init];
     [self addCon:self.pickUpVC addOtherView:self.pickUpVC.view bringView:self.pickUpVC.view WdeleOtherView:self.dispatchVC.view];
 }
 

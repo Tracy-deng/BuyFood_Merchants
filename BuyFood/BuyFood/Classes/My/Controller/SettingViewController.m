@@ -8,10 +8,10 @@
 
 #import "SettingViewController.h"
 #import "TagLabels.h"
-#import "SettingViewCell.h"
 #import "ComplaintOrderViewController.h"
 #import "ChangePasswordViewController.h"
 #import "FeedBackViewController.h"
+#import "ShopInfoViewController.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,9 +28,9 @@
     [self.view setBackgroundColor:HDCColor(46, 192, 70)];
     /** 设置去掉导航条下面的线*/
     
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    //    self.navigationController.navigationBar.hidden = YES;
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    self.navigationController.navigationBar.hidden = YES;
     // 解决navigationBar影响tableView的问题
     self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置表头视图
@@ -50,18 +50,18 @@
 /** 设置表头视图 */
 - (void)setUpHeaderView
 {
-//    // 设置标题头
-//    UILabel* title = [[UILabel alloc] init];
-//    title.text = @"我的";
-//    title.textAlignment = NSTextAlignmentCenter;
-//    title.textColor = [UIColor whiteColor];
-//    [self.view addSubview:title];
-//    [title mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.mas_equalTo(self.view.mas_centerX);
-//        make.top.equalTo(self.view.mas_top).offset(self.view.height * 0.04);
-//        make.width.mas_offset(@50);
-//        make.height.mas_offset(@20);
-//    }];
+    // 设置标题头
+    UILabel* title = [[UILabel alloc] init];
+    title.text = @"我的";
+    title.textAlignment = NSTextAlignmentCenter;
+    title.textColor = [UIColor whiteColor];
+    [self.view addSubview:title];
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.top.equalTo(self.view.mas_top).offset(self.view.height * 0.04);
+        make.width.mas_offset(@50);
+        make.height.mas_offset(@20);
+    }];
     // 设置店铺头像
     UIImageView* headerImageView = [[UIImageView alloc] init];
     [headerImageView setFrame:CGRectMake(self.view.width * 0.06, self.view.height * 0.11, self.view.width * 0.19, self.view.height * 0.11)];
@@ -143,6 +143,10 @@
     if (indexPath.row == 1)
     {
         [self.navigationController pushViewController:[[ComplaintOrderViewController alloc] init] animated:YES];
+    }
+    if (indexPath.row == 3)
+    {
+        [self.navigationController pushViewController:[[ShopInfoViewController alloc] init] animated:YES];
     }
     if (indexPath.row == 4)
     {
