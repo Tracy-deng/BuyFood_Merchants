@@ -29,7 +29,7 @@
         make.right.equalTo(self.view);
         make.height.equalTo(@(SCREEN_HEIGHT - 44));
     }];
-    _haveTableView.rowHeight = 180;
+    _haveTableView.rowHeight = 155;
     _haveTableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
     [_haveTableView registerClass:[haveTableViewCell class] forCellReuseIdentifier:@"haveView"];
     

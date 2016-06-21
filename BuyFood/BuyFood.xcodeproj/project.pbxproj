@@ -52,10 +52,10 @@
 		0EBD08201D1790DF002DD7A4 /* ChangePhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD081F1D1790DF002DD7A4 /* ChangePhoneNumViewController.m */; };
 		0EBD08231D17913F002DD7A4 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08221D17913F002DD7A4 /* FeedBackViewController.m */; };
 		0EBD08341D17EF18002DD7A4 /* AlreadyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08271D17EF18002DD7A4 /* AlreadyOrderViewController.m */; };
-		0EBD08351D17EF18002DD7A4 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08291D17EF18002DD7A4 /* haveTableViewCell.m */; };
 		0EBD08361D17EF18002DD7A4 /* OwnHaveNoSolvedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD082C1D17EF18002DD7A4 /* OwnHaveNoSolvedController.m */; };
 		0EBD08371D17EF18002DD7A4 /* OwnHaveProvideController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD082E1D17EF18002DD7A4 /* OwnHaveProvideController.m */; };
 		0EBD08381D17EF18002DD7A4 /* OwnHavePushController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */; };
+		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -154,14 +154,14 @@
 		0EBD08221D17913F002DD7A4 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		0EBD08261D17EF18002DD7A4 /* AlreadyOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlreadyOrderViewController.h; sourceTree = "<group>"; };
 		0EBD08271D17EF18002DD7A4 /* AlreadyOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlreadyOrderViewController.m; sourceTree = "<group>"; };
-		0EBD08281D17EF18002DD7A4 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = haveTableViewCell.h; sourceTree = "<group>"; };
-		0EBD08291D17EF18002DD7A4 /* haveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = haveTableViewCell.m; sourceTree = "<group>"; };
 		0EBD082B1D17EF18002DD7A4 /* OwnHaveNoSolvedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnHaveNoSolvedController.h; sourceTree = "<group>"; };
 		0EBD082C1D17EF18002DD7A4 /* OwnHaveNoSolvedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnHaveNoSolvedController.m; sourceTree = "<group>"; };
 		0EBD082D1D17EF18002DD7A4 /* OwnHaveProvideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnHaveProvideController.h; sourceTree = "<group>"; };
 		0EBD082E1D17EF18002DD7A4 /* OwnHaveProvideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnHaveProvideController.m; sourceTree = "<group>"; };
 		0EBD082F1D17EF18002DD7A4 /* OwnHavePushController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnHavePushController.h; sourceTree = "<group>"; };
 		0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnHavePushController.m; sourceTree = "<group>"; };
+		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		7833D2E21D18CBD000174C29 /* haveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = haveTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -578,15 +578,13 @@
 			children = (
 				0EBD08261D17EF18002DD7A4 /* AlreadyOrderViewController.h */,
 				0EBD08271D17EF18002DD7A4 /* AlreadyOrderViewController.m */,
-				0EBD08281D17EF18002DD7A4 /* haveTableViewCell.h */,
-				0EBD08291D17EF18002DD7A4 /* haveTableViewCell.m */,
-				0EBD082A1D17EF18002DD7A4 /* Mdole */,
-				0EBD082B1D17EF18002DD7A4 /* OwnHaveNoSolvedController.h */,
-				0EBD082C1D17EF18002DD7A4 /* OwnHaveNoSolvedController.m */,
 				0EBD082D1D17EF18002DD7A4 /* OwnHaveProvideController.h */,
 				0EBD082E1D17EF18002DD7A4 /* OwnHaveProvideController.m */,
-				0EBD082F1D17EF18002DD7A4 /* OwnHavePushController.h */,
 				0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */,
+				0EBD082F1D17EF18002DD7A4 /* OwnHavePushController.h */,
+				0EBD082B1D17EF18002DD7A4 /* OwnHaveNoSolvedController.h */,
+				0EBD082C1D17EF18002DD7A4 /* OwnHaveNoSolvedController.m */,
+				0EBD082A1D17EF18002DD7A4 /* Mdole */,
 				0EBD08311D17EF18002DD7A4 /* View */,
 			);
 			path = Controller;
@@ -602,6 +600,8 @@
 		0EBD08311D17EF18002DD7A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7833D2E11D18CBD000174C29 /* haveTableViewCell.h */,
+				7833D2E21D18CBD000174C29 /* haveTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -695,6 +695,7 @@
 				0E525A4A1D1283A700AFC95B /* LoginViewController.m in Sources */,
 				0E525A5B1D1283A700AFC95B /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0E525A4C1D1283A700AFC95B /* RegisterViewController.m in Sources */,
+				7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */,
 				0E525A611D1283A700AFC95B /* NewFeatureViewController.m in Sources */,
 				0EBD08171D178354002DD7A4 /* ComplaintOrderCell.m in Sources */,
 				0EBD080A1D153CA9002DD7A4 /* DispatchCell.m in Sources */,
@@ -704,7 +705,6 @@
 				0E525A5C1D1283A700AFC95B /* View+MASAdditions.m in Sources */,
 				0E525A4E1D1283A700AFC95B /* InputTextField.m in Sources */,
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
-				0EBD08351D17EF18002DD7A4 /* haveTableViewCell.m in Sources */,
 				0E525A581D1283A700AFC95B /* MASViewAttribute.m in Sources */,
 				0EBD081D1D179035002DD7A4 /* ChangePasswordViewController.m in Sources */,
 				0E525A621D1283A700AFC95B /* ShopStoreViewController.m in Sources */,
