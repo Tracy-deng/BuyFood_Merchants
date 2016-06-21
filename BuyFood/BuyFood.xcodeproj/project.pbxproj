@@ -49,7 +49,6 @@
 		0EBD08171D178354002DD7A4 /* ComplaintOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08161D178354002DD7A4 /* ComplaintOrderCell.m */; };
 		0EBD081A1D178F1E002DD7A4 /* ComplaintOrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08191D178F1E002DD7A4 /* ComplaintOrderDetailsViewController.m */; };
 		0EBD081D1D179035002DD7A4 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD081C1D179035002DD7A4 /* ChangePasswordViewController.m */; };
-		0EBD08201D1790DF002DD7A4 /* ChangePhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD081F1D1790DF002DD7A4 /* ChangePhoneNumViewController.m */; };
 		0EBD08231D17913F002DD7A4 /* FeedBackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08221D17913F002DD7A4 /* FeedBackViewController.m */; };
 		0EBD08341D17EF18002DD7A4 /* AlreadyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08271D17EF18002DD7A4 /* AlreadyOrderViewController.m */; };
 		0EBD08361D17EF18002DD7A4 /* OwnHaveNoSolvedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD082C1D17EF18002DD7A4 /* OwnHaveNoSolvedController.m */; };
@@ -148,8 +147,6 @@
 		0EBD08191D178F1E002DD7A4 /* ComplaintOrderDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplaintOrderDetailsViewController.m; sourceTree = "<group>"; };
 		0EBD081B1D179035002DD7A4 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		0EBD081C1D179035002DD7A4 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
-		0EBD081E1D1790DF002DD7A4 /* ChangePhoneNumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneNumViewController.h; sourceTree = "<group>"; };
-		0EBD081F1D1790DF002DD7A4 /* ChangePhoneNumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneNumViewController.m; sourceTree = "<group>"; };
 		0EBD08211D17913F002DD7A4 /* FeedBackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackViewController.h; sourceTree = "<group>"; };
 		0EBD08221D17913F002DD7A4 /* FeedBackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackViewController.m; sourceTree = "<group>"; };
 		0EBD08261D17EF18002DD7A4 /* AlreadyOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlreadyOrderViewController.h; sourceTree = "<group>"; };
@@ -539,8 +536,6 @@
 				0EBD08191D178F1E002DD7A4 /* ComplaintOrderDetailsViewController.m */,
 				0EBD081B1D179035002DD7A4 /* ChangePasswordViewController.h */,
 				0EBD081C1D179035002DD7A4 /* ChangePasswordViewController.m */,
-				0EBD081E1D1790DF002DD7A4 /* ChangePhoneNumViewController.h */,
-				0EBD081F1D1790DF002DD7A4 /* ChangePhoneNumViewController.m */,
 				0EBD08211D17913F002DD7A4 /* FeedBackViewController.h */,
 				0EBD08221D17913F002DD7A4 /* FeedBackViewController.m */,
 			);
@@ -735,7 +730,6 @@
 				0E525A4B1D1283A700AFC95B /* RealnameViewController.m in Sources */,
 				0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */,
 				0E5259D51D12810F00AFC95B /* main.m in Sources */,
-				0EBD08201D1790DF002DD7A4 /* ChangePhoneNumViewController.m in Sources */,
 				0E525A551D1283A700AFC95B /* MASConstraint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

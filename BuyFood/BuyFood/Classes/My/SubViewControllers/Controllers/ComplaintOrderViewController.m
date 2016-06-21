@@ -19,7 +19,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    [self.view setBackgroundColor:greenColor];
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"bj_biaoqian"] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.shadowImage = [UIImage imageNamed:@"bj_biaoqian"];
     // 解决navigationBar影响tableView的问题
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.title = @"投诉订单";
