@@ -20,25 +20,28 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    self.tableView.rowHeight = 155;
+    self.tableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 10;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 10;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PickUpCell* cell = [PickUpCell cellWithTableView:tableView];
     [cell setOrderNumLabelText:@"#54" andOrderNumberLabelText:@"订单号  1234567" andOrderTimeLabelText:@"下单时间 11-07      09:00" andOrderAddressLabelText:@"紫东国际创意园区E1栋3楼"];
+    [cell.searchListBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
 }
-
+- (void)btnClick:(UIButton* )sender
+{
+    [self.navigationController pushViewController:[[OrderDetailsViewController alloc] init] animated:YES];
+}
+/**
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.view.height * 0.23;
@@ -88,11 +91,5 @@
     footerView.backgroundColor = HDCColor(250, 250, 250);
     return footerView;
 }
-
-- (void)btnClick:(UIButton* )sender
-{
-    HDCLog(@"查看详情");
-    [self.navigationController pushViewController:[[OrderDetailsViewController alloc] init] animated:YES];
-}
-
+*/
 @end

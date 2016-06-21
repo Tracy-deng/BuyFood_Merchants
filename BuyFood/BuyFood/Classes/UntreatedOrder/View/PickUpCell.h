@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface PickUpCell : UITableViewCell
+/** 接单按钮 */
+@property (nonatomic, strong) UIButton* getOrderBtn;
+/** 查看详情按钮 */
+@property (nonatomic, strong) UIButton* searchListBtn;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
