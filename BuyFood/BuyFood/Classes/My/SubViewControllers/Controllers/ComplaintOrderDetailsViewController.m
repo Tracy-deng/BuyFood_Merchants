@@ -7,7 +7,7 @@
 //
 
 #import "ComplaintOrderDetailsViewController.h"
-#import "HeaderView.h"
+//#import "HeaderView.h"
 
 @interface ComplaintOrderDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -40,11 +40,11 @@
 
 - (void)setUpTableViewHeader
 {
-    HeaderView* headerView = [HeaderView initWithHeaderView];
-    headerView.height = self.view.height * 0.30;
-    [headerView setUpContentView];
-    [headerView setOrderNumLabelText:@"#54" andOrderNumberLabelText:@"订单号 145443455" andGetTimeBtnText:@"不新鲜" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
-    self.tableView.tableHeaderView = headerView;
+//    HeaderView* headerView = [HeaderView initWithHeaderView];
+//    headerView.height = self.view.height * 0.30;
+//    [headerView setUpContentView];
+//    [headerView setOrderNumLabelText:@"#54" andOrderNumberLabelText:@"订单号 145443455" andGetTimeBtnText:@"不新鲜" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
+//    self.tableView.tableHeaderView = headerView;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

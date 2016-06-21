@@ -11,7 +11,7 @@
 #import "ComplaintOrderViewController.h"
 #import "ChangePasswordViewController.h"
 #import "FeedBackViewController.h"
-#import "ShopInfoViewController.h"
+//#import "ShopInfoViewController.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -146,7 +146,7 @@
     }
     if (indexPath.row == 3)
     {
-        [self.navigationController pushViewController:[[ShopInfoViewController alloc] init] animated:YES];
+//        [self.navigationController pushViewController:[[ShopInfoViewController alloc] init] animated:YES];
     }
     if (indexPath.row == 4)
     {

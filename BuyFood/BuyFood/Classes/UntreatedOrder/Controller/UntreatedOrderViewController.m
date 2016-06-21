@@ -7,15 +7,15 @@
 //
 
 #import "UntreatedOrderViewController.h"
-#import "DistributionViewController.h"
-#import "InviteViewController.h"
+//#import "DistributionViewController.h"
+//#import "InviteViewController.h"
 
 @interface UntreatedOrderViewController ()
 
 /** 自提订单 */
-@property (nonatomic, strong) InviteViewController* pickUpVC;
-/** 配送订单 */
-@property (nonatomic, strong) DistributionViewController* dispatchVC;
+//@property (nonatomic, strong) InviteViewController* pickUpVC;
+///** 配送订单 */
+//@property (nonatomic, strong) DistributionViewController* dispatchVC;
 
 
 @end
@@ -34,9 +34,9 @@
 // 默认的加载视图
 - (void)superInitView
 {
-    self.pickUpVC = [[InviteViewController alloc] init];
-    self.dispatchVC = [[DistributionViewController alloc] init];
-    [self addCon:self.pickUpVC addOtherView:self.pickUpVC.view bringView:self.pickUpVC.view WdeleOtherView:self.dispatchVC.view];
+//    self.pickUpVC = [[InviteViewController alloc] init];
+//    self.dispatchVC = [[DistributionViewController alloc] init];
+//    [self addCon:self.pickUpVC addOtherView:self.pickUpVC.view bringView:self.pickUpVC.view WdeleOtherView:self.dispatchVC.view];
 }
 
 - (void)setUpSegmentedControl
@@ -56,11 +56,11 @@
     
     if (sender.selectedSegmentIndex == 0)
     {
-        [self addCon:self.pickUpVC addOtherView:self.pickUpVC.view bringView:self.pickUpVC.view WdeleOtherView:self.dispatchVC.view];
+//        [self addCon:self.pickUpVC addOtherView:self.pickUpVC.view bringView:self.pickUpVC.view WdeleOtherView:self.dispatchVC.view];
     }
     else
     {
-        [self addCon:self.dispatchVC addOtherView:self.dispatchVC.view bringView:self.dispatchVC.view WdeleOtherView:self.pickUpVC.view];
+//        [self addCon:self.dispatchVC addOtherView:self.dispatchVC.view bringView:self.dispatchVC.view WdeleOtherView:self.pickUpVC.view];
     }
 }
 
