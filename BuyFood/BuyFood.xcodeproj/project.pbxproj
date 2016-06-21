@@ -55,6 +55,8 @@
 		0EBD08371D17EF18002DD7A4 /* OwnHaveProvideController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD082E1D17EF18002DD7A4 /* OwnHaveProvideController.m */; };
 		0EBD08381D17EF18002DD7A4 /* OwnHavePushController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
+		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
+		7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +161,10 @@
 		0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnHavePushController.m; sourceTree = "<group>"; };
 		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7833D2E21D18CBD000174C29 /* haveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = haveTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		7833D2E71D1936EA00174C29 /* pushTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pushTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/pushTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		7833D2E81D1936EA00174C29 /* pushTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pushTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/pushTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		7833D2EA1D193E7900174C29 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/BaseTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/BaseTableViewCell.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -595,8 +601,12 @@
 		0EBD08311D17EF18002DD7A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7833D2EA1D193E7900174C29 /* BaseTableViewCell.h */,
+				7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */,
 				7833D2E11D18CBD000174C29 /* haveTableViewCell.h */,
 				7833D2E21D18CBD000174C29 /* haveTableViewCell.m */,
+				7833D2E71D1936EA00174C29 /* pushTableViewCell.h */,
+				7833D2E81D1936EA00174C29 /* pushTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -690,12 +700,14 @@
 				0E525A4A1D1283A700AFC95B /* LoginViewController.m in Sources */,
 				0E525A5B1D1283A700AFC95B /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0E525A4C1D1283A700AFC95B /* RegisterViewController.m in Sources */,
+				7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */,
 				7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */,
 				0E525A611D1283A700AFC95B /* NewFeatureViewController.m in Sources */,
 				0EBD08171D178354002DD7A4 /* ComplaintOrderCell.m in Sources */,
 				0EBD080A1D153CA9002DD7A4 /* DispatchCell.m in Sources */,
 				0E525A591D1283A700AFC95B /* MASViewConstraint.m in Sources */,
 				0EBD08141D15768D002DD7A4 /* ComplaintOrderViewController.m in Sources */,
+				7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */,
 				0E525A491D1283A700AFC95B /* ForgetPwdViewController.m in Sources */,
 				0E525A5C1D1283A700AFC95B /* View+MASAdditions.m in Sources */,
 				0E525A4E1D1283A700AFC95B /* InputTextField.m in Sources */,
