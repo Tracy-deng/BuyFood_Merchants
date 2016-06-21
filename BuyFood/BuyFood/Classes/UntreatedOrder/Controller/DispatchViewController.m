@@ -19,17 +19,14 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    self.tableView.rowHeight = 155;
+    self.tableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
 }
 
 #pragma mark - Table view data source
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 3;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return 10;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -37,7 +34,7 @@
     [cell setOrderNumLabelText:@"#54" andOrderNumberLabelText:@"订单号  1234567" andGetTimeBtnText:@"立即送达" andOrderTimeLabelText:@"下单时间 11-07      09:00" andOrderAddressLabelText:@"紫东国际创意园区E1栋3楼"];
     return cell;
 }
-
+/**
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.view.height * 0.23;
@@ -87,5 +84,5 @@
     footerView.backgroundColor = HDCColor(250, 250, 250);
     return footerView;
 }
-
+*/
 @end

@@ -12,7 +12,9 @@
 
 @interface UntreatedOrderViewController ()
 
+/** 自提订单 */
 @property (nonatomic, strong) PickUpViewController* pickUpVC;
+/** 配送订单 */
 @property (nonatomic, strong) DispatchViewController* dispatchVC;
 
 
@@ -24,11 +26,17 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
-    self.pickUpVC = [[PickUpViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.pickUpVC.view setFrame:CGRectMake(self.view.width * 0.03, self.view.height * 0.13, self.view.width - 2 * self.view.width * 0.03, self.view.height - self.view.height * 0.20)];
-    [self.navigationController addChildViewController:self.pickUpVC];
-    //[self.view addSubview:self.pickUpVC.view];
+    
     [self setUpSegmentedControl];
+    [self superInitView];
+}
+
+// 默认的加载视图
+- (void)superInitView
+{
+    self.pickUpVC = [[PickUpViewController alloc] init];
+    self.dispatchVC = [[DispatchViewController alloc] init];
+    [self addCon:self.pickUpVC addOtherView:self.pickUpVC.view bringView:self.pickUpVC.view WdeleOtherView:self.dispatchVC.view];
 }
 
 - (void)setUpSegmentedControl
@@ -48,18 +56,22 @@
     
     if (sender.selectedSegmentIndex == 0)
     {
-        [self.dispatchVC.view removeFromSuperview];
-        
-        [self.view addSubview:self.pickUpVC.view];
+        [self addCon:self.pickUpVC addOtherView:self.pickUpVC.view bringView:self.pickUpVC.view WdeleOtherView:self.dispatchVC.view];
     }
     else
     {
-        [self.pickUpVC.view removeFromSuperview];
-        self.dispatchVC = [[DispatchViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        [self.dispatchVC.view setFrame:CGRectMake(self.view.width * 0.03, self.view.height * 0.13, self.view.width - 2 * self.view.width * 0.03, self.view.height - self.view.height * 0.20)];
-//        [self.navigationController addChildViewController:self.dispatchVC];
-        [self.view addSubview:self.dispatchVC.view];
+        [self addCon:self.dispatchVC addOtherView:self.dispatchVC.view bringView:self.dispatchVC.view WdeleOtherView:self.pickUpVC.view];
     }
+}
+
+
+// 加载移除视图
+- (void)addCon:(UIViewController *)VC addOtherView:(UIView *)View  bringView:(UIView *)binview WdeleOtherView:(UIView *)otherView
+{
+    [self addChildViewController:VC];
+    [self.view addSubview:View];
+    [self.view bringSubviewToFront:binview];
+    [otherView removeFromSuperview];
 }
 
 @end
