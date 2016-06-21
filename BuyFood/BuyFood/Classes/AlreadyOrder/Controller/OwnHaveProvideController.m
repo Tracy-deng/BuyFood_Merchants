@@ -19,7 +19,6 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     _haveTableView = [[UITableView alloc]init];
-    _haveTableView.backgroundColor = [UIColor redColor];
     [self.view addSubview:_haveTableView];
     _haveTableView.delegate = self;
     _haveTableView.dataSource = self;
