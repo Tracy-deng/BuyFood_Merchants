@@ -1,14 +1,14 @@
 //
-//  pushTableViewCell.h
+//  alreadyTableViewCell.h
 //  BuyFood
 //
-//  Created by dave-n1 on 16/6/21.
+//  Created by dave-n1 on 16/6/22.
 //  Copyright © 2016年 huangdongchun. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "BaseTableViewCell.h"
-@interface pushTableViewCell : BaseTableViewCell
+
+@interface alreadyTableViewCell : BaseTableViewCell
 @property (nonatomic, strong) UIButton * addOrderBtn; // 接单按钮
 @property (nonatomic ,strong) UIButton * pushAddTimeBtn; // 送达时间
 @end

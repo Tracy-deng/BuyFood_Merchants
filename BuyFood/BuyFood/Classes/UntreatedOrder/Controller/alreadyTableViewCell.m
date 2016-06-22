@@ -1,14 +1,16 @@
 //
-//  pushTableViewCell.m
+//  alreadyTableViewCell.m
 //  BuyFood
 //
-//  Created by dave-n1 on 16/6/21.
+//  Created by dave-n1 on 16/6/22.
 //  Copyright © 2016年 huangdongchun. All rights reserved.
 //
 
-#import "pushTableViewCell.h"
+#import "alreadyTableViewCell.h"
 
-@implementation pushTableViewCell
+@implementation alreadyTableViewCell
+
+
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -28,14 +30,14 @@
             
         }];
         
-
+        
         
         
         _addOrderBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
         _addOrderBtn.layer.masksToBounds = YES;
         _addOrderBtn.layer.cornerRadius = 32;
         _addOrderBtn.backgroundColor = [UIColor colorWithWhite:0.704 alpha:1.000];
-        [_addOrderBtn setTitle:@"配送中" forState:(UIControlStateNormal)];
+        [_addOrderBtn setTitle:@"送达" forState:(UIControlStateNormal)];
         _addOrderBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [self.contentView addSubview:_addOrderBtn];
         [_addOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,19 +46,16 @@
             make.width.height.equalTo(@64);
         }];
         
-               
+        
     }
     return self;
 }
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
 }
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
+*/
 
 @end

@@ -8,12 +8,14 @@
 
 #import "OwnHavePushController.h"
 #import "pushTableViewCell.h"
+#import "alreadyTableViewCell.h"
 @interface OwnHavePushController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *view1;
 @property (nonatomic, strong) UIView *view2;
 @property (nonatomic, strong) UIButton *pushBtn;
 @property (nonatomic, strong) UIButton *alreadBtn;
 @property (nonatomic, strong) UITableView * mainPushTabview;
+@property (nonatomic, assign) BOOL isSelected;  //判断加载哪个cell
 @end
 
 @implementation OwnHavePushController
@@ -24,6 +26,7 @@
     [self addSegmentControl];
     self.view.backgroundColor = HDCColor(238, 238, 238);
     [self creatTableView];
+    _isSelected = YES;
 }
 
 
@@ -80,6 +83,8 @@
     
     [_alreadBtn setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
     _view2.backgroundColor = [UIColor whiteColor];
+    _isSelected = YES;
+    [self.mainPushTabview reloadData];
 }
 
 // 点击已送达
@@ -90,6 +95,8 @@
     
     [_pushBtn setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
     _view1.backgroundColor = [UIColor whiteColor];
+    _isSelected = NO;
+    [self.mainPushTabview reloadData];
     
 }
 
@@ -108,6 +115,7 @@
     }];
     _mainPushTabview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.mainPushTabview registerClass:[pushTableViewCell class] forCellReuseIdentifier:@"push"];
+    [self.mainPushTabview registerClass:[alreadyTableViewCell class] forCellReuseIdentifier:@"already"];
 }
 #pragma mark -- TableView的代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -117,10 +125,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    pushTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"push"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (_isSelected == YES) {
+        
+         pushTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"push"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }else{
+        
+        alreadyTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"already"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }
+   
+   
     
-    return cell;
+    
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {

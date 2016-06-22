@@ -53,6 +53,8 @@
 		0EBD08381D17EF18002DD7A4 /* OwnHavePushController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */; };
 		7802E6CD1D1A2EC3000B03C2 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6CA1D1A2EC3000B03C2 /* DistributionViewController.m */; };
 		7802E6CE1D1A2EC3000B03C2 /* InviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6CC1D1A2EC3000B03C2 /* InviteViewController.m */; };
+		7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6D01D1A6207000B03C2 /* alreadyTableViewCell.m */; };
+		7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6D31D1A6AE1000B03C2 /* ownSlovedTableViewCell.m */; };
 		7807D16E1D1A2A5D00D44CD8 /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807D16D1D1A2A5D00D44CD8 /* HeaderView.m */; };
 		7807D1711D1A2ACF00D44CD8 /* ShopInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807D1701D1A2ACF00D44CD8 /* ShopInfoViewController.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
@@ -158,6 +160,10 @@
 		7802E6CA1D1A2EC3000B03C2 /* DistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistributionViewController.m; sourceTree = "<group>"; };
 		7802E6CB1D1A2EC3000B03C2 /* InviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteViewController.h; sourceTree = "<group>"; };
 		7802E6CC1D1A2EC3000B03C2 /* InviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InviteViewController.m; sourceTree = "<group>"; };
+		7802E6CF1D1A6207000B03C2 /* alreadyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = alreadyTableViewCell.h; path = BuyFood/Classes/UntreatedOrder/Controller/alreadyTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		7802E6D01D1A6207000B03C2 /* alreadyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = alreadyTableViewCell.m; path = BuyFood/Classes/UntreatedOrder/Controller/alreadyTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		7802E6D21D1A6AE1000B03C2 /* ownSlovedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ownSlovedTableViewCell.h; path = BuyFood/Classes/UntreatedOrder/Controller/ownSlovedTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		7802E6D31D1A6AE1000B03C2 /* ownSlovedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ownSlovedTableViewCell.m; path = BuyFood/Classes/UntreatedOrder/Controller/ownSlovedTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7807D16C1D1A2A5D00D44CD8 /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
 		7807D16D1D1A2A5D00D44CD8 /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
 		7807D16F1D1A2ACF00D44CD8 /* ShopInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopInfoViewController.h; sourceTree = "<group>"; };
@@ -612,6 +618,10 @@
 				7833D2E21D18CBD000174C29 /* haveTableViewCell.m */,
 				7833D2E71D1936EA00174C29 /* pushTableViewCell.h */,
 				7833D2E81D1936EA00174C29 /* pushTableViewCell.m */,
+				7802E6CF1D1A6207000B03C2 /* alreadyTableViewCell.h */,
+				7802E6D01D1A6207000B03C2 /* alreadyTableViewCell.m */,
+				7802E6D21D1A6AE1000B03C2 /* ownSlovedTableViewCell.h */,
+				7802E6D31D1A6AE1000B03C2 /* ownSlovedTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -702,6 +712,7 @@
 			files = (
 				0EBD08371D17EF18002DD7A4 /* OwnHaveProvideController.m in Sources */,
 				0E525A4D1D1283A700AFC95B /* SuccessViewController.m in Sources */,
+				7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */,
 				0E525A4A1D1283A700AFC95B /* LoginViewController.m in Sources */,
 				0E525A5B1D1283A700AFC95B /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0E525A4C1D1283A700AFC95B /* RegisterViewController.m in Sources */,
@@ -747,6 +758,7 @@
 				0E525A5E1D1283A700AFC95B /* AppDelegate.m in Sources */,
 				0E525A4B1D1283A700AFC95B /* RealnameViewController.m in Sources */,
 				0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */,
+				7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */,
 				0E5259D51D12810F00AFC95B /* main.m in Sources */,
 				0E525A551D1283A700AFC95B /* MASConstraint.m in Sources */,
 			);
