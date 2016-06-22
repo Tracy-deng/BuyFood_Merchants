@@ -28,7 +28,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
+        make.top.equalTo(self.view);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.height.equalTo(@(SCREEN_HEIGHT - 44));

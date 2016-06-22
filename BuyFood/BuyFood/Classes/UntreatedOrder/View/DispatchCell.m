@@ -42,6 +42,7 @@
     {
         cell = [[DispatchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setBackgroundColor:HDCColor(238, 238, 238)];
     }
     return cell;
 }

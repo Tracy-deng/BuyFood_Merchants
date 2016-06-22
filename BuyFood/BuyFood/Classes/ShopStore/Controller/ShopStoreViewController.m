@@ -10,6 +10,13 @@
 #import "TagLabels.h"
 #import "Line.h"
 #import "Button.h"
+#import "BalanceAccountViewController.h"
+#import "MyBillViewController.h"
+#import "EvaluationViewController.h"
+#import "BusinessStatusViewController.h"
+#import "ShopsManagementViewController.h"
+#import "SaleManagementViewController.h"
+#import "PriceGuideViewController.h"
 
 @interface ShopStoreViewController ()
 /** 今日营业额数字 */
@@ -24,29 +31,46 @@
 @end
 
 @implementation ShopStoreViewController
+{
+    UIImageView *navBarHairlineImageView;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:HDCColor(46, 192, 70)];
-    // 设置标题头
-    UILabel* title = [[UILabel alloc] init];
-    title.text = @"店铺管理";
-    title.textAlignment = NSTextAlignmentCenter;
-    title.textColor = [UIColor whiteColor];
-    [self.view addSubview:title];
-    [title mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.view.mas_top).offset(self.view.height * 0.04);
-        make.width.mas_offset(@80);
-        make.height.mas_offset(@20);
-    }];
-    self.navigationController.navigationBar.hidden = YES;
-    
-    
+    [self.view setBackgroundColor:HDCColor(68, 192, 88)];
+    /** 设置去掉导航条下面的线*/
+    navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     [self setUpContentView];
 }
+/** 设置去掉导航条下面的线 */
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view
+{
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0)
+    {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews)
+    {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView)
+        {
+            return imageView;
+        }
+    }
+    return nil;
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    navBarHairlineImageView.hidden = YES;
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    navBarHairlineImageView.hidden = NO;
+}
 - (void)setUpContentView
 {
     // 今日营业额数字
@@ -181,11 +205,13 @@
 - (void)balanceButton:(UIButton* )sender
 {
     HDCLog(@"账户余额按钮点击");
+    [self.navigationController pushViewController:[[BalanceAccountViewController alloc] init] animated:YES];
 }
 /** 我的账单按钮点击 */
 - (void)billButton:(UIButton* )sender
 {
     HDCLog(@"我的账单按钮点击");
+    [self.navigationController pushViewController:[[MyBillViewController alloc] init] animated:YES];
 }
 
 /** 打印机按钮点击 */
@@ -197,26 +223,31 @@
 - (void)messageEvaluationButtonClick:(UIButton* )sender
 {
     HDCLog(@"留言评价按钮点击");
+    [self.navigationController pushViewController:[[EvaluationViewController alloc] init] animated:YES];
 }
 /** 营业状态按钮点击 */
 - (void)shopSatesButtonClick:(UIButton* )sender
 {
     HDCLog(@"营业状态按钮点击");
+    [self.navigationController pushViewController:[[BusinessStatusViewController alloc] init] animated:YES];
 }
 /** 商品管理按钮点击 */
 - (void)shopsInfoButtonClick:(UIButton* )sender
 {
     HDCLog(@"商品管理按钮点击");
+    [self.navigationController pushViewController:[[ShopsManagementViewController alloc] init] animated:YES];
 }
 /** 促销按钮点击 */
 - (void)shopsManageButtonClick:(UIButton* )sender
 {
     HDCLog(@"促销按钮点击");
+    [self.navigationController pushViewController:[[SaleManagementViewController alloc] init] animated:YES];
 }
 /** 定价指导按钮点击 */
 - (void)shopSaleButtonClick:(UIButton* )sender
 {
     HDCLog(@"定价指导按钮点击");
+    [self.navigationController pushViewController:[[PriceGuideViewController alloc] init] animated:YES];
 }
 
 @end

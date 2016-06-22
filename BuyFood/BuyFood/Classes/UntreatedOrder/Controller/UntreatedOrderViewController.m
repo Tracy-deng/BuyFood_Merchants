@@ -61,6 +61,7 @@
     else
     {
         [self addCon:self.dispatchVC addOtherView:self.dispatchVC.view bringView:self.dispatchVC.view WdeleOtherView:self.pickUpVC.view];
+        [self.pickUpVC removeFromParentViewController];
     }
 }
 

@@ -20,21 +20,39 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    
+    
+    UIView* view = [[UIView alloc]init];
+    view.backgroundColor = greenColor;
+    [self.view addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(64);
+        make.left.equalTo(self.view);
+        make.height.equalTo(@0.5);
+        make.width.equalTo(@(SCREEN_WIDTH));
+    }];
+    
     self.tableView = [[UITableView alloc]init];
     self.tableView.backgroundColor = HDCColor(238, 238, 238);
     [self.view addSubview:self.tableView];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).offset(64);
+        
+        make.top.equalTo(view.mas_bottom);
+        
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.height.equalTo(@(SCREEN_HEIGHT - 44 - 70));
+//        make.top.equalTo(self.view.mas_top).offset(64);
+//        make.left.equalTo(self.view);
+//        make.right.equalTo(self.view);
+//        make.height.equalTo(@(SCREEN_HEIGHT - 44 - 70));
     }];
     self.tableView.rowHeight = 155;
     self.tableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
+    
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
