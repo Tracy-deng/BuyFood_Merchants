@@ -41,7 +41,7 @@
         make.top.equalTo(view.mas_bottom);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.height.equalTo(@(SCREEN_HEIGHT - 44));
+        make.height.equalTo(@(SCREEN_HEIGHT - 44 -64));
     }];
     _ownSolvedTableView.rowHeight = 155;
     _ownSolvedTableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线

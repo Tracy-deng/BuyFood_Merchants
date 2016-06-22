@@ -111,7 +111,7 @@
         make.top.equalTo(_view1.mas_bottom);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.height.equalTo(@(SCREEN_HEIGHT - 64 - 33));
+        make.height.equalTo(@(SCREEN_HEIGHT - 64 - 33 -44));
     }];
     _mainPushTabview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.mainPushTabview registerClass:[pushTableViewCell class] forCellReuseIdentifier:@"push"];
