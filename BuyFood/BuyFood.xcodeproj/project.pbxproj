@@ -75,6 +75,7 @@
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
 		7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */; };
+		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -211,6 +212,8 @@
 		7833D2E81D1936EA00174C29 /* pushTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pushTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/pushTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7833D2EA1D193E7900174C29 /* BaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/BaseTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/BaseTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		78FEA85F1D1B8560001D23BC /* CCTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTitleView.h; sourceTree = "<group>"; };
+		78FEA8601D1B8560001D23BC /* CCTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTitleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -662,6 +665,8 @@
 				0E110C981D19889E00161ACB /* OrderListCell.m */,
 				0E110C9A1D19929100161ACB /* FooterView.h */,
 				0E110C9B1D19929100161ACB /* FooterView.m */,
+				78FEA85F1D1B8560001D23BC /* CCTitleView.h */,
+				78FEA8601D1B8560001D23BC /* CCTitleView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -832,6 +837,7 @@
 				0E525A4E1D1283A700AFC95B /* InputTextField.m in Sources */,
 				0E110CC11D19B7D000161ACB /* PriceGuideViewController.m in Sources */,
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
+				78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */,
 				0E525A581D1283A700AFC95B /* MASViewAttribute.m in Sources */,
 				0E110CAF1D19AA5600161ACB /* BalanceAccountCell.m in Sources */,
 				0EBD081D1D179035002DD7A4 /* ChangePasswordViewController.m in Sources */,
