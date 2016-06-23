@@ -24,7 +24,7 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
-    self.title = @"投诉订单详情";
+    self.title = @"订单详情";
     [self setUpTableView];
     [self setUpBottomBtn];
 }
@@ -55,7 +55,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

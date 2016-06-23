@@ -31,7 +31,6 @@
     _haveTableView.rowHeight = 155;
     _haveTableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
     [_haveTableView registerClass:[haveTableViewCell class] forCellReuseIdentifier:@"haveView"];
-    
 }
 
 /**

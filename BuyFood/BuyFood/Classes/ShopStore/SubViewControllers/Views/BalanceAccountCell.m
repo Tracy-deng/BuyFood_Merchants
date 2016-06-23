@@ -56,7 +56,6 @@
     }];
     
     self.AccountTime = [[UILabel alloc] init];
-//    [self.AccountTime setBackgroundColor:[UIColor redColor]];
     self.AccountTime.textAlignment = NSTextAlignmentRight;
     self.AccountTime.textColor = HDCColor(153, 153, 153);
     self.AccountTime.font = [UIFont fontWithName:@"PingFangSC-Medium" size:12];
@@ -69,7 +68,6 @@
     }];
 
     self.AccountCard = [[UILabel alloc] init];
-//    [self.AccountCard setBackgroundColor:[UIColor redColor]];
     self.AccountCard.textAlignment = NSTextAlignmentRight;
     self.AccountCard.textColor = HDCColor(153, 153, 153);
     self.AccountCard.font = [UIFont fontWithName:@"PingFangSC-Medium" size:12];
