@@ -9,6 +9,7 @@
 #import "OwnHavePushController.h"
 #import "pushTableViewCell.h"
 #import "alreadyTableViewCell.h"
+#import "ComplaintOrderDetailsViewController.h"
 @interface OwnHavePushController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *view1;
 @property (nonatomic, strong) UIView *view2;
@@ -130,20 +131,32 @@
          pushTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"push"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        cell.detailBtn.tag = indexPath.row;
+        [cell.detailBtn addTarget:self action:@selector(didDetailBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         return cell;
     }else{
         
         alreadyTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"already"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
+        
+        cell.detailBtn.tag = indexPath.row;
+        [cell.detailBtn addTarget:self action:@selector(didDetailBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+        
         return cell;
     }
    
-   
+
+}
+
+- (void)didDetailBtn:(UIButton *)sender
+{
+    NSLog(@"进入详情");
     
+    ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
     
-    
-    
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,7 @@
 
 #import "OwnHaveNoSolvedController.h"
 #import "ownSlovedTableViewCell.h"
+#import "ComplaintOrderDetailsViewController.h"
 @interface OwnHaveNoSolvedController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView * ownSolvedTableView;
 @end
@@ -64,9 +65,23 @@
     //设置分割线颜色
     //    tableView.separatorColor = HDCColor(238, 238, 238);
     
+    cell.detailBtn.tag = indexPath.row;
+    [cell.detailBtn addTarget:self action:@selector(didDetailBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     return cell;
     
 }
+
+
+- (void)didDetailBtn:(UIButton *)sender
+{
+    NSLog(@"进入详情");
+    
+    ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
