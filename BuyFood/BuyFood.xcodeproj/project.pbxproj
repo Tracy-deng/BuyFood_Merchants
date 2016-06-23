@@ -18,6 +18,10 @@
 		0E110CBB1D19B76100161ACB /* ShopsManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110CBA1D19B76100161ACB /* ShopsManagementViewController.m */; };
 		0E110CBE1D19B78E00161ACB /* SaleManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110CBD1D19B78E00161ACB /* SaleManagementViewController.m */; };
 		0E110CC11D19B7D000161ACB /* PriceGuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110CC01D19B7D000161ACB /* PriceGuideViewController.m */; };
+		0E110D0E1D1AE20100161ACB /* EvaluationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110D0D1D1AE20100161ACB /* EvaluationHeaderView.m */; };
+		0E110D111D1AF59100161ACB /* BusinessStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110D101D1AF59100161ACB /* BusinessStatusView.m */; };
+		0E3C1A911D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */; };
+		0E3C1A941D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A931D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m */; };
 		0E5259D51D12810F00AFC95B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5259D41D12810F00AFC95B /* main.m */; };
 		0E5259E01D12810F00AFC95B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E5259DF1D12810F00AFC95B /* Assets.xcassets */; };
 		0E5259E31D12810F00AFC95B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5259E11D12810F00AFC95B /* LaunchScreen.storyboard */; };
@@ -103,6 +107,14 @@
 		0E110CBD1D19B78E00161ACB /* SaleManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleManagementViewController.m; sourceTree = "<group>"; };
 		0E110CBF1D19B7D000161ACB /* PriceGuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PriceGuideViewController.h; sourceTree = "<group>"; };
 		0E110CC01D19B7D000161ACB /* PriceGuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PriceGuideViewController.m; sourceTree = "<group>"; };
+		0E110D0C1D1AE20100161ACB /* EvaluationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationHeaderView.h; sourceTree = "<group>"; };
+		0E110D0D1D1AE20100161ACB /* EvaluationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationHeaderView.m; sourceTree = "<group>"; };
+		0E110D0F1D1AF59100161ACB /* BusinessStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessStatusView.h; sourceTree = "<group>"; };
+		0E110D101D1AF59100161ACB /* BusinessStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessStatusView.m; sourceTree = "<group>"; };
+		0E3C1A8F1D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBusinessTimeViewController.h; sourceTree = "<group>"; };
+		0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseBusinessTimeViewController.m; sourceTree = "<group>"; };
+		0E3C1A921D1B8CDD0060A7F4 /* ChooseBusinessTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBusinessTimeView.h; sourceTree = "<group>"; };
+		0E3C1A931D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseBusinessTimeView.m; sourceTree = "<group>"; };
 		0E5259D01D12810F00AFC95B /* BuyFood.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BuyFood.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5259D41D12810F00AFC95B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0E5259DF1D12810F00AFC95B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -248,6 +260,8 @@
 				0E110CB41D19B6D700161ACB /* EvaluationViewController.m */,
 				0E110CB61D19B72000161ACB /* BusinessStatusViewController.h */,
 				0E110CB71D19B72000161ACB /* BusinessStatusViewController.m */,
+				0E3C1A8F1D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.h */,
+				0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */,
 				0E110CB91D19B76100161ACB /* ShopsManagementViewController.h */,
 				0E110CBA1D19B76100161ACB /* ShopsManagementViewController.m */,
 				0E110CBC1D19B78E00161ACB /* SaleManagementViewController.h */,
@@ -272,6 +286,12 @@
 				0E110CAB1D199ECE00161ACB /* HeaderViews.m */,
 				0E110CAD1D19AA5600161ACB /* BalanceAccountCell.h */,
 				0E110CAE1D19AA5600161ACB /* BalanceAccountCell.m */,
+				0E110D0C1D1AE20100161ACB /* EvaluationHeaderView.h */,
+				0E110D0D1D1AE20100161ACB /* EvaluationHeaderView.m */,
+				0E110D0F1D1AF59100161ACB /* BusinessStatusView.h */,
+				0E110D101D1AF59100161ACB /* BusinessStatusView.m */,
+				0E3C1A921D1B8CDD0060A7F4 /* ChooseBusinessTimeView.h */,
+				0E3C1A931D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -833,14 +853,17 @@
 				0E525A491D1283A700AFC95B /* ForgetPwdViewController.m in Sources */,
 				0E110C9C1D19929100161ACB /* FooterView.m in Sources */,
 				0E525A5C1D1283A700AFC95B /* View+MASAdditions.m in Sources */,
+				0E3C1A911D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m in Sources */,
 				0E110CBB1D19B76100161ACB /* ShopsManagementViewController.m in Sources */,
 				0E525A4E1D1283A700AFC95B /* InputTextField.m in Sources */,
 				0E110CC11D19B7D000161ACB /* PriceGuideViewController.m in Sources */,
+				0E110D111D1AF59100161ACB /* BusinessStatusView.m in Sources */,
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
 				78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */,
 				0E525A581D1283A700AFC95B /* MASViewAttribute.m in Sources */,
 				0E110CAF1D19AA5600161ACB /* BalanceAccountCell.m in Sources */,
 				0EBD081D1D179035002DD7A4 /* ChangePasswordViewController.m in Sources */,
+				0E3C1A941D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m in Sources */,
 				0E525A621D1283A700AFC95B /* ShopStoreViewController.m in Sources */,
 				0EBD08231D17913F002DD7A4 /* FeedBackViewController.m in Sources */,
 				0E110CA61D199C7900161ACB /* BalanceAccountViewController.m in Sources */,
@@ -852,6 +875,7 @@
 				0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */,
 				0E525A501D1283A700AFC95B /* UIView+HDCExtension.m in Sources */,
 				0E525A5D1D1283A700AFC95B /* ViewController+MASAdditions.m in Sources */,
+				0E110D0E1D1AE20100161ACB /* EvaluationHeaderView.m in Sources */,
 				0EBD08381D17EF18002DD7A4 /* OwnHavePushController.m in Sources */,
 				0E525A651D1283A700AFC95B /* TagLabels.m in Sources */,
 				0E525A5F1D1283A700AFC95B /* SettingViewController.m in Sources */,
