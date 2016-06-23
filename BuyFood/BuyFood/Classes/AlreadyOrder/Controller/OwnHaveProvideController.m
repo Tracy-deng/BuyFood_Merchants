@@ -8,6 +8,7 @@
 
 #import "OwnHaveProvideController.h"
 #import "haveTableViewCell.h"
+#import "ComplaintOrderDetailsViewController.h"
 @interface OwnHaveProvideController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *haveTableView;
 @end
@@ -31,6 +32,7 @@
     _haveTableView.rowHeight = 155;
     _haveTableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
     [_haveTableView registerClass:[haveTableViewCell class] forCellReuseIdentifier:@"haveView"];
+
 }
 
 /**
@@ -49,11 +51,26 @@
     //设置分割线颜色
 //    tableView.separatorColor = HDCColor(238, 238, 238);
     
+    cell.detailBtn.tag = indexPath.row;
+    // 点击进详情
+    [cell.detailBtn addTarget:self action:@selector(buttonAutoDetail:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    
     return cell;
     
 }
 
-
+#pragma mark -- cell 的button -->详情页面
+- (void)buttonAutoDetail:(UIButton *)sender
+{
+    NSLog(@"进入订单详情");
+    
+   
+    ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
+    
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
