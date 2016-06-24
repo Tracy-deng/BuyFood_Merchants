@@ -75,7 +75,7 @@
 {
     // 今日营业额数字
     self.todayTurnoverNum = [TagLabels initTaglabel];
-    [self.todayTurnoverNum createLabelText:@"2399" andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.13 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.14 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
+    [self.todayTurnoverNum createLabelText:@"2399" andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.14 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
     [self.view addSubview:self.todayTurnoverNum];
     
     // 今日营业额数字

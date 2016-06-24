@@ -8,6 +8,7 @@
 
 #import "InviteViewController.h"
 #import "PickUpCell.h"
+#import "ComplaintOrderDetailsViewController.h"
 
 @interface InviteViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -47,10 +48,22 @@
     PickUpCell *cell = [PickUpCell cellWithTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setOrderNumLabelText:@"#54" andOrderNumberLabelText:@"订单号 145443455" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
+    cell.searchListBtn.tag = indexPath.row;
+    [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
     
 }
 
-
+#pragma mark -- cell 的button -->详情页面
+- (void)searchListBtnClick:(UIButton *)sender
+{
+    NSLog(@"进入订单详情");
+    
+    
+    ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
+    
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
 
 @end

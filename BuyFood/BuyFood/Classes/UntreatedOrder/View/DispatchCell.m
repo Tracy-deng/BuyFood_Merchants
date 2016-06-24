@@ -26,8 +26,7 @@
 @property (nonatomic, strong) UILabel* totalLabel;
 /** 合计金额 */
 @property (nonatomic, strong) UILabel* totalMoney;
-/** 查看详情按钮 */
-@property (nonatomic, strong) UIButton* searchListBtn;
+
 
 @end
 

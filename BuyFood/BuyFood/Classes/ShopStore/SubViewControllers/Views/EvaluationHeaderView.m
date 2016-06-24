@@ -28,22 +28,24 @@
 {
     self.orderNumber = [[UILabel alloc] init];
     self.orderNumber.font = [UIFont fontWithName:@"DINCondensed-Bold" size:30];
+    self.orderNumber.textAlignment = NSTextAlignmentCenter;
     self.orderNumber.textColor = greenColor;
     [self addSubview:self.orderNumber];
     [self.orderNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).offset(20);
-        make.left.mas_equalTo(self.mas_left).offset(100);
+        make.left.mas_equalTo(self.mas_left).offset(80);
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.11);
         make.height.mas_equalTo(self.orderNumber.mas_width).multipliedBy(0.9);
     }];
     
     self.greatEvaluation = [[UILabel alloc] init];
+    self.greatEvaluation.textAlignment = NSTextAlignmentCenter;
     self.greatEvaluation.font = [UIFont fontWithName:@"DINCondensed-Bold" size:30];
     self.greatEvaluation.textColor = greenColor;
     [self addSubview:self.greatEvaluation];
     [self.greatEvaluation mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.orderNumber);
-        make.right.mas_equalTo(self.mas_right).offset(-100);
+        make.right.mas_equalTo(self.mas_right).offset(-80);
         make.width.equalTo(self.orderNumber);
         make.height.equalTo(self.orderNumber);
     }];
@@ -55,8 +57,8 @@
     [self addSubview:orderNumber];
     [orderNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.orderNumber.mas_bottom).offset(5);
-        make.right.equalTo(self.orderNumber);
-        make.width.equalTo(self.mas_width).multipliedBy(0.13);
+        make.centerX.equalTo(self.orderNumber.mas_centerX);
+        make.width.equalTo(self.mas_width).multipliedBy(0.15);
         make.height.equalTo(orderNumber.mas_width).multipliedBy(0.3);
     }];
     UILabel* goodEvaluation = [[UILabel alloc] init];
@@ -67,7 +69,7 @@
     [self addSubview:goodEvaluation];
     [goodEvaluation mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(orderNumber);
-        make.right.equalTo(self.greatEvaluation);
+        make.centerX.equalTo(self.greatEvaluation.mas_centerX);
         make.width.equalTo(orderNumber);
         make.height.equalTo(orderNumber);
     }];
