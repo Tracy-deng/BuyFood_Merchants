@@ -8,12 +8,13 @@
 
 #import "ChooseBusinessTimeViewController.h"
 #import "ChooseBusinessTimeView.h"
+#import "MHDatePicker.h"
 
 @interface ChooseBusinessTimeViewController ()
 
 @property (nonatomic, strong) ChooseBusinessTimeView* chooseStartBusinessTimeView;
 @property (nonatomic, strong) ChooseBusinessTimeView* chooseStopBusinessTimeView;
-
+@property (strong, nonatomic) MHDatePicker *selectTimePicker;
 
 @end
 
@@ -74,13 +75,34 @@
 
 - (void)startBusinessTimeBtnClick:(UIButton* )startBtn
 {
-    HDCLog(@"。。。");
-}
-- (void)stopBusinessTimeBtnClick:(UIButton* )stopBtn
-{
-    HDCLog(@"。。。");
+    _selectTimePicker = [[MHDatePicker alloc] init];
+    __weak typeof(self) weakSelf = self;
+    [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
+    {
+        NSString* title = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+        [startBtn setTitle:title forState:UIControlStateNormal];
+
+    }];
 }
 
+- (void)stopBusinessTimeBtnClick:(UIButton* )stopBtn
+{
+    _selectTimePicker = [[MHDatePicker alloc] init];
+    __weak typeof(self) weakSelf = self;
+    [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
+     {
+         NSString* title = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+         [stopBtn setTitle:title forState:UIControlStateNormal];
+     }];
+}
+- (NSString *)dateStringWithDate:(NSDate *)date DateFormat:(NSString *)dateFormat
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:dateFormat];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"]];
+    NSString *str = [dateFormatter stringFromDate:date];
+    return str ? str : @"";
+}
 - (void)businessStatusBtnClick:(UIButton* )statusBtn
 {
     HDCLog(@"...");

@@ -80,7 +80,7 @@
 {
     // 设置店铺头像
     UIImageView* headerImageView = [[UIImageView alloc] init];
-    [headerImageView setFrame:CGRectMake(self.view.width * 0.06, self.view.height * 0.11, self.view.width * 0.19, self.view.height * 0.11)];
+    [headerImageView setFrame:CGRectMake(self.view.width * 0.06, self.view.height * 0.13, self.view.width * 0.19, self.view.height * 0.11)];
     [headerImageView setImage:[UIImage imageNamed:@"oval1"]];
     [self.view addSubview:headerImageView];
     // 设置店铺名称
@@ -89,7 +89,7 @@
     [self.view addSubview:shopName];
     // 设置店家手机号码
     UIImageView* phoneImageView = [[UIImageView alloc] init];
-    [phoneImageView setFrame:CGRectMake(self.view.width * 0.31, self.view.height * 0.18, self.view.width * 0.05, self.view.height * 0.03)];
+    [phoneImageView setFrame:CGRectMake(self.view.width * 0.31, self.view.height * 0.20, self.view.width * 0.05, self.view.height * 0.03)];
     [phoneImageView setImage:[UIImage imageNamed:@"screenSmartphoneSimpleLineIcons"]];
     [self.view addSubview:phoneImageView];
     TagLabels* phoneNum = [TagLabels initTaglabel];
