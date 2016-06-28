@@ -8,26 +8,47 @@
 
 #import "ShopsManagementViewController.h"
 #import "ShopTableViewCell.h"
-@interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource>
+#import "ShopClassViewController.h"
+@interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
+@property (nonatomic, strong) NSMutableArray * selectArray;
 @end
 
 @implementation ShopsManagementViewController
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"text" object:nil];
+}
+// gets
+- (NSMutableArray *)selectArray
+{
+    if (_selectArray == nil) {
+        self.selectArray = [NSMutableArray arrayWithObjects:@"热销",@"肉类",@"蛋类", nil];
+    }
+    return _selectArray;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"商品管理";
     [self.view setBackgroundColor:[UIColor colorWithWhite:0.795 alpha:1.000]];
     [self creatTableView];
+    
+    /**
+     *  接受返回的分类的通知
+     *
+     *  @return
+     */
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notificayion:) name:@"text" object:nil];
 }
 
 - (void)creatTableView
 {
     _selectedTableView = [[UITableView alloc]init];
     [self.view addSubview:_selectedTableView];
-    _selectedTableView.backgroundColor = [UIColor colorWithWhite:0.795 alpha:1.000];
+    _selectedTableView.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
     [_selectedTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);
         make.left.equalTo(self.view);
@@ -66,34 +87,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:_selectedTableView]) {
-        return 3;
+        return self.selectArray.count;
     }else
         
         return 3;
     
 }
 
-
-// 设置分区 高度
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if ([tableView isEqual:_mainTableView]) {
-        
-        return 40;
-    }else
-        
-        return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if ([tableView isEqual:_mainTableView]) {
-        
-        return 60;
-        
-    }else
-        
-        return 0;
-}
 
 // 添加区头
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -136,6 +136,16 @@
         
         UIView * footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 100, 40)];
         
+        UIView *lineView = [[UIView alloc]init];
+        lineView.backgroundColor = [UIColor colorWithWhite:0.528 alpha:1.000];
+        [footView addSubview:lineView];
+        lineView.alpha = 0.3;
+        [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(footView);
+            make.left.right.equalTo(footView);
+            make.height.equalTo(@0.5);
+        }];
+        
         UIButton * addBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
         addBtn.backgroundColor = greenColor;
         [addBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
@@ -149,7 +159,8 @@
         }];
         addBtn.layer.masksToBounds = YES;
         addBtn.layer.cornerRadius = 4;
-        footView.backgroundColor = [UIColor colorWithWhite:0.865 alpha:1.000];
+        footView.backgroundColor = [UIColor colorWithWhite:0.915 alpha:1.000];
+        [addBtn addTarget:self action:@selector(didAddBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         
         UIButton * reorderBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
         reorderBtn.backgroundColor = greenColor;
@@ -186,8 +197,11 @@
                     ];
         }
         
-        cell.backgroundColor = [UIColor colorWithWhite:0.795 alpha:1.000];
+        cell.textLabel.text  = self.selectArray[indexPath.row];
+        cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
+    // cell 选中的颜色
+        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
         return cell;
 
@@ -196,15 +210,52 @@
         ShopTableViewCell * shopCell = [_mainTableView dequeueReusableCellWithIdentifier:@"reuse"];
         shopCell.backgroundColor = [UIColor colorWithWhite:0.915 alpha:1.000];
         [tableView setSeparatorColor:[UIColor colorWithWhite:0.745 alpha:1.000]];
+        shopCell.selectedBackgroundView = [[UIView alloc]initWithFrame:shopCell.frame];
+        shopCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+        
         return shopCell;
     }
-        
     
-    
-
 
 }
 
+- (void)didAddBtn:(UIButton *)sender
+{
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"添加分类" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击添加分类");
+        ShopClassViewController *classVC = [[ShopClassViewController alloc]init];
+        [self.navigationController pushViewController:classVC animated:YES];
+    }];
+    UIAlertAction *addfood = [UIAlertAction actionWithTitle:@"添加商品" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"点击添加商品");
+    }];
+    
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"请选择添加类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alertController addAction:cancelAction];
+    [alertController addAction:addAction];
+    [alertController addAction:addfood];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+- (void)notificayion:(NSNotification *)notification
+{
+    NSDictionary *dic = [notification userInfo];
+    
+    [self.selectArray addObject:dic[@"userInfo"]];
+    
+//    NSUserDefaults * text = [NSUserDefaults standardUserDefaults];
+//    
+//    [text setObject:self.selectArray forKey:@"textField"];
+//    
+//    [text synchronize];
+
+    [self.selectedTableView reloadData];
+}
+
+// 每个tableView 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if([tableView isEqual:_selectedTableView])
@@ -216,5 +267,24 @@
     
 }
 
+#pragma mark - - 设置分区 高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if ([tableView isEqual:_mainTableView]) {
+        
+        return 40;
+    }else
+        
+        return 0;
+}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if ([tableView isEqual:_mainTableView]) {
+        
+        return 60;
+        
+    }else
+        
+        return 0;
+}
 @end

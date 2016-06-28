@@ -85,6 +85,7 @@
 		7802E6DA1D1A87DD000B03C2 /* ShopInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7807D1701D1A2ACF00D44CD8 /* ShopInfoViewController.m */; };
 		7802E6DB1D1A87F4000B03C2 /* DistributionViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6C91D1A2EC3000B03C2 /* DistributionViewController.h */; };
 		7802E6DC1D1A87F4000B03C2 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6CA1D1A2EC3000B03C2 /* DistributionViewController.m */; };
+		782C93271D221D6F00F00DB6 /* ShopClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782C93261D221D6F00F00DB6 /* ShopClassViewController.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
 		7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */; };
@@ -245,6 +246,8 @@
 		7802E6D31D1A6AE1000B03C2 /* ownSlovedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ownSlovedTableViewCell.m; path = BuyFood/Classes/UntreatedOrder/Controller/ownSlovedTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7807D16F1D1A2ACF00D44CD8 /* ShopInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopInfoViewController.h; sourceTree = "<group>"; };
 		7807D1701D1A2ACF00D44CD8 /* ShopInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopInfoViewController.m; sourceTree = "<group>"; };
+		782C93251D221D6F00F00DB6 /* ShopClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopClassViewController.h; sourceTree = "<group>"; };
+		782C93261D221D6F00F00DB6 /* ShopClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopClassViewController.m; sourceTree = "<group>"; };
 		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7833D2E21D18CBD000174C29 /* haveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = haveTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7833D2E71D1936EA00174C29 /* pushTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pushTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/pushTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -297,6 +300,8 @@
 				0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */,
 				0E110CB91D19B76100161ACB /* ShopsManagementViewController.h */,
 				0E110CBA1D19B76100161ACB /* ShopsManagementViewController.m */,
+				782C93251D221D6F00F00DB6 /* ShopClassViewController.h */,
+				782C93261D221D6F00F00DB6 /* ShopClassViewController.m */,
 				0E110CBC1D19B78E00161ACB /* SaleManagementViewController.h */,
 				0E110CBD1D19B78E00161ACB /* SaleManagementViewController.m */,
 				0E110CBF1D19B7D000161ACB /* PriceGuideViewController.h */,
@@ -943,6 +948,7 @@
 				0E525A5F1D1283A700AFC95B /* SettingViewController.m in Sources */,
 				0EBD080D1D1572B3002DD7A4 /* OrderDetailsViewController.m in Sources */,
 				78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */,
+				782C93271D221D6F00F00DB6 /* ShopClassViewController.m in Sources */,
 				0E525A521D1283A700AFC95B /* HDCNavigationController.m in Sources */,
 				0E525A5A1D1283A700AFC95B /* NSArray+MASAdditions.m in Sources */,
 				0E525A511D1283A700AFC95B /* UIWindow+Extension.m in Sources */,
