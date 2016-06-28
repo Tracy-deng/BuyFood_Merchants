@@ -63,6 +63,26 @@
 		0E525A641D1283A700AFC95B /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E525A441D1283A700AFC95B /* Line.m */; };
 		0E525A651D1283A700AFC95B /* TagLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E525A461D1283A700AFC95B /* TagLabels.m */; };
 		0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E525A6D1D1284EA00AFC95B /* UntreatedOrderViewController.m */; };
+		0E67DFE81D22C86B00E025BD /* ManagementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE31D22C86B00E025BD /* ManagementCell.m */; };
+		0E67DFE91D22C86B00E025BD /* SalesPromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */; };
+		0E67DFEA1D22C86B00E025BD /* SecondsKillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */; };
+		0E67E0021D22C89200E025BD /* FightGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFEE1D22C89200E025BD /* FightGroupsViewController.m */; };
+		0E67E0031D22C89200E025BD /* GroupPurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFF01D22C89200E025BD /* GroupPurchaseViewController.m */; };
+		0E67E0041D22C89200E025BD /* OutdoorActivitiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFF21D22C89200E025BD /* OutdoorActivitiesViewController.m */; };
+		0E67E0051D22C89200E025BD /* SalesPromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFF41D22C89200E025BD /* SalesPromotionViewController.m */; };
+		0E67E0061D22C89200E025BD /* SecondsKillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFF61D22C89200E025BD /* SecondsKillViewController.m */; };
+		0E67E0071D22C89200E025BD /* FightGroupsManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFF91D22C89200E025BD /* FightGroupsManagementViewController.m */; };
+		0E67E0081D22C89200E025BD /* GroupPurchaseManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFFB1D22C89200E025BD /* GroupPurchaseManagementViewController.m */; };
+		0E67E0091D22C89200E025BD /* OutdoorActivitiesManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFFD1D22C89200E025BD /* OutdoorActivitiesManagementViewController.m */; };
+		0E67E00A1D22C89200E025BD /* PromotionManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFFF1D22C89200E025BD /* PromotionManagementViewController.m */; };
+		0E67E00B1D22C89200E025BD /* SecondsKillManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0011D22C89200E025BD /* SecondsKillManagementViewController.m */; };
+		0E67E00E1D22C97000E025BD /* SetPriceAdviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E00D1D22C97000E025BD /* SetPriceAdviceCell.m */; };
+		0E67E0111D22CC0800E025BD /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0101D22CC0800E025BD /* CardListViewController.m */; };
+		0E67E0141D22CC7800E025BD /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0131D22CC7800E025BD /* CardCell.m */; };
+		0E67E0171D22CC9D00E025BD /* AddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0161D22CC9D00E025BD /* AddBankCardViewController.m */; };
+		0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0191D22CD0E00E025BD /* AddView.m */; };
+		0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */; };
+		0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */; };
 		0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08031D141E13002DD7A4 /* PickUpCell.m */; };
 		0EBD080A1D153CA9002DD7A4 /* DispatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08091D153CA9002DD7A4 /* DispatchCell.m */; };
 		0EBD080D1D1572B3002DD7A4 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD080C1D1572B3002DD7A4 /* OrderDetailsViewController.m */; };
@@ -213,6 +233,46 @@
 		0E525A671D1283E700AFC95B /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		0E525A6C1D1284EA00AFC95B /* UntreatedOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UntreatedOrderViewController.h; sourceTree = "<group>"; };
 		0E525A6D1D1284EA00AFC95B /* UntreatedOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UntreatedOrderViewController.m; sourceTree = "<group>"; };
+		0E67DFE21D22C86B00E025BD /* ManagementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagementCell.h; sourceTree = "<group>"; };
+		0E67DFE31D22C86B00E025BD /* ManagementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagementCell.m; sourceTree = "<group>"; };
+		0E67DFE41D22C86B00E025BD /* SalesPromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesPromotionCell.h; sourceTree = "<group>"; };
+		0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesPromotionCell.m; sourceTree = "<group>"; };
+		0E67DFE61D22C86B00E025BD /* SecondsKillCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondsKillCell.h; sourceTree = "<group>"; };
+		0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondsKillCell.m; sourceTree = "<group>"; };
+		0E67DFED1D22C89200E025BD /* FightGroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightGroupsViewController.h; sourceTree = "<group>"; };
+		0E67DFEE1D22C89200E025BD /* FightGroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightGroupsViewController.m; sourceTree = "<group>"; };
+		0E67DFEF1D22C89200E025BD /* GroupPurchaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupPurchaseViewController.h; sourceTree = "<group>"; };
+		0E67DFF01D22C89200E025BD /* GroupPurchaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupPurchaseViewController.m; sourceTree = "<group>"; };
+		0E67DFF11D22C89200E025BD /* OutdoorActivitiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutdoorActivitiesViewController.h; sourceTree = "<group>"; };
+		0E67DFF21D22C89200E025BD /* OutdoorActivitiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutdoorActivitiesViewController.m; sourceTree = "<group>"; };
+		0E67DFF31D22C89200E025BD /* SalesPromotionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesPromotionViewController.h; sourceTree = "<group>"; };
+		0E67DFF41D22C89200E025BD /* SalesPromotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesPromotionViewController.m; sourceTree = "<group>"; };
+		0E67DFF51D22C89200E025BD /* SecondsKillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondsKillViewController.h; sourceTree = "<group>"; };
+		0E67DFF61D22C89200E025BD /* SecondsKillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondsKillViewController.m; sourceTree = "<group>"; };
+		0E67DFF81D22C89200E025BD /* FightGroupsManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightGroupsManagementViewController.h; sourceTree = "<group>"; };
+		0E67DFF91D22C89200E025BD /* FightGroupsManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FightGroupsManagementViewController.m; sourceTree = "<group>"; };
+		0E67DFFA1D22C89200E025BD /* GroupPurchaseManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupPurchaseManagementViewController.h; sourceTree = "<group>"; };
+		0E67DFFB1D22C89200E025BD /* GroupPurchaseManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupPurchaseManagementViewController.m; sourceTree = "<group>"; };
+		0E67DFFC1D22C89200E025BD /* OutdoorActivitiesManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutdoorActivitiesManagementViewController.h; sourceTree = "<group>"; };
+		0E67DFFD1D22C89200E025BD /* OutdoorActivitiesManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutdoorActivitiesManagementViewController.m; sourceTree = "<group>"; };
+		0E67DFFE1D22C89200E025BD /* PromotionManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionManagementViewController.h; sourceTree = "<group>"; };
+		0E67DFFF1D22C89200E025BD /* PromotionManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionManagementViewController.m; sourceTree = "<group>"; };
+		0E67E0001D22C89200E025BD /* SecondsKillManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondsKillManagementViewController.h; sourceTree = "<group>"; };
+		0E67E0011D22C89200E025BD /* SecondsKillManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondsKillManagementViewController.m; sourceTree = "<group>"; };
+		0E67E00C1D22C97000E025BD /* SetPriceAdviceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPriceAdviceCell.h; sourceTree = "<group>"; };
+		0E67E00D1D22C97000E025BD /* SetPriceAdviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPriceAdviceCell.m; sourceTree = "<group>"; };
+		0E67E00F1D22CC0800E025BD /* CardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListViewController.h; sourceTree = "<group>"; };
+		0E67E0101D22CC0800E025BD /* CardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListViewController.m; sourceTree = "<group>"; };
+		0E67E0121D22CC7800E025BD /* CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
+		0E67E0131D22CC7800E025BD /* CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCell.m; sourceTree = "<group>"; };
+		0E67E0151D22CC9D00E025BD /* AddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBankCardViewController.h; sourceTree = "<group>"; };
+		0E67E0161D22CC9D00E025BD /* AddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBankCardViewController.m; sourceTree = "<group>"; };
+		0E67E0181D22CD0E00E025BD /* AddView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddView.h; sourceTree = "<group>"; };
+		0E67E0191D22CD0E00E025BD /* AddView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddView.m; sourceTree = "<group>"; };
+		0E67E01B1D22CD2200E025BD /* WB_Stopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WB_Stopwatch.h; sourceTree = "<group>"; };
+		0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WB_Stopwatch.m; sourceTree = "<group>"; };
+		0E67E01E1D22CFD600E025BD /* AddPrinterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPrinterViewController.h; sourceTree = "<group>"; };
+		0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPrinterViewController.m; sourceTree = "<group>"; };
 		0EBD08021D141E13002DD7A4 /* PickUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickUpCell.h; sourceTree = "<group>"; };
 		0EBD08031D141E13002DD7A4 /* PickUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickUpCell.m; sourceTree = "<group>"; };
 		0EBD08081D153CA9002DD7A4 /* DispatchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchCell.h; sourceTree = "<group>"; };
@@ -287,14 +347,21 @@
 		0E110CA11D199BDB00161ACB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0E67DFEB1D22C89200E025BD /* Controller */,
 				0E110CA41D199C7900161ACB /* BalanceAccountViewController.h */,
 				0E110CA51D199C7900161ACB /* BalanceAccountViewController.m */,
+				0E67E00F1D22CC0800E025BD /* CardListViewController.h */,
+				0E67E0101D22CC0800E025BD /* CardListViewController.m */,
+				0E67E0151D22CC9D00E025BD /* AddBankCardViewController.h */,
+				0E67E0161D22CC9D00E025BD /* AddBankCardViewController.m */,
 				0E110CB01D19B5F700161ACB /* MyBillViewController.h */,
 				0E110CB11D19B5F700161ACB /* MyBillViewController.m */,
 				0E3C1AAA1D1C5C7E0060A7F4 /* MyBillInComeInfoViewController.h */,
 				0E3C1AAB1D1C5C7E0060A7F4 /* MyBillInComeInfoViewController.m */,
 				0E3C1AAD1D1C5CCA0060A7F4 /* MyBillSpendingInfoViewController.h */,
 				0E3C1AAE1D1C5CCA0060A7F4 /* MyBillSpendingInfoViewController.m */,
+				0E67E01E1D22CFD600E025BD /* AddPrinterViewController.h */,
+				0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */,
 				0E110CB31D19B6D700161ACB /* EvaluationViewController.h */,
 				0E110CB41D19B6D700161ACB /* EvaluationViewController.m */,
 				0E110CB61D19B72000161ACB /* BusinessStatusViewController.h */,
@@ -346,6 +413,20 @@
 				0E3C1A931D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m */,
 				78444B551D212872001F3E9D /* ShopTableViewCell.h */,
 				78444B561D212872001F3E9D /* ShopTableViewCell.m */,
+				0E67DFE21D22C86B00E025BD /* ManagementCell.h */,
+				0E67DFE31D22C86B00E025BD /* ManagementCell.m */,
+				0E67DFE41D22C86B00E025BD /* SalesPromotionCell.h */,
+				0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */,
+				0E67DFE61D22C86B00E025BD /* SecondsKillCell.h */,
+				0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */,
+				0E67E00C1D22C97000E025BD /* SetPriceAdviceCell.h */,
+				0E67E00D1D22C97000E025BD /* SetPriceAdviceCell.m */,
+				0E67E0121D22CC7800E025BD /* CardCell.h */,
+				0E67E0131D22CC7800E025BD /* CardCell.m */,
+				0E67E0181D22CD0E00E025BD /* AddView.h */,
+				0E67E0191D22CD0E00E025BD /* AddView.m */,
+				0E67E01B1D22CD2200E025BD /* WB_Stopwatch.h */,
+				0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -706,6 +787,49 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0E67DFEB1D22C89200E025BD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0E67DFEC1D22C89200E025BD /* AddControllers */,
+				0E67DFF71D22C89200E025BD /* ManagementControllers */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0E67DFEC1D22C89200E025BD /* AddControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0E67DFED1D22C89200E025BD /* FightGroupsViewController.h */,
+				0E67DFEE1D22C89200E025BD /* FightGroupsViewController.m */,
+				0E67DFEF1D22C89200E025BD /* GroupPurchaseViewController.h */,
+				0E67DFF01D22C89200E025BD /* GroupPurchaseViewController.m */,
+				0E67DFF11D22C89200E025BD /* OutdoorActivitiesViewController.h */,
+				0E67DFF21D22C89200E025BD /* OutdoorActivitiesViewController.m */,
+				0E67DFF31D22C89200E025BD /* SalesPromotionViewController.h */,
+				0E67DFF41D22C89200E025BD /* SalesPromotionViewController.m */,
+				0E67DFF51D22C89200E025BD /* SecondsKillViewController.h */,
+				0E67DFF61D22C89200E025BD /* SecondsKillViewController.m */,
+			);
+			path = AddControllers;
+			sourceTree = "<group>";
+		};
+		0E67DFF71D22C89200E025BD /* ManagementControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0E67DFF81D22C89200E025BD /* FightGroupsManagementViewController.h */,
+				0E67DFF91D22C89200E025BD /* FightGroupsManagementViewController.m */,
+				0E67DFFA1D22C89200E025BD /* GroupPurchaseManagementViewController.h */,
+				0E67DFFB1D22C89200E025BD /* GroupPurchaseManagementViewController.m */,
+				0E67DFFC1D22C89200E025BD /* OutdoorActivitiesManagementViewController.h */,
+				0E67DFFD1D22C89200E025BD /* OutdoorActivitiesManagementViewController.m */,
+				0E67DFFE1D22C89200E025BD /* PromotionManagementViewController.h */,
+				0E67DFFF1D22C89200E025BD /* PromotionManagementViewController.m */,
+				0E67E0001D22C89200E025BD /* SecondsKillManagementViewController.h */,
+				0E67E0011D22C89200E025BD /* SecondsKillManagementViewController.m */,
+			);
+			path = ManagementControllers;
+			sourceTree = "<group>";
+		};
 		0EBD080E1D157612002DD7A4 /* SubViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -902,9 +1026,12 @@
 				7802E6D61D1A8766000B03C2 /* InviteViewController.m in Sources */,
 				7802E6D51D1A86EE000B03C2 /* InviteViewController.h in Sources */,
 				0EBD08371D17EF18002DD7A4 /* OwnHaveProvideController.m in Sources */,
+				0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */,
 				0E3C1AA31D1C482C0060A7F4 /* MyBillAllCell.m in Sources */,
 				0E525A4D1D1283A700AFC95B /* SuccessViewController.m in Sources */,
 				7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */,
+				0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */,
+				0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */,
 				0E525A4A1D1283A700AFC95B /* LoginViewController.m in Sources */,
 				0E525A5B1D1283A700AFC95B /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0E525A4C1D1283A700AFC95B /* RegisterViewController.m in Sources */,
@@ -912,13 +1039,19 @@
 				7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */,
 				7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */,
 				0E525A611D1283A700AFC95B /* NewFeatureViewController.m in Sources */,
+				0E67E0091D22C89200E025BD /* OutdoorActivitiesManagementViewController.m in Sources */,
 				0EBD08171D178354002DD7A4 /* ComplaintOrderCell.m in Sources */,
 				0EBD080A1D153CA9002DD7A4 /* DispatchCell.m in Sources */,
 				0E110CB81D19B72000161ACB /* BusinessStatusViewController.m in Sources */,
 				0E525A591D1283A700AFC95B /* MASViewConstraint.m in Sources */,
+				0E67E00B1D22C89200E025BD /* SecondsKillManagementViewController.m in Sources */,
+				0E67DFEA1D22C86B00E025BD /* SecondsKillCell.m in Sources */,
+				0E67E00E1D22C97000E025BD /* SetPriceAdviceCell.m in Sources */,
 				0E110CB21D19B5F700161ACB /* MyBillViewController.m in Sources */,
 				0E3C1AAC1D1C5C7E0060A7F4 /* MyBillInComeInfoViewController.m in Sources */,
+				0E67E0141D22CC7800E025BD /* CardCell.m in Sources */,
 				782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */,
+				0E67E0021D22C89200E025BD /* FightGroupsViewController.m in Sources */,
 				0EBD08141D15768D002DD7A4 /* ComplaintOrderViewController.m in Sources */,
 				7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */,
 				0E525A491D1283A700AFC95B /* ForgetPwdViewController.m in Sources */,
@@ -927,14 +1060,18 @@
 				0E3C1A911D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m in Sources */,
 				0E110CBB1D19B76100161ACB /* ShopsManagementViewController.m in Sources */,
 				0E525A4E1D1283A700AFC95B /* InputTextField.m in Sources */,
+				0E67E0041D22C89200E025BD /* OutdoorActivitiesViewController.m in Sources */,
 				0E110CC11D19B7D000161ACB /* PriceGuideViewController.m in Sources */,
 				0E110D111D1AF59100161ACB /* BusinessStatusView.m in Sources */,
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
 				78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */,
+				0E67E0071D22C89200E025BD /* FightGroupsManagementViewController.m in Sources */,
 				0E3C1AAF1D1C5CCA0060A7F4 /* MyBillSpendingInfoViewController.m in Sources */,
 				0E525A581D1283A700AFC95B /* MASViewAttribute.m in Sources */,
 				0E110CAF1D19AA5600161ACB /* BalanceAccountCell.m in Sources */,
 				0E3C1AA91D1C53B40060A7F4 /* MyBillSpendingCell.m in Sources */,
+				0E67E0031D22C89200E025BD /* GroupPurchaseViewController.m in Sources */,
+				0E67DFE91D22C86B00E025BD /* SalesPromotionCell.m in Sources */,
 				0EBD081D1D179035002DD7A4 /* ChangePasswordViewController.m in Sources */,
 				0E3C1A941D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m in Sources */,
 				0E525A621D1283A700AFC95B /* ShopStoreViewController.m in Sources */,
@@ -956,21 +1093,28 @@
 				78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */,
 				782C93271D221D6F00F00DB6 /* ShopClassViewController.m in Sources */,
 				0E525A521D1283A700AFC95B /* HDCNavigationController.m in Sources */,
+				0E67DFE81D22C86B00E025BD /* ManagementCell.m in Sources */,
 				0E525A5A1D1283A700AFC95B /* NSArray+MASAdditions.m in Sources */,
 				0E525A511D1283A700AFC95B /* UIWindow+Extension.m in Sources */,
 				0EBD08361D17EF18002DD7A4 /* OwnHaveNoSolvedController.m in Sources */,
 				0E3C1A9B1D1C336B0060A7F4 /* MHDatePicker.m in Sources */,
+				0E67E0081D22C89200E025BD /* GroupPurchaseManagementViewController.m in Sources */,
 				0E3C1AA61D1C52AD0060A7F4 /* MyBillIncomeCell.m in Sources */,
+				0E67E00A1D22C89200E025BD /* PromotionManagementViewController.m in Sources */,
+				0E67E0171D22CC9D00E025BD /* AddBankCardViewController.m in Sources */,
 				0E525A571D1283A700AFC95B /* MASLayoutConstraint.m in Sources */,
 				0E525A541D1283A700AFC95B /* MASCompositeConstraint.m in Sources */,
 				0E525A4F1D1283A700AFC95B /* UIBarButtonItem+Extension.m in Sources */,
 				0EBD08341D17EF18002DD7A4 /* AlreadyOrderViewController.m in Sources */,
+				0E67E0061D22C89200E025BD /* SecondsKillViewController.m in Sources */,
 				0E525A641D1283A700AFC95B /* Line.m in Sources */,
 				0E525A5E1D1283A700AFC95B /* AppDelegate.m in Sources */,
 				0E525A4B1D1283A700AFC95B /* RealnameViewController.m in Sources */,
 				0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */,
 				7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */,
 				0E5259D51D12810F00AFC95B /* main.m in Sources */,
+				0E67E0051D22C89200E025BD /* SalesPromotionViewController.m in Sources */,
+				0E67E0111D22CC0800E025BD /* CardListViewController.m in Sources */,
 				0E110C991D19889E00161ACB /* OrderListCell.m in Sources */,
 				0E110CBE1D19B78E00161ACB /* SaleManagementViewController.m in Sources */,
 				0E525A551D1283A700AFC95B /* MASConstraint.m in Sources */,

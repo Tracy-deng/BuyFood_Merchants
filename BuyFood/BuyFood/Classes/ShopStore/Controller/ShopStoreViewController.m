@@ -17,6 +17,7 @@
 #import "ShopsManagementViewController.h"
 #import "SaleManagementViewController.h"
 #import "PriceGuideViewController.h"
+#import "AddPrinterViewController.h"
 
 @interface ShopStoreViewController ()
 /** 今日营业额数字 */
@@ -218,6 +219,7 @@
 - (void)printerButtonClick:(UIButton* )sender
 {
     HDCLog(@"打印机按钮点击");
+    [self.navigationController pushViewController:[[AddPrinterViewController alloc] init] animated:YES];
 }
 /** 留言评价按钮点击 */
 - (void)messageEvaluationButtonClick:(UIButton* )sender

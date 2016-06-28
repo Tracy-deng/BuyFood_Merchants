@@ -9,6 +9,7 @@
 #import "BalanceAccountViewController.h"
 #import "HeaderViews.h"
 #import "BalanceAccountCell.h"
+#import "CardListViewController.h"
 
 @interface BalanceAccountViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) HeaderViews* headerView;
@@ -45,6 +46,7 @@
 - (void)withdrawMoneyBtnClick:(UIButton* )sender
 {
     HDCLog(@"取现按钮点击");
+    [self.navigationController pushViewController:[[CardListViewController alloc] init] animated:YES];
 }
 
 /** 设置tableView */
