@@ -34,19 +34,19 @@
         self.dataArray  = [NSMutableArray arrayWithObjects:@"热销",@"肉类",@"蛋类", nil];
     }else{
         
-        self.dataArray = [userDefaults objectForKey:@"dataArray"];
+        self.dataArray = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"dataArray"]];
     }
     return self.dataArray ;
     
 }
 - (void)addArrayWithString:(NSString *)string
 {
-    [self.dataArray  addObject:string];
+    [self.dataArray addObject:string];
     
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     
     [userDefaults setObject:self.dataArray forKey:@"dataArray"];
-    
+  
     [userDefaults synchronize];
 }
 

@@ -234,6 +234,11 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
+/**
+ *  收到通知 增加分类
+ *
+ *  @param notification
+ */
 - (void)notification:(NSNotification *)notification
 {
     NSDictionary *dic = [notification userInfo];
