@@ -9,10 +9,10 @@
 #import "ShopsManagementViewController.h"
 #import "ShopTableViewCell.h"
 #import "ShopClassViewController.h"
+#import "ShopManager.h"
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
-@property (nonatomic, strong) NSMutableArray * selectArray;
 @end
 
 @implementation ShopsManagementViewController
@@ -20,14 +20,8 @@
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"text" object:nil];
 }
-// gets
-- (NSMutableArray *)selectArray
-{
-    if (_selectArray == nil) {
-        self.selectArray = [NSMutableArray arrayWithObjects:@"热销",@"肉类",@"蛋类", nil];
-    }
-    return _selectArray;
-}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -41,7 +35,7 @@
      *  @return
      */
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notificayion:) name:@"text" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notification:) name:@"text" object:nil];
 }
 
 - (void)creatTableView
@@ -87,7 +81,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:_selectedTableView]) {
-        return self.selectArray.count;
+        return [[ShopManager shareInstance]dataArraySupperInit].count;
     }else
         
         return 3;
@@ -197,7 +191,7 @@
                     ];
         }
         
-        cell.textLabel.text  = self.selectArray[indexPath.row];
+        cell.textLabel.text  = [[ShopManager shareInstance]dataArraySupperInit] [indexPath.row];
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
     // cell 选中的颜色
@@ -240,17 +234,12 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
-- (void)notificayion:(NSNotification *)notification
+- (void)notification:(NSNotification *)notification
 {
     NSDictionary *dic = [notification userInfo];
     
-    [self.selectArray addObject:dic[@"userInfo"]];
-    
-//    NSUserDefaults * text = [NSUserDefaults standardUserDefaults];
-//    
-//    [text setObject:self.selectArray forKey:@"textField"];
-//    
-//    [text synchronize];
+    [[ShopManager shareInstance] addArrayWithString:dic[@"userInfo"]];
+
 
     [self.selectedTableView reloadData];
 }

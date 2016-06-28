@@ -86,6 +86,7 @@
 		7802E6DB1D1A87F4000B03C2 /* DistributionViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6C91D1A2EC3000B03C2 /* DistributionViewController.h */; };
 		7802E6DC1D1A87F4000B03C2 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6CA1D1A2EC3000B03C2 /* DistributionViewController.m */; };
 		782C93271D221D6F00F00DB6 /* ShopClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782C93261D221D6F00F00DB6 /* ShopClassViewController.m */; };
+		782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 782C93291D226A1E00F00DB6 /* ShopManager.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
 		7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */; };
@@ -248,6 +249,8 @@
 		7807D1701D1A2ACF00D44CD8 /* ShopInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopInfoViewController.m; sourceTree = "<group>"; };
 		782C93251D221D6F00F00DB6 /* ShopClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopClassViewController.h; sourceTree = "<group>"; };
 		782C93261D221D6F00F00DB6 /* ShopClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopClassViewController.m; sourceTree = "<group>"; };
+		782C93281D226A1D00F00DB6 /* ShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopManager.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.h; sourceTree = SOURCE_ROOT; };
+		782C93291D226A1E00F00DB6 /* ShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopManager.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.m; sourceTree = SOURCE_ROOT; };
 		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7833D2E21D18CBD000174C29 /* haveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = haveTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7833D2E71D1936EA00174C29 /* pushTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pushTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/pushTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -313,6 +316,8 @@
 		0E110CA21D199BDB00161ACB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				782C93281D226A1D00F00DB6 /* ShopManager.h */,
+				782C93291D226A1E00F00DB6 /* ShopManager.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -913,6 +918,7 @@
 				0E525A591D1283A700AFC95B /* MASViewConstraint.m in Sources */,
 				0E110CB21D19B5F700161ACB /* MyBillViewController.m in Sources */,
 				0E3C1AAC1D1C5C7E0060A7F4 /* MyBillInComeInfoViewController.m in Sources */,
+				782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */,
 				0EBD08141D15768D002DD7A4 /* ComplaintOrderViewController.m in Sources */,
 				7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */,
 				0E525A491D1283A700AFC95B /* ForgetPwdViewController.m in Sources */,
