@@ -14,7 +14,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        _foodImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headerImage"]];
+        _foodImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"shopsImage"]];
         [self.contentView addSubview:_foodImageView];
         [_foodImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             
@@ -24,7 +24,7 @@
             make.height.equalTo(@60);
         }];
         
-        _hotImageview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"headerImage"]];
+        _hotImageview = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"shopsImage"]];
         [self.contentView addSubview:_hotImageview];
         [_hotImageview mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_foodImageView);

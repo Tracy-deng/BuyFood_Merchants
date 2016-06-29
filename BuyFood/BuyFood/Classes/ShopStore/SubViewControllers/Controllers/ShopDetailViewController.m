@@ -26,9 +26,10 @@
 
 - (void)addShopsImage
 {
-    self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addShopsImage"]];
+    self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopsImage"]];
     self.imageView.userInteractionEnabled = YES;
     [self.view addSubview:self.imageView];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view.mas_top).offset(64);
@@ -92,6 +93,10 @@
         
     }];
     
+    bottomBtn.layer.masksToBounds = YES;
+    bottomBtn.layer.cornerRadius = 4;
+    deleBtn.layer.masksToBounds = YES;
+    deleBtn.layer.cornerRadius = 4;
 
     
 }
