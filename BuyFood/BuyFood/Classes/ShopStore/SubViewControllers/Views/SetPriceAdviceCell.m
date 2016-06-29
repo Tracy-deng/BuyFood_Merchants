@@ -87,8 +87,6 @@
     }];
     
 }
-#warning 提现界面、账单详情界面（收入账单-取现账单）、注册界面、忘记密码界面、
-
 - (void)setTitleLabel:(NSString* )title andBuyMoneyLabel:(NSString* )buyMoneyLabel andAveragePrice:(NSString* )averagePrice andDownOrImageName:(NSString* )imageName
 {
     self.shopsName.text = title;

@@ -977,7 +977,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 2VKY6QPH98;
+						DevelopmentTeam = 8V5V9GRF46;
 					};
 				};
 			};
@@ -1226,7 +1226,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "dongchunhuang-gmail.com.-";
+				PRODUCT_BUNDLE_IDENTIFIER = "dongchunhuang-gmail.com.--";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1239,7 +1239,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "dongchunhuang-gmail.com.-";
+				PRODUCT_BUNDLE_IDENTIFIER = "dongchunhuang-gmail.com.--";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
