@@ -11,9 +11,6 @@
 #import "MyBillAllCell.h"
 #import "MyBillIncomeCell.h"
 #import "MyBillSpendingCell.h"
-#import "MyBillInComeInfoViewController.h"
-#import "MyBillSpendingInfoViewController.h"
-
 @interface MyBillViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) MyBillHeaderView* myBillHeaderView;
@@ -29,7 +26,7 @@
 {
     [super viewDidLoad];
     self.title = @"我的账单";
-    [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    [self.view setBackgroundColor:HDCBackViewColor];
     [self setUpThreeBtn];
     [self createTableView];
     self.tag = 1;
@@ -60,6 +57,9 @@
     allBtn.selected = !allBtn.isSelected;
     self.myBillHeaderView.incomeBtn.selected = NO;
     self.myBillHeaderView.spendingBtn.selected = NO;
+    self.myBillHeaderView.view1.backgroundColor = greenColor;
+    self.myBillHeaderView.view2.backgroundColor = [UIColor whiteColor];
+    self.myBillHeaderView.view3.backgroundColor = [UIColor whiteColor];
     [self.tableView reloadData];
 }
 - (void)incomeBtnClick:(UIButton* )incomeBtn
@@ -69,6 +69,9 @@
     incomeBtn.selected = !incomeBtn.isSelected;
     self.myBillHeaderView.allBtn.selected = NO;
     self.myBillHeaderView.spendingBtn.selected = NO;
+    self.myBillHeaderView.view1.backgroundColor = [UIColor whiteColor];
+    self.myBillHeaderView.view2.backgroundColor = greenColor;
+    self.myBillHeaderView.view3.backgroundColor = [UIColor whiteColor];
     [self.tableView reloadData];
 }
 - (void)spendingBtnClick:(UIButton* )spendingBtn
@@ -78,29 +81,21 @@
     spendingBtn.selected = !spendingBtn.isSelected;
     self.myBillHeaderView.allBtn.selected = NO;
     self.myBillHeaderView.incomeBtn.selected = NO;
+    
+    self.myBillHeaderView.view1.backgroundColor = [UIColor whiteColor];
+    self.myBillHeaderView.view2.backgroundColor = [UIColor whiteColor];
+    self.myBillHeaderView.view3.backgroundColor = greenColor;
     [self.tableView reloadData];
 }
 
 - (void)createTableView
 {
-    UILabel* titleForHeader = [[UILabel alloc] init];
-    titleForHeader.backgroundColor = [UIColor clearColor];
-    titleForHeader.text = @"账单详情";
-    titleForHeader.textColor = HDCColor(153, 153, 153);
-    titleForHeader.font = [UIFont fontWithName:@"PingFangSC-Light" size:12];
-    [self.view addSubview:titleForHeader];
-    [titleForHeader mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.myBillHeaderView.mas_bottom).offset(5);
-        make.left.mas_equalTo(self.view.mas_left).offset(15);
-        make.width.equalTo(self.view);
-        make.height.equalTo(@30);
-    }];
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(titleForHeader.mas_bottom);
+        make.top.mas_equalTo(self.myBillHeaderView.mas_bottom).offset(5);
         make.left.equalTo(self.view);
         make.width.equalTo(self.view);
         make.height.equalTo(self.view.mas_height).multipliedBy(0.70);
@@ -150,16 +145,6 @@
     return self.view.height * 0.12;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.tag == 2)
-    {
-        [self.navigationController pushViewController:[[MyBillInComeInfoViewController alloc] init] animated:YES];
-    }
-    if (self.tag == 3)
-    {
-        [self.navigationController pushViewController:[[MyBillSpendingInfoViewController alloc] init] animated:YES];
-    }
-}
+
 
 @end

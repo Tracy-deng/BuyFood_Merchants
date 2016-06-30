@@ -8,13 +8,18 @@
 
 #import "EvaluationViewController.h"
 #import "EvaluationHeaderView.h"
+#import "EvaluationFooterView.h"
+#import "EvaluateCell.h"
 
 @interface EvaluationViewController ()<UITableViewDelegate, UITableViewDataSource>
+{
+    BOOL  Display[100];
+    
+}
 @property (nonatomic, strong) EvaluationHeaderView* contentHeaderView;
 
 @property (nonatomic, strong) UITableView* tableView;
-@property (nonatomic, strong) UIView* footerView;
-
+@property (nonatomic, strong) EvaluationFooterView* footerView;
 
 @end
 
@@ -27,9 +32,6 @@
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     [self setUpContentHeaderView];
     [self createTableViewCell];
-    self.footerView = [[UIView alloc] init];
-    self.footerView.backgroundColor = [UIColor redColor];
-    self.footerView.hidden = YES;
 }
 
 - (void)setUpContentHeaderView
@@ -62,9 +64,12 @@
         make.height.equalTo(@30);
     }];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    
+    self.tableView = [[UITableView alloc] init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.estimatedRowHeight= 44;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(titleForHeader.mas_bottom);
@@ -72,6 +77,8 @@
         make.width.equalTo(self.view);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.70);
     }];
+    
+    
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -79,32 +86,62 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (Display[section] == YES)
+    {
+        return 1;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString* ID = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    
-    if (!cell)
-    {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-    }
-    cell.textLabel.text = @"110";
+    EvaluateCell* cell = [EvaluateCell cellWithTableView:tableView];
     return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 200;
+    return self.view.height * 0.12;
 }
-- (UIView* )tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    return self.view.height * 0.17;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    self.footerView = [EvaluationFooterView initFootView];
+    self.footerView.userInteractionEnabled = YES;
+    self.footerView.tag = section;
+    [self.footerView setBackgroundColor:[UIColor whiteColor]];
+    [self.footerView setUpContentView];
+    [self.footerView setFooterViewContentWithHeaderImage:@"rectangle9" andUserName:@"小张" andEvaluate:@"好评" andEvaluateContent:@"很好吃，配送很及时" andEvaluateTime:@"13：14"];
+    if (section != 0)
+    {
+        UILabel* line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, self.footerView.height, self.view.frame.size.width - 10, 1)];
+        [line1 setBackgroundColor:[UIColor grayColor]];
+        [self.footerView addSubview:line1];
+    }
+    [self.footerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(display1:)]];
+    [self.footerView.replyBtn addTarget:self action:@selector(replyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.footerView.replyBtn.tag = section;
     return self.footerView;
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    self.footerView.hidden = !self.footerView.hidden;
+- (void)display1:(UITapGestureRecognizer *)tap
+{
+    NSInteger section = tap.view.tag;
+    Display[section] = YES;
+    NSIndexSet * set = [NSIndexSet indexSetWithIndex:tap.view.tag];
+    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationFade];
+}
+- (void)replyBtnClick:(UIButton* )sender
+{
+    NSLog(@"。。。。");
+    NSLog(@"%ld",sender.tag);
+    Display[sender.tag] = NO;
+    NSIndexSet * set = [NSIndexSet indexSetWithIndex:sender.tag];
+    [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end

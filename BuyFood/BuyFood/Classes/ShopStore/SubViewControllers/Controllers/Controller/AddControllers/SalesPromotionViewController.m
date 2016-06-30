@@ -7,11 +7,7 @@
 //
 
 #import "SalesPromotionViewController.h"
-#import "Masonry.h"
 #import "SalesPromotionCell.h"
-
-#define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
 @interface SalesPromotionViewController ()<UITableViewDelegate, UITableViewDataSource>
 

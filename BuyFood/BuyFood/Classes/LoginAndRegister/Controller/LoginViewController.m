@@ -96,7 +96,7 @@
     [self.view addSubview:forgetPwdBtn];
     /** 登录按钮 */
     UIButton* loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginBtn setBackgroundImage:[UIImage imageNamed:@"bigbutton_bj"] forState:UIControlStateNormal];
+    [loginBtn setBackgroundImage:[UIImage imageNamed:@"bj_biaoqian"] forState:UIControlStateNormal];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [loginBtn setTitleColor:HDCColor(255, 255, 255) forState:UIControlStateNormal];
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:20];
@@ -109,7 +109,7 @@
     /** 注册按钮 */
     UIButton* registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [registerBtn setTitle:@"还没有账号? 立即注册" forState:UIControlStateNormal];
-    [registerBtn setTitleColor:HDCColor(0, 190, 232) forState:UIControlStateNormal];
+    [registerBtn setTitleColor:HDCColor(46, 192, 70) forState:UIControlStateNormal];
     registerBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     registerBtn.x = 15;
     registerBtn.y = loginBtn.y + loginBtn.height + 15;

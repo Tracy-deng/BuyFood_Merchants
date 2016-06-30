@@ -8,6 +8,10 @@
 
 #import "MyBillHeaderView.h"
 
+@interface MyBillHeaderView ()
+
+@end
+
 @implementation MyBillHeaderView
 
 + (instancetype)initWithMyBillHeaderView
@@ -17,50 +21,67 @@
 
 - (void)setHeaderContentView
 {
-    self.allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.allBtn setTitle:@"全部" forState:UIControlStateNormal];
-    self.allBtn.layer.borderWidth = 1;
-    self.allBtn.layer.cornerRadius = 5;
-    self.allBtn.layer.borderColor = HDCColor(153, 153, 153).CGColor;
-    [self.allBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-    [self.allBtn setTitleColor:HDCColor(102, 102, 102) forState:UIControlStateNormal];
-    [self.allBtn setBackgroundImage:[UIImage imageNamed:@"myBill"] forState:UIControlStateSelected];
-    [self addSubview:self.allBtn];
-    [self.allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top).offset(10);
-        make.left.mas_equalTo(self.mas_left).offset(10);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.24);
-        make.height.mas_equalTo(self.allBtn.mas_width).multipliedBy(0.33);
+    _view1 = [[UIView alloc]init];
+    _view1.backgroundColor = greenColor;
+    [self addSubview:_view1];
+    [_view1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);//).offset(64
+        make.left.equalTo(self);
+        make.height.equalTo(@(SCREEN_HEIGHT * 0.08));
+        make.width.equalTo(@(SCREEN_WIDTH/3));
     }];
+    _view2 = [[UIView alloc]init];
+    _view2.backgroundColor = [UIColor whiteColor];
+    [self addSubview:_view2];
+    [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.height.width.equalTo(_view1);
+        make.left.equalTo(_view1.mas_right);
+    }];
+    _view3 = [[UIView alloc]init];
+    _view3.backgroundColor = [UIColor whiteColor];
+    [self addSubview:_view3];
+    [_view3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.height.width.equalTo(_view1);
+        make.left.equalTo(_view2.mas_right);
+    }];
+    
+    
+    self.allBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.allBtn setBackgroundColor:[UIColor whiteColor]];
+    [self.allBtn setTitle:@"全部" forState:UIControlStateNormal];
+    [self.allBtn setTitleColor:greenColor forState:UIControlStateSelected];
+    self.allBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    [self.allBtn setTitleColor:HDCColor(102, 102, 102) forState:UIControlStateNormal];
+    [_view1 addSubview:self.allBtn];
+    [self.allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.width.left.equalTo(_view1);
+        make.height.equalTo(@(SCREEN_HEIGHT * 0.08 - 2));
+    }];
+    
+    
+    
     self.incomeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.incomeBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    [self.incomeBtn setBackgroundColor:[UIColor whiteColor]];
     [self.incomeBtn setTitle:@"收入" forState:UIControlStateNormal];
-    self.incomeBtn.layer.borderWidth = 1;
-    self.incomeBtn.layer.cornerRadius = 5;
-    self.incomeBtn.layer.borderColor = HDCColor(153, 153, 153).CGColor;
-    [self.incomeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [self.incomeBtn setTitleColor:greenColor forState:UIControlStateSelected];
     [self.incomeBtn setTitleColor:HDCColor(102, 102, 102) forState:UIControlStateNormal];
-    [self.incomeBtn setBackgroundImage:[UIImage imageNamed:@"myBill"] forState:UIControlStateSelected];
-    [self addSubview:self.incomeBtn];
+    [_view2 addSubview:self.incomeBtn];
     [self.incomeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.mas_centerX);
-        make.top.equalTo(self.allBtn);
-        make.width.equalTo(self.allBtn);
+        make.right.top.width.equalTo(_view2);
         make.height.equalTo(self.allBtn);
     }];
+    
+    
     self.spendingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.spendingBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    [self.spendingBtn setBackgroundColor:[UIColor whiteColor]];
     [self.spendingBtn setTitle:@"支出" forState:UIControlStateNormal];
-    self.spendingBtn.layer.borderWidth = 1;
-    self.spendingBtn.layer.cornerRadius = 5;
-    self.spendingBtn.layer.borderColor = HDCColor(153, 153, 153).CGColor;
-    [self.spendingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+    [self.spendingBtn setTitleColor:greenColor forState:UIControlStateSelected];
     [self.spendingBtn setTitleColor:HDCColor(102, 102, 102) forState:UIControlStateNormal];
-    [self.spendingBtn setBackgroundImage:[UIImage imageNamed:@"myBill"] forState:UIControlStateSelected];
-    [self addSubview:self.incomeBtn];
-    [self addSubview:self.spendingBtn];
+    [_view3 addSubview:self.spendingBtn];
     [self.spendingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.allBtn);
-        make.right.mas_equalTo(self.mas_right).offset(-10);
-        make.width.equalTo(self.allBtn);
+        make.right.top.width.equalTo(_view3);
         make.height.equalTo(self.allBtn);
     }];
 }

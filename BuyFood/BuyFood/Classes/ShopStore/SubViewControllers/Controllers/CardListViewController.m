@@ -9,9 +9,7 @@
 #import "CardListViewController.h"
 #import "CardCell.h"
 #import "AddBankCardViewController.h"
-
-#define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
+#import "TakeMoneyViewController.h"
 
 @interface CardListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -91,6 +89,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld",indexPath.section);
+    [self.navigationController pushViewController:[[TakeMoneyViewController alloc] init] animated:YES];
 }
 
 

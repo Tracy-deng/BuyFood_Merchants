@@ -49,7 +49,7 @@
     self.withdrawMoneyBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
     [self addSubview:self.withdrawMoneyBtn];
     [self.withdrawMoneyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(label.mas_bottom).offset(20);
+        make.bottom.mas_equalTo(self.mas_bottom).offset(-10);
         make.centerX.mas_equalTo(self.centerX);
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.38);
         make.height.equalTo(self.withdrawMoneyBtn.mas_width).multipliedBy(0.28);
