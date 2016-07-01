@@ -82,7 +82,7 @@
     [self.backGroundImageView addSubview:self.cardNumber];
     [self.cardNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.bankName);
-        make.top.mas_equalTo(self.cardType.mas_bottom).offset(30);
+        make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-10);
         make.width.mas_equalTo(self.backGroundImageView.mas_width).multipliedBy(0.80);
         make.height.mas_equalTo(self.cardNumber.mas_width).multipliedBy(0.10);
     }];

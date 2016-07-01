@@ -7,11 +7,7 @@
 //
 
 #import "GroupPurchaseViewController.h"
-#import "Masonry.h"
 #import "SecondsKillCell.h"
-
-#define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
-#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
 #define Start_X self.view.frame.size.width * 0.05           // 第一个按钮的X坐标
 #define Start_Y self.view.frame.size.height - (self.view.frame.size.height * 0.19) - (self.view.frame.size.width * 0.27)          // 第一个按钮的Y坐标

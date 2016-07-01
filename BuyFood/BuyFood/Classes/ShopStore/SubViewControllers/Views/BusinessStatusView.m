@@ -58,24 +58,24 @@
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.45);
         make.height.mas_equalTo(self.businessStatus.mas_width).multipliedBy(0.11);
     }];
-    UILabel* btnLine = [[UILabel alloc] init];
-    [btnLine setBackgroundColor:HDCColor(153, 153, 153)];
-    [self addSubview:btnLine];
-    [btnLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.businessTime.mas_bottom).offset(0.5);
-        make.left.equalTo(self.businessStatus);
-        make.width.equalTo(self.businessTime);
-        make.height.equalTo(@1);
-    }];
-    UILabel* dividerLine = [[UILabel alloc] init];
-    [dividerLine setBackgroundColor:HDCColor(153, 153, 153)];
-    [self addSubview:dividerLine];
-    [dividerLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(btnLine.mas_bottom).offset(30);
-        make.left.mas_equalTo(self.mas_left).offset(13);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.93);
-        make.height.equalTo(@1);
-    }];
+//    UILabel* btnLine = [[UILabel alloc] init];
+//    [btnLine setBackgroundColor:HDCColor(153, 153, 153)];
+//    [self addSubview:btnLine];
+//    [btnLine mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(self.businessTime.mas_bottom).offset(0.5);
+//        make.left.equalTo(self.businessStatus);
+//        make.width.equalTo(self.businessTime);
+//        make.height.equalTo(@1);
+//    }];
+//    UILabel* dividerLine = [[UILabel alloc] init];
+//    [dividerLine setBackgroundColor:HDCColor(153, 153, 153)];
+//    [self addSubview:dividerLine];
+//    [dividerLine mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.mas_equalTo(btnLine.mas_bottom).offset(30);
+//        make.left.mas_equalTo(self.mas_left).offset(13);
+//        make.width.mas_equalTo(self.mas_width).multipliedBy(0.93);
+//        make.height.equalTo(@1);
+//    }];
     self.businessStatusLabel = [[UILabel alloc] init];
     self.businessStatusLabel.textColor = HDCColor(153, 153, 153);
     self.businessStatusLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];

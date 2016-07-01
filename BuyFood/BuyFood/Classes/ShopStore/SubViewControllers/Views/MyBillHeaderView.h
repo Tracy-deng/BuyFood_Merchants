@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface MyBillHeaderView : UIView
-
+@property (nonatomic, strong) UIView *view1;
+@property (nonatomic, strong) UIView *view2;
+@property (nonatomic, strong) UIView *view3;
 @property (nonatomic, strong) UIButton* allBtn;
 @property (nonatomic, strong) UIButton* incomeBtn;
 @property (nonatomic, strong) UIButton* spendingBtn;
