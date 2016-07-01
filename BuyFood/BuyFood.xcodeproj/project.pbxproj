@@ -118,6 +118,8 @@
 		7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */; };
 		78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78444B561D212872001F3E9D /* ShopTableViewCell.m */; };
 		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
+		78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */; };
+		78FFC5C21D23749200FDE9C6 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5C11D23749200FDE9C6 /* ShopDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -339,6 +341,10 @@
 		78444B561D212872001F3E9D /* ShopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTableViewCell.m; sourceTree = "<group>"; };
 		78FEA85F1D1B8560001D23BC /* CCTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTitleView.h; sourceTree = "<group>"; };
 		78FEA8601D1B8560001D23BC /* CCTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTitleView.m; sourceTree = "<group>"; };
+		78FFC5BD1D23690000FDE9C6 /* GoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsViewController.h; sourceTree = "<group>"; };
+		78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsViewController.m; sourceTree = "<group>"; };
+		78FFC5C01D23749200FDE9C6 /* ShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopDetailViewController.h; sourceTree = "<group>"; };
+		78FFC5C11D23749200FDE9C6 /* ShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +394,10 @@
 				0E110CBA1D19B76100161ACB /* ShopsManagementViewController.m */,
 				782C93251D221D6F00F00DB6 /* ShopClassViewController.h */,
 				782C93261D221D6F00F00DB6 /* ShopClassViewController.m */,
+				78FFC5BD1D23690000FDE9C6 /* GoodsViewController.h */,
+				78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */,
+				78FFC5C01D23749200FDE9C6 /* ShopDetailViewController.h */,
+				78FFC5C11D23749200FDE9C6 /* ShopDetailViewController.m */,
 				0E110CBC1D19B78E00161ACB /* SaleManagementViewController.h */,
 				0E110CBD1D19B78E00161ACB /* SaleManagementViewController.m */,
 				0E110CBF1D19B7D000161ACB /* PriceGuideViewController.h */,
@@ -1100,6 +1110,9 @@
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
 				78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */,
 				0E67E0071D22C89200E025BD /* FightGroupsManagementViewController.m in Sources */,
+
+				78FFC5C21D23749200FDE9C6 /* ShopDetailViewController.m in Sources */,
+				0E3C1AAF1D1C5CCA0060A7F4 /* MyBillSpendingInfoViewController.m in Sources */,
 				0E525A581D1283A700AFC95B /* MASViewAttribute.m in Sources */,
 				0E110CAF1D19AA5600161ACB /* BalanceAccountCell.m in Sources */,
 				0E3C1AA91D1C53B40060A7F4 /* MyBillSpendingCell.m in Sources */,
@@ -1152,6 +1165,7 @@
 				0E67E0051D22C89200E025BD /* SalesPromotionViewController.m in Sources */,
 				0E67E0111D22CC0800E025BD /* CardListViewController.m in Sources */,
 				0E110C991D19889E00161ACB /* OrderListCell.m in Sources */,
+				78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */,
 				0E110CBE1D19B78E00161ACB /* SaleManagementViewController.m in Sources */,
 				0E525A551D1283A700AFC95B /* MASConstraint.m in Sources */,
 				0E3C1A9C1D1C336B0060A7F4 /* MHSelectPickerView.m in Sources */,

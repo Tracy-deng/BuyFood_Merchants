@@ -10,6 +10,8 @@
 #import "ShopTableViewCell.h"
 #import "ShopClassViewController.h"
 #import "ShopManager.h"
+#import "GoodsViewController.h"
+#import "ShopDetailViewController.h"
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
@@ -71,7 +73,6 @@
     
     self.selectedTableView.tableFooterView = view;
     self.mainTableView.tableFooterView = view;
-    
     
     [self.mainTableView registerClass:[ShopTableViewCell class] forCellReuseIdentifier:@"reuse"];
     
@@ -167,6 +168,7 @@
             make.width.equalTo(@80);
             make.height.equalTo(@30);
         }];
+        [reorderBtn addTarget:self action:@selector(reordeBtn:) forControlEvents:(UIControlEventTouchUpInside)];
         reorderBtn.layer.masksToBounds = YES;
         reorderBtn.layer.cornerRadius = 4;
         
@@ -224,6 +226,8 @@
     }];
     UIAlertAction *addfood = [UIAlertAction actionWithTitle:@"添加商品" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSLog(@"点击添加商品");
+        GoodsViewController *goodsVC = [[GoodsViewController alloc]init];
+        [self.navigationController pushViewController:goodsVC animated:YES];
     }];
     
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"请选择添加类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
@@ -249,6 +253,13 @@
     [self.selectedTableView reloadData];
 }
 
+// 点击 mainTableView 进入商品详情
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ShopDetailViewController *detailVC =  [[ShopDetailViewController alloc]init];
+    [self.navigationController pushViewController:detailVC animated:YES];
+    
+}
 // 每个tableView 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -281,4 +292,30 @@
         
         return 0;
 }
+
+#pragma mark -- 让_mainTableView 进入编辑 并且排序
+- (void)reordeBtn:(UIButton *)sender
+{
+    if (_mainTableView.editing == YES) {
+        
+        [self.mainTableView setEditing:NO animated:YES];
+    }else{
+        [self.mainTableView setEditing:YES animated:YES];
+    }
+
+}
+
+
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    
+}
+
 @end
