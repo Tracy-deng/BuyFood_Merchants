@@ -10,10 +10,12 @@
 #import "CCTextField.h"
 #import "CCLickButton.h"
 #import "RealnameViewController.h"
-
+#import "RequestTool.h"
+#import "RegisterParams.h"
+#import "ResultsModel.h"
 static NSInteger selectNum;
 
-@interface RegisterViewController ()
+@interface RegisterViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) CCTextField *textfield;
 @property (nonatomic, strong) CCTextField *recive;
 @property (nonatomic, strong) CCTextField *passWordTF;
@@ -84,7 +86,7 @@ static NSInteger selectNum;
     [self addButtonTouch:button font:14];
     [button addTarget:self action:@selector(didRecive:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.backGround addSubview:_recive];
-    [_recive addSubview:button];
+    [self.view addSubview:button];
     [_recive mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_textfield);
         make.top.equalTo(_textfield.mas_bottom);
@@ -102,12 +104,14 @@ static NSInteger selectNum;
      输入密码
      */
     _passWordTF = [CCTextField textFiledWithName:@"请输入密码" UIimageView:@"account"];
+    _passWordTF.delegate = self;
+    _passWordTF.secureTextEntry = YES;
     [self.backGround addSubview:_passWordTF];
     UIButton * passBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     [passBtn setTitle:@"显示密码" forState:UIControlStateNormal ];
     [self addButtonTouch:passBtn font:14];
     [passBtn addTarget:self action:@selector(didPassWord:) forControlEvents:(UIControlEventTouchUpInside)];
-    [_passWordTF addSubview:passBtn];
+    [self.view addSubview:passBtn];
     [_passWordTF mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_textfield);
         make.top.equalTo(_recive.mas_bottom);
@@ -120,6 +124,8 @@ static NSInteger selectNum;
         make.width.equalTo(@(80));
         make.height.equalTo(@(30));
     }];
+    
+    [self popNumberKeyBoard];
 }
 
 - (void)setUpSecondView
@@ -219,12 +225,37 @@ static NSInteger selectNum;
 - (void)didRecive:(UIButton *)sender
 {
     NSLog(@"点击获取验证码");
+    
+    if (_textfield.text.length != 11 || [_textfield.text isEqualToString:@""])
+    {
+        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
+    }
+    else
+    {
+        RegisterParams* params = [[RegisterParams alloc]init];
+        params.telphone = _textfield.text;
+        [RequestTool getSMSCode:params success:^(ResultsModel *result) {
+            
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [MBProgressHUD showSuccess:@"验证码已发送"];
+                self.recive.text = result.ErrorMsg;
+            }
+            else
+            {
+                [MBProgressHUD showError:result.ErrorMsg];
+            }
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
 }
 
 - (void)didPassWord:(UIButton *)sender
 {
     NSLog(@"点击显示密码");
-    
+    _passWordTF.secureTextEntry = !_passWordTF.secureTextEntry;
 }
 
 -(void)didSureBtn:(UIButton *)sender
@@ -245,6 +276,29 @@ static NSInteger selectNum;
     
     sender.layer.cornerRadius = 2;
 }
+/** 点击空白处收起键盘 */
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [_textfield resignFirstResponder];
+    [_passWordTF resignFirstResponder];
+    [_recive resignFirstResponder];
+}
+/** 弹出数字键盘 */
+- (void)popNumberKeyBoard
+{
+    _textfield.keyboardType = UIKeyboardTypeNumberPad;
+    _recive.keyboardType = UIKeyboardTypeNumberPad;
+    _passWordTF.returnKeyType = UIReturnKeyDone;
+}
 
+#pragma mark --- UITextFieldDelegate 回收键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == _passWordTF)
+    {
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
 
 @end

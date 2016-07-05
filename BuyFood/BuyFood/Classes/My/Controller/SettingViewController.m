@@ -12,6 +12,7 @@
 #import "ChangePasswordViewController.h"
 #import "FeedBackViewController.h"
 #import "ShopInfoViewController.h"
+#import "LoginViewController.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -172,7 +173,34 @@
     {
         [self.navigationController pushViewController:[[FeedBackViewController alloc] init] animated:YES];
     }
+    if (indexPath.row == 7)
+    {
+        [self restoreRootViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]]];
+    }
 }
+
+/** 切换根视图 */
+- (void)restoreRootViewController:(UIViewController *)rootViewController
+{
+    typedef void (^Animation)(void);
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    
+    rootViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    Animation animation = ^{
+        BOOL oldState = [UIView areAnimationsEnabled];
+        [UIView setAnimationsEnabled:NO];
+        window.rootViewController = rootViewController;
+        [UIView setAnimationsEnabled:oldState];
+    };
+    
+    [UIView transitionWithView:window
+                      duration:0.5f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:animation
+                    completion:nil];
+}
+
+
 
 
 @end

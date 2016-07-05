@@ -11,6 +11,8 @@
 #import "UIView+HDCExtension.h"
 #import "Masonry.h"
 #import "CCTitleView.h"
+#import "HttpRequestTool.h"
+#import "MBProgressHUD+MJ.h"
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
@@ -45,5 +47,9 @@
  *  绿色
  */
 #define greenColor HDCColor(46, 192, 70)
+
+//  网络请求
+#define urlPrex @"http://121.40.28.20:8889/"
+#define imgPrex @"http://121.40.28.20:8889/"
 
 #endif /* PrefixHeader_pch */

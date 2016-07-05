@@ -52,6 +52,7 @@
 #pragma mark -- UI控件的布局
         
         _numberLabel = [[UILabel alloc]init];
+        _numberLabel.textColor = HDCColor(102, 102, 102);
         _numberLabel.font = [UIFont fontWithName:@"DINAlternate-Bold" size:30];
         _numberLabel.text = @"#54";
         [_whiteView addSubview:_numberLabel];
