@@ -12,6 +12,9 @@
 #import "ForgetPwdViewController.h"
 #import "HDCTabBarViewController.h"
 
+#import "RequestTool.h"
+#import "RegisterParams.h"
+#import "ResultsModel.h"
 
 @interface LoginViewController ()
 
@@ -45,6 +48,7 @@
 {
     /** 设置手机号输入框 */
     self.phoneTextField = [InputTextField inputTextField];
+    self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     [self.phoneTextField createTextFieldPlaceholder:@"请输入手机号" andinputIcon:@"icon_Screen-smartphone - simple-line-icons"];
     self.phoneTextField.x = 50;
     self.phoneTextField.y = Top;
@@ -126,7 +130,34 @@
 /** 登录按钮点击 */
 - (void)loginBtnClick:(UIButton* )sender
 {
-    [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+ 
+    HDCLog(@"点击登录");
+    if (_phoneTextField.text.length != 11 || [_phoneTextField.text isEqualToString:@""])
+    {
+        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
+    }
+    else
+    {
+        RegisterParams* params = [[RegisterParams alloc]init];
+        params.telphone = _phoneTextField.text;
+        params.pswd = _passwordTextField.text;
+        [RequestTool login:params success:^(ResultsModel *result)
+         {
+             if ([result.ErrorCode isEqualToString:@"1"])
+             {
+                 
+                 [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+                 [MBProgressHUD showSuccess:@"登录成功"];
+             }
+             else
+             {
+                 [MBProgressHUD showError:result.ErrorMsg];
+             }
+             
+         } failure:^(NSError *error) {
+             
+         }];
+    }
 }
 /** 切换根视图 */
 - (void)restoreRootViewController:(UIViewController *)rootViewController
