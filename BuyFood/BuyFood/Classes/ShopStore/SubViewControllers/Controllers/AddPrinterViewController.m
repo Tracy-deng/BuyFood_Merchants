@@ -7,21 +7,41 @@
 //
 
 #import "AddPrinterViewController.h"
-
-@interface AddPrinterViewController ()
+#import "PrintSetting.h"
+#import "PrinterFile.h"
+@interface AddPrinterViewController ()<CCPrinterSettingDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *printerTableView ; // 搜索到的蓝牙设备
+@property (nonatomic, strong) NSMutableArray * dataSourceArray; // 搜索蓝牙的数据源
+@property (nonatomic, strong) PrintSetting *manager;
+@property (nonatomic, strong) CBPeripheral *selectedPeripheral; // 选中的设备
+@property (nonatomic, strong) UILabel * titleLabel;
+@property (nonatomic, strong) UILabel * searchLabel;
+
 @end
 
 @implementation AddPrinterViewController
-
+- (NSMutableArray *)dataSourceArray{
+    if (_dataSourceArray == nil) {
+        self.dataSourceArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _dataSourceArray;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"添加打印机";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     [self creatUI];
+    self.manager = [PrintSetting shareManager];
+    self.manager.delegate = self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.manager scanPeripherals];
+    
+    [self aboutLabelHiddle:NO];
+}
 
 - (void)creatUI
 {
@@ -47,27 +67,27 @@
     printerView.layer.masksToBounds = YES;
     printerView.layer.cornerRadius = 40;
     
-    UILabel *searchLabel = [UILabel new];
-    searchLabel.text = @"正在搜索打印机";
-    searchLabel.font = [UIFont systemFontOfSize:12];
-    searchLabel.textColor = [UIColor colorWithWhite:0.609 alpha:1.000];
-    [backGroundView addSubview:searchLabel];
-    [searchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _searchLabel = [UILabel new];
+    _searchLabel.text = @"正在搜索打印机";
+    _searchLabel.font = [UIFont systemFontOfSize:12];
+    _searchLabel.textColor = [UIColor colorWithWhite:0.609 alpha:1.000];
+    [backGroundView addSubview:_searchLabel];
+    [_searchLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(printerView.mas_bottom).offset(2);
         make.left.equalTo(printerView);
         make.width.equalTo(@100);
         make.height.equalTo(@25);
     }];
     
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"正在搜索打印机";
-    titleLabel.font = [UIFont systemFontOfSize:12];
-    titleLabel.textColor = greenColor;
-    [backGroundView addSubview:titleLabel];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(searchLabel.mas_bottom).offset(2);
-        make.left.equalTo(printerView);
-        make.width.equalTo(@100);
+    _titleLabel = [UILabel new];
+    _titleLabel.text = @"搜索到的打印机会显示在下面";
+    _titleLabel.font = [UIFont systemFontOfSize:10];
+    _titleLabel.textColor = greenColor;
+    [backGroundView addSubview:_titleLabel];
+    [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_searchLabel.mas_bottom);
+        make.left.equalTo(printerView).offset(-20);
+        make.width.equalTo(@200);
         make.height.equalTo(@25);
     }];
     
@@ -80,6 +100,7 @@
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:reSearchBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
+    [self aboutLabelHiddle:YES];
     
     self.printerTableView = [[UITableView alloc]init];
     self.printerTableView.backgroundColor = [UIColor whiteColor];
@@ -90,13 +111,112 @@
         make.height.equalTo(@300);
     }];
     
-    
+    self.printerTableView.delegate = self;
+    self.printerTableView.dataSource = self;
 }
 
 - (void)didReSearch:(UIButton *)sender
 {
     NSLog(@"点击重新搜索蓝牙设备");
+    
+//    [self.dataSourceArray removeAllObjects];
+//    
+//    [self.manager scanPeripherals];
+    NSDictionary *dic = [NSDictionary dictionary];
+    
+    [self.manager printData:[PrinterFile printerWithGoodTicket:dic]];
+
+}
+
+// 搜搜到蓝牙设备
+- (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral
+{
+    if(peripheral.name.length > 0)
+    {
+        [self.dataSourceArray addObject:peripheral];
+    }
+    
+    [self.printerTableView reloadData];
+    
+    [self aboutLabelHiddle:YES];
 }
 
 
+#pragma mark -- tabView 
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return _dataSourceArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"test";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if(cell == nil){
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    
+    CBPeripheral *perioheral = [self.dataSourceArray objectAtIndex:indexPath.row];
+    cell.textLabel.text = perioheral.name;
+    return cell;
+}
+
+
+- (void )tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    self.selectedPeripheral = [self.dataSourceArray objectAtIndex:indexPath.row];
+    
+    [self.manager connectPeripheral:self.selectedPeripheral];
+    
+    
+    NSTimer * connecttimer = [NSTimer timerWithTimeInterval:1.5 target:self selector:@selector(connect:) userInfo:nil repeats:NO];
+    
+    [[NSRunLoop currentRunLoop]addTimer:connecttimer forMode:NSDefaultRunLoopMode];
+    
+    
+    NSLog(@"%@   %ld",self.selectedPeripheral.name,  self.selectedPeripheral.state);
+    
+    
+    
+}
+
+- (void)connect:(NSTimer *)timer{
+    
+    [self.manager connectPeripheral:self.selectedPeripheral];
+    
+    [self.printerTableView reloadData];
+}
+
+
+- (void)aboutLabelHiddle:(BOOL)isShow
+{
+    
+    NSTimer * timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerField:) userInfo:nil repeats:NO];
+    
+    [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
+//    if (isShow == YES) {
+//        
+//        
+//        [UIView animateWithDuration:1 animations:^{
+////            _titleLabel.hidden = YES;
+//            _searchLabel.hidden = YES;
+//        }];
+//        
+//    }else
+//    {
+//        [UIView animateWithDuration:1 animations:^{
+//            _searchLabel.hidden = NO;
+////            _titleLabel.hidden = NO;
+//
+//        }];
+//        
+//    }
+}
+
+- (void)timerField:(NSTimer *)timer
+{
+     _searchLabel.hidden = YES;
+}
 @end

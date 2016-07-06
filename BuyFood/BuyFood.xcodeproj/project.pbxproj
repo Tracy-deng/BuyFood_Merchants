@@ -151,6 +151,8 @@
 		78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78444B561D212872001F3E9D /* ShopTableViewCell.m */; };
 		784A116A1D2640A200245304 /* ShopDetailViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5C01D23749200FDE9C6 /* ShopDetailViewController.h */; };
 		784A116B1D2640A200245304 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5C11D23749200FDE9C6 /* ShopDetailViewController.m */; };
+		784A11D61D2BB37400245304 /* PrintSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 784A11D51D2BB37400245304 /* PrintSetting.m */; };
+		784A11D91D2C97D200245304 /* PrinterFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 784A11D81D2C97D200245304 /* PrinterFile.m */; };
 		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
 		78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */; };
 /* End PBXBuildFile section */
@@ -436,6 +438,10 @@
 		7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/BaseTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		78444B551D212872001F3E9D /* ShopTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopTableViewCell.h; sourceTree = "<group>"; };
 		78444B561D212872001F3E9D /* ShopTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopTableViewCell.m; sourceTree = "<group>"; };
+		784A11D41D2BB37400245304 /* PrintSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintSetting.h; sourceTree = "<group>"; };
+		784A11D51D2BB37400245304 /* PrintSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintSetting.m; sourceTree = "<group>"; };
+		784A11D71D2C97D200245304 /* PrinterFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrinterFile.h; sourceTree = "<group>"; };
+		784A11D81D2C97D200245304 /* PrinterFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterFile.m; sourceTree = "<group>"; };
 		78FEA85F1D1B8560001D23BC /* CCTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTitleView.h; sourceTree = "<group>"; };
 		78FEA8601D1B8560001D23BC /* CCTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTitleView.m; sourceTree = "<group>"; };
 		78FFC5BD1D23690000FDE9C6 /* GoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsViewController.h; sourceTree = "<group>"; };
@@ -518,6 +524,10 @@
 				0E12A23E1D2B9815008066CC /* ShopsManagementParams.m */,
 				782C93281D226A1D00F00DB6 /* ShopManager.h */,
 				782C93291D226A1E00F00DB6 /* ShopManager.m */,
+				784A11D41D2BB37400245304 /* PrintSetting.h */,
+				784A11D51D2BB37400245304 /* PrintSetting.m */,
+				784A11D71D2C97D200245304 /* PrinterFile.h */,
+				784A11D81D2C97D200245304 /* PrinterFile.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1202,7 +1212,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8V5V9GRF46;
+						DevelopmentTeam = 2VKY6QPH98;
 					};
 				};
 			};
@@ -1342,8 +1352,10 @@
 				0E525A5F1D1283A700AFC95B /* SettingViewController.m in Sources */,
 				0EBD080D1D1572B3002DD7A4 /* OrderDetailsViewController.m in Sources */,
 				78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */,
+				784A11D91D2C97D200245304 /* PrinterFile.m in Sources */,
 				782C93271D221D6F00F00DB6 /* ShopClassViewController.m in Sources */,
 				0E525A521D1283A700AFC95B /* HDCNavigationController.m in Sources */,
+				784A11D61D2BB37400245304 /* PrintSetting.m in Sources */,
 				0E12A2421D2B9815008066CC /* BusinessStatusParams.m in Sources */,
 				0E12A2621D2B986A008066CC /* MJExtensionConst.m in Sources */,
 				0E12A2321D2B97E6008066CC /* Account.m in Sources */,
