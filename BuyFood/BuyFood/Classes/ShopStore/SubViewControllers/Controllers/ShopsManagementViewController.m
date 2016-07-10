@@ -14,7 +14,7 @@
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
-@property (nonatomic, strong) NSArray *selectArray;
+@property (nonatomic, strong) NSMutableArray * dataArray; //
 @end
 
 @implementation ShopsManagementViewController
@@ -39,12 +39,17 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notification:) name:@"text" object:nil];
     
-    _selectArray = [NSArray arrayWithObjects:@"蔬菜",@"水果" ,nil];
+    self.dataArray  = [NSMutableArray arrayWithObjects:@"大白菜",@"肉类",@"蛋类", nil];
+    [self.dataArray insertObject:@"热销" atIndex:0];
+    NSLog(@"-------%@",self.dataArray);
+
     
 }
 
 - (void)creatTableView
 {
+
+    
     _selectedTableView = [[UITableView alloc]init];
     [self.view addSubview:_selectedTableView];
     _selectedTableView.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
@@ -52,7 +57,7 @@
         make.top.equalTo(self.view);
         make.left.equalTo(self.view);
         make.width.equalTo(@100);
-        make.height.equalTo(@(SCREEN_HEIGHT));
+        make.height.equalTo(@(SCREEN_HEIGHT - 100));
     }];
     _selectedTableView.delegate = self;
     _selectedTableView.dataSource = self;
@@ -118,7 +123,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:_selectedTableView]) {
-        return [[ShopManager shareInstance]dataArraySupperInit].count;
+//        return [[ShopManager shareInstance]dataArraySupperInit].count;
+        return self.dataArray.count;
     }else
         
         return 3;
@@ -128,7 +134,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if ([tableView isEqual:_selectedTableView]) {
-        return self.selectArray.count;
+        return 1;
     }else{
         return 1;
     }
@@ -145,13 +151,15 @@
         headView.backgroundColor = [UIColor colorWithWhite:0.915 alpha:1.000];
         
         headView.frame = CGRectMake(0, 0, 100, 40);
-        UIButton * hotBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
-        [hotBtn setTitle:@"热销" forState:(UIControlStateNormal)];
-        [headView addSubview:hotBtn];
-        hotBtn.frame = CGRectMake(10, 10, 30, 30);
-        [hotBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         
-      
+        
+        UILabel *headLabel = [UILabel new];
+        headLabel.text = @"热销";
+        [headView addSubview:headLabel];
+        headLabel.frame = CGRectMake(10, 10, 100, 30);
+        headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
+        
+    
         
         return headView;
     }
@@ -175,7 +183,8 @@
                     ];
         }
         
-        cell.textLabel.text  = [[ShopManager shareInstance]dataArraySupperInit] [indexPath.row];
+//        cell.textLabel.text  = [[ShopManager shareInstance]dataArraySupperInit] [indexPath.row];
+        cell.textLabel.text  = self.dataArray[indexPath.row];
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
     // cell 选中的颜色
