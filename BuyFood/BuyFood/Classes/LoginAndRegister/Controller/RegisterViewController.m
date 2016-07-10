@@ -9,10 +9,12 @@
 #import "RegisterViewController.h"
 #import "CCTextField.h"
 #import "CCLickButton.h"
-#import "RealnameViewController.h"
 #import "RequestTool.h"
 #import "RegisterParams.h"
 #import "ResultsModel.h"
+#import "OrdinaryBusinessRegisterViewController.h"
+#import "BrandShopRegisterViewController.h"
+#import "CommunityShopRegisterViewController.h"
 static NSInteger selectNum;
 
 @interface RegisterViewController ()<UITextFieldDelegate>
@@ -213,7 +215,7 @@ static NSInteger selectNum;
     
     sureButton.frame = CGRectMake(0.17*SCREEN_WIDTH,SCREEN_HEIGHT - 100, 0.66*SCREEN_WIDTH, 50);
     
-    [sureButton setTitle:@"确认注册" forState:UIControlStateNormal ];
+    [sureButton setTitle:@"下一步" forState:UIControlStateNormal ];
     [sureButton addTarget:self action:@selector(didSureBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     
     [self addButtonTouch:sureButton font:20];
@@ -261,7 +263,23 @@ static NSInteger selectNum;
 -(void)didSureBtn:(UIButton *)sender
 {
     // 通过点击的 selectNum 的数字来判断 提交哪个
-    [self.navigationController pushViewController:[[RealnameViewController alloc] init] animated:YES];
+    switch (selectNum)
+    {
+        case 1:
+            [self.navigationController pushViewController:[[OrdinaryBusinessRegisterViewController alloc] init] animated:YES];
+            break;
+        case 2:
+            [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];
+            break;
+        case 3:
+            [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
+            break;
+            
+        default:
+            break;
+    }
+    
+    
 }
 // 封装button属性
 - (void)addButtonTouch:(UIButton *)sender font:(NSInteger)font
