@@ -57,19 +57,15 @@
 /** 获取所有商品一级分类 */
 + (void)shopsListAll:(ShopsManagementParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"/t_productcategory/GetModelListAll"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productcategory/GetModelListAll"];
     [HttpRequestTool GET:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             failure(error);
         } else {
-            NSLog(@"%@",model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
     }];
-    
-    
-    
-    
+
 }
 @end
