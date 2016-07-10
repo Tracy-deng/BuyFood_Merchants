@@ -8,13 +8,13 @@
 
 #import "ShopsManagementViewController.h"
 #import "ShopTableViewCell.h"
-#import "ShopClassViewController.h"
 #import "ShopManager.h"
 #import "GoodsViewController.h"
 #import "ShopDetailViewController.h"
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
+@property (nonatomic, strong) NSArray *selectArray;
 @end
 
 @implementation ShopsManagementViewController
@@ -38,6 +38,9 @@
      */
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notification:) name:@"text" object:nil];
+    
+    _selectArray = [NSArray arrayWithObjects:@"蔬菜",@"水果" ,nil];
+    
 }
 
 - (void)creatTableView
@@ -122,6 +125,15 @@
     
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if ([tableView isEqual:_selectedTableView]) {
+        return self.selectArray.count;
+    }else{
+        return 1;
+    }
+}
+
 
 // 添加区头
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -132,13 +144,14 @@
 
         headView.backgroundColor = [UIColor colorWithWhite:0.915 alpha:1.000];
         
-        headView.frame = CGRectMake(0, 0, SCREEN_WIDTH - 100, 40);
+        headView.frame = CGRectMake(0, 0, 100, 40);
         UIButton * hotBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
         [hotBtn setTitle:@"热销" forState:(UIControlStateNormal)];
         [headView addSubview:hotBtn];
         hotBtn.frame = CGRectMake(10, 10, 30, 30);
         [hotBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
         
+      
         
         return headView;
     }
@@ -186,26 +199,8 @@
 
 - (void)didAddBtn:(UIButton *)sender
 {
-
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *addAction = [UIAlertAction actionWithTitle:@"添加分类" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击添加分类");
-        ShopClassViewController *classVC = [[ShopClassViewController alloc]init];
-        [self.navigationController pushViewController:classVC animated:YES];
-    }];
-    UIAlertAction *addfood = [UIAlertAction actionWithTitle:@"添加商品" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"点击添加商品");
-        GoodsViewController *goodsVC = [[GoodsViewController alloc]init];
-        [self.navigationController pushViewController:goodsVC animated:YES];
-    }];
-    
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"请选择添加类型" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [alertController addAction:cancelAction];
-    [alertController addAction:addAction];
-    [alertController addAction:addfood];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
+    GoodsViewController *goodsVC = [[GoodsViewController alloc]init];
+    [self.navigationController pushViewController:goodsVC animated:YES];
 }
 /**
  *  收到通知 增加分类
