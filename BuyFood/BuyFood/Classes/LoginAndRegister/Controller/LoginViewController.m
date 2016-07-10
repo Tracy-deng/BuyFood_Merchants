@@ -132,32 +132,34 @@
 {
  
     HDCLog(@"点击登录");
-    if (_phoneTextField.text.length != 11 || [_phoneTextField.text isEqualToString:@""])
-    {
-        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
-    }
-    else
-    {
-        RegisterParams* params = [[RegisterParams alloc]init];
-        params.telphone = _phoneTextField.text;
-        params.pswd = _passwordTextField.text;
-        [RequestTool login:params success:^(ResultsModel *result)
-         {
-             if ([result.ErrorCode isEqualToString:@"1"])
-             {
-                 
-                 [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
-                 [MBProgressHUD showSuccess:@"登录成功"];
-             }
-             else
-             {
-                 [MBProgressHUD showError:result.ErrorMsg];
-             }
-             
-         } failure:^(NSError *error) {
-             
-         }];
-    }
+//    if (_phoneTextField.text.length != 11 || [_phoneTextField.text isEqualToString:@""])
+//    {
+//        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
+//    }
+//    else
+//    {
+//        RegisterParams* params = [[RegisterParams alloc]init];
+//        params.telphone = _phoneTextField.text;
+//        params.pswd = _passwordTextField.text;
+//        [RequestTool login:params success:^(ResultsModel *result)
+//         {
+//             if ([result.ErrorCode isEqualToString:@"1"])
+//             {
+//                 
+//                 [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+//                 [MBProgressHUD showSuccess:@"登录成功"];
+//             }
+//             else
+//             {
+//                 [MBProgressHUD showError:result.ErrorMsg];
+//             }
+//             
+//         } failure:^(NSError *error) {
+//             
+//         }];
+//    }
+    
+    [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
 }
 /** 切换根视图 */
 - (void)restoreRootViewController:(UIViewController *)rootViewController
