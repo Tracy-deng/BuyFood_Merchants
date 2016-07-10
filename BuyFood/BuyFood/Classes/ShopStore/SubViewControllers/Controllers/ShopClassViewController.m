@@ -7,13 +7,13 @@
 //
 
 #import "ShopClassViewController.h"
-
-@interface ShopClassViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+#import "RequestTool.h"
+@interface ShopClassViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 
 @property (nonatomic,retain) UITableView *sourceView;
 @property (nonatomic,retain) NSArray *tableArray;
-@property (nonatomic,retain) UITextField *textField;
+
 @end
 
 @implementation ShopClassViewController
@@ -24,7 +24,13 @@
     self.navigationItem.title = @"添加分类";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     
+    [self configureData];
     [self creatUI];
+    
+    
+}
+- (void)configureData
+{
     
 }
 
@@ -32,57 +38,20 @@
 - (void)creatUI{
     
     
-    UILabel * textLabel  = [[UILabel alloc]init];
-    textLabel.text = @"分类名";
-    textLabel.font = [UIFont systemFontOfSize:13];
-    [self.view addSubview:textLabel];
-    textLabel.textColor = [UIColor grayColor];
-    [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(84);
-        make.left.equalTo(self.view).offset(10);
-        make.width.equalTo(@40);
-        make.height.equalTo(@20);
-    }];
-    
-
-    
-    _textField = [[UITextField alloc]init];
-    _textField.placeholder = @"请输入分类名称";
-    _textField.delegate = self;
-    [self.view addSubview:_textField];
-    _textField.backgroundColor = [UIColor whiteColor];
-    _textField.textAlignment = NSTextAlignmentCenter;
-    [_textField addTarget:self action:@selector(dropDown) forControlEvents:(UIControlEventAllTouchEvents)];
-    [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(textLabel.mas_bottom).offset(3);
-        make.left.right.equalTo(self.view);
-        make.height.equalTo(@64);
-    }];
     
     _sourceView = [[UITableView alloc]init];
     _sourceView.delegate = self;
     _sourceView.dataSource = self;
     [self.view addSubview:_sourceView];
     [_sourceView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_textField.mas_bottom);
+        make.top.equalTo(self.view).offset(64);
         make.left.right.equalTo(self.view);
         make.height.equalTo(@(SCREEN_HEIGHT - 171));
     }];
-    _sourceView.hidden = YES;
-    _tableArray = [NSMutableArray arrayWithObjects:@"蔬菜",@"水果",@"肉类",@"蛋类", nil];
 
     
-}
 
-- (void)dropDown
-{
-    [self showTableView:NO];
-}
-
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -112,11 +81,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _textField.text = _tableArray[indexPath.row];
-    
-    [self showAlertView:_textField.text];
-    
-    [self showTableView:YES];
+
+
+
 }
 
 - (void)showAlertView:(NSString *)string
@@ -125,7 +92,7 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSLog(@"你选定了");
         
-        NSDictionary *dictionary = [NSDictionary dictionaryWithObject:_textField.text forKey:@"userInfo"];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObject:nil forKey:@"userInfo"];
         
         [[NSNotificationCenter defaultCenter]postNotificationName:@"text" object:nil userInfo:dictionary];
         
@@ -138,47 +105,9 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)showTableView:(BOOL)isShow
-{
-    if (isShow == YES) {
-        // 如果下拉列表框已经显示  就什么都不做
-        [UIView animateWithDuration:0.5 animations:^{
 
-            _sourceView.hidden = YES;
-        }];
-        return;
-        
-    }else{
-        
-        
-        [UIView animateWithDuration:0.5 animations:^{
-        
-            _sourceView.hidden = NO;
-            
-        }];
-        
-        isShow = YES;
-        
-        // 如果下拉列表框没显示  那么显示
-        
-    }
 
-}
 
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField;
-//{
-//    NSUserDefaults * text = [NSUserDefaults standardUserDefaults];
-//    
-//    [text setObject:textField.text forKey:@"textField"];
-//    
-//    [text synchronize];
-//    
-//    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:textField.text forKey:@"userInfo"];
-//    
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"text" object:nil userInfo:dictionary];
-//    
-//    return YES;
-//}
 
 
 - (void)didReceiveMemoryWarning {
