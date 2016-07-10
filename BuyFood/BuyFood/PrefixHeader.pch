@@ -49,7 +49,7 @@
 #define greenColor HDCColor(46, 192, 70)
 
 //  网络请求
-#define urlPrex @"http://121.40.28.20:8889/"
+#define urlPrex @"http://192.168.1.154/goucaiapi/"
 #define imgPrex @"http://121.40.28.20:8889/"
 
 #endif /* PrefixHeader_pch */

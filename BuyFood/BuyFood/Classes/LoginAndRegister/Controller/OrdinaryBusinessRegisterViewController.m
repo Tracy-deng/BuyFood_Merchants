@@ -39,24 +39,6 @@
 
 @implementation OrdinaryBusinessRegisterViewController
 
-- (NSArray *)classModelArray
-{
-    if (!_classModelArray)
-    {
-        [RequestTool shopsListAll:nil success:^(ResultsModel *result) {
-            self.classModelArray = [ClassModel mj_objectArrayWithKeyValuesArray:result.ModelList];
-//            for (ClassModel* model in self.classModelArray)
-//            {
-//                HDCLog(@"%@", model.categoryname);
-//            }
-        } failure:^(NSError *error) {
-            ;
-        }];
-        
-    }
-    return _classModelArray;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -102,7 +84,6 @@
 {
     return 5;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.cell = [RegisterCell cellWithTableView:tableView];
@@ -172,27 +153,24 @@
 
 - (void)fourBtnClick:(UIButton* )sender
 {
-#warning 帮我看看这块....
     [RequestTool shopsListAll:nil success:^(ResultsModel *result) {
         self.classModelArray = [ClassModel mj_objectArrayWithKeyValuesArray:result.ModelList];
-        
+        NSMutableArray* array = [NSMutableArray array];
+        for (ClassModel* classModel in self.classModelArray)
+        {
+            [array addObject:classModel.categoryname];
+        }
+        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"分类选择" style:MHSheetStyleWeiChat itemTitles:array];
+        actionSheet.cancleTitle = @"取消选择";
+        [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
+         {
+             self.classLabel.text = title;
+         }];
+
     } failure:^(NSError *error) {
         ;
     }];
-//    NSArray* array = @[@"蔬菜水果",
-//                       @"禽蛋肉奶",
-//                       @"豆制品",
-//                       @"净菜熟食",
-//                       @"水产海鲜",
-//                       @"干货调料",
-//                       @"米面粮油"];
     
-    MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"分类选择" style:MHSheetStyleWeiChat itemTitles:self.classModelArray];
-    actionSheet.cancleTitle = @"取消选择";
-    [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
-     {
-         self.classLabel.text = title;
-     }];
 }
 - (void)fiveBtnClick:(UIButton* )sender
 {
@@ -207,19 +185,14 @@
          self.foodMarketLabel.text = title;
      }];
 }
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    
-//    [RequestTool shopsListAll:nil success:^(ResultsModel *result) {
-//        self.classModelArray = [ClassModel mj_objectArrayWithKeyValuesArray:result.ModelList];
-//        for (ClassModel* model in self.classModelArray)
-//        {
-//            HDCLog(@"%@", model.categoryname);
-//        }
-//    } failure:^(NSError *error) {
-//        ;
-//    }];
-//}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+/** 获取经纬度 */
+- (void)getLonAndlat
+{
+    
+}
 @end
