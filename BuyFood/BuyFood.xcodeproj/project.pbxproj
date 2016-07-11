@@ -169,6 +169,7 @@
 		784A116B1D2640A200245304 /* ShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5C11D23749200FDE9C6 /* ShopDetailViewController.m */; };
 		784A11D61D2BB37400245304 /* PrintSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 784A11D51D2BB37400245304 /* PrintSetting.m */; };
 		784A11D91D2C97D200245304 /* PrinterFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 784A11D81D2C97D200245304 /* PrinterFile.m */; };
+		788084E01D3348FB00D3FCDD /* UpLoadImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */; };
 		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
 		78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */; };
 /* End PBXBuildFile section */
@@ -486,6 +487,8 @@
 		784A11D51D2BB37400245304 /* PrintSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintSetting.m; sourceTree = "<group>"; };
 		784A11D71D2C97D200245304 /* PrinterFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrinterFile.h; sourceTree = "<group>"; };
 		784A11D81D2C97D200245304 /* PrinterFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterFile.m; sourceTree = "<group>"; };
+		788084DE1D3348FB00D3FCDD /* UpLoadImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpLoadImageUtil.h; sourceTree = "<group>"; };
+		788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpLoadImageUtil.m; sourceTree = "<group>"; };
 		78FEA85F1D1B8560001D23BC /* CCTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTitleView.h; sourceTree = "<group>"; };
 		78FEA8601D1B8560001D23BC /* CCTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTitleView.m; sourceTree = "<group>"; };
 		78FFC5BD1D23690000FDE9C6 /* GoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsViewController.h; sourceTree = "<group>"; };
@@ -922,6 +925,8 @@
 			children = (
 				0E12A2291D2B97CB008066CC /* RequestTool.h */,
 				0E12A22A1D2B97CB008066CC /* RequestTool.m */,
+				788084DE1D3348FB00D3FCDD /* UpLoadImageUtil.h */,
+				788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1356,6 +1361,7 @@
 				0E12A2671D2B986A008066CC /* NSObject+MJClass.m in Sources */,
 				7802E6D81D1A87BF000B03C2 /* HeaderView.m in Sources */,
 				0E12A2631D2B986A008066CC /* MJFoundation.m in Sources */,
+				788084E01D3348FB00D3FCDD /* UpLoadImageUtil.m in Sources */,
 				0E6319C41D25759000D59998 /* tapImageView.m in Sources */,
 				7802E6D71D1A87AE000B03C2 /* HeaderView.h in Sources */,
 				7802E6D61D1A8766000B03C2 /* InviteViewController.m in Sources */,
