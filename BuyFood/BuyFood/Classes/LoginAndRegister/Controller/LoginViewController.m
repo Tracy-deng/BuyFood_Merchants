@@ -11,10 +11,12 @@
 #import "RegisterViewController.h"
 #import "ForgetPwdViewController.h"
 #import "HDCTabBarViewController.h"
-
 #import "RequestTool.h"
-#import "RegisterParams.h"
+#import "LoginParams.h"
 #import "ResultsModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "MJExtension.h"
 
 @interface LoginViewController ()
 
@@ -132,21 +134,24 @@
 {
  
     HDCLog(@"点击登录");
-    if (_phoneTextField.text.length != 11 || [_phoneTextField.text isEqualToString:@""])
+    if (_phoneTextField.text.length != 11)
     {
         [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
     }
     else
     {
-        RegisterParams* params = [[RegisterParams alloc]init];
-        params.telphone = _phoneTextField.text;
+        LoginParams* params = [[LoginParams alloc]init];
+        params.telephone = _phoneTextField.text;
         params.pswd = _passwordTextField.text;
         [RequestTool login:params success:^(ResultsModel *result)
          {
+             HDCLog(@"%@", result.ModelList);
              if ([result.ErrorCode isEqualToString:@"1"])
              {
-                 
-                 [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+                 NSArray* userInfoArray = [ShopsUserInfo mj_objectArrayWithKeyValuesArray:result.ModelList];
+                 ShopsUserInfo *tmp = userInfoArray[0];
+                 [ShopsUserInfoTool saveAccount:tmp];
+                [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
                  [MBProgressHUD showSuccess:@"登录成功"];
              }
              else

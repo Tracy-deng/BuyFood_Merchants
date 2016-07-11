@@ -10,8 +10,9 @@
 
 @interface RegisterParams : NSObject
 
-@property (nonatomic, strong) NSString* telphone;
+@property (nonatomic, strong) NSString* telephone;
 @property (nonatomic, strong) NSString* verifycode;
 @property (nonatomic, strong) NSString* pswd;
+@property (nonatomic, strong) NSString* markettypeid;
 
 @end
