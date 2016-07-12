@@ -52,6 +52,7 @@
 		0E12A28B1D2B9898008066CC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E12A2881D2B9898008066CC /* MBProgressHUD.m */; };
 		0E16FD021D33DD5B009AAF31 /* ShopsUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E16FCFF1D33DD5B009AAF31 /* ShopsUserInfo.m */; };
 		0E16FD031D33DD5B009AAF31 /* ShopsUserInfoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E16FD011D33DD5B009AAF31 /* ShopsUserInfoTool.m */; };
+		0E16FD061D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E16FD051D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m */; };
 		0E3C1A911D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */; };
 		0E3C1A941D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A931D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m */; };
 		0E3C1A9B1D1C336B0060A7F4 /* MHDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A971D1C336B0060A7F4 /* MHDatePicker.m */; };
@@ -271,6 +272,8 @@
 		0E16FCFF1D33DD5B009AAF31 /* ShopsUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsUserInfo.m; sourceTree = "<group>"; };
 		0E16FD001D33DD5B009AAF31 /* ShopsUserInfoTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsUserInfoTool.h; sourceTree = "<group>"; };
 		0E16FD011D33DD5B009AAF31 /* ShopsUserInfoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsUserInfoTool.m; sourceTree = "<group>"; };
+		0E16FD041D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsSecAndThirdClassParams.h; sourceTree = "<group>"; };
+		0E16FD051D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsSecAndThirdClassParams.m; sourceTree = "<group>"; };
 		0E3C1A8F1D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBusinessTimeViewController.h; sourceTree = "<group>"; };
 		0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseBusinessTimeViewController.m; sourceTree = "<group>"; };
 		0E3C1A921D1B8CDD0060A7F4 /* ChooseBusinessTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBusinessTimeView.h; sourceTree = "<group>"; };
@@ -583,6 +586,8 @@
 				0EEF9DA61D32B1DF00CD83E9 /* ShopsSecondClassParams.m */,
 				0EEF9DA81D32B1FA00CD83E9 /* ShopsThirdClassParams.h */,
 				0EEF9DA91D32B1FA00CD83E9 /* ShopsThirdClassParams.m */,
+				0E16FD041D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.h */,
+				0E16FD051D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m */,
 				782C93281D226A1D00F00DB6 /* ShopManager.h */,
 				782C93291D226A1E00F00DB6 /* ShopManager.m */,
 				784A11D41D2BB37400245304 /* PrintSetting.h */,
@@ -1318,7 +1323,7 @@
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
 
-						DevelopmentTeam = 8V5V9GRF46;
+						DevelopmentTeam = 2VKY6QPH98;
 
 					};
 				};
@@ -1501,6 +1506,7 @@
 				0E6319C51D25759000D59998 /* userTextField.m in Sources */,
 				0E12A2481D2B9838008066CC /* realNameParams.m in Sources */,
 				0E525A541D1283A700AFC95B /* MASCompositeConstraint.m in Sources */,
+				0E16FD061D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m in Sources */,
 				0E525A4F1D1283A700AFC95B /* UIBarButtonItem+Extension.m in Sources */,
 				0EBD08341D17EF18002DD7A4 /* AlreadyOrderViewController.m in Sources */,
 				0E67E0061D22C89200E025BD /* SecondsKillViewController.m in Sources */,
@@ -1635,7 +1641,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "dongchunhuang-gmail.com.";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "eb798877-978c-4685-944f-b04a93b23db5";
 			};
 			name = Debug;
 		};
@@ -1650,7 +1656,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "dongchunhuang-gmail.com.";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "eb798877-978c-4685-944f-b04a93b23db5";
 			};
 			name = Release;
 		};

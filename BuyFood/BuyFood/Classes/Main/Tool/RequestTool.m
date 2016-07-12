@@ -18,7 +18,7 @@
 #import "GetMsgCodeParams.h"
 #import "ImproveinformationParams.h"
 #import "ShopsUserInfo.h"
-
+#import "ShopsSecAndThirdClassParams.h"
 @implementation RequestTool
 
 #pragma mark - login
@@ -108,14 +108,16 @@
 
 
 /** 获取根据商家注册的一级分类下边的二级分类 */
-/** 获取所有商品二级分类 */
-+ (void)shopsSecondClass:(ShopsSecondClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+/** 获取所有商品二三级分类 */
++ (void)shopsSecAndThirdClass:(ShopsSecAndThirdClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"goucaiapi/t_productcategorythree/GetModelListForSuperQuery"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productcategorythree/GetModelListForSuperQuery"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
+            NSLog(@"%@", error.userInfo);
             failure(error);
         } else {
+            NSLog(@"%@",model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }

@@ -135,34 +135,36 @@
  
     HDCLog(@"点击登录");
 
-//    if (_phoneTextField.text.length != 11 || [_phoneTextField.text isEqualToString:@""])
-//    {
-//        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
-//    }
-//    else
-//    {
-//        RegisterParams* params = [[RegisterParams alloc]init];
-//        params.telphone = _phoneTextField.text;
-//        params.pswd = _passwordTextField.text;
-//        [RequestTool login:params success:^(ResultsModel *result)
-//         {
-//             if ([result.ErrorCode isEqualToString:@"1"])
-//             {
-//                 
-//                 [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
-//                 [MBProgressHUD showSuccess:@"登录成功"];
-//             }
-//             else
-//             {
-//                 [MBProgressHUD showError:result.ErrorMsg];
-//             }
-//             
-//         } failure:^(NSError *error) {
-//             
-//         }];
-//    }
-    
-    [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+    if (_phoneTextField.text.length != 11)
+    {
+        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
+    }
+    else
+    {
+        LoginParams* params = [[LoginParams alloc]init];
+        params.telephone = _phoneTextField.text;
+        params.pswd = _passwordTextField.text;
+        [RequestTool login:params success:^(ResultsModel *result)
+         {
+             HDCLog(@"%@", result.ModelList);
+             if ([result.ErrorCode isEqualToString:@"1"])
+             {
+                 NSArray* userInfoArray = [ShopsUserInfo mj_objectArrayWithKeyValuesArray:result.ModelList];
+                 ShopsUserInfo *tmp = userInfoArray[0];
+                 [ShopsUserInfoTool saveAccount:tmp];
+                [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+                 [MBProgressHUD showSuccess:@"登录成功"];
+             }
+             else
+             {
+                 [MBProgressHUD showError:result.ErrorMsg];
+             }
+             
+         } failure:^(NSError *error) {
+             
+         }];
+    }
+
 }
 /** 切换根视图 */
 - (void)restoreRootViewController:(UIViewController *)rootViewController

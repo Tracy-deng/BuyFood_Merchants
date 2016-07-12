@@ -18,6 +18,11 @@
 #import "SaleManagementViewController.h"
 #import "PriceGuideViewController.h"
 #import "AddPrinterViewController.h"
+#import "RequestTool.h"
+#import "ShopsSecAndThirdClassParams.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "ResultsModel.h"
 
 @interface ShopStoreViewController ()
 /** 今日营业额数字 */
@@ -250,6 +255,20 @@
 {
     HDCLog(@"定价指导按钮点击");
     [self.navigationController pushViewController:[[PriceGuideViewController alloc] init] animated:YES];
+}
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    HDCLog(@"...");
+    ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    [RequestTool shopsSecAndThirdClass:params success:^(ResultsModel *result) {
+        HDCLog(@"%@", result.ModelList);
+    } failure:^(NSError *error) {
+        ;
+    }];
 }
 
 @end
