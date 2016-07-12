@@ -11,13 +11,19 @@
 #import "MJExtension.h"
 #import "RegisterParams.h"
 #import "ResultsModel.h"
-#import "AccountTool.h"
+#import "NearbyMarketsParams.h"
+#import "ShopsSecondClassParams.h"
+#import "ShopsThirdClassParams.h"
+#import "LoginParams.h"
+#import "GetMsgCodeParams.h"
+#import "ImproveinformationParams.h"
+#import "ShopsUserInfo.h"
 
 @implementation RequestTool
 
 #pragma mark - login
 /** 获取验证码 */
-+(void)getSMSCode:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
++(void)getSMSCode:(GetMsgCodeParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/GetRegisterSMSCode"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
@@ -25,7 +31,33 @@
            
             failure(error);
         } else {
-            NSLog(@"%@",model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 注册 */
++ (void)registe:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/Add"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 完善商户资料 */
++ (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateMarketInfo"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -33,7 +65,7 @@
 }
 
 /** 登录 */
-+ (void)login:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
++ (void)login:(LoginParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/GetLoginByModel"];
     [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
@@ -41,18 +73,11 @@
             
             failure(error);
         } else {
-            NSLog(@"%@",model);
-            
-            // 将返回的账号字典数据 --> 模型，存进沙盒
-            Account *account = [Account accountWithDict:model];
-            // 存储账号信息
-            [AccountTool saveAccount:account];
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
     }];
 }
-
 
 /** 获取所有商品一级分类 */
 + (void)shopsListAll:(ShopsManagementParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
@@ -66,6 +91,47 @@
             success(result);
         }
     }];
-
 }
+/** 获取附近的菜场 */
++ (void)nearbyMarketsListAll:(NearbyMarketsParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/GetNearestMarketForRegister"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+
+/** 获取根据商家注册的一级分类下边的二级分类 */
+/** 获取所有商品二级分类 */
++ (void)shopsSecondClass:(ShopsSecondClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"goucaiapi/t_productcategorythree/GetModelListForSuperQuery"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+///** 获取所有商品三级分类 */
+//+ (void)shopsThirdClass:(ShopsThirdClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+//{
+//    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productsubcategory/t_productcategorythree/GetModelListAll"];
+//    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+//        if (error) {
+//            failure(error);
+//        } else {
+//            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+//            success(result);
+//        }
+//    }];
+//}
 @end

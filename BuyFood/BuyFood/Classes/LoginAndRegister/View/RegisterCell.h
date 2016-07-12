@@ -16,5 +16,5 @@
 
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
-- (void)setLeftTitleLabel:(NSString* )leftTitleLabel andContentTextFieldPlaceholder:(NSString* )textFieldPlaceholder andContectText:(NSString* )contentText;
+- (void)setLeftTitleLabel:(NSString* )leftTitleLabel andContentTextFieldPlaceholder:(NSString* )textFieldPlaceholder;
 @end

@@ -54,10 +54,9 @@
     }];
 }
 
-- (void)setLeftTitleLabel:(NSString* )leftTitleLabel andContentTextFieldPlaceholder:(NSString* )textFieldPlaceholder andContectText:(NSString* )contentText
+- (void)setLeftTitleLabel:(NSString* )leftTitleLabel andContentTextFieldPlaceholder:(NSString* )textFieldPlaceholder 
 {
     self.leftTitleLabel.text = leftTitleLabel;
-    self.contentTextField.text = contentText;
     self.contentTextField.placeholder = textFieldPlaceholder;
 }
 

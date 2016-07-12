@@ -9,7 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @class  RegisterParams,
+        LoginParams,
         ResultsModel,
+        GetMsgCodeParams,
+        ImproveinformationParams,
+        ShopsUserInfo,
         realNameParams,
         inviteOrderListParams,
         DistributionParams,
@@ -20,20 +24,26 @@
         MyBillParams,
         EvaluationParams,
         BusinessStatusParams,
-        ShopsManagementParams;
+        ShopsManagementParams,
+        NearbyMarketsParams,
+        ShopsSecondClassParams,
+        ShopsThirdClassParams;
 
 
 @interface RequestTool : NSObject
 
 #pragma mark - login 
 /** 获取验证码 */
-+ (void)getSMSCode:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)getSMSCode:(GetMsgCodeParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 注册 */
 + (void)registe:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 实名认证 */
 + (void)realname:(realNameParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 登录 */
-+ (void)login:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)login:(LoginParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 完善商户资料 */
+//+ (void)improveInformation:(ShopsUserInfo *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 忘记密码 */
 + (void)forgetPwd:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
@@ -64,5 +74,12 @@
 + (void)shopsManagement:(ShopsManagementParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取所有商品一级分类 */
 + (void)shopsListAll:(ShopsManagementParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取附近的菜场 */
++ (void)nearbyMarketsListAll:(NearbyMarketsParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取根据商家注册的一级分类下边的二三级分类 */
+/** 获取所有商品二三级分类 */
++ (void)shopsSecondClass:(ShopsSecondClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+///** 获取所有商品三级分类 */
+//+ (void)shopsThirdClass:(ShopsThirdClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 @end

@@ -10,6 +10,8 @@
 
 @interface FoodMarketModel : NSObject
 
+@property (nonatomic, strong) NSString* detailaddress;
+@property (nonatomic, strong) NSString* marketname;
 @property (nonatomic, strong) NSString* markettypename;
 
 @end

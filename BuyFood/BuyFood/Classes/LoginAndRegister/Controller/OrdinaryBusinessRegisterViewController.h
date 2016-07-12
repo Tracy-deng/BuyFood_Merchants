@@ -10,4 +10,6 @@
 
 @interface OrdinaryBusinessRegisterViewController : UIViewController
 
+@property (nonatomic, strong) NSString* marketuserid;
+
 @end

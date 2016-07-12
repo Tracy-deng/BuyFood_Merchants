@@ -377,6 +377,7 @@
 - (void)setCancleTitle:(NSString *)cancleTitle
 {
     if (cancleTitle) {
+        [_footView.footButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [_footView.footButton setTitle:cancleTitle forState:UIControlStateNormal];
     }
 }

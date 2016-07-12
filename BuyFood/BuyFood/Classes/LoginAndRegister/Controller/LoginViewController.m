@@ -11,10 +11,12 @@
 #import "RegisterViewController.h"
 #import "ForgetPwdViewController.h"
 #import "HDCTabBarViewController.h"
-
 #import "RequestTool.h"
-#import "RegisterParams.h"
+#import "LoginParams.h"
 #import "ResultsModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "MJExtension.h"
 
 @interface LoginViewController ()
 
@@ -132,6 +134,7 @@
 {
  
     HDCLog(@"点击登录");
+
 //    if (_phoneTextField.text.length != 11 || [_phoneTextField.text isEqualToString:@""])
 //    {
 //        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
