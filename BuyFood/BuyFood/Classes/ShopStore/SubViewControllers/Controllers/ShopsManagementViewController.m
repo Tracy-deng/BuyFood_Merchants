@@ -11,13 +11,26 @@
 #import "ShopManager.h"
 #import "GoodsViewController.h"
 #import "ShopDetailViewController.h"
+#import "ThreeCatego.h"
+#import "RequestTool.h"
+#import "ShopsSecAndThirdClassParams.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "ResultsModel.h"
+#import "MJExtension.h"
+#import "ShopThreeCate.h"
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
-@property (nonatomic, strong) NSMutableArray * dataArray; //
+@property (nonatomic, strong) NSMutableArray * selectArray; // 选择数据源
+@property (nonatomic, strong) NSMutableArray * mainDataArray;  // 三级分类
 @end
 
 @implementation ShopsManagementViewController
+{
+    NSMutableDictionary<NSString *, NSMutableArray<ThreeCatego *> *> *billData;
+    NSMutableDictionary<NSString *, ThreeCatego *> *billStatistics;
+}
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"text" object:nil];
@@ -38,12 +51,43 @@
      */
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notification:) name:@"text" object:nil];
-    
-    self.dataArray  = [NSMutableArray arrayWithObjects:@"大白菜",@"肉类",@"蛋类", nil];
-    [self.dataArray insertObject:@"热销" atIndex:0];
-    NSLog(@"-------%@",self.dataArray);
+
+    [self.selectedTableView registerClass:[ShopThreeCate class] forHeaderFooterViewReuseIdentifier:@"head"];
+    [self configureData];
 
     
+}
+
+- (void)configureData
+{
+    ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    [RequestTool shopsSecAndThirdClass:params success:^(ResultsModel *result) {
+        HDCLog(@"%@", result.ModelList);
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        dataArray  = [ThreeCatego mj_objectArrayWithKeyValuesArray:result.ModelList];
+//       NSMutableArray *dataArray = [NSMutableArray arrayWithArray:result.ModelList];
+        NSLog(@"%@",dataArray);
+        
+        for (ThreeCatego *modle in dataArray) {
+            NSString *subCate =  modle.subcategoryid;
+            if (![billData.allKeys containsObject:subCate]) {
+                [billData setObject:[NSMutableArray new] forKey:subCate];
+                ThreeCatego * cateModel = [ThreeCatego new];
+                cateModel.subcategoryid = subCate;
+                [billStatistics setObject:cateModel forKey:subCate];
+                
+                NSMutableArray<ThreeCatego *> *date = [billData objectForKey:subCate];
+                [date addObject:modle];
+            }
+            [self.mainTableView reloadData];
+            [self.selectedTableView reloadData];
+            
+        }
+    } failure:^(NSError *error) {
+        ;
+    }];
 }
 
 - (void)creatTableView
@@ -123,8 +167,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:_selectedTableView]) {
-//        return [[ShopManager shareInstance]dataArraySupperInit].count;
-        return self.dataArray.count;
+
+        NSArray *keys = billData.allKeys;
+        NSString *catego = [keys objectAtIndex:section];
+//        ThreeCatego *state = [billStatistics objectForKey:catego];
+        return [[billData objectForKey:catego]count];
     }else
         
         return 3;
@@ -134,7 +181,9 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if ([tableView isEqual:_selectedTableView]) {
-        return 1;
+        
+      return   billData.allKeys.count;
+        
     }else{
         return 1;
     }
@@ -162,6 +211,21 @@
     
         
         return headView;
+    }else if([tableView isEqual:_selectedTableView]){
+        
+        NSArray *sortKeys  = billData.allKeys;
+        if (sortKeys.count != 0) {
+            
+            NSString *catego = [sortKeys objectAtIndex:section];
+            ThreeCatego *sate = [billStatistics objectForKey:catego];
+            ShopThreeCate * headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
+            headView.frame = CGRectMake(0, 0, 100, 50);
+            headView.model = [[billData objectForKey:catego] firstObject];
+            headView.nameLabel.text = [NSString stringWithFormat:@"%@",sate.subcategoryname];
+            return headView;
+            
+        }
+        
     }
     
     return 0;
@@ -184,7 +248,17 @@
         }
         
 //        cell.textLabel.text  = [[ShopManager shareInstance]dataArraySupperInit] [indexPath.row];
-        cell.textLabel.text  = self.dataArray[indexPath.row];
+        
+        NSArray *keys = billData.allKeys;
+        if (keys.count != 0) {
+            
+            NSString *catego = [keys objectAtIndex:indexPath.section];
+            ThreeCatego *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
+            cell.textLabel.text = model.threecategoryname;
+        }
+        
+        
+        cell.textLabel.text  = self.mainDataArray[indexPath.row];
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
     // cell 选中的颜色
@@ -256,7 +330,7 @@
         return 40;
     }else
         
-        return 0;
+        return 50;
 }
 
 
