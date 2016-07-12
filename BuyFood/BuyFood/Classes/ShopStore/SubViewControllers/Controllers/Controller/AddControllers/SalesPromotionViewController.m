@@ -87,7 +87,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 8;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -121,7 +121,7 @@
         SalesPromotionCell* cell = [SalesPromotionCell cellWithTableView:tableView];
         if (indexPath.row == 1)
         {
-            [cell setTitleLabel:@"分类:" andContentLabel:@"蔬菜类"];
+            [cell setTitleLabel:@"二级分类:" andContentLabel:@"蔬菜类"];
         }
         else if (indexPath.row == 2)
         {
