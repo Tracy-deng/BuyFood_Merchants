@@ -125,13 +125,17 @@
         }
         else if (indexPath.row == 2)
         {
-            [cell setTitleLabel:@"价格:" andContentLabel:@"0.00"];
+            [cell setTitleLabel:@"三级分类:" andContentLabel:@"茎叶类"];
         }
         else if (indexPath.row == 3)
         {
-            [cell setTitleLabel:@"单位" andContentLabel:@"份"];
+            [cell setTitleLabel:@"价格:" andContentLabel:@"0.00"];
         }
         else if (indexPath.row == 4)
+        {
+            [cell setTitleLabel:@"单位" andContentLabel:@"份"];
+        }
+        else if (indexPath.row == 5)
         {
             static NSString* ID = @"Cell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -156,11 +160,11 @@
             }];
             return cell;
         }
-        else if (indexPath.row == 5)
+        else if (indexPath.row == 6)
         {
             [cell setTitleLabel:@"标签" andContentLabel:@"特价"];
         }
-        else if (indexPath.row == 6)
+        else if (indexPath.row == 7)
         {
             [cell setTitleLabel:@"描述" andContentLabel:@"二十字以内"];
         }

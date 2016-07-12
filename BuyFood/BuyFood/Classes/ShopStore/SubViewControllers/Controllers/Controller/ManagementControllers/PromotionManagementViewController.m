@@ -103,5 +103,10 @@ UITableViewDataSource>
     return @[deleteRowAction,topRowAction];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 @end
