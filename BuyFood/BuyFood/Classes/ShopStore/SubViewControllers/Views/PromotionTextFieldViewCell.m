@@ -1,31 +1,30 @@
 //
-//  SalesPromotionCell.m
-//  挖萝卜
+//  PromotionTextFieldViewCell.m
+//  BuyFood
 //
-//  Created by 黄栋春 on 16/6/25.
+//  Created by 黄栋春 on 16/7/14.
 //  Copyright © 2016年 huangdongchun. All rights reserved.
 //
 
-#import "SalesPromotionCell.h"
+#import "PromotionTextFieldViewCell.h"
 
-@interface SalesPromotionCell ()
+@interface PromotionTextFieldViewCell ()
+
 
 @property (nonatomic, strong) UILabel* titleLabel;
-@property (nonatomic, strong) UILabel* contentLabel;
 
 
 @end
 
-@implementation SalesPromotionCell
+@implementation PromotionTextFieldViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
 {
-    static NSString *ID = @"status1";
-    SalesPromotionCell* cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    static NSString *ID = @"status2";
+    PromotionTextFieldViewCell* cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell)
     {
-        cell = [[SalesPromotionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell = [[PromotionTextFieldViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     return cell;
 }
@@ -53,21 +52,23 @@
         make.height.equalTo(@30);
     }];
     
-    self.contentLabel = [[UILabel alloc] init];
-    self.contentLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
-    self.contentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
-    [self.contentView addSubview:self.contentLabel];
-    [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.titleLabel.mas_right).offset(30);
+    self.contentTextField = [[UITextField alloc] init];
+    self.contentTextField.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
+    self.contentTextField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    [self.contentView addSubview:self.contentTextField];
+    [self.contentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.titleLabel.mas_right).offset(20);
         make.top.equalTo(self.titleLabel);
-        make.width.equalTo(self.titleLabel);
-        make.height.equalTo(self.titleLabel);
+        make.width.equalTo(@150);
+        make.height.equalTo(@45);
     }];
 }
 
-- (void)setTitleLabel:(NSString* )title andContentLabel:(NSString* )contentText
+- (void)setTitleLabel:(NSString* )title andContentTextFieldPlaceholder:(NSString* )contentTextFieldPlaceholder
 {
     self.titleLabel.text = title;
-    self.contentLabel.text = contentText;
+    self.contentTextField.placeholder = contentTextFieldPlaceholder;
 }
+
+
 @end

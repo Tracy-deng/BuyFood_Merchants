@@ -21,15 +21,18 @@
 #import "ShopThreeCate.h"
 #import "ModlistModel.h"
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
+
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
 @property (nonatomic, strong) NSMutableArray * selectArray; // 选择数据源
 @property (nonatomic, strong) NSMutableArray * mainDataArray;  // 三级分类
+@property (nonatomic, strong) ModlistModel *modlst;
+
 @end
 
 @implementation ShopsManagementViewController
 {
-     NSMutableDictionary<NSString *, NSMutableArray<ModlistModel *> *> *billData;
+    NSMutableDictionary<NSString *, NSMutableArray<ModlistModel *> *> *billData;
 }
 - (void)dealloc
 {
@@ -51,11 +54,11 @@
      */
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notification:) name:@"text" object:nil];
-
+    
     [self.selectedTableView registerClass:[ShopThreeCate class] forHeaderFooterViewReuseIdentifier:@"head"];
     billData = [NSMutableDictionary new];
     [self configureData];
-
+    
     
 }
 // 数据请求
@@ -68,19 +71,23 @@
         NSMutableArray *dataArray = [[NSMutableArray alloc]init];
         dataArray  = [ThreeCatego mj_objectArrayWithKeyValuesArray:result.ModelList];
         for (ThreeCatego *modle in dataArray) {
-
+            
             for (NSDictionary *dic in modle.ModelList) {
                 NSString *subCate = dic[@"subcategoryid"];
+                HDCLog(@"subcategoryid == %@",subCate);
                 if (![billData.allKeys containsObject:subCate]){
-                     [billData setObject:[NSMutableArray new] forKey:subCate];
+                    [billData setObject:[NSMutableArray new] forKey:subCate];
                 }
-                ModlistModel *modlst = [[ModlistModel alloc]init];
-                modlst.subcategoryid  = subCate;
-                modlst.subcategoryname = dic[@"subcategoryname"];
-                modlst.threecategoryid = dic[@"threecategoryid"];
-                modlst.threecategoryname = dic[@"threecategoryname"];
+                self.modlst = [[ModlistModel alloc]init];
+                self.modlst.subcategoryid  = subCate;
+                self.modlst.subcategoryname = dic[@"subcategoryname"];
+                HDCLog(@"subcategoryname == %@",self.modlst.subcategoryname);
+                self.modlst.threecategoryid = dic[@"threecategoryid"];
+                HDCLog(@"threecategoryid == %@",self.modlst.threecategoryid);
+                self.modlst.threecategoryname = dic[@"threecategoryname"];
+                HDCLog(@"threecategoryname == %@",self.modlst.threecategoryname);
                 NSMutableArray<ModlistModel *> *date = [billData objectForKey:subCate];
-                [date addObject:modlst];
+                [date addObject:self.modlst];
             }
             
             [self.mainTableView reloadData];
@@ -112,8 +119,6 @@
 }
 - (void)creatTableView
 {
-
-    
     _selectedTableView = [[UITableView alloc]init];
     [self.view addSubview:_selectedTableView];
     _selectedTableView.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
@@ -149,7 +154,7 @@
     [self.mainTableView registerClass:[ShopTableViewCell class] forCellReuseIdentifier:@"reuse"];
     
     
-   
+    
     
     UIButton * addBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     addBtn.backgroundColor = greenColor;
@@ -187,10 +192,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:_selectedTableView]) {
-
+        
         NSArray *keys = [self getSortedKeys:billData];
         NSString *catego = [keys objectAtIndex:section];
-      
+        
         return [[billData objectForKey:catego]count];
     }else
         
@@ -202,8 +207,8 @@
 {
     if ([tableView isEqual:_selectedTableView]) {
         
-
-      return   billData.allKeys.count;
+        
+        return   billData.allKeys.count;
         
     }else{
         return 1;
@@ -217,7 +222,7 @@
     if ([tableView isEqual:_mainTableView]) {
         
         UIView *headView = [[UIView alloc]init];
-
+        
         headView.backgroundColor = [UIColor colorWithWhite:0.915 alpha:1.000];
         
         headView.frame = CGRectMake(0, 0, 100, 40);
@@ -229,7 +234,7 @@
         headLabel.frame = CGRectMake(10, 10, 100, 30);
         headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
         
-    
+        
         
         return headView;
     }else if([tableView isEqual:_selectedTableView]){
@@ -265,7 +270,6 @@
             cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier
                     ];
         }
-        
         NSArray *keys = [self getSortedKeys:billData];
         if (keys.count != 0) {
             
@@ -277,11 +281,11 @@
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
-    // cell 选中的颜色
+        // cell 选中的颜色
         cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
         return cell;
-
+        
     }else{
         
         ShopTableViewCell * shopCell = [_mainTableView dequeueReusableCellWithIdentifier:@"reuse"];
@@ -292,8 +296,6 @@
         
         return shopCell;
     }
-    
-
 }
 
 - (void)didAddBtn:(UIButton *)sender
@@ -311,21 +313,23 @@
     NSDictionary *dic = [notification userInfo];
     
     [[ShopManager shareInstance] addArrayWithString:dic[@"userInfo"]];
-
-
+    
+    
     [self.selectedTableView reloadData];
 }
 
-// 点击 mainTableView 进入商品详情
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // 点击 mainTableView 进入商品详情
     if([tableView isEqual:_mainTableView])
     {
         ShopDetailViewController *detailVC =  [[ShopDetailViewController alloc]init];
         [self.navigationController pushViewController:detailVC animated:YES];
     }
-   
-    
+    else{// 点击selectedTableView切换数据
+        HDCLog(@"indexPath.row === %ld", indexPath.row);
+    }
 }
 // 每个tableView 的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -360,14 +364,14 @@
     }else{
         [self.mainTableView setEditing:YES animated:YES];
     }
-
+    
 }
 
 
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     return YES;
 }
 

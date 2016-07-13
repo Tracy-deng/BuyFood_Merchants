@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@interface Subcatogory : NSObject<NSCoding>
+@interface Subcatogory : NSObject
 
 @property (nonatomic, strong) NSNumber *pagesize;
 @property (nonatomic, copy) NSString *categoryname;

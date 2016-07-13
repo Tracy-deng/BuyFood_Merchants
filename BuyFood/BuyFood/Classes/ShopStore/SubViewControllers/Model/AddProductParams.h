@@ -20,9 +20,9 @@
 /** 商品名称 */
 @property (nonatomic, strong) NSString* productname;
 /** 商品库存（即重量、份、数量等）*/
-@property (nonatomic, assign) double productstock;
+@property (nonatomic, strong) NSString* productstock;
 /** 商品原售价格 */
-@property (nonatomic, assign) double productoutprice;
+@property (nonatomic, strong) NSString* productoutprice;
 /** 商品描述 */
 @property (nonatomic, strong) NSString* productremark;
 /** 商品单位 商品单位（份、克等）*/
@@ -33,6 +33,7 @@
 @property (nonatomic, strong) NSString* promotion;
 /** 商品现售价格（促销价格）*/
 @property (nonatomic, strong) NSString* productoutprice2;
-
+/** 商品图片 */
+@property (nonatomic, strong) NSString* productpic;
 
 @end

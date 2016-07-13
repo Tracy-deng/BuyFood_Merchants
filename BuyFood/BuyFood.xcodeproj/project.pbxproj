@@ -104,6 +104,7 @@
 		0E6319CB1D25909900D59998 /* TakeMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319CA1D25909900D59998 /* TakeMoneyCell.m */; };
 		0E6398ED1D362677008D9DC0 /* AddProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6398EC1D362677008D9DC0 /* AddProductParams.m */; };
 		0E6398F01D362B35008D9DC0 /* GetProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6398EF1D362B35008D9DC0 /* GetProductParams.m */; };
+		0E6398F31D36B782008D9DC0 /* PromotionTextFieldViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6398F21D36B782008D9DC0 /* PromotionTextFieldViewCell.m */; };
 		0E67DFE81D22C86B00E025BD /* ManagementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE31D22C86B00E025BD /* ManagementCell.m */; };
 		0E67DFE91D22C86B00E025BD /* SalesPromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */; };
 		0E67DFEA1D22C86B00E025BD /* SecondsKillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */; };
@@ -386,6 +387,8 @@
 		0E6398EC1D362677008D9DC0 /* AddProductParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProductParams.m; sourceTree = "<group>"; };
 		0E6398EE1D362B35008D9DC0 /* GetProductParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProductParams.h; sourceTree = "<group>"; };
 		0E6398EF1D362B35008D9DC0 /* GetProductParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProductParams.m; sourceTree = "<group>"; };
+		0E6398F11D36B782008D9DC0 /* PromotionTextFieldViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionTextFieldViewCell.h; sourceTree = "<group>"; };
+		0E6398F21D36B782008D9DC0 /* PromotionTextFieldViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionTextFieldViewCell.m; sourceTree = "<group>"; };
 		0E67DFE21D22C86B00E025BD /* ManagementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagementCell.h; sourceTree = "<group>"; };
 		0E67DFE31D22C86B00E025BD /* ManagementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagementCell.m; sourceTree = "<group>"; };
 		0E67DFE41D22C86B00E025BD /* SalesPromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesPromotionCell.h; sourceTree = "<group>"; };
@@ -660,6 +663,8 @@
 				0E67DFE31D22C86B00E025BD /* ManagementCell.m */,
 				0E67DFE41D22C86B00E025BD /* SalesPromotionCell.h */,
 				0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */,
+				0E6398F11D36B782008D9DC0 /* PromotionTextFieldViewCell.h */,
+				0E6398F21D36B782008D9DC0 /* PromotionTextFieldViewCell.m */,
 				0E67DFE61D22C86B00E025BD /* SecondsKillCell.h */,
 				0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */,
 				0E67E00C1D22C97000E025BD /* SetPriceAdviceCell.h */,
@@ -1432,6 +1437,7 @@
 				0E12A27D1D2B9879008066CC /* AFNetworkReachabilityManager.m in Sources */,
 				0E12A2651D2B986A008066CC /* MJPropertyKey.m in Sources */,
 				0E12A28B1D2B9898008066CC /* MBProgressHUD.m in Sources */,
+				0E6398F31D36B782008D9DC0 /* PromotionTextFieldViewCell.m in Sources */,
 				0E12A27F1D2B9879008066CC /* AFURLRequestSerialization.m in Sources */,
 				0E3C1AA01D1C37EB0060A7F4 /* MyBillHeaderView.m in Sources */,
 				7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */,

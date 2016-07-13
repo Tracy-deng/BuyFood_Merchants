@@ -257,7 +257,7 @@
     [self.navigationController pushViewController:[[PriceGuideViewController alloc] init] animated:YES];
 }
 
-
+/**
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     HDCLog(@"...");
@@ -270,5 +270,5 @@
         ;
     }];
 }
-
+*/
 @end

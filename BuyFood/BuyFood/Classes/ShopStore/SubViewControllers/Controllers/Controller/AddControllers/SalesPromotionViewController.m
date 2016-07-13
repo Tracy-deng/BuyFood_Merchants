@@ -93,7 +93,7 @@
 {
     if (indexPath.row == 0)
     {
-        static NSString* ID = @"Cell";
+        static NSString* ID = @"Cell1";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (!cell)
@@ -137,7 +137,7 @@
         }
         else if (indexPath.row == 5)
         {
-            static NSString* ID = @"Cell";
+            static NSString* ID = @"Cell2";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
             
             if (!cell)

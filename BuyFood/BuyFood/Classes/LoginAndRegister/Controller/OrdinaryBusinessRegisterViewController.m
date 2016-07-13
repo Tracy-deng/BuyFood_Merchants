@@ -278,17 +278,6 @@
 }
 - (void)nextBtnClick:(UIButton* )sender
 {
-    
-    //ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
-    //    shopsInfo.marketname = @"紫东商铺";
-    //    shopsInfo.telephone2 = @"12345678";
-    //    shopsInfo.detailaddress = @"紫东创意大厦";
-    //    shopsInfo.categoryid = [NSString stringWithFormat:@"%ld", self.selectClassIndex];
-    //    shopsInfo.marketsubname = _foodMarketLabel.text;
-    //    params.marketname = @"江宁菜市场";
-    //    params.telephone2 = @"123456";
-    //    params.detailaddress = @"南京市江宁区";
-    //    [ShopsUserInfoTool saveAccount:shopsInfo];
     ImproveinformationParams *params = [[ImproveinformationParams alloc] init];
     params.marketname = self.marketname;
     params.telephone2 = self.telephone;

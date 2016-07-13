@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ModlistModel.h"
 
 @interface GoodsViewController : UIViewController
 
