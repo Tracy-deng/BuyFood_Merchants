@@ -58,7 +58,7 @@
 
     
 }
-
+// 数据请求
 - (void)configureData
 {
     ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
@@ -91,6 +91,8 @@
         ;
     }];
 }
+
+// 对获得数据排序  小的在前
 -(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
 {
     NSArray *keys = [dictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
