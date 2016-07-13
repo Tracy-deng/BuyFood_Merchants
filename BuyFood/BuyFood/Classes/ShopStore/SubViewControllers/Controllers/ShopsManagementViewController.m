@@ -94,7 +94,23 @@
         ;
     }];
 }
-
+-(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
+{
+    NSArray *keys = [dictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *first = obj1;
+        NSString *second = obj2;
+        int firstValue = [first intValue];
+        int secondValue = [second intValue];
+        if (firstValue < secondValue) {
+            return NSOrderedAscending;
+        }else if(firstValue > secondValue){
+            return NSOrderedDescending;
+        }else{
+            return NSOrderedSame;
+        }
+    }];
+    return keys;
+}
 - (void)creatTableView
 {
 
@@ -173,7 +189,7 @@
 {
     if ([tableView isEqual:_selectedTableView]) {
 
-        NSArray *keys = billData.allKeys;
+        NSArray *keys = [self getSortedKeys:billData];
         NSString *catego = [keys objectAtIndex:section];
         NSInteger i = [[billData objectForKey:catego]count];
         NSLog(@"--------------------%ld",i);
@@ -188,6 +204,7 @@
 {
     if ([tableView isEqual:_selectedTableView]) {
         
+
       return   billData.allKeys.count;
         
     }else{
@@ -219,7 +236,7 @@
         return headView;
     }else if([tableView isEqual:_selectedTableView]){
         
-        NSArray *sortKeys  = billData.allKeys;
+        NSArray *sortKeys = [self getSortedKeys:billData];
         if (sortKeys.count != 0) {
             
             NSString *catego = [sortKeys objectAtIndex:section];
@@ -251,7 +268,7 @@
                     ];
         }
         
-        NSArray *keys = billData.allKeys;
+        NSArray *keys = [self getSortedKeys:billData];
         if (keys.count != 0) {
             
             NSString *catego = [keys objectAtIndex:indexPath.section];
