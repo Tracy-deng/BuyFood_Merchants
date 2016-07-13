@@ -30,7 +30,6 @@
 @implementation ShopsManagementViewController
 {
      NSMutableDictionary<NSString *, NSMutableArray<ModlistModel *> *> *billData;
-     NSMutableDictionary<NSString *, ModlistModel *> *billStatistics;
 }
 - (void)dealloc
 {
@@ -55,7 +54,6 @@
 
     [self.selectedTableView registerClass:[ShopThreeCate class] forHeaderFooterViewReuseIdentifier:@"head"];
     billData = [NSMutableDictionary new];
-    billStatistics = [NSMutableDictionary new];
     [self configureData];
 
     
@@ -73,15 +71,14 @@
 
             for (NSDictionary *dic in modle.ModelList) {
                 NSString *subCate = dic[@"subcategoryid"];
-                [billData setObject:[NSMutableArray new] forKey:subCate];
+                if (![billData.allKeys containsObject:subCate]){
+                     [billData setObject:[NSMutableArray new] forKey:subCate];
+                }
                 ModlistModel *modlst = [[ModlistModel alloc]init];
                 modlst.subcategoryid  = subCate;
                 modlst.subcategoryname = dic[@"subcategoryname"];
                 modlst.threecategoryid = dic[@"threecategoryid"];
                 modlst.threecategoryname = dic[@"threecategoryname"];
-                NSLog(@"%@   %@",modlst.subcategoryid,  modlst.subcategoryname);
-                NSLog(@"%@    %@",modlst.threecategoryid, modlst.threecategoryname);
-                [billStatistics setObject:modlst forKey:subCate];
                 NSMutableArray<ModlistModel *> *date = [billData objectForKey:subCate];
                 [date addObject:modlst];
             }
@@ -191,9 +188,8 @@
 
         NSArray *keys = [self getSortedKeys:billData];
         NSString *catego = [keys objectAtIndex:section];
-        NSInteger i = [[billData objectForKey:catego]count];
-        NSLog(@"--------------------%ld",i);
-        return i;
+      
+        return [[billData objectForKey:catego]count];
     }else
         
         return 3;
@@ -275,8 +271,7 @@
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
             cell.textLabel.text = model.threecategoryname;
         }
-            NSLog(@" %@",billData);
-            NSLog(@"%@ ", billStatistics);
+        
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
     // cell 选中的颜色
