@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Subcatogory.h"
 @interface ThreeCatego : NSObject
-@property (nonatomic, strong) NSString * subcategoryid; // 二级商品的id
-@property (nonatomic, strong) NSString * subcategoryname; // 二级商品的名称
-@property (nonatomic, strong) NSString * threecategoryid; // 三级商品的id
-@property (nonatomic, strong) NSString * threecategoryname; // 三级商品的名称
+@property (nonatomic, strong) NSArray *ModelList;
+@property (nonatomic, strong) Subcatogory *Subcatogory;
+
 @end

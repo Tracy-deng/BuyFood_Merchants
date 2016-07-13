@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ThreeCatego.h"
+#import "ModlistModel.h"
 @interface ShopThreeCate : UITableViewHeaderFooterView
 @property (nonatomic, strong) UILabel *nameLabel; // 二级分区名称
 
-@property(nonatomic, strong) ThreeCatego *model;
+@property(nonatomic, strong) ModlistModel *model;
 @end

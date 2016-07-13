@@ -31,8 +31,9 @@
     return self;
 }
 
-- (void)setModel:(ThreeCatego *)model
+- (void)setModel:(ModlistModel *)model
 {
     _nameLabel.text = model.subcategoryname;
 }
+
 @end

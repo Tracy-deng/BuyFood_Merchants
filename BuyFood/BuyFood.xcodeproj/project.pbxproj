@@ -167,6 +167,8 @@
 		7802E6DC1D1A87F4000B03C2 /* DistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6CA1D1A2EC3000B03C2 /* DistributionViewController.m */; };
 		78089F771D34C8D600DBAB88 /* ThreeCatego.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F761D34C8D600DBAB88 /* ThreeCatego.m */; };
 		78089F7A1D34D81500DBAB88 /* ShopThreeCate.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F791D34D81500DBAB88 /* ShopThreeCate.m */; };
+		78089F801D35D35700DBAB88 /* Subcatogory.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F7F1D35D35700DBAB88 /* Subcatogory.m */; };
+		78089F831D35D5F200DBAB88 /* ModlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F821D35D5F200DBAB88 /* ModlistModel.m */; };
 		782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 782C93291D226A1E00F00DB6 /* ShopManager.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
@@ -494,6 +496,10 @@
 		78089F761D34C8D600DBAB88 /* ThreeCatego.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeCatego.m; sourceTree = "<group>"; };
 		78089F781D34D81500DBAB88 /* ShopThreeCate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopThreeCate.h; sourceTree = "<group>"; };
 		78089F791D34D81500DBAB88 /* ShopThreeCate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopThreeCate.m; sourceTree = "<group>"; };
+		78089F7E1D35D35700DBAB88 /* Subcatogory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subcatogory.h; sourceTree = "<group>"; };
+		78089F7F1D35D35700DBAB88 /* Subcatogory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subcatogory.m; sourceTree = "<group>"; };
+		78089F811D35D5F200DBAB88 /* ModlistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModlistModel.h; sourceTree = "<group>"; };
+		78089F821D35D5F200DBAB88 /* ModlistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModlistModel.m; sourceTree = "<group>"; };
 		782C93281D226A1D00F00DB6 /* ShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopManager.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.h; sourceTree = SOURCE_ROOT; };
 		782C93291D226A1E00F00DB6 /* ShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopManager.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.m; sourceTree = SOURCE_ROOT; };
 		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -602,6 +608,10 @@
 				784A11D81D2C97D200245304 /* PrinterFile.m */,
 				78089F751D34C8D600DBAB88 /* ThreeCatego.h */,
 				78089F761D34C8D600DBAB88 /* ThreeCatego.m */,
+				78089F7E1D35D35700DBAB88 /* Subcatogory.h */,
+				78089F7F1D35D35700DBAB88 /* Subcatogory.m */,
+				78089F811D35D5F200DBAB88 /* ModlistModel.h */,
+				78089F821D35D5F200DBAB88 /* ModlistModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1384,6 +1394,7 @@
 				7802E6DB1D1A87F4000B03C2 /* DistributionViewController.h in Sources */,
 				0E6319C81D258D2600D59998 /* TakeMoneyViewController.m in Sources */,
 				7802E6DC1D1A87F4000B03C2 /* DistributionViewController.m in Sources */,
+				78089F801D35D35700DBAB88 /* Subcatogory.m in Sources */,
 				7802E6D91D1A87DC000B03C2 /* ShopInfoViewController.h in Sources */,
 				7802E6DA1D1A87DD000B03C2 /* ShopInfoViewController.m in Sources */,
 				0E12A2671D2B986A008066CC /* NSObject+MJClass.m in Sources */,
@@ -1505,6 +1516,7 @@
 				0E525A5A1D1283A700AFC95B /* NSArray+MASAdditions.m in Sources */,
 				0E12A2411D2B9815008066CC /* EvaluationParams.m in Sources */,
 				0E525A511D1283A700AFC95B /* UIWindow+Extension.m in Sources */,
+				78089F831D35D5F200DBAB88 /* ModlistModel.m in Sources */,
 				0EBD08361D17EF18002DD7A4 /* OwnHaveNoSolvedController.m in Sources */,
 				0E3C1A9B1D1C336B0060A7F4 /* MHDatePicker.m in Sources */,
 				0E67E0081D22C89200E025BD /* GroupPurchaseManagementViewController.m in Sources */,
