@@ -58,7 +58,7 @@
 
     
 }
-
+// 数据请求
 - (void)configureData
 {
     ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
@@ -91,6 +91,8 @@
         ;
     }];
 }
+
+// 对获得数据排序  小的在前
 -(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
 {
     NSArray *keys = [dictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -274,6 +276,7 @@
         
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
     // cell 选中的颜色
         cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];

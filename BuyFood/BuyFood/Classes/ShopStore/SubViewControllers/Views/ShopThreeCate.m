@@ -18,11 +18,11 @@
         
         _nameLabel = [UILabel new];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
-        _nameLabel.font = [UIFont systemFontOfSize:14];
+        _nameLabel.font = [UIFont systemFontOfSize:20];
         [self.contentView addSubview:_nameLabel];
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(5);
-            make.top.equalTo(self.contentView).offset(5);
+            make.left.equalTo(self.contentView).offset(2);
+            make.top.equalTo(self.contentView).offset(10);
             make.height.equalTo(@30);
             make.width.equalTo(@80);
         }];
