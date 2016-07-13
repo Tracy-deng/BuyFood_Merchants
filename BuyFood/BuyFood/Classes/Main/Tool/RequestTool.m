@@ -19,6 +19,9 @@
 #import "ImproveinformationParams.h"
 #import "ShopsUserInfo.h"
 #import "ShopsSecAndThirdClassParams.h"
+#import "AddProductParams.h"
+#import "GetProductParams.h"
+
 @implementation RequestTool
 
 #pragma mark - login
@@ -114,26 +117,45 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productcategorythree/GetModelListForSuperQuery"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
-            NSLog(@"%@", error.userInfo);
+            HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            NSLog(@"%@",model);
+            HDCLog(@"%@",model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
     }];
 }
-///** 获取所有商品三级分类 */
-//+ (void)shopsThirdClass:(ShopsThirdClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
-//{
-//    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productsubcategory/t_productcategorythree/GetModelListAll"];
-//    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
-//        if (error) {
-//            failure(error);
-//        } else {
-//            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
-//            success(result);
-//        }
-//    }];
-//}
+
+/** 添加普通商品 */
++ (void)addProducts:(AddProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/Add"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 查询商品 */
++ (void)getProduct:(GetProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/GetModelList"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
 @end
