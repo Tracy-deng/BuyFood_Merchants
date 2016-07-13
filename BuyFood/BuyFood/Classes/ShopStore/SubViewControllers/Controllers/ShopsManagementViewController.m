@@ -274,6 +274,7 @@
         
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
     // cell 选中的颜色
         cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
