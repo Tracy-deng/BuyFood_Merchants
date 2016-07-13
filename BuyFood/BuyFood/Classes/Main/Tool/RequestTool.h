@@ -28,7 +28,9 @@
         NearbyMarketsParams,
         ShopsSecondClassParams,
         ShopsThirdClassParams,
-        ShopsSecAndThirdClassParams;
+        ShopsSecAndThirdClassParams,
+        GetProductParams,
+        AddProductParams;
 
 
 @interface RequestTool : NSObject
@@ -80,7 +82,9 @@
 /** 获取根据商家注册的一级分类下边的二三级分类 */
 /** 获取所有商品二三级分类 */
 + (void)shopsSecAndThirdClass:(ShopsSecAndThirdClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-///** 获取所有商品三级分类 */
-//+ (void)shopsThirdClass:(ShopsThirdClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 添加普通商品 */
++ (void)addProducts:(AddProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 查询商品 */
++ (void)getProduct:(GetProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 @end
