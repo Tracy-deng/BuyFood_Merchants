@@ -13,10 +13,13 @@
 #import "FeedBackViewController.h"
 #import "ShopInfoViewController.h"
 #import "LoginViewController.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) NSArray* sourceArray;
+@property (nonatomic, strong) ShopsUserInfo* shopsUserInfo;
 
 
 @end
@@ -34,12 +37,14 @@
     navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
     // 解决navigationBar影响tableView的问题
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.shopsUserInfo = [ShopsUserInfoTool account];
+    HDCLog(@"%@\n%@", self.shopsUserInfo.marketname, self.shopsUserInfo.telephone);
     // 设置表头视图
     [self setUpHeaderView];
     // 设置tableView
     [self setTableView];
     
-    self.sourceArray = @[@"震动提示",
+    self.sourceArray = @[@"自动接单",
                          @"投诉订单",
                          @"联系市场经理",
                          @"店铺信息",
@@ -86,7 +91,7 @@
     [self.view addSubview:headerImageView];
     // 设置店铺名称
     TagLabels* shopName = [TagLabels initTaglabel];
-    [shopName createLabelText:@"天天果蔬" andLabelX:self.view.width * 0.288 andLabelY:headerImageView.y + 10 andLabelHeight:self.view.height * 0.04 andLabelWidth:self.view.width * 0.25 andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:18 andtextColor:HDCColor(246, 246, 246)];
+    [shopName createLabelText:self.shopsUserInfo.marketname andLabelX:self.view.width * 0.288 andLabelY:headerImageView.y + 10 andLabelHeight:self.view.height * 0.04 andLabelWidth:self.view.width * 0.25 andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:18 andtextColor:HDCColor(246, 246, 246)];
     [self.view addSubview:shopName];
     // 设置店家手机号码
     UIImageView* phoneImageView = [[UIImageView alloc] init];
@@ -94,7 +99,7 @@
     [phoneImageView setImage:[UIImage imageNamed:@"screenSmartphoneSimpleLineIcons"]];
     [self.view addSubview:phoneImageView];
     TagLabels* phoneNum = [TagLabels initTaglabel];
-    [phoneNum createLabelText:@"12345678998" andLabelX:self.view.width * 0.36 andLabelY:phoneImageView.y andLabelHeight:self.view.height * 0.03 andLabelWidth:self.view.width * 0.35 andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:14 andtextColor:HDCColor(240, 240, 240)];
+    [phoneNum createLabelText:self.shopsUserInfo.telephone andLabelX:self.view.width * 0.36 andLabelY:phoneImageView.y andLabelHeight:self.view.height * 0.03 andLabelWidth:self.view.width * 0.35 andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:14 andtextColor:HDCColor(240, 240, 240)];
     [self.view addSubview:phoneNum];
 }
 
@@ -157,9 +162,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 1)
     {
         [self.navigationController pushViewController:[[ComplaintOrderViewController alloc] init] animated:YES];
+    }
+    if (indexPath.row == 2)
+    {
+        UIWebView*callWebview =[[UIWebView alloc] init];
+        NSURL *telURL =[NSURL URLWithString:@"tel:10010"];// 貌似tel:// 或者 tel: 都行
+        [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+        //记得添加到view上
+        [self.view addSubview:callWebview];
     }
     if (indexPath.row == 3)
     {

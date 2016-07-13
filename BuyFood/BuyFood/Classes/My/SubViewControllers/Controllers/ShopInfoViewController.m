@@ -7,12 +7,15 @@
 //
 
 #import "ShopInfoViewController.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
 
 @interface ShopInfoViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) NSArray* sourceArray;
 @property (nonatomic, strong) NSArray* detailTextLabel;
+@property (nonatomic, strong) ShopsUserInfo* shopsUserInfo;
 
 @end
 
@@ -22,17 +25,18 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    self.shopsUserInfo = [ShopsUserInfoTool account];
     self.title = @"店铺信息";
     [self setUpTableView];
     self.sourceArray = @[@"店铺名称",
                          @"店铺编号",
-                         @"餐厅地址",
-                         @"餐厅电话"
+                         @"店铺地址",
+                         @"店铺电话"
                          ];
-    self.detailTextLabel = @[@"天天果蔬",
-                             @"1234567",
-                             @"南京市玄武区78号天天果蔬",
-                             @"13012345678"];
+    self.detailTextLabel = @[self.shopsUserInfo.marketname,
+                             self.shopsUserInfo.marketuserid,
+                             self.shopsUserInfo.detailaddress,
+                             self.shopsUserInfo.telephone];
 }
 
 - (void)setUpTableView

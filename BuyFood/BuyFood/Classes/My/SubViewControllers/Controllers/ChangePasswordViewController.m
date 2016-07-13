@@ -27,6 +27,7 @@
     self.title = @"修改密码";
     [self setContentView];
 }
+
 /** 设置内容视图 */
 - (void)setContentView
 {
@@ -36,7 +37,7 @@
     [self.view addSubview:backGroundView];
     // 原始密码
     self.oldPassword = [InputTextField inputTextField];
-    [self.oldPassword createTextFieldPlaceholder:@"请输入原密码" andinputIcon:@"icon_Lock - simple-line-icons"];
+    [self.oldPassword createTextFieldPlaceholder:@"请输入注册手机号码" andinputIcon:@"icon_Lock - simple-line-icons"];
     [backGroundView addSubview:self.oldPassword];
     [self.oldPassword mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(backGroundView.mas_top);
@@ -54,15 +55,26 @@
         make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.94);
         make.height.mas_offset(@1);
     }];
-    // 第一次输入新密码
+    // 输入验证码
     self.passwordNew = [InputTextField inputTextField];
-    [self.passwordNew createTextFieldPlaceholder:@"请输入新密码" andinputIcon:@"icon_Lock - simple-line-icons"];
+    [self.passwordNew createTextFieldPlaceholder:@"请输入验证码" andinputIcon:@"icon_Lock - simple-line-icons"];
     [backGroundView addSubview:self.passwordNew];
     [self.passwordNew mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(lineOne.mas_bottom);
         make.left.mas_equalTo(self.oldPassword);
-        make.width.mas_equalTo(self.oldPassword);
+        make.width.mas_equalTo(self.oldPassword).multipliedBy(0.75);
         make.height.mas_equalTo(self.oldPassword);
+    }];
+    UIButton * button = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    [button setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [self addButtonTouch:button font:14];
+//    [button addTarget:self action:@selector(didRecive:) forControlEvents:(UIControlEventTouchUpInside)];
+    [backGroundView addSubview:button];
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.view.mas_right).offset(-10);
+        make.top.mas_equalTo(lineOne.mas_bottom).offset(5);
+        make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.25);
+        make.height.equalTo(@(backGroundView.height * 0.33 - 10));
     }];
     // 分割线2
     Line* lineTwo = [Line initLine];
@@ -76,7 +88,7 @@
     }];
     // 确定新密码
     self.passwordNewAgian = [InputTextField inputTextField];
-    [self.passwordNewAgian createTextFieldPlaceholder:@"请再次输入新密码" andinputIcon:@"icon_Lock - simple-line-icons"];
+    [self.passwordNewAgian createTextFieldPlaceholder:@"请输入新密码" andinputIcon:@"icon_Lock - simple-line-icons"];
     [backGroundView addSubview:self.passwordNewAgian];
     [self.passwordNewAgian mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(lineTwo.mas_bottom);
@@ -85,13 +97,25 @@
         make.height.mas_equalTo(self.oldPassword);
     }];
     // 确定按钮
-    Button* button = [Button initButton];
-    [button setButtonTitle:@"确定" andButtonX:self.view.width * 0.06 andButtonY:self.view.height * 0.65 andButtonHeight:self.view.height * 0.08 andButtonWidth:self.view.width * 0.89 andButtonNormalImage:nil andSelectedImage:nil andButtonbackGroundImage:nil andButtonTitleTextColor:HDCColor(255, 255, 255)];
-    [button setBackgroundColor:HDCColor(35, 192, 58)];
-    button.layer.cornerRadius = 5;
-    button.layer.masksToBounds = YES;
-    [self.view addSubview:button];
+    Button* surebutton = [Button initButton];
+    [surebutton setButtonTitle:@"确定" andButtonX:self.view.width * 0.06 andButtonY:self.view.height * 0.65 andButtonHeight:self.view.height * 0.08 andButtonWidth:self.view.width * 0.89 andButtonNormalImage:nil andSelectedImage:nil andButtonbackGroundImage:nil andButtonTitleTextColor:HDCColor(255, 255, 255)];
+    [surebutton setBackgroundColor:HDCColor(35, 192, 58)];
+    surebutton.layer.cornerRadius = 5;
+    surebutton.layer.masksToBounds = YES;
+    [self.view addSubview:surebutton];
 }
-
+// 封装button属性
+- (void)addButtonTouch:(UIButton *)sender font:(NSInteger)font
+{
+    sender.titleLabel.font = [UIFont systemFontOfSize:font];
+    
+    [sender setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    
+    sender.backgroundColor = greenColor;
+    
+    sender.layer.masksToBounds = YES;
+    
+    sender.layer.cornerRadius = 2;
+}
 
 @end
