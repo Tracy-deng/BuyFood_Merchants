@@ -15,8 +15,8 @@
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "ResultsModel.h"
-
-@interface GoodsViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
+#import "UpLoadImageUtil.h"
+@interface GoodsViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
 /** 单位*/
@@ -42,6 +42,7 @@
 @property (nonatomic, strong) NSString* productremark;
 @property (nonatomic, strong) PromotionTextFieldViewCell* cell;
 
+@property (nonatomic, strong) UIImagePickerController *imagePickController;
 //@property (nonatomic, strong) ShopsUserInfo* shopsInfo;
 //@property (nonatomic, strong) ShopsUserInfoTool* shopsInfoTool;
 
@@ -55,6 +56,13 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"添加商品";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    
+    _imagePickController = [[UIImagePickerController alloc]init];
+    _imagePickController.delegate = self;
+    _imagePickController.allowsEditing = YES;
+    _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+    
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
     
@@ -68,12 +76,12 @@
     UIButton* backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [backBtn setFrame:CGRectMake(0, 0, 50, 30)];
     [backBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(xx:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.rightBarButtonItem = rightBarItem;
 }
 /** 撤销键盘 */
-- (void)xx:(UIButton* )sender
+- (void)backBtn:(UIButton* )sender
 {
 #warning 点击右上角的完成按钮无法撤销键盘  暂时用键盘上的按钮
     
@@ -135,7 +143,103 @@
 - (void)tap:(UITapGestureRecognizer* )tapGesture
 {
     NSLog(@"点击添加图片");
+    
+    
+    
+    NSArray *photoArray = @[@"相机拍照",@"本地上传"];
+    MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleWeiChat itemTitles:photoArray];
+    actionSheet.cancleTitle = @"取消选择";
+   static NSInteger sourceType = 0 ;
+    
+    [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title) {
+        if (index == 0) {
+            NSLog(@"相机拍照");
+            // 判断相机有没有权限
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                
+                 sourceType = UIImagePickerControllerSourceTypeCamera;
+                _imagePickController.sourceType = sourceType;
+                // 进入相机
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+                
+            }else{
+                
+                UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有相机权限" message:@"请您在设置里面打开权限" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+                [selct addAction:action];
+                [self presentViewController:selct animated:YES completion:nil];
+            }
+            
+            
+            
+        }else{
+            
+            NSLog(@"本地上传");
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                NSLog(@"进去图片库");
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            
+                
+            }else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            {
+                NSLog(@"进入相册");
+                
+                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+            }
+        }
+       
+       
+    }];
 }
+
+
+#pragma mark-- imagePicker delegate 事件
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+   [picker dismissViewControllerAnimated:YES completion:^{}];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //图片存入相册
+
+    [self saveImage:image withName:@"currentImage.png"];
+
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentImage.png"];
+
+    UIImage *savedImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
+
+    [self.imageView setImage:savedImage];
+    
+    self.imageView.tag = 100;
+    
+    [UpLoadImageUtil upLoadImage:self.imageView success:^(id response) {
+        NSLog(@"上传图片成功");
+    } failure:^{
+        NSLog(@"上传图片失败");
+    }];
+    
+
+    
+}
+// 相机选择取消按钮
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+
+{
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    // 获取沙盒目录
+
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
+    // 将图片写入文件
+    [imageData writeToFile:fullPath atomically:NO];
+}
+
+
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
