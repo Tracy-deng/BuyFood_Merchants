@@ -295,6 +295,7 @@
 }
 - (void)changeValue:(UITextField *)textField
 {
+    textField.text = @"";
     switch (textField.tag)
     {
         case 0:

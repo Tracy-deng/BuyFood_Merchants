@@ -25,7 +25,6 @@
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
 @property (nonatomic, strong) NSMutableArray * selectArray; // 选择数据源
-@property (nonatomic, strong) NSMutableArray * mainDataArray;  // 三级分类
 @property (nonatomic, strong) ModlistModel *modlst;
 
 @end

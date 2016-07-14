@@ -49,7 +49,7 @@
     [self.contentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.leftTitleLabel.mas_right).offset(5);
         make.top.equalTo(self.leftTitleLabel);
-        make.width.equalTo(@200);
+        make.right.equalTo(self.contentView).offset(11);
         make.height.equalTo(@30);
     }];
 }

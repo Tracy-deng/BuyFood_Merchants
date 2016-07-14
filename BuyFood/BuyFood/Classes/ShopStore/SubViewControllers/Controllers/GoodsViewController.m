@@ -16,7 +16,7 @@
 #import "ShopsUserInfoTool.h"
 #import "ResultsModel.h"
 
-@interface GoodsViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface GoodsViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
 /** 单位*/
@@ -68,15 +68,16 @@
     UIButton* backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [backBtn setFrame:CGRectMake(0, 0, 50, 30)];
     [backBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [backBtn addTarget:self action:@selector(xx:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem* rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
     self.navigationItem.rightBarButtonItem = rightBarItem;
 }
 /** 撤销键盘 */
-- (void)backBtnClick:(UIButton* )sender
+- (void)xx:(UIButton* )sender
 {
-#warning 点击右上角的完成按钮无法撤销键盘
-    [self.cell.contentTextField resignFirstResponder];
+#warning 点击右上角的完成按钮无法撤销键盘  暂时用键盘上的按钮
+    
+//    [self.cell.contentTextField resignFirstResponder];
 }
 - (void)addShopsImage
 {
@@ -142,11 +143,11 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning 当输入的时候有重影的问题....
     if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 5 || indexPath.row == 7)
     {
         self.cell = [PromotionTextFieldViewCell cellWithTableView:tableView];
         self.cell.contentTextField.tag = indexPath.row;
+        self.cell.contentTextField.delegate = self;
         [self.cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
         switch (indexPath.row)
         {
@@ -352,4 +353,57 @@
     }];
 }
 
+#pragma mark -- 点击键盘上的return按钮  收起键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    
+    return YES;
+    
+}
+
+// 点击屏幕空白  收起键盘
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
+// 在UITextField 编辑之前调用方法  视图上移
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self packUpDownTextField:textField isShow:YES];
+    
+}
+// 编辑结束 视图返回
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    [self packUpDownTextField:textField isShow:NO];
+}
+
+
+- (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
+{
+    if (textField.tag == 3 || textField.tag == 5 || textField.tag == 7) {
+        
+        //设置动画的名字
+        [UIView beginAnimations:@"Animation" context:nil];
+        //设置动画的间隔时间
+        [UIView setAnimationDuration:0.20];
+        //??使用当前正在运行的状态开始下一段动画
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        if (isShow == YES) {
+            //设置视图下移动的位移
+            self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 0.3*SCREEN_HEIGHT, self.view.frame.size.width, self.view.frame.size.height);
+        }else{
+            //设置视图上移动的位移
+            self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + 0.3*SCREEN_HEIGHT, self.view.frame.size.width, self.view.frame.size.height);
+
+        }
+        
+        //设置动画结束
+        [UIView commitAnimations];
+    }else{
+        return ;
+    }
+}
 @end
