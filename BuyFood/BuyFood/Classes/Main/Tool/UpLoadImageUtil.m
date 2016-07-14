@@ -13,11 +13,9 @@
 
 typedef void (^UpLoadImageBlock)(id<AFMultipartFormData> formData);
 
-
 @implementation UpLoadImageUtil
 
-static NSString *const uploadImagePath = @"http://121.41.38.32:3000/upload/fileUpload";
-static NSString *const uploadImagesPath = @"http://121.41.38.32:3000/upload/filesUpload";
+
 
 static NSString *upLoadImagePath;   //图片地址
 
@@ -27,7 +25,9 @@ static NSString *upLoadImagePath;   //图片地址
              failure:(void (^)())failure{
     BOOL isSingle =  [image isKindOfClass:[UIImage class]];
     if (isSingle) {
-        upLoadImagePath = uploadImagePath;
+#pragma mark -- 服务器的URL
+        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/Add"];
+        upLoadImagePath = url;
         [self upLoadImageBlock:^(id<AFMultipartFormData> formData) {
             NSData *data = UIImageJPEGRepresentation(image, 1.0);
             double mul = data.length / kUploadImageMaxByteCount;
@@ -47,7 +47,9 @@ static NSString *upLoadImagePath;   //图片地址
             failure();
         }];
     }else{
-        upLoadImagePath = uploadImagesPath;
+#pragma mark -- 服务器的URL
+        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/Add"];
+        upLoadImagePath = url;
         [self upLoadImageBlock:^(id<AFMultipartFormData> formData) {
             for (NSInteger i = 0; i < [image count]; i++) {
                 id obj = image[i];

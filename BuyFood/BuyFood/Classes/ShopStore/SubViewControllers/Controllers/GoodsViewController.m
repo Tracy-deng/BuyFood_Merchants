@@ -93,9 +93,9 @@
     self.imageView.userInteractionEnabled = YES;
     [self.view addSubview:self.imageView];
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view);
+        make.left.mas_equalTo(self.view).offset((SCREEN_WIDTH - SCREEN_HEIGHT*0.25)/2);
         make.top.mas_equalTo(self.view.mas_top).offset(64);
-        make.width.equalTo(self.view.mas_width);
+        make.width.mas_equalTo(self.view.mas_height).multipliedBy(0.25);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.25);
     }];
     // 1.创建Tap手势
@@ -179,12 +179,17 @@
                 NSLog(@"进去图片库");
                 sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+                
                 
             }else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
             {
                 NSLog(@"进入相册");
                 
                 sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+                
             }
         }
        
@@ -201,23 +206,15 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     //图片存入相册
 
-    [self saveImage:image withName:@"currentImage.png"];
+    [self saveImage:image withName:@"IMAGE_0.jpg"];
 
-    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"currentImage.png"];
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"IMAGE_0.jpg"];
 
     UIImage *savedImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
 
     [self.imageView setImage:savedImage];
     
     self.imageView.tag = 100;
-    
-    [UpLoadImageUtil upLoadImage:self.imageView success:^(id response) {
-        NSLog(@"上传图片成功");
-    } failure:^{
-        NSLog(@"上传图片失败");
-    }];
-    
-
     
 }
 // 相机选择取消按钮
@@ -432,7 +429,12 @@
 /** 保存按钮 */
 - (void)saveBtnClick:(UIButton* )sender
 {
-#warning 图片没上传,所以导致商品添加不成功。明天你试一下图片上传
+    [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
+        NSLog(@"上传图片成功");
+    } failure:^{
+        NSLog(@"上传图片失败");
+    }];
+    
     ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
     AddProductParams* params = [[AddProductParams alloc] init];
     params.marketuserid = shopsInfo.marketuserid;
@@ -445,7 +447,7 @@
     params.Productlabel = self.shopsTag;
     params.productunit = self.unitStr;
     params.promotion = @"1";
-    params.productpic = @"";
+    params.productpic = @"IMAGE_0.jpg";
     [RequestTool addProducts:params success:^(ResultsModel *result) {
         HDCLog(@"%@",result);
         if ([result.ErrorCode isEqualToString:@"1"])
