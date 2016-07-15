@@ -16,6 +16,8 @@
 #import "ShopsUserInfoTool.h"
 #import "ResultsModel.h"
 #import "UpLoadImageUtil.h"
+#import "ModlistModel.h"
+
 @interface GoodsViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
@@ -68,12 +70,22 @@
     
     [self setNavRightBtn];
     NSLog(@"%@      -----------      传过来的信息",self.goodsDic);
+    [self creatDataSoruce];
 }
 - (void)creatDataSoruce
 {
-    for (NSArray *array in self.goodsDic) {
+    NSArray *sortKeys = [self getSortedKeys:self.goodsDic];
+    NSLog(@"sortKeys%@",sortKeys);
+    if (sortKeys.count != 0) {
         
+        NSString *catego = [sortKeys objectAtIndex:1];
+
+        ModlistModel *model = [[self.goodsDic objectForKey:catego] firstObject];
+        NSLog(@"----------------%@",model.subcategoryid);
     }
+    
+    
+
 }
 /** 设置导航栏右边按钮 */
 - (void)setNavRightBtn
@@ -442,6 +454,7 @@
         NSLog(@"上传图片失败");
     }];
     
+    
     ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
     AddProductParams* params = [[AddProductParams alloc] init];
     params.marketuserid = shopsInfo.marketuserid;
@@ -519,4 +532,23 @@
         return ;
     }
 }
+
+-(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
+{
+    NSArray *keys = [dictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *first = obj1;
+        NSString *second = obj2;
+        int firstValue = [first intValue];
+        int secondValue = [second intValue];
+        if (firstValue < secondValue) {
+            return NSOrderedAscending;
+        }else if(firstValue > secondValue){
+            return NSOrderedDescending;
+        }else{
+            return NSOrderedSame;
+        }
+    }];
+    return keys;
+}
+
 @end
