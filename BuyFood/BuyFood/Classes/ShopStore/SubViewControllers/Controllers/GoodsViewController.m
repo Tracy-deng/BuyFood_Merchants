@@ -67,8 +67,14 @@
     [self createTableViewAndBottomBtn];
     
     [self setNavRightBtn];
+    NSLog(@"%@      -----------      传过来的信息",self.goodsDic);
 }
-
+- (void)creatDataSoruce
+{
+    for (NSArray *array in self.goodsDic) {
+        
+    }
+}
 /** 设置导航栏右边按钮 */
 - (void)setNavRightBtn
 {
@@ -430,7 +436,8 @@
 - (void)saveBtnClick:(UIButton* )sender
 {
     [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
-        NSLog(@"上传图片成功");
+        NSLog(@"上传图片成功 %@",response);
+        
     } failure:^{
         NSLog(@"上传图片失败");
     }];
@@ -447,7 +454,7 @@
     params.Productlabel = self.shopsTag;
     params.productunit = self.unitStr;
     params.promotion = @"1";
-    params.productpic = @"IMAGE_0.jpg";
+    params.productpic = self.imageView.image;
     [RequestTool addProducts:params success:^(ResultsModel *result) {
         HDCLog(@"%@",result);
         if ([result.ErrorCode isEqualToString:@"1"])

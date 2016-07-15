@@ -300,6 +300,7 @@
 - (void)didAddBtn:(UIButton *)sender
 {
     GoodsViewController *goodsVC = [[GoodsViewController alloc]init];
+    goodsVC.goodsDic = billData;
     [self.navigationController pushViewController:goodsVC animated:YES];
 }
 /**

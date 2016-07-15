@@ -10,5 +10,5 @@
 #import "ModlistModel.h"
 
 @interface GoodsViewController : UIViewController
-
+@property (nonatomic, strong) NSMutableDictionary * goodsDic; // 传过来的商品信息
 @end

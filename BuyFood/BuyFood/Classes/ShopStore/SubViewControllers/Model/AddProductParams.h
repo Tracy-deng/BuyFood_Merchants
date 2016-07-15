@@ -34,6 +34,6 @@
 /** 商品现售价格（促销价格）*/
 @property (nonatomic, strong) NSString* productoutprice2;
 /** 商品图片 */
-@property (nonatomic, strong) NSString* productpic;
+@property (nonatomic, strong) UIImage * productpic;
 
 @end

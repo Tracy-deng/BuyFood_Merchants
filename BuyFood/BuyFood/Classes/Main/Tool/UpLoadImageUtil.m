@@ -26,7 +26,7 @@ static NSString *upLoadImagePath;   //图片地址
     BOOL isSingle =  [image isKindOfClass:[UIImage class]];
     if (isSingle) {
 #pragma mark -- 服务器的URL
-        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/Add"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productpicture"];
         upLoadImagePath = url;
         [self upLoadImageBlock:^(id<AFMultipartFormData> formData) {
             NSData *data = UIImageJPEGRepresentation(image, 1.0);
@@ -48,7 +48,7 @@ static NSString *upLoadImagePath;   //图片地址
         }];
     }else{
 #pragma mark -- 服务器的URL
-        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/Add"];
+        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productpicture"];
         upLoadImagePath = url;
         [self upLoadImageBlock:^(id<AFMultipartFormData> formData) {
             for (NSInteger i = 0; i < [image count]; i++) {
@@ -91,8 +91,9 @@ static NSString *upLoadImagePath;   //图片地址
     NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:upLoadImagePath] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (!error) {
-            NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)response;
             
+            NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)response;
+            NSLog(@"response %@",response);
             if (httpRes.statusCode == 200) {
                 
                 NSError *jsonError;
