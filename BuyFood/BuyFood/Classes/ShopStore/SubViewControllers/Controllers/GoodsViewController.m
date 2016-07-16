@@ -48,7 +48,7 @@
 //@property (nonatomic, strong) ShopsUserInfo* shopsInfo;
 //@property (nonatomic, strong) ShopsUserInfoTool* shopsInfoTool;
 
-
+@property (nonatomic, strong) NSMutableArray * dataArray;
 @end
 
 @implementation GoodsViewController
@@ -69,21 +69,26 @@
     [self createTableViewAndBottomBtn];
     
     [self setNavRightBtn];
-    NSLog(@"%@      -----------      传过来的信息",self.goodsDic);
     [self creatDataSoruce];
 }
 - (void)creatDataSoruce
 {
     NSArray *sortKeys = [self getSortedKeys:self.goodsDic];
-    NSLog(@"sortKeys%@",sortKeys);
-    if (sortKeys.count != 0) {
-        
-        NSString *catego = [sortKeys objectAtIndex:1];
-
-        ModlistModel *model = [[self.goodsDic objectForKey:catego] firstObject];
-        NSLog(@"----------------%@",model.subcategoryid);
-    }
     
+    if (sortKeys.count != 0) {
+        for(int i = 0; i < sortKeys.count; i ++)
+        {
+            NSString *catego = [sortKeys objectAtIndex:i];
+            
+            NSArray *dataArry = [self.goodsDic objectForKey:catego];
+            
+            for (ModlistModel *model in dataArry) {
+               
+                [self.dataArray addObject:model];
+                 NSLog(@"%@",self.dataArray);
+            }
+        }
+    }
     
 
 }
@@ -101,8 +106,6 @@
 /** 撤销键盘 */
 - (void)backBtn:(UIButton* )sender
 {
-#warning 点击右上角的完成按钮无法撤销键盘  暂时用键盘上的按钮
-    
 //    [self.cell.contentTextField resignFirstResponder];
 }
 - (void)addShopsImage
