@@ -12,6 +12,10 @@
 #import "SettingViewController.h"
 #import "ShopStoreViewController.h"
 #import "HDCNavigationController.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "BrandUnOrderViewController.h"
+#import "BrandAlreadyOrderViewController.h"
 
 @interface HDCTabBarViewController ()
 
@@ -22,8 +26,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self addChildVc:[[UntreatedOrderViewController alloc] init] title:@"未处理" image:@"icon_tabbar_nor4" selectedImage:@"icon_tabbar_selected4"];
-    [self addChildVc:[[AlreadyOrderViewController alloc] init] title:@"已处理" image:@"icon_tabbar_nor3" selectedImage:@"icon_tabbar_selected3"];
+    ShopsUserInfo* shopUserInfo = [ShopsUserInfoTool account];
+    if ([shopUserInfo.markettypeid isEqualToString:@"1"] || [shopUserInfo.markettypeid isEqualToString:@"2"])
+    {
+        [self addChildVc:[[UntreatedOrderViewController alloc] init] title:@"未处理" image:@"icon_tabbar_nor4" selectedImage:@"icon_tabbar_selected4"];
+        [self addChildVc:[[AlreadyOrderViewController alloc] init] title:@"已处理" image:@"icon_tabbar_nor3" selectedImage:@"icon_tabbar_selected3"];
+    }
+    else
+    {
+        [self addChildVc:[[BrandUnOrderViewController alloc] init] title:@"未处理" image:@"icon_tabbar_nor4" selectedImage:@"icon_tabbar_selected4"];
+        [self addChildVc:[[BrandAlreadyOrderViewController alloc] init] title:@"已处理" image:@"icon_tabbar_nor3" selectedImage:@"icon_tabbar_selected3"];
+    }
     [self addChildVc:[[ShopStoreViewController alloc] init] title:@"门店管理" image:@"icon_tabbar_nor2" selectedImage:@"icon_tabbar_selected2"];
     [self addChildVc:[[SettingViewController alloc] init] title:@"我的" image:@"icon_tabbar_nor1" selectedImage:@"icon_tabbar_selected1"];
 }

@@ -33,7 +33,7 @@
 
 /** 版本判断 */
 #define iOS7 ([[UIDevice currentDevice].systemVersion doubleValue] >= 7.0)
-
+#define IS_IOS8 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8)
 /** 顶部距离 */
 #define Top self.view.height * 0.12 + self.view.height * 0.1
 /** 输入框高度 */
@@ -49,7 +49,7 @@
 #define greenColor HDCColor(46, 192, 70)
 
 //  网络请求
-#define urlPrex @"http://www.goucaichina.com/goucaiapi/"
+#define urlPrex @"http://www.goucaichina.com:81/"
 //#define urlPrex @"http://114.55.55.74/goucaiapi/"
 #define imgPrex @"http://114.55.55.74/goucaiapi/"
 

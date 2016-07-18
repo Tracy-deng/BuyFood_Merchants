@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E0416AC1D3B6865007DF5AB /* CCLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0416A91D3B6865007DF5AB /* CCLocationManager.m */; };
+		0E0416AD1D3B6865007DF5AB /* CLLocation+YCLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0416AB1D3B6865007DF5AB /* CLLocation+YCLocation.m */; };
+		0E0416B01D3B8FC2007DF5AB /* BrandUnOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0416AF1D3B8FC2007DF5AB /* BrandUnOrderViewController.m */; };
+		0E0416B31D3B9064007DF5AB /* BrandAlreadyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E0416B21D3B9064007DF5AB /* BrandAlreadyOrderViewController.m */; };
 		0E110C991D19889E00161ACB /* OrderListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110C981D19889E00161ACB /* OrderListCell.m */; };
 		0E110C9C1D19929100161ACB /* FooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110C9B1D19929100161ACB /* FooterView.m */; };
 		0E110CA61D199C7900161ACB /* BalanceAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E110CA51D199C7900161ACB /* BalanceAccountViewController.m */; };
@@ -187,6 +191,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E0416A81D3B6865007DF5AB /* CCLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLocationManager.h; sourceTree = "<group>"; };
+		0E0416A91D3B6865007DF5AB /* CCLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLocationManager.m; sourceTree = "<group>"; };
+		0E0416AA1D3B6865007DF5AB /* CLLocation+YCLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+YCLocation.h"; sourceTree = "<group>"; };
+		0E0416AB1D3B6865007DF5AB /* CLLocation+YCLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+YCLocation.m"; sourceTree = "<group>"; };
+		0E0416AE1D3B8FC2007DF5AB /* BrandUnOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandUnOrderViewController.h; sourceTree = "<group>"; };
+		0E0416AF1D3B8FC2007DF5AB /* BrandUnOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandUnOrderViewController.m; sourceTree = "<group>"; };
+		0E0416B11D3B9064007DF5AB /* BrandAlreadyOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandAlreadyOrderViewController.h; sourceTree = "<group>"; };
+		0E0416B21D3B9064007DF5AB /* BrandAlreadyOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandAlreadyOrderViewController.m; sourceTree = "<group>"; };
 		0E110C941D19852F00161ACB /* HeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderView.h; sourceTree = "<group>"; };
 		0E110C951D19852F00161ACB /* HeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderView.m; sourceTree = "<group>"; };
 		0E110C971D19889E00161ACB /* OrderListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListCell.h; sourceTree = "<group>"; };
@@ -825,10 +837,10 @@
 				0E5259FA1D1283A700AFC95B /* RegisterViewController.m */,
 				0EEF9C111D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.h */,
 				0EEF9C121D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.m */,
-				0EEF9C141D30A7DC00CD83E9 /* BrandShopRegisterViewController.h */,
-				0EEF9C151D30A7DC00CD83E9 /* BrandShopRegisterViewController.m */,
 				0EEF9C171D30A80300CD83E9 /* CommunityShopRegisterViewController.h */,
 				0EEF9C181D30A80300CD83E9 /* CommunityShopRegisterViewController.m */,
+				0EEF9C141D30A7DC00CD83E9 /* BrandShopRegisterViewController.h */,
+				0EEF9C151D30A7DC00CD83E9 /* BrandShopRegisterViewController.m */,
 				0E5259FB1D1283A700AFC95B /* SuccessViewController.h */,
 				0E5259FC1D1283A700AFC95B /* SuccessViewController.m */,
 			);
@@ -854,6 +866,10 @@
 				0EEF9CE41D31721100CD83E9 /* ClassModel.m */,
 				0EEF9CE61D31724B00CD83E9 /* FoodMarketModel.h */,
 				0EEF9CE71D31724B00CD83E9 /* FoodMarketModel.m */,
+				0E0416A81D3B6865007DF5AB /* CCLocationManager.h */,
+				0E0416A91D3B6865007DF5AB /* CCLocationManager.m */,
+				0E0416AA1D3B6865007DF5AB /* CLLocation+YCLocation.h */,
+				0E0416AB1D3B6865007DF5AB /* CLLocation+YCLocation.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1124,6 +1140,8 @@
 				7802E6CA1D1A2EC3000B03C2 /* DistributionViewController.m */,
 				7802E6CB1D1A2EC3000B03C2 /* InviteViewController.h */,
 				7802E6CC1D1A2EC3000B03C2 /* InviteViewController.m */,
+				0E0416AE1D3B8FC2007DF5AB /* BrandUnOrderViewController.h */,
+				0E0416AF1D3B8FC2007DF5AB /* BrandUnOrderViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1261,6 +1279,8 @@
 				0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */,
 				0EBD082B1D17EF18002DD7A4 /* OwnHaveNoSolvedController.h */,
 				0EBD082C1D17EF18002DD7A4 /* OwnHaveNoSolvedController.m */,
+				0E0416B11D3B9064007DF5AB /* BrandAlreadyOrderViewController.h */,
+				0E0416B21D3B9064007DF5AB /* BrandAlreadyOrderViewController.m */,
 				0EBD082A1D17EF18002DD7A4 /* Mdole */,
 				0EBD08311D17EF18002DD7A4 /* View */,
 			);
@@ -1411,6 +1431,7 @@
 				7802E6DC1D1A87F4000B03C2 /* DistributionViewController.m in Sources */,
 				78089F801D35D35700DBAB88 /* Subcatogory.m in Sources */,
 				7802E6D91D1A87DC000B03C2 /* ShopInfoViewController.h in Sources */,
+				0E0416AD1D3B6865007DF5AB /* CLLocation+YCLocation.m in Sources */,
 				7802E6DA1D1A87DD000B03C2 /* ShopInfoViewController.m in Sources */,
 				0E12A2671D2B986A008066CC /* NSObject+MJClass.m in Sources */,
 				7802E6D81D1A87BF000B03C2 /* HeaderView.m in Sources */,
@@ -1421,6 +1442,7 @@
 				7802E6D61D1A8766000B03C2 /* InviteViewController.m in Sources */,
 				7802E6D51D1A86EE000B03C2 /* InviteViewController.h in Sources */,
 				0EBD08371D17EF18002DD7A4 /* OwnHaveProvideController.m in Sources */,
+				0E0416AC1D3B6865007DF5AB /* CCLocationManager.m in Sources */,
 				0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */,
 				0E3C1AA31D1C482C0060A7F4 /* MyBillAllCell.m in Sources */,
 				0EEF9CE81D31724B00CD83E9 /* FoodMarketModel.m in Sources */,
@@ -1429,6 +1451,7 @@
 				7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */,
 				0E12A26A1D2B986A008066CC /* NSObject+MJProperty.m in Sources */,
 				0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */,
+				0E0416B31D3B9064007DF5AB /* BrandAlreadyOrderViewController.m in Sources */,
 				0E12A22B1D2B97CB008066CC /* RequestTool.m in Sources */,
 				0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */,
 				0E525A4A1D1283A700AFC95B /* LoginViewController.m in Sources */,
@@ -1465,6 +1488,7 @@
 				0EEF9DA71D32B1DF00CD83E9 /* ShopsSecondClassParams.m in Sources */,
 				0E6398ED1D362677008D9DC0 /* AddProductParams.m in Sources */,
 				7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */,
+				0E0416B01D3B8FC2007DF5AB /* BrandUnOrderViewController.m in Sources */,
 				0E525A491D1283A700AFC95B /* ForgetPwdViewController.m in Sources */,
 				0E110C9C1D19929100161ACB /* FooterView.m in Sources */,
 				0E525A5C1D1283A700AFC95B /* View+MASAdditions.m in Sources */,

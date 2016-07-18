@@ -18,7 +18,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "NearbyMarketsParams.h"
 #import "ImproveinformationParams.h"
-#import "RequestTool.h"
 #import "ShopsUserInfoTool.h"
 
 @interface OrdinaryBusinessRegisterViewController ()<UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITextFieldDelegate>
@@ -245,7 +244,7 @@
     // 1.获取用户位置的对象
     CLLocation *location = [locations lastObject];
     CLLocationCoordinate2D coordinate = location.coordinate;
-    NSLog(@"纬度:%f 经度:%f", coordinate.latitude, coordinate.longitude);
+    HDCLog(@"纬度:%f 经度:%f", coordinate.latitude, coordinate.longitude);
     self.lat1 = coordinate.latitude;
     self.lon1 = coordinate.longitude;
     
@@ -295,7 +294,6 @@
 }
 - (void)changeValue:(UITextField *)textField
 {
-    textField.text = @"";
     switch (textField.tag)
     {
         case 0:

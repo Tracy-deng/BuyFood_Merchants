@@ -168,7 +168,7 @@ static NSInteger selectNum;
     }];
     
     
-    _hotBtn = [CCLickButton ButtonWithName:@"品牌馆" imageView:@"select"];
+    _hotBtn = [CCLickButton ButtonWithName:@"社区店" imageView:@"select"];
     [_hotBtn addTouchBlock:^(CCLickButton *sender) {
         
         
@@ -191,7 +191,7 @@ static NSInteger selectNum;
     
     
     
-    _comBtn = [CCLickButton ButtonWithName:@"社区店" imageView:@"select"];
+    _comBtn = [CCLickButton ButtonWithName:@"品牌馆" imageView:@"select"];
     [_comBtn addTouchBlock:^(CCLickButton *sender) {
         
         
@@ -298,11 +298,63 @@ static NSInteger selectNum;
     }
     else if (selectNum == 2)
     {
-        [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];
+        RegisterParams* params = [[RegisterParams alloc]init];
+        params.telephone = _textfield.text;
+        params.verifycode = _recive.text;
+        params.pswd = _passWordTF.text;
+        params.markettypeid = @"2";
+        [RequestTool registe:params success:^(ResultsModel *result) {
+            
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                LoginParams* loginParams = [[LoginParams alloc]init];
+                loginParams.telephone = _textfield.text;
+                loginParams.pswd = _passWordTF.text;
+                [RequestTool login:loginParams success:^(ResultsModel *result)
+                 {
+                     NSLog(@"%@", result.ModelList[0]);
+                     CommunityShopRegisterViewController* communityShopRegisterVC = [[CommunityShopRegisterViewController alloc] init];
+                     communityShopRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
+                     [self.navigationController pushViewController:communityShopRegisterVC animated:YES];
+                 } failure:^(NSError *error) {
+                     ;
+                 }];
+            }
+            [MBProgressHUD showSuccess:result.ErrorMsg];
+            
+        } failure:^(NSError *error) {
+            ;
+        }];
     }
     else
     {
-        [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
+        RegisterParams* params = [[RegisterParams alloc]init];
+        params.telephone = _textfield.text;
+        params.verifycode = _recive.text;
+        params.pswd = _passWordTF.text;
+        params.markettypeid = @"3";
+        [RequestTool registe:params success:^(ResultsModel *result) {
+            
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                LoginParams* loginParams = [[LoginParams alloc]init];
+                loginParams.telephone = _textfield.text;
+                loginParams.pswd = _passWordTF.text;
+                [RequestTool login:loginParams success:^(ResultsModel *result)
+                 {
+                     NSLog(@"%@", result.ModelList[0]);
+                     BrandShopRegisterViewController* brandShopRegisterVC = [[BrandShopRegisterViewController alloc] init];
+                     brandShopRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
+                     [self.navigationController pushViewController:brandShopRegisterVC animated:YES];
+                 } failure:^(NSError *error) {
+                     ;
+                 }];
+            }
+            [MBProgressHUD showSuccess:result.ErrorMsg];
+            
+        } failure:^(NSError *error) {
+            ;
+        }];
     }
 }
 // 封装button属性
@@ -342,43 +394,4 @@ static NSInteger selectNum;
     }
     return YES;
 }
-/**
- NSLog(@"%@", result.ModelList[0]);
- NSLog(@"%@", result.ModelList[0][@"marketuserid"]);
- ordinaryBusinessRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
- ordinaryBusinessRegisterVC.categoryid = result.ModelList[0][@"categoryid"];
- ordinaryBusinessRegisterVC.checkremark = result.ModelList[0][@"checkremark"];
- ordinaryBusinessRegisterVC.checkstatus = result.ModelList[0][@"checkstatus"];
- ordinaryBusinessRegisterVC.city = result.ModelList[0][@"city"];
- ordinaryBusinessRegisterVC.country = result.ModelList[0][@"country"];
- ordinaryBusinessRegisterVC.detailaddress = result.ModelList[0][@"detailaddress"];
- ordinaryBusinessRegisterVC.distance = result.ModelList[0][@"distance"];
- ordinaryBusinessRegisterVC.ismarket = result.ModelList[0][@"ismarket"];
- ordinaryBusinessRegisterVC.lat = result.ModelList[0][@"lat"];
- ordinaryBusinessRegisterVC.loginname = result.ModelList[0][@"loginname"];
- ordinaryBusinessRegisterVC.lon = result.ModelList[0][@"lon"];
- ordinaryBusinessRegisterVC.marketname = result.ModelList[0][@"marketname"];
- ordinaryBusinessRegisterVC.marketsubid = result.ModelList[0][@"marketsubid"];
- ordinaryBusinessRegisterVC.marketsubname = result.ModelList[0][@"marketsubname"];
- ordinaryBusinessRegisterVC.markettypeid = result.ModelList[0][@"markettypeid"];
- ordinaryBusinessRegisterVC.markettypename = result.ModelList[0][@"markettypename"];
- ordinaryBusinessRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
- ordinaryBusinessRegisterVC.modifytime = result.ModelList[0][@"modifytime"];
- ordinaryBusinessRegisterVC.openend = result.ModelList[0][@"openend"];
- ordinaryBusinessRegisterVC.openstart = result.ModelList[0][@"openstart"];
- ordinaryBusinessRegisterVC.pic = result.ModelList[0][@"pic"];
- ordinaryBusinessRegisterVC.province = result.ModelList[0][@"province"];
- ordinaryBusinessRegisterVC.pswd = result.ModelList[0][@"pswd"];
- ordinaryBusinessRegisterVC.realname = result.ModelList[0][@"realname"];
- ordinaryBusinessRegisterVC.registertime = result.ModelList[0][@"registertime"];
- ordinaryBusinessRegisterVC.remark = result.ModelList[0][@"remark"];
- ordinaryBusinessRegisterVC.score = result.ModelList[0][@"score"];
- ordinaryBusinessRegisterVC.status = result.ModelList[0][@"status"];
- ordinaryBusinessRegisterVC.street = result.ModelList[0][@"street"];
- ordinaryBusinessRegisterVC.telephone = result.ModelList[0][@"telephone"];
- ordinaryBusinessRegisterVC.telephone2 = result.ModelList[0][@"telephone2"];
- ordinaryBusinessRegisterVC.verifycode = result.ModelList[0][@"verifycode"];
- ordinaryBusinessRegisterVC.verifytime = result.ModelList[0][@"verifytime"];
- ordinaryBusinessRegisterVC.MarketPictureList = result.ModelList[0][@"MarketPictureList"];
- */
 @end

@@ -10,4 +10,6 @@
 
 @interface CommunityShopRegisterViewController : UIViewController
 
+@property (nonatomic, strong) NSString* marketuserid;
+
 @end

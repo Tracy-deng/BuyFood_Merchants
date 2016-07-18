@@ -10,4 +10,6 @@
 
 @interface BrandShopRegisterViewController : UIViewController
 
+@property (nonatomic, strong) NSString* marketuserid;
+
 @end
