@@ -430,35 +430,36 @@
 - (void)saveBtnClick:(UIButton* )sender
 {
     [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
-        NSLog(@"上传图片成功 %@",response);
-        
+        NSLog(@"上传图片成功 %@",response[@"data"][0][@"littlepic"]);
+        ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+        AddProductParams* params = [[AddProductParams alloc] init];
+        params.categoryid = shopsInfo.categoryid;
+        params.marketuserid = shopsInfo.marketuserid;
+        params.subcategoryid = [NSString stringWithFormat:@"%ld", self.selectSecClassIndex];
+        params.threecategoryid = [NSString stringWithFormat:@"%ld", self.selectThirdClassIndex];
+        params.productname = self.productname;
+        params.productstock = self.productstock;
+        params.productoutprice = self.productoutprice;
+        params.productremark = self.productremark;
+        params.Productlabel = self.shopsTag;
+        params.productunit = self.unitStr;
+        params.promotion = @"1";
+        params.productpic = response[@"data"][0][@"littlepic"];
+        [RequestTool addProducts:params success:^(ResultsModel *result) {
+            HDCLog(@"%@",result);
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        } failure:^(NSError *error) {
+            ;
+        }];
     } failure:^{
         NSLog(@"上传图片失败");
     }];
     
     
-    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
-    AddProductParams* params = [[AddProductParams alloc] init];
-    params.marketuserid = shopsInfo.marketuserid;
-    params.subcategoryid = [NSString stringWithFormat:@"%ld", self.selectSecClassIndex];
-    params.threecategoryid = [NSString stringWithFormat:@"%ld", self.selectThirdClassIndex];
-    params.productname = self.productname;
-    params.productstock = self.productstock;
-    params.productoutprice = self.productoutprice;
-    params.productremark = self.productremark;
-    params.Productlabel = self.shopsTag;
-    params.productunit = self.unitStr;
-    params.promotion = @"1";
-    params.productpic = self.imageView.image;
-    [RequestTool addProducts:params success:^(ResultsModel *result) {
-        HDCLog(@"%@",result);
-        if ([result.ErrorCode isEqualToString:@"1"])
-        {
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    } failure:^(NSError *error) {
-        ;
-    }];
+    
 }
 
 #pragma mark -- 点击键盘上的return按钮  收起键盘
