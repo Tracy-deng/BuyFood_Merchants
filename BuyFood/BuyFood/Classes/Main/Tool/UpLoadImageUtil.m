@@ -8,7 +8,7 @@
 
 #import "UpLoadImageUtil.h"
 #import "AFNetworking.h"
-
+#import "AFHTTPSessionManager.h"
 #define kUploadImageMaxByteCount (1024 * 300.0)
 
 typedef void (^UpLoadImageBlock)(id<AFMultipartFormData> formData);
@@ -88,8 +88,12 @@ static NSString *upLoadImagePath;   //图片地址
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
     
-    NSURLSessionDataTask *dataTask = [session dataTaskWithURL:[NSURL URLWithString:upLoadImagePath] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]initWithURL:[NSURL URLWithString:upLoadImagePath]];
+    
+    request.HTTPMethod = @"POST";
+    request.timeoutInterval = 30;
+    
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!error) {
             
             NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)response;
@@ -100,7 +104,7 @@ static NSString *upLoadImagePath;   //图片地址
                 NSError *jsonError;
                 
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingAllowFragments) error:&jsonError];
-
+                
                 success(dic);
                 
             }
@@ -108,8 +112,11 @@ static NSString *upLoadImagePath;   //图片地址
             failure();
         }
     }];
-    [dataTask resume];
-
+    
+    
+     [dataTask resume];
+    
+    
 
 }
 + (void )upLoadImage:(id )parms
