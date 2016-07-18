@@ -48,11 +48,26 @@
 //@property (nonatomic, strong) ShopsUserInfo* shopsInfo;
 //@property (nonatomic, strong) ShopsUserInfoTool* shopsInfoTool;
 
-@property (nonatomic, strong) NSMutableArray * dataArray;
+@property (nonatomic, strong) NSMutableArray * threeArray;
+@property (nonatomic, strong) NSMutableArray *twoArray;
+
 @end
 
 @implementation GoodsViewController
-
+- (NSMutableArray *)twoArray
+{
+    if (_twoArray == nil) {
+         self.twoArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _twoArray;
+}
+- (NSMutableArray *)threeArray
+{
+    if (_threeArray == nil) {
+        self.threeArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _threeArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -74,22 +89,17 @@
 - (void)creatDataSoruce
 {
     NSArray *sortKeys = [self getSortedKeys:self.goodsDic];
+   
     
     if (sortKeys.count != 0) {
         for(int i = 0; i < sortKeys.count; i ++)
         {
             NSString *catego = [sortKeys objectAtIndex:i];
+            ModlistModel *model =  [[self.goodsDic objectForKey:catego] firstObject];
+            [self.twoArray addObject :model.subcategoryname ];
             
-            NSArray *dataArry = [self.goodsDic objectForKey:catego];
-            
-            for (ModlistModel *model in dataArry) {
-               
-                [self.dataArray addObject:model];
-                 NSLog(@"%@",self.dataArray);
-            }
         }
     }
-    
 
 }
 /** 设置导航栏右边按钮 */
@@ -343,83 +353,52 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-#warning 数值没有传过来，所以，这边的二级分类名称和二级分类id 还有 三级分类和三级分类id都是写死了.
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 1)
     {
-        self.secClassArray = @[@"净菜",
-                               @"熟食"];
-        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:self.secClassArray];
+
+        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:self.twoArray];
         actionSheet.cancleTitle = @"取消选择";
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
          {
              
-             if ([title isEqualToString:@"净菜"])
-             {
-                 index = 5;
-             }
-             else
-             {
-                 index = 6;
-             }
-             self.selectSecClassIndex = index;
+             self.selectSecClassIndex = [[[self getSortedKeys:self.goodsDic] objectAtIndex:index]integerValue] ;
              HDCLog(@"%ld", self.selectSecClassIndex);
              self.secClass = title;
+             self.threeArray = [self.goodsDic objectForKey:[[self getSortedKeys:self.goodsDic] objectAtIndex:index]];
+             self.thirdClass = @"";
              [self.tableView reloadData];
          }];
     }
     if (indexPath.row == 2)
     {
-        if ([self.secClassArray.firstObject isEqualToString:@"净菜"])
+        if(self.secClass.length == 0)
         {
-            NSArray * array = @[@"方便菜",
-                                @"丸糕类"
-                                ];
-            MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:array];
+            UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有选择二级菜单" message:@"请您先选择二级菜单" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+            [selct addAction:action];
+            [self presentViewController:selct animated:YES completion:nil];
+            return;
+        }else{
+            NSMutableArray *three  = [NSMutableArray arrayWithCapacity:0];
+            for ( ModlistModel *model in self.threeArray) {
+                
+                [three addObject:model.threecategoryname];
+            }
+            
+            MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品三级分类" style:MHSheetStyleWeiChat itemTitles:three];
             actionSheet.cancleTitle = @"取消选择";
             [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
              {
-                 if ([array.firstObject isEqualToString:@"方便菜"])
-                 {
-                     index = 22;
-                 }
-                 else
-                 {
-                     index = 23;
-                 }
-                 self.selectThirdClassIndex = index;
+                 ModlistModel *indexModel =  [self.threeArray objectAtIndex:index];
+                 self.selectThirdClassIndex = [indexModel.threecategoryid integerValue];
                  self.thirdClass = title;
                  [self.tableView reloadData];
                  HDCLog(@"%ld",self.selectThirdClassIndex);
              }];
         }
-        else
-        {
-            NSArray * array = @[@"畜肉类",
-                                @"禽肉类",
-                                @"凉拌菜"];
-            MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品三级分类" style:MHSheetStyleWeiChat itemTitles:array];
-            actionSheet.cancleTitle = @"取消选择";
-            [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
-             {
-                 if ([array.firstObject isEqualToString:@"畜肉类"])
-                 {
-                     index = 24;
-                 }
-                 else if ([array.lastObject isEqualToString:@"凉拌菜"])
-                 {
-                     index = 26;
-                 }
-                 else
-                 {
-                     index = 25;
-                 }
-                 self.selectThirdClassIndex = index;
-                 HDCLog(@"%ld",self.selectThirdClassIndex);
-                 self.thirdClass = title;
-                 [self.tableView reloadData];
-             }];
-        }
+    
     }
     if (indexPath.row == 4)
     {
