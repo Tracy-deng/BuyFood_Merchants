@@ -86,8 +86,9 @@
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
     
-    [self setNavRightBtn];
+
     [self creatDataSoruce];
+    [self.tableView registerClass:[PromotionTextFieldViewCell class] forCellReuseIdentifier:@"PromotionTextFieldViewCell"];
 }
 - (void)creatDataSoruce
 {
@@ -105,22 +106,7 @@
     }
 
 }
-/** 设置导航栏右边按钮 */
-- (void)setNavRightBtn
-{
 
-    UIButton* backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setFrame:CGRectMake(0, 0, 50, 30)];
-    [backBtn setTitle:@"完成" forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(backBtn:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem* rightBarItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    self.navigationItem.rightBarButtonItem = rightBarItem;
-}
-/** 撤销键盘 */
-- (void)backBtn:(UIButton* )sender
-{
-//    [self.cell.contentTextField resignFirstResponder];
-}
 - (void)addShopsImage
 {
     self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"addShopsImage"]];
@@ -280,28 +266,28 @@
 {
     if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 5 || indexPath.row == 7)
     {
-        self.cell = [PromotionTextFieldViewCell cellWithTableView:tableView];
-        self.cell.contentTextField.tag = indexPath.row;
-        self.cell.contentTextField.delegate = self;
-        [self.cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
-        switch (indexPath.row)
+        PromotionTextFieldViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PromotionTextFieldViewCell" forIndexPath:indexPath];
+        cell.contentTextField.tag = indexPath.row;
+        cell.contentTextField.delegate = self;
+        [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
+        switch (cell.contentTextField.tag)
         {
             case 0:
-                [self.cell setTitleLabel:@"商品名称:" andContentTextFieldPlaceholder:@"请输入商品名称"];
+                [cell setTitleLabel:@"商品名称:" andContentTextFieldPlaceholder:@"请输入商品名称"];
                 break;
             case 3:
-                [self.cell setTitleLabel:@"价格:" andContentTextFieldPlaceholder:@"请输入商品价格"];
+                [cell setTitleLabel:@"价格:" andContentTextFieldPlaceholder:@"请输入商品价格"];
                 break;
             case 5:
-                [self.cell setTitleLabel:@"重量:" andContentTextFieldPlaceholder:@"请输入商品重量"];
+                [cell setTitleLabel:@"重量:" andContentTextFieldPlaceholder:@"请输入商品重量"];
                 break;
             case 7:
-                [self.cell setTitleLabel:@"描述:" andContentTextFieldPlaceholder:@"二十字以内"];
+                [cell setTitleLabel:@"描述:" andContentTextFieldPlaceholder:@"二十字以内"];
                 break;
             default:
                 break;
         }
-        return self.cell;
+        return cell;
     }
     else
     {
@@ -351,7 +337,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 50;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
