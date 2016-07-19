@@ -20,8 +20,13 @@
 #import "MJExtension.h"
 #import "ShopThreeCate.h"
 #import "ModlistModel.h"
+#import "GetProductParams.h"
+#import "LoadView.h"
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
-
+{
+    NSString * threeProductId; // 传入的三级id
+    NSString * twoProductId;  // 传入的二级id
+}
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
 @property (nonatomic, strong) NSMutableArray * selectArray; // 选择数据源
@@ -60,7 +65,7 @@
     
     
 }
-// 数据请求
+// 数据请求 左控制器数据
 - (void)configureData
 {
     ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
@@ -98,6 +103,29 @@
     }];
 }
 
+// 右边的数据请求
+- (void)getMainTableDataSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    GetProductParams* params = [[GetProductParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    params.marketuserid = shopsInfo.marketuserid;
+    params.subcategoryid = twoProductId;
+    params.threecategoryid = threeProductId;
+    params.pagesize = @"0";
+    params.page = @"0";
+    [RequestTool getProduct:params success:^(ResultsModel *result) {
+        NSLog(@"reust%@",result.ModelList);
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        NSLog(@"error");
+        [loadView stopAnimation];
+    }];
+    
+    
+}
 // 对获得数据排序  小的在前
 -(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
 {
@@ -163,7 +191,7 @@
     [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).offset(-30);
         make.left.equalTo(self.selectedTableView.mas_right).offset(10);
-        make.width.equalTo(@100);
+        make.width.equalTo(@(0.26*SCREEN_WIDTH));
         make.height.equalTo(@40);
     }];
     addBtn.layer.masksToBounds = YES;
@@ -178,7 +206,7 @@
     [reorderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(addBtn);
         make.right.equalTo(self.view).offset(-10);
-        make.width.equalTo(@100);
+        make.width.equalTo(@(0.26*SCREEN_WIDTH));
         make.height.equalTo(@40);
     }];
     [reorderBtn addTarget:self action:@selector(reordeBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -329,6 +357,16 @@
     }
     else{// 点击selectedTableView切换数据
         HDCLog(@"indexPath.row === %ld", indexPath.row);
+        // 点击  传入三级id  mainTableView 获取数据
+        NSArray *keys = [self getSortedKeys:billData];
+        if (keys.count != 0) {
+            
+            NSString *catego = [keys objectAtIndex:indexPath.section];
+            ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
+            threeProductId = model.threecategoryid;
+            twoProductId = model.subcategoryid;
+            [self getMainTableDataSource];
+        }
     }
 }
 // 每个tableView 的高度

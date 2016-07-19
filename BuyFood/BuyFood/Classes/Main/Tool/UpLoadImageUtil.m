@@ -16,70 +16,7 @@ typedef void (^UpLoadImageBlock)(id<AFMultipartFormData> formData);
 @implementation UpLoadImageUtil
 
 
-//static NSString *upLoadImagePath;   //图片地址
 
-/* 图片上传
-+ (void )uploadImage:(id )image
-             success:(void (^)(id response))success
-             failure:(void (^)())failure{
-    BOOL isSingle =  [image isKindOfClass:[UIImage class]];
-    if (isSingle) {
-#pragma mark -- 服务器的URL
-        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"fileUpLoad/fileUpLoad"];
-        upLoadImagePath = url;
-        [self upLoadImageBlock:^(id<AFMultipartFormData> formData) {
-            NSData *data = UIImageJPEGRepresentation(image, 1.0);
-            double mul = data.length / kUploadImageMaxByteCount;
-            //图片压缩x
-            if (mul > 1) {
-                double compressionQuality= 1 / sqrt(mul);
-                data =  UIImageJPEGRepresentation(image, compressionQuality);
-            }
-            NSString *fileName = [NSString stringWithFormat:@"IMAGE_0.jpg"];
-            NSString *formKey = [NSString stringWithFormat:@"file_0"];
-            NSString *type = @"image/jpeg";
-            [formData appendPartWithFileData:data name:formKey fileName:fileName mimeType:type];
-        } success:^(id response) {
-            NSDictionary *dic = (NSDictionary *)response;
-            success(dic[@"content"][@"url"]);
-        } failure:^{
-            failure();
-        }];
-    }else{
-#pragma mark -- 服务器的URL
-        NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"fileUpLoad/fileUpLoad"];
-        upLoadImagePath = url;
-        [self upLoadImageBlock:^(id<AFMultipartFormData> formData) {
-            for (NSInteger i = 0; i < [image count]; i++) {
-                id obj = image[i];
-                if (![obj isKindOfClass:[UIImage class]]) {
-                    continue;
-                }
-                NSData *data = UIImageJPEGRepresentation(obj, 1.0);
-                double mul = data.length / kUploadImageMaxByteCount;
-                if (mul > 1) {
-                    double compressionQuality= 1/sqrt(mul);
-                    data =  UIImageJPEGRepresentation(obj, compressionQuality);
-                }
-                NSString *fileName = [NSString stringWithFormat:@"IMAGE_%@.jpg",@(i)];
-                NSString *formKey = [NSString stringWithFormat:@"file_%@",@(i)];
-                NSString *type = @"image/jpeg";
-                [formData appendPartWithFileData:data name:formKey fileName:fileName mimeType:type];
-            }
-        } success:^(id response) {
-            NSDictionary *dic = (NSDictionary *)response;
-            NSArray *arr = dic[@"content"];
-            NSMutableArray *urlArr = [NSMutableArray array];
-            for (NSDictionary *dic in arr) {
-                [urlArr addObject:dic[@"url"]];
-            }
-            success(urlArr);
-        } failure:^{
-            failure();
-        }];
-    }
-}
-*/
 + (void )uploadImage:(id )image
              success:(void (^)(id response))success
              failure:(void (^)())failure{

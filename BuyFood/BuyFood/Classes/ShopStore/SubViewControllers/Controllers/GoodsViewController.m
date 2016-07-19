@@ -448,6 +448,7 @@
         }];
     } failure:^{
         NSLog(@"上传图片失败");
+        [loadView stopAnimation];
     }];
     
     

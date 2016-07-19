@@ -27,4 +27,6 @@
 /** 商品的标签 */
 @property (nonatomic, strong) NSString* Productlabel;
 
+@property (nonatomic, strong) NSString *page;
+
 @end
