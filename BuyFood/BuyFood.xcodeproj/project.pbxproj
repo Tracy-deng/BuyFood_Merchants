@@ -169,6 +169,7 @@
 		78089F7A1D34D81500DBAB88 /* ShopThreeCate.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F791D34D81500DBAB88 /* ShopThreeCate.m */; };
 		78089F801D35D35700DBAB88 /* Subcatogory.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F7F1D35D35700DBAB88 /* Subcatogory.m */; };
 		78089F831D35D5F200DBAB88 /* ModlistModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78089F821D35D5F200DBAB88 /* ModlistModel.m */; };
+		780984871D3DC4F7009E7E84 /* LoadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 780984861D3DC4F7009E7E84 /* LoadView.m */; };
 		782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 782C93291D226A1E00F00DB6 /* ShopManager.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
@@ -506,6 +507,8 @@
 		78089F7F1D35D35700DBAB88 /* Subcatogory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subcatogory.m; sourceTree = "<group>"; };
 		78089F811D35D5F200DBAB88 /* ModlistModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModlistModel.h; sourceTree = "<group>"; };
 		78089F821D35D5F200DBAB88 /* ModlistModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModlistModel.m; sourceTree = "<group>"; };
+		780984851D3DC4F7009E7E84 /* LoadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadView.h; sourceTree = "<group>"; };
+		780984861D3DC4F7009E7E84 /* LoadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadView.m; sourceTree = "<group>"; };
 		782C93281D226A1D00F00DB6 /* ShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopManager.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.h; sourceTree = SOURCE_ROOT; };
 		782C93291D226A1E00F00DB6 /* ShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopManager.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.m; sourceTree = SOURCE_ROOT; };
 		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -781,6 +784,7 @@
 		0E5259EA1D1283A700AFC95B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				780984841D3DC4CD009E7E84 /* BaseView */,
 				0EBD08241D17EF18002DD7A4 /* AlreadyOrder */,
 				0E525A681D1284EA00AFC95B /* UntreatedOrder */,
 				0E5259F11D1283A700AFC95B /* LoginAndRegister */,
@@ -1324,6 +1328,16 @@
 			path = MHActionSheet;
 			sourceTree = "<group>";
 		};
+		780984841D3DC4CD009E7E84 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				780984851D3DC4F7009E7E84 /* LoadView.h */,
+				780984861D3DC4F7009E7E84 /* LoadView.m */,
+			);
+			name = BaseView;
+			path = ShopStore;
+			sourceTree = "<group>";
+		};
 		784D3EC51D38DECA00C82C1D /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -1377,7 +1391,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8V5V9GRF46;
+						DevelopmentTeam = 2VKY6QPH98;
 					};
 				};
 			};
@@ -1488,6 +1502,7 @@
 				0E0416B01D3B8FC2007DF5AB /* BrandUnOrderViewController.m in Sources */,
 				0E525A491D1283A700AFC95B /* ForgetPwdViewController.m in Sources */,
 				0E110C9C1D19929100161ACB /* FooterView.m in Sources */,
+				780984871D3DC4F7009E7E84 /* LoadView.m in Sources */,
 				0E525A5C1D1283A700AFC95B /* View+MASAdditions.m in Sources */,
 				0E3C1A911D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m in Sources */,
 				0E110CBB1D19B76100161ACB /* ShopsManagementViewController.m in Sources */,

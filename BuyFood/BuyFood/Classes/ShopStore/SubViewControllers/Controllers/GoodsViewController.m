@@ -17,8 +17,11 @@
 #import "ResultsModel.h"
 #import "UpLoadImageUtil.h"
 #import "ModlistModel.h"
-
+#import "LoadView.h"
 @interface GoodsViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+{
+    LoadView *loadView;
+}
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
 /** 单位*/
@@ -429,6 +432,8 @@
 /** 保存按钮 */
 - (void)saveBtnClick:(UIButton* )sender
 {
+    loadView = [LoadView new];
+    [loadView startAnimation];
     [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
         NSLog(@"上传图片成功 %@",response[@"data"][0][@"littlepic"]);
         ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
@@ -449,6 +454,7 @@
             HDCLog(@"%@",result);
             if ([result.ErrorCode isEqualToString:@"1"])
             {
+                [loadView stopAnimation];
                 [self.navigationController popViewControllerAnimated:YES];
             }
         } failure:^(NSError *error) {
