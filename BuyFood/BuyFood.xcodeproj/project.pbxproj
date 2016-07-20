@@ -205,6 +205,7 @@
 		780984F61D3F59B2009E7E84 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 780984E11D3F59B2009E7E84 /* UIScrollView+MJExtension.m */; };
 		780984F71D3F59B2009E7E84 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 780984E31D3F59B2009E7E84 /* UIScrollView+MJRefresh.m */; };
 		780984F81D3F59B2009E7E84 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 780984E51D3F59B2009E7E84 /* UIView+MJExtension.m */; };
+		780984FA1D3F7574009E7E84 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 780984F91D3F7574009E7E84 /* Localizable.strings */; };
 		782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 782C93291D226A1E00F00DB6 /* ShopManager.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
@@ -613,6 +614,7 @@
 		780984E31D3F59B2009E7E84 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		780984E41D3F59B2009E7E84 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		780984E51D3F59B2009E7E84 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		780984F91D3F7574009E7E84 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		782C93281D226A1D00F00DB6 /* ShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopManager.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.h; sourceTree = SOURCE_ROOT; };
 		782C93291D226A1E00F00DB6 /* ShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopManager.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.m; sourceTree = SOURCE_ROOT; };
 		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -881,6 +883,7 @@
 			isa = PBXGroup;
 			children = (
 				0E5259D41D12810F00AFC95B /* main.m */,
+				780984F91D3F7574009E7E84 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1664,6 +1667,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0EEF9D1B1D317EE600CD83E9 /* MHSheetView.xib in Resources */,
+				780984FA1D3F7574009E7E84 /* Localizable.strings in Resources */,
 				0EEF9D191D317EE600CD83E9 /* MHSheetHead.xib in Resources */,
 				0E12A2611D2B986A008066CC /* Info.plist in Resources */,
 				0E3C1A9D1D1C336B0060A7F4 /* MHSelectPickerView.xib in Resources */,

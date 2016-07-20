@@ -420,7 +420,18 @@
     
 }
 
-
+#pragma mark 提交编辑操作时会调用这个方法(删除，添加)
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 删除操作
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // 1.删除数据
+        [self.productMainDataArray removeObjectAtIndex:indexPath.row];
+        
+        // 2.更新UITableView UI界面
+        // [tableView reloadData];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -430,7 +441,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    
+    [self.productMainDataArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
 }
 
 @end
