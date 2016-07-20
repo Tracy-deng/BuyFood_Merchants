@@ -130,7 +130,9 @@
     }
     else if (indexPath.row == 2)
     {
-        [cell setTitleLabel:@"价格:" andContentLabel:self.detailModel.productoutprice];
+        NSInteger priceNum = [self.detailModel.productoutprice integerValue];
+        NSString *price = [NSString stringWithFormat:@"%.2f", priceNum *1.0 /100];;
+        [cell setTitleLabel:@"价格:" andContentLabel:price];
     }
     else if (indexPath.row == 3)
     {
