@@ -30,7 +30,8 @@
         ShopsThirdClassParams,
         ShopsSecAndThirdClassParams,
         GetProductParams,
-        AddProductParams;
+        AddProductParams,
+        ChangeTimeParams;
 
 
 @interface RequestTool : NSObject
@@ -73,6 +74,8 @@
 + (void)evaluation:(EvaluationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 营业状态 */
 + (void)businessStatus:(BusinessStatusParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 修改营业时间*/
++ (void)chnageBusinessStatus:(ChangeTimeParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 商品管理 */
 + (void)shopsManagement:(ShopsManagementParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取所有商品一级分类 */
@@ -86,5 +89,6 @@
 + (void)addProducts:(AddProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 查询商品 */
 + (void)getProduct:(GetProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+
 
 @end

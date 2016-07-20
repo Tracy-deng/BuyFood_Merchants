@@ -11,6 +11,7 @@
 @interface PromotionTextFieldViewCell : UITableViewCell
 
 @property (nonatomic, strong) UITextField* contentTextField;
+@property (nonatomic, strong) UILabel* titleLabel;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

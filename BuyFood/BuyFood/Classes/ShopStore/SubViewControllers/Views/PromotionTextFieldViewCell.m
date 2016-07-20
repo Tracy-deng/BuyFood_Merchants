@@ -10,10 +10,6 @@
 
 @interface PromotionTextFieldViewCell ()
 
-
-@property (nonatomic, strong) UILabel* titleLabel;
-
-
 @end
 
 @implementation PromotionTextFieldViewCell

@@ -9,10 +9,15 @@
 #import "BusinessStatusViewController.h"
 #import "BusinessStatusView.h"
 #import "ChooseBusinessTimeViewController.h"
+#import "ShopsUserInfoTool.h"
+#import "ShopsUserInfo.h"
 
 @interface BusinessStatusViewController ()
 
 @property (nonatomic, strong) BusinessStatusView* businessStatusView;
+@property (nonatomic, strong) ShopsUserInfo* userInfo;
+@property (nonatomic, strong) NSString* time;
+@property (nonatomic, assign) BOOL change;
 
 
 @end
@@ -24,6 +29,9 @@
     [super viewDidLoad];
     self.title = @"营业状态";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    self.userInfo = [ShopsUserInfoTool account];
+    self.time = [[self.userInfo.openstart stringByAppendingString:@"-"] stringByAppendingString:self.userInfo.openend];
+    _change = YES;
     [self creatBusinessStatusView];
     [self setUpBusinessStatusBtn];
 }
@@ -32,7 +40,8 @@
 {
     self.businessStatusView = [BusinessStatusView initBusinessStatusView];
     [self.businessStatusView creatHeaderContentView];
-    [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"休息中" andBusinessTime:@"09:30-21:30" andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
+    
+    [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"休息中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
     [self.businessStatusView.businessTime addTarget:self action:@selector(chooseBusinessTime:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.businessStatusView];
     [self.businessStatusView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -45,7 +54,13 @@
 
 - (void)chooseBusinessTime:(UIButton* )businessTimeBtn
 {
-    [self.navigationController pushViewController:[[ChooseBusinessTimeViewController alloc] init] animated:YES];
+    ChooseBusinessTimeViewController* chooseVC = [[ChooseBusinessTimeViewController alloc] init];
+    chooseVC.startTime = self.userInfo.openstart;
+    chooseVC.stopTime = self.userInfo.openend;
+    [chooseVC returnText:^(NSString *showText) {
+        [self.businessStatusView.businessTime setTitle:[NSString stringWithFormat:@"营业时间：%@",showText] forState:UIControlStateNormal];
+    }];
+    [self.navigationController pushViewController:chooseVC animated:YES];
 }
 
 - (void)setUpBusinessStatusBtn
@@ -72,11 +87,11 @@
     sender.selected = !sender.isSelected;
     if (!sender.selected)
     {
-        [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"休息中" andBusinessTime:@"09:30-21:30" andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
+        [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"休息中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
     }
     else
     {
-        [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"营业中" andBusinessTime:@"09:30-21:30" andBusinessStatusLabel:@"现在是营业时间,接收订单"];
+        [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"营业中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是营业时间,接收订单"];
     }
 }
 

@@ -9,12 +9,19 @@
 #import "ChooseBusinessTimeViewController.h"
 #import "ChooseBusinessTimeView.h"
 #import "MHDatePicker.h"
+#import "ChangeTimeParams.h"
+#import "ModlistModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "ResultsModel.h"
 
 @interface ChooseBusinessTimeViewController ()
 
 @property (nonatomic, strong) ChooseBusinessTimeView* chooseStartBusinessTimeView;
 @property (nonatomic, strong) ChooseBusinessTimeView* chooseStopBusinessTimeView;
 @property (strong, nonatomic) MHDatePicker *selectTimePicker;
+
 
 @end
 
@@ -33,7 +40,7 @@
 {
     self.chooseStartBusinessTimeView = [ChooseBusinessTimeView initChooseBusinessTimeView];
     [self.chooseStartBusinessTimeView creatChooseBusinessTimeView];
-    [self.chooseStartBusinessTimeView setTimeLabelText:@"开始时间" andBusinessTimeTitle:@"09：30"];
+    [self.chooseStartBusinessTimeView setTimeLabelText:@"开始时间" andBusinessTimeTitle:self.startTime];
     [self.chooseStartBusinessTimeView.businessTime addTarget:self action:@selector(startBusinessTimeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.chooseStartBusinessTimeView];
     [self.chooseStartBusinessTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -45,7 +52,7 @@
     
     self.chooseStopBusinessTimeView = [ChooseBusinessTimeView initChooseBusinessTimeView];
     [self.chooseStopBusinessTimeView creatChooseBusinessTimeView];
-    [self.chooseStopBusinessTimeView setTimeLabelText:@"结束时间" andBusinessTimeTitle:@"21：30"];
+    [self.chooseStopBusinessTimeView setTimeLabelText:@"结束时间" andBusinessTimeTitle:self.stopTime];
     [self.chooseStopBusinessTimeView.businessTime addTarget:self action:@selector(stopBusinessTimeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.chooseStopBusinessTimeView];
     [self.chooseStopBusinessTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -79,8 +86,8 @@
     __weak typeof(self) weakSelf = self;
     [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
     {
-        NSString* title = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
-        [startBtn setTitle:title forState:UIControlStateNormal];
+        self.startTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+        [startBtn setTitle:self.startTime forState:UIControlStateNormal];
 
     }];
 }
@@ -91,8 +98,8 @@
     __weak typeof(self) weakSelf = self;
     [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
      {
-         NSString* title = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
-         [stopBtn setTitle:title forState:UIControlStateNormal];
+         self.stopTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+         [stopBtn setTitle:self.stopTime forState:UIControlStateNormal];
      }];
 }
 - (NSString *)dateStringWithDate:(NSDate *)date DateFormat:(NSString *)dateFormat
@@ -103,9 +110,31 @@
     NSString *str = [dateFormatter stringFromDate:date];
     return str ? str : @"";
 }
+
+- (void)returnText:(ReturnTextBlock)block
+{
+    self.returnTextBlock = block;
+}
 - (void)businessStatusBtnClick:(UIButton* )statusBtn
 {
-    HDCLog(@"...");
+    ShopsUserInfo* userInfo = [ShopsUserInfoTool account];
+    ChangeTimeParams* params = [[ChangeTimeParams alloc] init];
+    params.openstart = self.startTime;
+    params.openend = self.stopTime;
+    params.marketuserid = userInfo.marketuserid;
+    [RequestTool chnageBusinessStatus:params success:^(ResultsModel *result) {
+        if ([result.ErrorCode isEqualToString:@"1"])
+        {
+            if (self.returnTextBlock != nil)
+            {
+                NSString *time = [[userInfo.openstart stringByAppendingString:@"-"] stringByAppendingString:userInfo.openend];
+                self.returnTextBlock(time);
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+    } failure:^(NSError *error) {
+        HDCLog(@"%@", error);
+    }];
 }
 
 @end
