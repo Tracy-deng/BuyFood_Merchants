@@ -30,13 +30,23 @@
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
 @property (nonatomic, strong) NSMutableArray * selectArray; // 选择数据源
+@property (nonatomic, strong) NSMutableArray * productMainDataArray; // 主页面的数据源
 @property (nonatomic, strong) ModlistModel *modlst;
 
 @end
 
 @implementation ShopsManagementViewController
+
 {
     NSMutableDictionary<NSString *, NSMutableArray<ModlistModel *> *> *billData;
+}
+
+- (NSMutableArray *)productMainDataArray
+{
+    if (_productMainDataArray == nil) {
+        self.productMainDataArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _productMainDataArray;
 }
 - (void)dealloc
 {
@@ -117,7 +127,14 @@
     params.pagesize = @"0";
     params.page = @"0";
     [RequestTool getProduct:params success:^(ResultsModel *result) {
-        NSLog(@"reust%@",result.ModelList);
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        dataArray  = [ThreeCatego mj_objectArrayWithKeyValuesArray:result.ModelList];
+        for (NSDictionary *Pdic in dataArray) {
+            ModlistModel *model = [[ModlistModel alloc]init];
+            [model setValuesForKeysWithDictionary:Pdic];
+            [self.productMainDataArray addObject:model];
+        }
+        [self.mainTableView reloadData];
         [loadView stopAnimation];
     } failure:^(NSError *error) {
         NSLog(@"error");
@@ -226,7 +243,7 @@
         return [[billData objectForKey:catego]count];
     }else
         
-        return 3;
+        return self.productMainDataArray.count;
     
 }
 
@@ -320,7 +337,7 @@
         [tableView setSeparatorColor:[UIColor colorWithWhite:0.745 alpha:1.000]];
         shopCell.selectedBackgroundView = [[UIView alloc]initWithFrame:shopCell.frame];
         shopCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
-        
+        shopCell.productModel = self.productMainDataArray[indexPath.row];
         return shopCell;
     }
 }

@@ -22,4 +22,8 @@
 @property (nonatomic, strong) NSString *threecategoryid; // 三级id
 @property (nonatomic, strong) NSString *threecategoryname; // 三级名称
 
+@property (nonatomic, strong) NSString * productname;// 商品名称
+@property (nonatomic, strong) NSString * productpic; // 商品图片
+@property (nonatomic, strong) NSString * productoutprice; // 商品价格
+@property (nonatomic, strong) NSString * productlabel; // 标签
 @end

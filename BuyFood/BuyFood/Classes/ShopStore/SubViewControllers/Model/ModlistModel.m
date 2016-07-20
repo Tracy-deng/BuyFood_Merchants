@@ -9,5 +9,8 @@
 #import "ModlistModel.h"
 
 @implementation ModlistModel
-
+- (void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
 @end

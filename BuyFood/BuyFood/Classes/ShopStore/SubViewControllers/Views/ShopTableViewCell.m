@@ -7,7 +7,7 @@
 //
 
 #import "ShopTableViewCell.h"
-
+#import "UIImageView+WebCache.h"
 @implementation ShopTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -62,6 +62,25 @@
     }
     
     return self;
+}
+
+- (void)setProductModel:(ModlistModel *)productModel
+{
+    // 商品图片
+    [_foodImageView sd_setImageWithURL:[NSURL URLWithString:productModel.productpic] placeholderImage:nil];
+    
+    // 商品名称
+    _nameLabel.text = productModel.productname;
+    
+    
+   // 标签图片
+    if ([productModel.productlabel isEqualToString:@"热销"]) {
+        _hotImageview.image  = [UIImage imageNamed:@"1"];
+    }
+    
+   // 价格
+    NSInteger priceNum = [productModel.productoutprice integerValue];
+    _priceLabel.text = [NSString stringWithFormat:@"%.2f/份", priceNum *1.0 /100 ];;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];
