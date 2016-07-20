@@ -22,10 +22,12 @@
 #import "ModlistModel.h"
 #import "GetProductParams.h"
 #import "LoadView.h"
+#import "MJRefresh.h"
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 {
     NSString * threeProductId; // 传入的三级id
     NSString * twoProductId;  // 传入的二级id
+    BOOL toAddVC;
 }
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
@@ -66,15 +68,27 @@
      *
      *  @return
      */
-    
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notification:) name:@"text" object:nil];
+   
     
     [self.selectedTableView registerClass:[ShopThreeCate class] forHeaderFooterViewReuseIdentifier:@"head"];
     billData = [NSMutableDictionary new];
     [self configureData];
+  
     
     
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (toAddVC) {
+        toAddVC = NO;
+        [self.mainTableView reloadData];
+        return;
+    }
+    
+    
+
+}
+
 // 数据请求 左控制器数据
 - (void)configureData
 {
@@ -127,9 +141,7 @@
     params.pagesize = @"0";
     params.page = @"0";
     [RequestTool getProduct:params success:^(ResultsModel *result) {
-        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
-        dataArray  = [ThreeCatego mj_objectArrayWithKeyValuesArray:result.ModelList];
-        for (NSDictionary *Pdic in dataArray) {
+        for (NSDictionary *Pdic in result.ModelList) {
             ModlistModel *model = [[ModlistModel alloc]init];
             [model setValuesForKeysWithDictionary:Pdic];
             [self.productMainDataArray addObject:model];
@@ -344,28 +356,17 @@
 
 - (void)didAddBtn:(UIButton *)sender
 {
+    toAddVC = YES;  // 进去添加页面  为yes 添加完成刷新数据
     GoodsViewController *goodsVC = [[GoodsViewController alloc]init];
     goodsVC.goodsDic = billData;
     [self.navigationController pushViewController:goodsVC animated:YES];
 }
-/**
- *  收到通知 增加分类
- *
- *  @param notification
- */
-- (void)notification:(NSNotification *)notification
-{
-    NSDictionary *dic = [notification userInfo];
-    
-    [[ShopManager shareInstance] addArrayWithString:dic[@"userInfo"]];
-    
-    
-    [self.selectedTableView reloadData];
-}
+
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   
     // 点击 mainTableView 进入商品详情
     if([tableView isEqual:_mainTableView])
     {
@@ -375,6 +376,7 @@
     else{// 点击selectedTableView切换数据
         HDCLog(@"indexPath.row === %ld", indexPath.row);
         // 点击  传入三级id  mainTableView 获取数据
+        [self.productMainDataArray removeAllObjects];
         NSArray *keys = [self getSortedKeys:billData];
         if (keys.count != 0) {
             
