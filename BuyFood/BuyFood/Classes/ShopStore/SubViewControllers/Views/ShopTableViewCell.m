@@ -77,10 +77,12 @@
     if ([productModel.productlabel isEqualToString:@"热销"]) {
         _hotImageview.image  = [UIImage imageNamed:@"1"];
     }
+    // 单位
+    NSString *unit = productModel.productunit;
     
    // 价格
     NSInteger priceNum = [productModel.productoutprice integerValue];
-    _priceLabel.text = [NSString stringWithFormat:@"%.2f/份", priceNum *1.0 /100 ];;
+    _priceLabel.text = [NSString stringWithFormat:@"%.2f/%@", priceNum *1.0 /100,unit ];;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

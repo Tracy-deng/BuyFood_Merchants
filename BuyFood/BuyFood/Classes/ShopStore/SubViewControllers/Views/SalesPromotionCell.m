@@ -60,7 +60,7 @@
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.titleLabel.mas_right).offset(30);
         make.top.equalTo(self.titleLabel);
-        make.width.equalTo(self.titleLabel);
+        make.width.equalTo(@200);
         make.height.equalTo(self.titleLabel);
     }];
 }

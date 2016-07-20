@@ -26,4 +26,5 @@
 @property (nonatomic, strong) NSString * productpic; // 商品图片
 @property (nonatomic, strong) NSString * productoutprice; // 商品价格
 @property (nonatomic, strong) NSString * productlabel; // 标签
+@property (nonatomic, strong) NSString * productunit; //单位
 @end

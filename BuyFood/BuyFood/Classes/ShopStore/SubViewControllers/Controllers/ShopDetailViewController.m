@@ -8,6 +8,7 @@
 
 #import "ShopDetailViewController.h"
 #import "SalesPromotionCell.h"
+#import "UIImageView+WebCache.h"
 @interface ShopDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
@@ -22,12 +23,14 @@
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
+    NSLog(@"%@",self.detailModel);
 }
 
 - (void)addShopsImage
 {
     self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopsImage"]];
     self.imageView.userInteractionEnabled = YES;
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.detailModel.productpic] placeholderImage:nil];
     [self.view addSubview:self.imageView];
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -116,21 +119,22 @@
     
     
     SalesPromotionCell* cell = [SalesPromotionCell cellWithTableView:tableView];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.row == 0)
     {
-        [cell setTitleLabel:@"商品名称:" andContentLabel:@"大白菜"];
+        [cell setTitleLabel:@"商品名称:" andContentLabel:self.detailModel.productname];
     }
     else if (indexPath.row == 1)
     {
-        [cell setTitleLabel:@"分类:" andContentLabel:@"蔬菜类"];
+        [cell setTitleLabel:@"分类:" andContentLabel:self.detailModel.threecategoryname];
     }
     else if (indexPath.row == 2)
     {
-        [cell setTitleLabel:@"价格:" andContentLabel:@"0.00"];
+        [cell setTitleLabel:@"价格:" andContentLabel:self.detailModel.productoutprice];
     }
     else if (indexPath.row == 3)
     {
-        [cell setTitleLabel:@"单位" andContentLabel:@"份"];
+        [cell setTitleLabel:@"单位" andContentLabel:self.detailModel.productunit];
     }
     else if (indexPath.row == 4)
     {
@@ -138,7 +142,7 @@
         [cell setTitleLabel:@"重量:" andContentLabel:@"11"];
     }else
         
-        [cell setTitleLabel:@"标签" andContentLabel:@"特价"];
+        [cell setTitleLabel:@"标签" andContentLabel:self.detailModel.productlabel];
         
         
     return cell;

@@ -78,6 +78,10 @@
         toAddVC = NO;
         [self.mainTableView reloadData];
         return;
+    }else{
+        [self.productMainDataArray removeAllObjects];
+        [self getMainTableDataSource];
+        return;
     }
 }
 
@@ -352,7 +356,6 @@
 
 - (void)didAddBtn:(UIButton *)sender
 {
-    toAddVC = YES;  // 进去添加页面  为yes 添加完成刷新数据
     GoodsViewController *goodsVC = [[GoodsViewController alloc]init];
     goodsVC.goodsDic = billData;
     [self.navigationController pushViewController:goodsVC animated:YES];
@@ -362,11 +365,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    toAddVC = YES;
     // 点击 mainTableView 进入商品详情
     if([tableView isEqual:_mainTableView])
     {
         ShopDetailViewController *detailVC =  [[ShopDetailViewController alloc]init];
+        detailVC.detailModel = self.productMainDataArray[indexPath.row];
         [self.navigationController pushViewController:detailVC animated:YES];
     }
     else{// 点击selectedTableView切换数据

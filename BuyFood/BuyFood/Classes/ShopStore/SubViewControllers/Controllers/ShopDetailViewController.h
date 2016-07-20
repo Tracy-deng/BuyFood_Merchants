@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ModlistModel.h"
 @interface ShopDetailViewController : UIViewController
-
+@property (nonatomic, strong) ModlistModel * detailModel; 
 @end
