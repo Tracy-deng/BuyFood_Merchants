@@ -50,11 +50,6 @@
     }
     return _productMainDataArray;
 }
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"text" object:nil];
-}
-
 
 - (void)viewDidLoad
 {
@@ -62,21 +57,21 @@
     self.title = @"商品管理";
     [self.view setBackgroundColor:[UIColor colorWithWhite:0.915 alpha:1.000]];
     [self creatTableView];
-    
-    /**
-     *  接受返回的分类的通知
-     *
-     *  @return
-     */
-   
+
     
     [self.selectedTableView registerClass:[ShopThreeCate class] forHeaderFooterViewReuseIdentifier:@"head"];
     billData = [NSMutableDictionary new];
     [self configureData];
-  
+
     
+    self.mainTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.productMainDataArray removeAllObjects];
+        [self getMainTableDataSource];
+    }];
     
+
 }
+// 当页面出现的时候 从添加页面返回 刷新数据
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (toAddVC) {
@@ -84,9 +79,6 @@
         [self.mainTableView reloadData];
         return;
     }
-    
-    
-
 }
 
 // 数据请求 左控制器数据
@@ -148,6 +140,7 @@
         }
         [self.mainTableView reloadData];
         [loadView stopAnimation];
+        [self.mainTableView.header endRefreshing];
     } failure:^(NSError *error) {
         NSLog(@"error");
         [loadView stopAnimation];
@@ -332,8 +325,11 @@
             NSString *catego = [keys objectAtIndex:indexPath.section];
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
             cell.textLabel.text = model.threecategoryname;
+//            threeProductId = model.threecategoryid;
+//            twoProductId = model.subcategoryid;
+//            [self getMainTableDataSource];
         }
-        
+
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
