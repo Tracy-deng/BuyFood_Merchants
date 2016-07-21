@@ -225,6 +225,7 @@
 		784D3ED91D38DECA00C82C1D /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D3ED01D38DECA00C82C1D /* AFURLResponseSerialization.m */; };
 		784D3EDA1D38DECA00C82C1D /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D3ED21D38DECA00C82C1D /* AFURLSessionManager.m */; };
 		784D3EDB1D38DECA00C82C1D /* HttpRequestTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D3ED41D38DECA00C82C1D /* HttpRequestTool.m */; };
+		78639ADC1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */; };
 		788084E01D3348FB00D3FCDD /* UpLoadImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */; };
 		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
 		78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */; };
@@ -653,6 +654,8 @@
 		784D3ED21D38DECA00C82C1D /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		784D3ED31D38DECA00C82C1D /* HttpRequestTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequestTool.h; sourceTree = "<group>"; };
 		784D3ED41D38DECA00C82C1D /* HttpRequestTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequestTool.m; sourceTree = "<group>"; };
+		78639ADA1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
+		78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		788084DE1D3348FB00D3FCDD /* UpLoadImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpLoadImageUtil.h; sourceTree = "<group>"; };
 		788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpLoadImageUtil.m; sourceTree = "<group>"; };
 		78FEA85F1D1B8560001D23BC /* CCTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTitleView.h; sourceTree = "<group>"; };
@@ -1455,6 +1458,8 @@
 		780984841D3DC4CD009E7E84 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				78639ADA1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.h */,
+				78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */,
 				780984851D3DC4F7009E7E84 /* LoadView.h */,
 				780984861D3DC4F7009E7E84 /* LoadView.m */,
 			);
@@ -1654,7 +1659,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8V5V9GRF46;
+						DevelopmentTeam = 2VKY6QPH98;
 					};
 				};
 			};
@@ -1899,6 +1904,7 @@
 				0E525A4B1D1283A700AFC95B /* RealnameViewController.m in Sources */,
 				0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */,
 				7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */,
+				78639ADC1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				0E5259D51D12810F00AFC95B /* main.m in Sources */,
 				0EEF9CE21D3166D600CD83E9 /* RegisterCell.m in Sources */,
 				780984EA1D3F59B2009E7E84 /* MJRefreshHeader.m in Sources */,

@@ -12,6 +12,9 @@
 #import "PromotionTextFieldViewCell.h"
 #import "MHActionSheet.h"
 @interface ShopDetailViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+{
+    BOOL isValue;
+}
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
 /** 单位*/
@@ -37,10 +40,25 @@
 @property (nonatomic, strong) NSString* productremark;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickController;
+@property (nonatomic, strong) NSMutableArray * threeArray;
+@property (nonatomic, strong) NSMutableArray *twoArray;
 @end
 
 @implementation ShopDetailViewController
-
+- (NSMutableArray *)twoArray
+{
+    if (_twoArray == nil) {
+        self.twoArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _twoArray;
+}
+- (NSMutableArray *)threeArray
+{
+    if (_threeArray == nil) {
+        self.threeArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _threeArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -57,12 +75,30 @@
     self.productoutprice = price;
     self.unitStr = self.detailModel.productunit;
     self.shopsTag = self.detailModel.productlabel;
-    
+    [self creatDataSoruce];
     
     _imagePickController = [[UIImagePickerController alloc]init];
     _imagePickController.delegate = self;
     _imagePickController.allowsEditing = YES;
     _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
+}
+
+- (void)creatDataSoruce
+{
+    NSArray *sortKeys = [self getSortedKeys:self.goodsDic];
+    
+    
+    if (sortKeys.count != 0) {
+        for(int i = 0; i < sortKeys.count; i ++)
+        {
+            NSString *catego = [sortKeys objectAtIndex:i];
+            ModlistModel *model =  [[self.goodsDic objectForKey:catego] firstObject];
+            [self.twoArray addObject :model.subcategoryname ];
+            
+        }
+    }
+    
 }
 
 - (void)addShopsImage
@@ -115,6 +151,7 @@
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
+    [bottomBtn addTarget:self action:@selector(didBottomBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:bottomBtn];
     [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(-10);
@@ -128,6 +165,7 @@
     [deleBtn setBackgroundColor:[UIColor colorWithRed:1.000 green:0.442 blue:0.113 alpha:1.000]];
     [deleBtn setTitle:@"删除" forState:UIControlStateNormal];
     deleBtn.layer.cornerRadius = 3.0;
+    [deleBtn addTarget:self action:@selector(diddeleBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:deleBtn];
     [deleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(bottomBtn.mas_top).offset(-5);
@@ -281,12 +319,23 @@
         switch (indexPath.row)
         {
             case 1:
-                [cell setTitleLabel:@"二级分类:" andContentLabel:self.detailModel.subcategoryname];
-                cell.accessoryType = UITableViewCellAccessoryNone;
+                 cell.accessoryType = UITableViewCellAccessoryNone;
+                if (isValue == NO) {
+                    [cell setTitleLabel:@"二级分类:" andContentLabel:self.detailModel.subcategoryname];
+                }else{
+                    [cell setTitleLabel:@"二级分类:" andContentLabel:self.secClass];
+                }
+
                 break;
             case 2:
-                [cell setTitleLabel:@"三级分类:" andContentLabel:self.detailModel.threecategoryname];
                 cell.accessoryType = UITableViewCellAccessoryNone;
+                if (isValue == NO) {
+                    [cell setTitleLabel:@"三级分类:" andContentLabel:self.detailModel.threecategoryname];
+                }else{
+                     [cell setTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
+                }
+                
+                
                 break;
             case 4:
                 [cell setTitleLabel:@"标签:" andContentLabel:self.unitStr];
@@ -332,7 +381,54 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    isValue = YES;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (indexPath.row == 1)
+    {
+        
+        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:self.twoArray];
+        actionSheet.cancleTitle = @"取消选择";
+        [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
+         {
+             
+             self.selectSecClassIndex = [[[self getSortedKeys:self.goodsDic] objectAtIndex:index]integerValue] ;
+             HDCLog(@"%ld", self.selectSecClassIndex);
+             self.secClass = title;
+             self.threeArray = [self.goodsDic objectForKey:[[self getSortedKeys:self.goodsDic] objectAtIndex:index]];
+             self.thirdClass = @"";
+             [self.tableView reloadData];
+         }];
+    }
+    if (indexPath.row == 2)
+    {
+        if(self.secClass.length == 0)
+        {
+            UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有选择二级菜单" message:@"请您先选择二级菜单" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+            [selct addAction:action];
+            [self presentViewController:selct animated:YES completion:nil];
+            return;
+        }else{
+            NSMutableArray *three  = [NSMutableArray arrayWithCapacity:0];
+            for ( ModlistModel *model in self.threeArray) {
+                
+                [three addObject:model.threecategoryname];
+            }
+            
+            MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品三级分类" style:MHSheetStyleWeiChat itemTitles:three];
+            actionSheet.cancleTitle = @"取消选择";
+            [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
+             {
+                 ModlistModel *indexModel =  [self.threeArray objectAtIndex:index];
+                 self.selectThirdClassIndex = [indexModel.threecategoryid integerValue];
+                 self.thirdClass = title;
+                 [self.tableView reloadData];
+                 HDCLog(@"%ld",self.selectThirdClassIndex);
+             }];
+        }
+        
+    }
     if (indexPath.row == 4)
     {
         NSArray * array = @[@"份",
@@ -361,6 +457,14 @@
     
 }
 
+- (void)didBottomBtn:(UIButton *)sender
+{
+    NSLog(@"点击保存");
+}
+- (void)diddeleBtn:(UIButton *)sender
+{
+    NSLog(@"点击删除");
+}
 #pragma mark -- 点击键盘上的return按钮  收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
@@ -413,6 +517,23 @@
     }else{
         return ;
     }
+}
+-(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
+{
+    NSArray *keys = [dictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *first = obj1;
+        NSString *second = obj2;
+        int firstValue = [first intValue];
+        int secondValue = [second intValue];
+        if (firstValue < secondValue) {
+            return NSOrderedAscending;
+        }else if(firstValue > secondValue){
+            return NSOrderedDescending;
+        }else{
+            return NSOrderedSame;
+        }
+    }];
+    return keys;
 }
 
 @end
