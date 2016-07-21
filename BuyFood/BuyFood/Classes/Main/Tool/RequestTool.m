@@ -22,6 +22,8 @@
 #import "AddProductParams.h"
 #import "GetProductParams.h"
 #import "ChangeTimeParams.h"
+#import "DeleteProductParams.h"
+#import "UpdateProductParams.h"
 
 @implementation RequestTool
 
@@ -147,6 +149,37 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/GetModelList"];
     [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 修改商品 */
++ (void)updateProduct:(UpdateProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/Update"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 删除商品 */
++ (void)deleteProduct:(DeleteProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/Delete"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
             failure(error);

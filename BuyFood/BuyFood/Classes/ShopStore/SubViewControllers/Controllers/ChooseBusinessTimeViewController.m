@@ -21,7 +21,7 @@
 @property (nonatomic, strong) ChooseBusinessTimeView* chooseStartBusinessTimeView;
 @property (nonatomic, strong) ChooseBusinessTimeView* chooseStopBusinessTimeView;
 @property (strong, nonatomic) MHDatePicker *selectTimePicker;
-
+@property (nonatomic, strong) ShopsUserInfo* userInfo;
 
 @end
 
@@ -32,15 +32,18 @@
     [super viewDidLoad];
     self.title = @"修改营业时间";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    self.userInfo = [ShopsUserInfoTool account];
     [self setChooseBusinessTimeView];
     [self setUpBusinessStatusBtn];
+    
+    HDCLog(@"%@",self.userInfo.openstart);
 }
 
 - (void)setChooseBusinessTimeView
 {
     self.chooseStartBusinessTimeView = [ChooseBusinessTimeView initChooseBusinessTimeView];
     [self.chooseStartBusinessTimeView creatChooseBusinessTimeView];
-    [self.chooseStartBusinessTimeView setTimeLabelText:@"开始时间" andBusinessTimeTitle:self.startTime];
+    [self.chooseStartBusinessTimeView setTimeLabelText:@"开始时间" andBusinessTimeTitle:self.userInfo.openstart];
     [self.chooseStartBusinessTimeView.businessTime addTarget:self action:@selector(startBusinessTimeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.chooseStartBusinessTimeView];
     [self.chooseStartBusinessTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -52,7 +55,7 @@
     
     self.chooseStopBusinessTimeView = [ChooseBusinessTimeView initChooseBusinessTimeView];
     [self.chooseStopBusinessTimeView creatChooseBusinessTimeView];
-    [self.chooseStopBusinessTimeView setTimeLabelText:@"结束时间" andBusinessTimeTitle:self.stopTime];
+    [self.chooseStopBusinessTimeView setTimeLabelText:@"结束时间" andBusinessTimeTitle:self.userInfo.openend];
     [self.chooseStopBusinessTimeView.businessTime addTarget:self action:@selector(stopBusinessTimeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.chooseStopBusinessTimeView];
     [self.chooseStopBusinessTimeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,9 +89,8 @@
     __weak typeof(self) weakSelf = self;
     [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
     {
-        self.startTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
-        [startBtn setTitle:self.startTime forState:UIControlStateNormal];
-
+        self.userInfo.openstart = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+        [startBtn setTitle:self.userInfo.openstart forState:UIControlStateNormal];
     }];
 }
 
@@ -98,8 +100,8 @@
     __weak typeof(self) weakSelf = self;
     [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
      {
-         self.stopTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
-         [stopBtn setTitle:self.stopTime forState:UIControlStateNormal];
+         self.userInfo.openend = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+         [stopBtn setTitle:self.userInfo.openend forState:UIControlStateNormal];
      }];
 }
 - (NSString *)dateStringWithDate:(NSDate *)date DateFormat:(NSString *)dateFormat
@@ -111,26 +113,20 @@
     return str ? str : @"";
 }
 
-- (void)returnText:(ReturnTextBlock)block
-{
-    self.returnTextBlock = block;
-}
 - (void)businessStatusBtnClick:(UIButton* )statusBtn
 {
-    ShopsUserInfo* userInfo = [ShopsUserInfoTool account];
     ChangeTimeParams* params = [[ChangeTimeParams alloc] init];
-    params.openstart = self.startTime;
-    params.openend = self.stopTime;
-    params.marketuserid = userInfo.marketuserid;
-    [RequestTool chnageBusinessStatus:params success:^(ResultsModel *result) {
+    params.openstart = self.userInfo.openstart;
+    params.openend = self.userInfo.openend;
+    params.marketuserid = self.userInfo.marketuserid;
+    [RequestTool chnageBusinessStatus:params success:^(ResultsModel *result)
+    {
+        HDCLog(@"%@", result.ModelList);
         if ([result.ErrorCode isEqualToString:@"1"])
         {
-            if (self.returnTextBlock != nil)
-            {
-                NSString *time = [[userInfo.openstart stringByAppendingString:@"-"] stringByAppendingString:userInfo.openend];
-                self.returnTextBlock(time);
-                [self.navigationController popViewControllerAnimated:YES];
-            }
+            
+            [ShopsUserInfoTool saveAccount:self.userInfo];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     } failure:^(NSError *error) {
         HDCLog(@"%@", error);

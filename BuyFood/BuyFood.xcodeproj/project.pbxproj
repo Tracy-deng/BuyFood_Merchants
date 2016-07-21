@@ -156,6 +156,8 @@
 		0EEF9DB01D3359CE00CD83E9 /* GetMsgCodeParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEF9DAF1D3359CE00CD83E9 /* GetMsgCodeParams.m */; };
 		0EEF9DB31D3368A900CD83E9 /* ImproveinformationParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEF9DB21D3368A900CD83E9 /* ImproveinformationParams.m */; };
 		0EF5A6371D3FD6DB00053F13 /* ChangeTimeParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5A6361D3FD6DB00053F13 /* ChangeTimeParams.m */; };
+		0EF5A6631D40709B00053F13 /* UpdateProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5A6621D40709B00053F13 /* UpdateProductParams.m */; };
+		0EF5A6661D4070EC00053F13 /* DeleteProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EF5A6651D4070EC00053F13 /* DeleteProductParams.m */; };
 		7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6D01D1A6207000B03C2 /* alreadyTableViewCell.m */; };
 		7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6D31D1A6AE1000B03C2 /* ownSlovedTableViewCell.m */; };
 		7802E6D51D1A86EE000B03C2 /* InviteViewController.h in Sources */ = {isa = PBXBuildFile; fileRef = 7802E6CB1D1A2EC3000B03C2 /* InviteViewController.h */; };
@@ -528,6 +530,10 @@
 		0EEF9DB21D3368A900CD83E9 /* ImproveinformationParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImproveinformationParams.m; sourceTree = "<group>"; };
 		0EF5A6351D3FD6DB00053F13 /* ChangeTimeParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeTimeParams.h; sourceTree = "<group>"; };
 		0EF5A6361D3FD6DB00053F13 /* ChangeTimeParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeTimeParams.m; sourceTree = "<group>"; };
+		0EF5A6611D40709B00053F13 /* UpdateProductParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateProductParams.h; sourceTree = "<group>"; };
+		0EF5A6621D40709B00053F13 /* UpdateProductParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateProductParams.m; sourceTree = "<group>"; };
+		0EF5A6641D4070EC00053F13 /* DeleteProductParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteProductParams.h; sourceTree = "<group>"; };
+		0EF5A6651D4070EC00053F13 /* DeleteProductParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteProductParams.m; sourceTree = "<group>"; };
 		7802E6C91D1A2EC3000B03C2 /* DistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistributionViewController.h; sourceTree = "<group>"; };
 		7802E6CA1D1A2EC3000B03C2 /* DistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistributionViewController.m; sourceTree = "<group>"; };
 		7802E6CB1D1A2EC3000B03C2 /* InviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InviteViewController.h; sourceTree = "<group>"; };
@@ -749,6 +755,10 @@
 				0E6398EC1D362677008D9DC0 /* AddProductParams.m */,
 				0E6398EE1D362B35008D9DC0 /* GetProductParams.h */,
 				0E6398EF1D362B35008D9DC0 /* GetProductParams.m */,
+				0EF5A6611D40709B00053F13 /* UpdateProductParams.h */,
+				0EF5A6621D40709B00053F13 /* UpdateProductParams.m */,
+				0EF5A6641D4070EC00053F13 /* DeleteProductParams.h */,
+				0EF5A6651D4070EC00053F13 /* DeleteProductParams.m */,
 				0EF5A6351D3FD6DB00053F13 /* ChangeTimeParams.h */,
 				0EF5A6361D3FD6DB00053F13 /* ChangeTimeParams.m */,
 			);
@@ -1784,6 +1794,7 @@
 				0E67E0041D22C89200E025BD /* OutdoorActivitiesViewController.m in Sources */,
 				780984AE1D3F1FC4009E7E84 /* SDWebImageDecoder.m in Sources */,
 				0E110CC11D19B7D000161ACB /* PriceGuideViewController.m in Sources */,
+				0EF5A6661D4070EC00053F13 /* DeleteProductParams.m in Sources */,
 				0E16FD031D33DD5B009AAF31 /* ShopsUserInfoTool.m in Sources */,
 				0EEF9DAA1D32B1FA00CD83E9 /* ShopsThirdClassParams.m in Sources */,
 				0E110D111D1AF59100161ACB /* BusinessStatusView.m in Sources */,
@@ -1813,6 +1824,7 @@
 				0E3C1AA91D1C53B40060A7F4 /* MyBillSpendingCell.m in Sources */,
 				780984E61D3F59B2009E7E84 /* MJRefreshAutoFooter.m in Sources */,
 				0E67E0031D22C89200E025BD /* GroupPurchaseViewController.m in Sources */,
+				0EF5A6631D40709B00053F13 /* UpdateProductParams.m in Sources */,
 				0E67DFE91D22C86B00E025BD /* SalesPromotionCell.m in Sources */,
 				0EBD081D1D179035002DD7A4 /* ChangePasswordViewController.m in Sources */,
 				0E12A23F1D2B9815008066CC /* BalanceAccountParams.m in Sources */,
