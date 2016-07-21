@@ -322,10 +322,10 @@
             self.productname = textField.text;
             break;
         case 3:
-            self.productstock = textField.text;
+            self.productoutprice= textField.text;
             break;
         case 5:
-            self.productoutprice = textField.text;
+            self.productstock = textField.text;
             break;
         case 7:
             self.productremark = textField.text;

@@ -11,6 +11,14 @@
 #import "UIImageView+WebCache.h"
 #import "PromotionTextFieldViewCell.h"
 #import "MHActionSheet.h"
+#import "RequestTool.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "UpdateProductParams.h"
+#import "LoadView.h"
+#import "UpLoadImageUtil.h"
+#import "ResultsModel.h"
+#import "DeleteProductParams.h"
 @interface ShopDetailViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     BOOL isValue;
@@ -71,7 +79,7 @@
     HDCLog(@"self.detailModel.subcategoryname == %@", self.detailModel.subcategoryname);
     self.productname = self.detailModel.productname;
     NSInteger priceNum = [self.detailModel.productoutprice integerValue];
-    NSString *price = [NSString stringWithFormat:@"%.2f", priceNum *1.0 /100];
+    NSString *price = [NSString stringWithFormat:@"%ld", priceNum];
     self.productoutprice = price;
     self.unitStr = self.detailModel.productunit;
     self.shopsTag = self.detailModel.productlabel;
@@ -304,7 +312,9 @@
         else if (indexPath.row == 5)
         {
             cell.titleLabel.text = @"商品重量:";
-            cell.contentTextField.text = @"11";
+            NSInteger stockNumber = [self.detailModel.productstock integerValue];
+            NSString *stock = [NSString stringWithFormat:@"%ld", stockNumber];
+            cell.contentTextField.text = stock;
         }
         else if (indexPath.row == 7)
         {
@@ -460,10 +470,60 @@
 - (void)didBottomBtn:(UIButton *)sender
 {
     NSLog(@"点击保存");
+    LoadView *loadView = [LoadView new];
+    [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
+        ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+        UpdateProductParams* params = [[UpdateProductParams alloc] init];
+        params.productid = [self.detailModel.productid integerValue];
+        params.categoryid = shopsInfo.categoryid;
+        params.marketuserid = shopsInfo.marketuserid;
+        params.subcategoryid = [NSString stringWithFormat:@"%ld", self.selectSecClassIndex];
+        params.threecategoryid = [NSString stringWithFormat:@"%ld", self.selectThirdClassIndex];
+        params.productname = self.productname;
+        params.productstock = [self.productstock floatValue];
+        params.productoutprice = [self.productoutprice floatValue];
+        params.productremark = self.productremark;
+        params.Productlabel = self.shopsTag;
+        params.productunit = self.unitStr;
+        params.promotion = @"1";
+        params.productpic = response[@"data"][0][@"littlepic"];
+        [RequestTool updateProduct:params success:^(ResultsModel *result) {
+             NSLog(@"保存成功%@",result);
+            if ([result.ErrorCode isEqualToString:@"1"]) {
+                [loadView stopAnimation];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+          
+        } failure:^(NSError *error) {
+            NSLog(@"保存失败 %@",error);
+            [loadView stopAnimation];
+        }];
+    } failure:^{
+        NSLog(@"上传失败");
+        [loadView stopAnimation];
+    }];
+    
 }
 - (void)diddeleBtn:(UIButton *)sender
 {
     NSLog(@"点击删除");
+    LoadView *loadView = [LoadView new];
+
+    DeleteProductParams* params = [[DeleteProductParams alloc] init];
+    params.proid = self.detailModel.productid;
+    [RequestTool deleteProduct:params success:^(ResultsModel *result) {
+        NSLog(@"删除成功");
+        
+        if([result.ErrorCode isEqualToString:@"1"])
+        {
+            [loadView stopAnimation];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }failure:^(NSError *error) {
+        NSLog(@"删除失败 %@",error);
+        [loadView stopAnimation];
+    }];
+    
 }
 #pragma mark -- 点击键盘上的return按钮  收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
