@@ -30,8 +30,6 @@
 @property (nonatomic, assign) double productoutprice2;
 /** 商品单位（份、克等）*/
 @property (nonatomic, strong) NSString* productunit;
-/** 标签，如特价/热销 */
-@property (nonatomic, strong) NSString* productlabel;
 /** 促销商品（1-默认销售价格已原售价为准；2-售价以促销价为准）*/
 @property (nonatomic, strong) NSString* promotion;
 /** 二级分类的id */
