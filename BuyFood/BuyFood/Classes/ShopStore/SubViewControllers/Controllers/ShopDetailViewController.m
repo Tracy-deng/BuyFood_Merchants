@@ -474,6 +474,7 @@
     [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
         ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
         UpdateProductParams* params = [[UpdateProductParams alloc] init];
+        params.productid = [self.detailModel.productid integerValue];
         params.categoryid = shopsInfo.categoryid;
         params.marketuserid = shopsInfo.marketuserid;
         params.subcategoryid = [NSString stringWithFormat:@"%ld", self.selectSecClassIndex];
