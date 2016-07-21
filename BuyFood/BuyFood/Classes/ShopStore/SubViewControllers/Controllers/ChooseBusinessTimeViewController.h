@@ -8,16 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^ReturnTextBlock)(NSString *showText);
-
-
 @interface ChooseBusinessTimeViewController : UIViewController
-
-@property (nonatomic, strong) NSString* startTime;
-@property (nonatomic, strong) NSString* stopTime;
-
-@property (nonatomic, copy) ReturnTextBlock returnTextBlock;
-
-- (void)returnText:(ReturnTextBlock)block;
 
 @end

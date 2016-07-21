@@ -29,8 +29,16 @@
     [super viewDidLoad];
     self.title = @"营业状态";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     self.userInfo = [ShopsUserInfoTool account];
     self.time = [[self.userInfo.openstart stringByAppendingString:@"-"] stringByAppendingString:self.userInfo.openend];
+    HDCLog(@"%@", self.time);
     _change = YES;
     [self creatBusinessStatusView];
     [self setUpBusinessStatusBtn];
@@ -55,11 +63,6 @@
 - (void)chooseBusinessTime:(UIButton* )businessTimeBtn
 {
     ChooseBusinessTimeViewController* chooseVC = [[ChooseBusinessTimeViewController alloc] init];
-    chooseVC.startTime = self.userInfo.openstart;
-    chooseVC.stopTime = self.userInfo.openend;
-    [chooseVC returnText:^(NSString *showText) {
-        [self.businessStatusView.businessTime setTitle:[NSString stringWithFormat:@"营业时间：%@",showText] forState:UIControlStateNormal];
-    }];
     [self.navigationController pushViewController:chooseVC animated:YES];
 }
 

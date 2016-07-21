@@ -31,7 +31,9 @@
         ShopsSecAndThirdClassParams,
         GetProductParams,
         AddProductParams,
-        ChangeTimeParams;
+        ChangeTimeParams,
+        UpdateProductParams,
+        DeleteProductParams;
 
 
 @interface RequestTool : NSObject
@@ -89,6 +91,9 @@
 + (void)addProducts:(AddProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 查询商品 */
 + (void)getProduct:(GetProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-
+/** 修改商品 */
++ (void)updateProduct:(UpdateProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 删除商品 */
++ (void)deleteProduct:(DeleteProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 @end
