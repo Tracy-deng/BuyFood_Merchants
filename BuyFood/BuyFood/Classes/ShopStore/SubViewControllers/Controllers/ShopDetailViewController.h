@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ModlistModel.h"
 @interface ShopDetailViewController : UIViewController
-@property (nonatomic, strong) ModlistModel * detailModel; 
+@property (nonatomic, strong) ModlistModel * detailModel;
+@property (nonatomic, strong) NSMutableDictionary * goodsDic; // 传过来的商品信息
 @end

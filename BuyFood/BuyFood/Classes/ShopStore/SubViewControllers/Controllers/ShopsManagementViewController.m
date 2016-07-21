@@ -371,6 +371,7 @@
     {
         ShopDetailViewController *detailVC =  [[ShopDetailViewController alloc]init];
         detailVC.detailModel = self.productMainDataArray[indexPath.row];
+        detailVC.goodsDic = billData;
         [self.navigationController pushViewController:detailVC animated:YES];
     }
     else{// 点击selectedTableView切换数据
