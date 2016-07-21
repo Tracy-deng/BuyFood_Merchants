@@ -72,6 +72,7 @@
 + (void)balanceAccount:(BalanceAccountParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 我的账单 */
 + (void)myBill:(MyBillParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+
 /** 留言评价 */
 + (void)evaluation:(EvaluationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 营业状态 */

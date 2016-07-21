@@ -24,6 +24,7 @@
 #import "ChangeTimeParams.h"
 #import "DeleteProductParams.h"
 #import "UpdateProductParams.h"
+#import "EvaluationParams.h"
 
 @implementation RequestTool
 
@@ -144,6 +145,21 @@
         }
     }];
 }
+/** 留言评价 */
++ (void)evaluation:(EvaluationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuserblog/GetComments"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
 /** 查询商品 */
 + (void)getProduct:(GetProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
