@@ -199,7 +199,8 @@
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                 NSLog(@"进去图片库");
                 sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            
+                 _imagePickController.sourceType = sourceType;
+                
                 [self presentViewController:_imagePickController animated:YES completion:nil];
                 
                 
@@ -208,6 +209,7 @@
                 NSLog(@"进入相册");
                 
                 sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                 _imagePickController.sourceType = sourceType;
                 
                 [self presentViewController:_imagePickController animated:YES completion:nil];
                 
