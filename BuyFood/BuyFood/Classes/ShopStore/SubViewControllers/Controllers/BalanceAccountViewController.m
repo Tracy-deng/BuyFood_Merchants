@@ -10,10 +10,14 @@
 #import "HeaderViews.h"
 #import "BalanceAccountCell.h"
 #import "CardListViewController.h"
+#import "HttpRequestTool.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
 
 @interface BalanceAccountViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) HeaderViews* headerView;
 @property (nonatomic, strong) UITableView* tableView;
+@property (nonatomic, strong) ShopsUserInfo* userInfo;
 
 
 @end
@@ -25,15 +29,17 @@
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     self.title = @"账户余额";
+    self.userInfo = [ShopsUserInfoTool account];
     [self setUpHeaderView];
     [self setUpTableView];
 }
 
 - (void)setUpHeaderView
 {
+    
     self.headerView = [HeaderViews initWithHeaderViews];
     [self.headerView setUpContentView];
-    self.headerView.withdrawMoney.text = @"1758";
+    
     [self.headerView.withdrawMoneyBtn addTarget:self action:@selector(withdrawMoneyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.headerView];
     [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -42,7 +48,18 @@
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.34);
         make.width.mas_equalTo(self.view);
     }];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"userid"] = self.userInfo.marketuserid;
+    [HttpRequestTool GET:[urlPrex stringByAppendingString:@"t_wallet/GetModelList"] parameters:params progress:nil completionHandler:^(id model, NSError *error) {
+        NSString *money = model[@"ModelList"][0][@"totalmoney"];
+        self.headerView.withdrawMoney.text = [NSString stringWithFormat:@"%@", money];
+    }];
+    
+    
 }
+
+
 - (void)withdrawMoneyBtnClick:(UIButton* )sender
 {
     HDCLog(@"取现按钮点击");

@@ -122,6 +122,7 @@
 		0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0191D22CD0E00E025BD /* AddView.m */; };
 		0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */; };
 		0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */; };
+		0E7103691D4117B6006E307E /* EvaluationModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7103681D4117B6006E307E /* EvaluationModelList.m */; };
 		0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08031D141E13002DD7A4 /* PickUpCell.m */; };
 		0EBD080A1D153CA9002DD7A4 /* DispatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08091D153CA9002DD7A4 /* DispatchCell.m */; };
 		0EBD080D1D1572B3002DD7A4 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD080C1D1572B3002DD7A4 /* OrderDetailsViewController.m */; };
@@ -467,6 +468,8 @@
 		0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WB_Stopwatch.m; sourceTree = "<group>"; };
 		0E67E01E1D22CFD600E025BD /* AddPrinterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPrinterViewController.h; sourceTree = "<group>"; };
 		0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPrinterViewController.m; sourceTree = "<group>"; };
+		0E7103671D4117B6006E307E /* EvaluationModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationModelList.h; sourceTree = "<group>"; };
+		0E7103681D4117B6006E307E /* EvaluationModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationModelList.m; sourceTree = "<group>"; };
 		0EBD08021D141E13002DD7A4 /* PickUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickUpCell.h; sourceTree = "<group>"; };
 		0EBD08031D141E13002DD7A4 /* PickUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickUpCell.m; sourceTree = "<group>"; };
 		0EBD08081D153CA9002DD7A4 /* DispatchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchCell.h; sourceTree = "<group>"; };
@@ -732,6 +735,8 @@
 				0E12A2381D2B9815008066CC /* MyBillParams.m */,
 				0E12A2391D2B9815008066CC /* EvaluationParams.h */,
 				0E12A23A1D2B9815008066CC /* EvaluationParams.m */,
+				0E7103671D4117B6006E307E /* EvaluationModelList.h */,
+				0E7103681D4117B6006E307E /* EvaluationModelList.m */,
 				0E12A23B1D2B9815008066CC /* BusinessStatusParams.h */,
 				0E12A23C1D2B9815008066CC /* BusinessStatusParams.m */,
 				0E12A23D1D2B9815008066CC /* ShopsManagementParams.h */,
@@ -1659,7 +1664,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 2VKY6QPH98;
+						DevelopmentTeam = 8V5V9GRF46;
 					};
 				};
 			};
@@ -1808,6 +1813,7 @@
 				0E6319B91D2567CC00D59998 /* CCTextField.m in Sources */,
 				0E12A2691D2B986A008066CC /* NSObject+MJKeyValue.m in Sources */,
 				784D3ED51D38DECA00C82C1D /* AFHTTPSessionManager.m in Sources */,
+				0E7103691D4117B6006E307E /* EvaluationModelList.m in Sources */,
 				780984B61D3F1FC4009E7E84 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
 				0EEF9DB01D3359CE00CD83E9 /* GetMsgCodeParams.m in Sources */,

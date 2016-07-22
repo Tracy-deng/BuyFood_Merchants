@@ -10,4 +10,8 @@
 
 @interface EvaluationParams : NSObject
 
+/** 商家id */
+@property (nonatomic, strong) NSString* marketuserid;
+
+
 @end

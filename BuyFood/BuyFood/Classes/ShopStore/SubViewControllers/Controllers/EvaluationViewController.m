@@ -10,6 +10,14 @@
 #import "EvaluationHeaderView.h"
 #import "EvaluationFooterView.h"
 #import "EvaluateCell.h"
+#import "EvaluationParams.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "ResultsModel.h"
+#import "RequestTool.h"
+#import "EvaluationModelList.h"
+#import "MJExtension.h"
+#import "HttpRequestTool.h"
 
 @interface EvaluationViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -17,28 +25,60 @@
     
 }
 @property (nonatomic, strong) EvaluationHeaderView* contentHeaderView;
-
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) EvaluationFooterView* footerView;
+@property (nonatomic, strong) NSMutableArray* array;
+@property (nonatomic, strong) ShopsUserInfo* userInfo;
+
 
 @end
 
 @implementation EvaluationViewController
+
+- (NSMutableArray *)array
+{
+    if (_array == nil)
+    {
+        self.array = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _array;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"评价详情";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
+    [self getEvaluationList];
     [self setUpContentHeaderView];
     [self createTableViewCell];
+    
 }
+
+/** 获取留言评价列表 */
+- (void)getEvaluationList
+{
+    self.userInfo = [ShopsUserInfoTool account];
+    EvaluationParams* params = [[EvaluationParams alloc] init];
+    params.marketuserid = self.userInfo.marketuserid;
+    [RequestTool evaluation:params success:^(ResultsModel *result)
+    {
+        self.array = [EvaluationModelList mj_objectArrayWithKeyValuesArray:result.ModelList];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        ;
+    }];
+    
+    
+}
+
+
 
 - (void)setUpContentHeaderView
 {
-     self.contentHeaderView = [EvaluationHeaderView initEvaluationHeaderView];
+    self.contentHeaderView = [EvaluationHeaderView initEvaluationHeaderView];
     [self.contentHeaderView creatHeaderContentView];
-    [self.contentHeaderView setOrderNumberLabel:@"688" andGreatEvaluationLabel:@"97%"];
+    
     [self.contentHeaderView setBackgroundColor:HDCColor(250, 250, 250)];
     [self.view addSubview:self.contentHeaderView];
     [self.contentHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -46,6 +86,12 @@
         make.left.equalTo(self.view);
         make.width.equalTo(self.view.mas_width);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.14);
+    }];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"statistics/GetMarketUserScore"];
+    NSMutableDictionary* dic = [NSMutableDictionary dictionary];
+    dic[@"marketuserid"] = self.userInfo.marketuserid;
+    [HttpRequestTool GET:url parameters:dic progress:nil completionHandler:^(id model, NSError *error) {
+        [self.contentHeaderView setOrderNumberLabel:model[@"totalordercount"] andGreatEvaluationLabel:model[@"score"]];
     }];
 }
 
@@ -82,7 +128,7 @@
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 10;
+    return self.array.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -115,7 +161,23 @@
     self.footerView.tag = section;
     [self.footerView setBackgroundColor:[UIColor whiteColor]];
     [self.footerView setUpContentView];
-    [self.footerView setFooterViewContentWithHeaderImage:@"rectangle9" andUserName:@"小张" andEvaluate:@"好评" andEvaluateContent:@"很好吃，配送很及时" andEvaluateTime:@"13：14"];
+    EvaluationModelList *modelList = [self.array objectAtIndex:section];
+    NSRange range = [modelList.modifytime rangeOfString:@"T"];
+    NSString *modifytime = [modelList.modifytime substringFromIndex:range.location + 1];
+    NSString *evaluation;
+    if ([modelList.score isEqualToString:@"1"])
+    {
+        evaluation = @"好评";
+    }
+    else if ([modelList.score isEqualToString:@"2"])
+    {
+        evaluation = @"中评";
+    }
+    else
+    {
+        evaluation = @"差评";
+    }
+    [self.footerView setFooterViewContentWithHeaderImage:@"rectangle9" andUserName:modelList.showname andEvaluate:evaluation andEvaluateContent:modelList.charcontent andEvaluateTime:modifytime];
     if (section != 0)
     {
         UILabel* line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, self.footerView.height, self.view.frame.size.width - 10, 1)];
