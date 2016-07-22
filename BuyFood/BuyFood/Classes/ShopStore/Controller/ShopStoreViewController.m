@@ -200,7 +200,7 @@
     [shopsInfoLabel createLabelText:@"商品管理" andLabelX:printerLabel.x - 10 andLabelY:shopsInfoButton.y + shopsInfoButton.height + 10 andLabelHeight:printerLabel.height andLabelWidth:printerLabel.width + 20 andLabelTextStytle:nil andLabelFontsize:15 andtextColor:HDCColor(102, 102, 102)];
     [sixView addSubview:shopsInfoLabel];
     TagLabels* shopsManageLabel = [TagLabels initTaglabel];
-    [shopsManageLabel createLabelText:@"促销管理" andLabelX:shopsManageButton.x - 10 andLabelY:shopsInfoButton.y + shopsInfoButton.height + 10 andLabelHeight:printerLabel.height andLabelWidth:printerLabel.width + 20 andLabelTextStytle:nil andLabelFontsize:15 andtextColor:HDCColor(102, 102, 102)];
+    [shopsManageLabel createLabelText:@"活动管理" andLabelX:shopsManageButton.x - 10 andLabelY:shopsInfoButton.y + shopsInfoButton.height + 10 andLabelHeight:printerLabel.height andLabelWidth:printerLabel.width + 20 andLabelTextStytle:nil andLabelFontsize:15 andtextColor:HDCColor(102, 102, 102)];
     [sixView addSubview:shopsManageLabel];
     
     TagLabels* shopSaleLabel = [TagLabels initTaglabel];
