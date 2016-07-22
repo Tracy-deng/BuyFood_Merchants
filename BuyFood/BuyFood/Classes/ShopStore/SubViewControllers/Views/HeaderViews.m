@@ -26,8 +26,8 @@
     [self.withdrawMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).offset(30);
         make.centerX.mas_equalTo(self.centerX);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.30);
-        make.height.equalTo(self.withdrawMoney.mas_width).multipliedBy(0.7);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.35);
+        make.height.equalTo(self.withdrawMoney.mas_width).multipliedBy(0.55);
     }];
     UILabel* label = [[UILabel alloc] init];
     label.text = @"可提现金额";
