@@ -25,7 +25,7 @@
 #import "DeleteProductParams.h"
 #import "UpdateProductParams.h"
 #import "EvaluationParams.h"
-
+#import "SalesProductParams.h"
 @implementation RequestTool
 
 #pragma mark - login
@@ -222,5 +222,26 @@
         }
     }];
 }
+
+/**
+ *  促销管理
+ */
+
++(void)getSalesProduce:(SalesProductParams *)parm success:(void (^)(ResultsModel *))success failure:(void (^)(NSError *))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_product/GetModelList_Promotion"];
+    [HttpRequestTool POST:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+    
+}
+
 
 @end
