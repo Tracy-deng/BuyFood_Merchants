@@ -10,7 +10,13 @@
 #import "Masonry.h"
 #import "ManagementCell.h"
 #import "SalesPromotionViewController.h"
-
+#import "RequestTool.h"
+#import "LoadView.h"
+#import "SalesProductParams.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "ModlistModel.h"
+#import "ResultsModel.h"
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
@@ -30,6 +36,7 @@ UITableViewDataSource>
     self.title = @"促销管理";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self createTabeleViewAndBottomBtn];
+    [self getProductSalesData];
 }
 
 
@@ -59,6 +66,28 @@ UITableViewDataSource>
     }];
 }
 
+- (void)getProductSalesData
+{
+    NSLog(@"请求促销管理数据");
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    SalesProductParams *params = [[SalesProductParams alloc]init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    params.marketuserid = shopsInfo.marketuserid;
+    params.subcategoryid = @"0";
+    params.threecategoryid = @"0";
+    params.pagesize = @"0";
+    params.page = @"0";
+    [RequestTool getSalesProduce:params success:^(ResultsModel *result) {
+        
+        NSLog(@"请求促销管理数据成功 %@",result.ModelList);
+        
+    } failure:^(NSError *error) {
+        NSLog(@"请求促销管理失败%@",error);
+    }];
+    
+}
 - (void)bottomBtnClick:(UIButton* )sender
 {
     [self.navigationController pushViewController:[[SalesPromotionViewController alloc] init] animated:YES];

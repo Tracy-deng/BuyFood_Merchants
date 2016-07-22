@@ -10,9 +10,12 @@
 #import "SalesPromotionCell.h"
 #import "PromotionTextFieldViewCell.h"
 #import "MHActionSheet.h"
-
+#import "LoadView.h"
 @interface SalesPromotionViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
+{
+    LoadView *loadView;
+    UIButton *bottomBtn;
+}
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
 /** 单位*/
@@ -32,9 +35,25 @@
 /** 商品描述 */
 @property (nonatomic, strong) NSString* productremark;
 @property (nonatomic, strong) UIImagePickerController *imagePickController;
+@property (nonatomic, strong) NSMutableArray * threeArray;
+@property (nonatomic, strong) NSMutableArray *twoArray;
 @end
 
 @implementation SalesPromotionViewController
+- (NSMutableArray *)twoArray
+{
+    if (_twoArray == nil) {
+        self.twoArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _twoArray;
+}
+- (NSMutableArray *)threeArray
+{
+    if (_threeArray == nil) {
+        self.threeArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _threeArray;
+}
 
 - (void)viewDidLoad
 {

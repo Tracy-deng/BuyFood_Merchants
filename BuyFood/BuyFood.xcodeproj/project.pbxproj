@@ -226,6 +226,7 @@
 		784D3ED91D38DECA00C82C1D /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D3ED01D38DECA00C82C1D /* AFURLResponseSerialization.m */; };
 		784D3EDA1D38DECA00C82C1D /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D3ED21D38DECA00C82C1D /* AFURLSessionManager.m */; };
 		784D3EDB1D38DECA00C82C1D /* HttpRequestTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D3ED41D38DECA00C82C1D /* HttpRequestTool.m */; };
+		784D64B71D42171C00F16E21 /* SalesProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D64B61D42171C00F16E21 /* SalesProductParams.m */; };
 		78639ADC1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */; };
 		788084E01D3348FB00D3FCDD /* UpLoadImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */; };
 		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
@@ -657,6 +658,8 @@
 		784D3ED21D38DECA00C82C1D /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		784D3ED31D38DECA00C82C1D /* HttpRequestTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpRequestTool.h; sourceTree = "<group>"; };
 		784D3ED41D38DECA00C82C1D /* HttpRequestTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpRequestTool.m; sourceTree = "<group>"; };
+		784D64B51D42171C00F16E21 /* SalesProductParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesProductParams.h; sourceTree = "<group>"; };
+		784D64B61D42171C00F16E21 /* SalesProductParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesProductParams.m; sourceTree = "<group>"; };
 		78639ADA1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+FDFullscreenPopGesture.h"; sourceTree = "<group>"; };
 		78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		788084DE1D3348FB00D3FCDD /* UpLoadImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpLoadImageUtil.h; sourceTree = "<group>"; };
@@ -769,6 +772,8 @@
 				0EF5A6651D4070EC00053F13 /* DeleteProductParams.m */,
 				0EF5A6351D3FD6DB00053F13 /* ChangeTimeParams.h */,
 				0EF5A6361D3FD6DB00053F13 /* ChangeTimeParams.m */,
+				784D64B51D42171C00F16E21 /* SalesProductParams.h */,
+				784D64B61D42171C00F16E21 /* SalesProductParams.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1664,7 +1669,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8V5V9GRF46;
+						DevelopmentTeam = 2VKY6QPH98;
 					};
 				};
 			};
@@ -1753,6 +1758,7 @@
 				0E0416B31D3B9064007DF5AB /* BrandAlreadyOrderViewController.m in Sources */,
 				0E12A22B1D2B97CB008066CC /* RequestTool.m in Sources */,
 				0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */,
+				784D64B71D42171C00F16E21 /* SalesProductParams.m in Sources */,
 				0E525A4A1D1283A700AFC95B /* LoginViewController.m in Sources */,
 				0E525A5B1D1283A700AFC95B /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				0E525A4C1D1283A700AFC95B /* RegisterViewController.m in Sources */,

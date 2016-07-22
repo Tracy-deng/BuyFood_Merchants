@@ -33,8 +33,8 @@
         AddProductParams,
         ChangeTimeParams,
         UpdateProductParams,
-        DeleteProductParams;
-
+        DeleteProductParams,
+        SalesProductParams;
 
 @interface RequestTool : NSObject
 
@@ -96,5 +96,9 @@
 + (void)updateProduct:(UpdateProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 删除商品 */
 + (void)deleteProduct:(DeleteProductParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/**
+ *  促销管理
+ */
++(void)getSalesProduce:(SalesProductParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 @end
