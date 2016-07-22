@@ -403,7 +403,9 @@
         [tableView setSeparatorColor:[UIColor colorWithWhite:0.745 alpha:1.000]];
         shopCell.selectedBackgroundView = [[UIView alloc]initWithFrame:shopCell.frame];
         shopCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
-        shopCell.productModel = self.productMainDataArray[indexPath.row];
+        ModlistModel * model = self.productMainDataArray[indexPath.row];
+        shopCell.productModel = model;
+       
         return shopCell;
     }
 }
