@@ -28,6 +28,7 @@
     NSString * threeProductId; // 传入的三级id
     NSString * twoProductId;  // 传入的二级id
     BOOL toAddVC;
+    NSString * headTitle;
 }
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
@@ -280,9 +281,8 @@
         
         headView.frame = CGRectMake(0, 0, 100, 40);
         
-        
         UILabel *headLabel = [UILabel new];
-        headLabel.text = @"热销";
+        headLabel.text = headTitle;
         [headView addSubview:headLabel];
         headLabel.frame = CGRectMake(10, 10, 100, 30);
         headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
@@ -385,6 +385,7 @@
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
             threeProductId = model.threecategoryid;
             twoProductId = model.subcategoryid;
+            headTitle = model.threecategoryname;
             [self getMainTableDataSource];
         }
     }
