@@ -75,7 +75,7 @@
     
    // 标签图片
     if ([productModel.productlabel isEqualToString:@"热销"]) {
-        _hotImageview.image  = [UIImage imageNamed:@"1"];
+        _hotImageview.image  = [UIImage imageNamed:@"hot"];
     }
     // 单位
     NSString *unit = productModel.productunit;
