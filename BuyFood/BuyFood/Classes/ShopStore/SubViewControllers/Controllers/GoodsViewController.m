@@ -21,6 +21,7 @@
 @interface GoodsViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     LoadView *loadView;
+    UIButton *bottomBtn;
 }
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
@@ -139,7 +140,7 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.tableView];
     
-    UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
     [bottomBtn addTarget:self action:@selector(saveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -198,7 +199,8 @@
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                 NSLog(@"进去图片库");
                 sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            
+                 _imagePickController.sourceType = sourceType;
+                
                 [self presentViewController:_imagePickController animated:YES completion:nil];
                 
                 
@@ -207,6 +209,7 @@
                 NSLog(@"进入相册");
                 
                 sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                 _imagePickController.sourceType = sourceType;
                 
                 [self presentViewController:_imagePickController animated:YES completion:nil];
                 
@@ -419,6 +422,8 @@
 - (void)saveBtnClick:(UIButton* )sender
 {
     loadView = [LoadView new];
+    bottomBtn.userInteractionEnabled = NO;
+    bottomBtn.backgroundColor = [UIColor grayColor];
     [loadView startAnimation];
     [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
         NSLog(@"上传图片成功 %@",response[@"data"][0][@"littlepic"]);
@@ -440,15 +445,23 @@
             HDCLog(@"%@",result);
             if ([result.ErrorCode isEqualToString:@"1"])
             {
-                [loadView stopAnimation];
                 [self.navigationController popViewControllerAnimated:YES];
             }
+                [loadView stopAnimation];
+                bottomBtn.userInteractionEnabled = YES;
+                bottomBtn.backgroundColor = greenColor;
+            
         } failure:^(NSError *error) {
+            [loadView stopAnimation];
+            bottomBtn.userInteractionEnabled = YES;
+            bottomBtn.backgroundColor = greenColor;
             ;
         }];
     } failure:^{
         NSLog(@"上传图片失败");
         [loadView stopAnimation];
+        bottomBtn.userInteractionEnabled = YES;
+        bottomBtn.backgroundColor = greenColor;
     }];
     
     

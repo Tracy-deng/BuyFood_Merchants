@@ -28,6 +28,7 @@
     NSString * threeProductId; // 传入的三级id
     NSString * twoProductId;  // 传入的二级id
     BOOL toAddVC;
+    NSString * headTitle;
 }
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
@@ -80,7 +81,7 @@
         return;
     }else{
         [self.productMainDataArray removeAllObjects];
-        [self getMainTableDataSource];
+        [self getHotDataBase];
         return;
     }
 }
@@ -126,6 +127,7 @@
 // 右边的数据请求
 - (void)getMainTableDataSource
 {
+
     LoadView *loadView = [LoadView new];
     [loadView startAnimation];
     GetProductParams* params = [[GetProductParams alloc] init];
@@ -152,6 +154,47 @@
     
     
 }
+/**
+ *  请求热销数据
+ *
+ */
+- (void)getHotDataBase
+{
+    headTitle = @"热销";
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    GetProductParams* params = [[GetProductParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    params.marketuserid = shopsInfo.marketuserid;
+    params.subcategoryid = 0;
+    params.threecategoryid = 0;
+    params.Productlabel = @"热销";
+    params.pagesize = @"0";
+    params.page = @"0";
+    [RequestTool getProduct:params success:^(ResultsModel *result) {
+        for (NSDictionary *Pdic in result.ModelList) {
+            ModlistModel *model = [[ModlistModel alloc]init];
+            [model setValuesForKeysWithDictionary:Pdic];
+            [self.productMainDataArray addObject:model];
+        }
+        [self.mainTableView reloadData];
+        [loadView stopAnimation];
+        [self.mainTableView.header endRefreshing];
+    } failure:^(NSError *error) {
+        NSLog(@"error");
+        [loadView stopAnimation];
+    }];
+}
+
+- (void)didHeadBtn:(UIButton *)sender
+{
+    NSLog(@"点击热销按钮");
+    [self.productMainDataArray removeAllObjects];
+    [self getHotDataBase];
+}
+
+
 // 对获得数据排序  小的在前
 -(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
 {
@@ -172,14 +215,30 @@
 }
 - (void)creatTableView
 {
+    
+    
+    UIButton * headButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [headButton setTitle:@"热销" forState:(UIControlStateNormal)];
+    [headButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    headButton.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
+    headButton.titleLabel.font = [UIFont systemFontOfSize:20];
+    [self.view addSubview:headButton];
+    [headButton addTarget:self action:@selector(didHeadBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [headButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(64);
+        make.left.equalTo(self.view);
+        make.width.equalTo(@100);
+        make.height.equalTo(@50);
+    }];
+    
     _selectedTableView = [[UITableView alloc]init];
     [self.view addSubview:_selectedTableView];
     _selectedTableView.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
     [_selectedTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
+        make.top.equalTo(headButton.mas_bottom);
         make.left.equalTo(self.view);
         make.width.equalTo(@100);
-        make.height.equalTo(@(SCREEN_HEIGHT ));
+        make.height.equalTo(@(SCREEN_HEIGHT));
     }];
     _selectedTableView.delegate = self;
     _selectedTableView.dataSource = self;
@@ -260,7 +319,6 @@
 {
     if ([tableView isEqual:_selectedTableView]) {
         
-        
         return   billData.allKeys.count;
         
     }else{
@@ -280,9 +338,8 @@
         
         headView.frame = CGRectMake(0, 0, 100, 40);
         
-        
         UILabel *headLabel = [UILabel new];
-        headLabel.text = @"热销";
+        headLabel.text = headTitle;
         [headView addSubview:headLabel];
         headLabel.frame = CGRectMake(10, 10, 100, 30);
         headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
@@ -329,9 +386,6 @@
             NSString *catego = [keys objectAtIndex:indexPath.section];
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
             cell.textLabel.text = model.threecategoryname;
-//            threeProductId = model.threecategoryid;
-//            twoProductId = model.subcategoryid;
-//            [self getMainTableDataSource];
         }
 
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
@@ -349,7 +403,9 @@
         [tableView setSeparatorColor:[UIColor colorWithWhite:0.745 alpha:1.000]];
         shopCell.selectedBackgroundView = [[UIView alloc]initWithFrame:shopCell.frame];
         shopCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
-        shopCell.productModel = self.productMainDataArray[indexPath.row];
+        ModlistModel * model = self.productMainDataArray[indexPath.row];
+        shopCell.productModel = model;
+       
         return shopCell;
     }
 }
@@ -385,6 +441,7 @@
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
             threeProductId = model.threecategoryid;
             twoProductId = model.subcategoryid;
+            headTitle = model.threecategoryname;
             [self getMainTableDataSource];
         }
     }

@@ -75,7 +75,12 @@
     
    // 标签图片
     if ([productModel.productlabel isEqualToString:@"热销"]) {
-        _hotImageview.image  = [UIImage imageNamed:@"1"];
+        _hotImageview.image  = [UIImage imageNamed:@"hot"];
+    }else if([productModel.productlabel isEqualToString:@"促销"]){
+        _hotImageview.image  = [UIImage imageNamed:@"sales"];
+    }else if([productModel.productlabel isEqualToString:@"普通"])
+    {
+        _hotImageview.image  = [UIImage imageNamed:@"nomel"];
     }
     // 单位
     NSString *unit = productModel.productunit;

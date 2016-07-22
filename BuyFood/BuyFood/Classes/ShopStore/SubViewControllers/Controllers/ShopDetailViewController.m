@@ -22,6 +22,7 @@
 @interface ShopDetailViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     BOOL isValue;
+    UIButton *bottomBtn;
 }
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
@@ -155,7 +156,7 @@
     self.tableView.tableFooterView = view;
     
     
-    UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
@@ -227,7 +228,7 @@
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                 NSLog(@"进去图片库");
                 sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                
+                 _imagePickController.sourceType = sourceType;
                 [self presentViewController:_imagePickController animated:YES completion:nil];
                 
                 
@@ -236,7 +237,7 @@
                 NSLog(@"进入相册");
                 
                 sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                
+                 _imagePickController.sourceType = sourceType;
                 [self presentViewController:_imagePickController animated:YES completion:nil];
                 
             }
@@ -470,6 +471,8 @@
 - (void)didBottomBtn:(UIButton *)sender
 {
     NSLog(@"点击保存");
+    bottomBtn.userInteractionEnabled = NO;
+    bottomBtn.backgroundColor = [UIColor grayColor];
     LoadView *loadView = [LoadView new];
     [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
         ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
@@ -487,20 +490,28 @@
         params.productunit = self.unitStr;
         params.promotion = @"1";
         params.productpic = response[@"data"][0][@"littlepic"];
+       
         [RequestTool updateProduct:params success:^(ResultsModel *result) {
              NSLog(@"保存成功%@",result);
             if ([result.ErrorCode isEqualToString:@"1"]) {
-                [loadView stopAnimation];
+               
+               
                 [self.navigationController popViewControllerAnimated:YES];
             }
-          
+             [loadView stopAnimation];
+            bottomBtn.userInteractionEnabled = YES;
+            bottomBtn.backgroundColor = greenColor;
         } failure:^(NSError *error) {
             NSLog(@"保存失败 %@",error);
             [loadView stopAnimation];
+            bottomBtn.userInteractionEnabled = YES;
+            bottomBtn.backgroundColor = greenColor;
         }];
     } failure:^{
         NSLog(@"上传失败");
         [loadView stopAnimation];
+        bottomBtn.userInteractionEnabled = YES;
+        bottomBtn.backgroundColor = greenColor;
     }];
     
 }
