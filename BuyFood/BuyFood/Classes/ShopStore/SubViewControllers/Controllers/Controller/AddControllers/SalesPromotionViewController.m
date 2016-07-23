@@ -103,7 +103,7 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:self.tableView];
     
-    UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
