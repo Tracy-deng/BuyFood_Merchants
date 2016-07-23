@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import "UIWindow+Extension.h"
+#import "ShopsUserInfoTool.h"
+#import "ShopsUserInfo.h"
+#import "HDCTabBarViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +22,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.window switchRootViewController];
+//    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+//    if (userInfo)
+//    {
+        [self.window switchRootViewController];
+//    }
+//    else
+//    {
+//        [self.window setRootViewController:[[HDCTabBarViewController alloc]  init]];
+//    }
+    
     //    [self.window setRootViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]]];
     [self.window makeKeyAndVisible];
     return YES;

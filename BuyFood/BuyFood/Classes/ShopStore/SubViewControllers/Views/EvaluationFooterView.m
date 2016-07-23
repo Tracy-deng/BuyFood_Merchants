@@ -48,14 +48,16 @@
         make.height.mas_equalTo(self.evaluate.mas_width).multipliedBy(0.50);
     }];
     self.evaluateContent = [[UILabel alloc] init];
+    self.evaluateContent.numberOfLines = 0;
+    [self.evaluateContent setBackgroundColor:[UIColor orangeColor]];
     self.evaluateContent.textColor = HDCColor(102, 102, 102);
     self.evaluateContent.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
     [self addSubview:self.evaluateContent];
     [self.evaluateContent mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.userName);
         make.bottom.mas_equalTo(self.mas_bottom).offset(-5);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.45);
-        make.height.equalTo(self.evaluate);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.50);
+        make.height.equalTo(@(40));
     }];
     self.evaluateTime = [[UILabel alloc] init];
     self.evaluateTime.textAlignment = NSTextAlignmentCenter;
