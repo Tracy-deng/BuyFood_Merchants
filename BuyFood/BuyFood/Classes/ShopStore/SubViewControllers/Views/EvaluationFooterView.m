@@ -42,14 +42,14 @@
     self.evaluate.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
     [self addSubview:self.evaluate];
     [self.evaluate mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.userName.mas_right).offset(40);
+        make.left.mas_equalTo(self.userName.mas_right).offset(30);
         make.top.equalTo(self.headerImage);
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.10);
         make.height.mas_equalTo(self.evaluate.mas_width).multipliedBy(0.50);
     }];
     self.evaluateContent = [[UILabel alloc] init];
+    [self.evaluateContent sizeToFit];
     self.evaluateContent.numberOfLines = 0;
-    [self.evaluateContent setBackgroundColor:[UIColor orangeColor]];
     self.evaluateContent.textColor = HDCColor(102, 102, 102);
     self.evaluateContent.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
     [self addSubview:self.evaluateContent];
@@ -65,9 +65,9 @@
     self.evaluateTime.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
     [self addSubview:self.evaluateTime];
     [self.evaluateTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.mas_right).offset(-10);
+        make.right.mas_equalTo(self.mas_right).offset(-5);
         make.top.equalTo(self.headerImage);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.20);
+        make.width.mas_equalTo(self.mas_width).multipliedBy(0.25);
         make.height.equalTo(self.evaluate);
     }];
     self.replyBtn = [UIButton buttonWithType:UIButtonTypeCustom];

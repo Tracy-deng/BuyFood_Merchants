@@ -21,7 +21,7 @@
         completionHandler(responseObject, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completionHandler(nil, error);
-        
+        HDCLog(@"error %@", error);
     }];
 }
 
@@ -33,7 +33,7 @@
         completionHandler(responseObject, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completionHandler(nil, error);
-        NSLog(@"error %@", error);
+        HDCLog(@"error %@", error);
     }];
 }
 

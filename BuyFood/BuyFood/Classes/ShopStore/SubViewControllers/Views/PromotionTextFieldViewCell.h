@@ -13,7 +13,7 @@
 @property (nonatomic, strong) UITextField* contentTextField;
 @property (nonatomic, strong) UILabel* titleLabel;
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView;
++ (instancetype)cellWithTableView:(UITableView *)tableView andIndexPath:(NSIndexPath *)indexPath;
 
 - (void)setTitleLabel:(NSString* )title andContentTextFieldPlaceholder:(NSString* )contentTextFieldPlaceholder;
 

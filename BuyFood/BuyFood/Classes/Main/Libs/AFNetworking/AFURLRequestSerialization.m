@@ -824,7 +824,6 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
 
     [self.request setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", self.boundary] forHTTPHeaderField:@"Content-Type"];
     [self.request setValue:[NSString stringWithFormat:@"%llu", [self.bodyStream contentLength]] forHTTPHeaderField:@"Content-Length"];
-
     return self.request;
 }
 

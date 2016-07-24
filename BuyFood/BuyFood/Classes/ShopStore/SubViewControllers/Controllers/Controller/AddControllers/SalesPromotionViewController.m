@@ -32,6 +32,9 @@
 @property (nonatomic, strong) NSString* productstock;
 /** 商品原售价格 */
 @property (nonatomic, strong) NSString* productoutprice;
+/** 商品现价 */
+@property (nonatomic, strong) NSString* productoutprice2;
+
 /** 商品描述 */
 @property (nonatomic, strong) NSString* productremark;
 @property (nonatomic, strong) UIImagePickerController *imagePickController;
@@ -226,9 +229,11 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 5 || indexPath.row == 7)
+    if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 6 || indexPath.row == 7)
     {
         PromotionTextFieldViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PromotionTextFieldViewCell" forIndexPath:indexPath];
+//        PromotionTextFieldViewCell *cell = [PromotionTextFieldViewCell cellWithTableView:tableView andIndexPath:indexPath];
+        
         cell.contentTextField.tag = indexPath.row;
         cell.contentTextField.delegate = self;
         [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
@@ -238,9 +243,12 @@
                 [cell setTitleLabel:@"商品名称:" andContentTextFieldPlaceholder:@"请输入商品名称"];
                 break;
             case 3:
-                [cell setTitleLabel:@"价格:" andContentTextFieldPlaceholder:@"请输入商品价格"];
+                [cell setTitleLabel:@"商品原价:" andContentTextFieldPlaceholder:@"请输入商品原价格"];
                 break;
-            case 5:
+            case 4:
+                [cell setTitleLabel:@"商品现价:" andContentTextFieldPlaceholder:@"请输入商品现价格"];
+                break;
+            case 6:
                 [cell setTitleLabel:@"重量:" andContentTextFieldPlaceholder:@"请输入商品重量"];
                 break;
             case 7:
@@ -262,13 +270,9 @@
             case 2:
                 [cell setTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
                 break;
-            case 4:
+            case 5:
                 [cell setTitleLabel:@"单位:" andContentLabel:self.unitStr];
                 break;
-            case 6:
-                [cell setTitleLabel:@"标签" andContentLabel:self.shopsTag];
-                break;
-                
             default:
                 break;
         }
@@ -285,7 +289,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 4 || indexPath.row == 6)
+    if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 6 || indexPath.row == 7)
     {
         [self.view endEditing:YES];
     }
@@ -294,6 +298,7 @@
 #pragma textField输入
 - (void)changeValue:(UITextField *)textField
 {
+    HDCLog(@"%@", textField.text);
     switch (textField.tag)
     {
         case 0:
@@ -302,7 +307,10 @@
         case 3:
             self.productoutprice= textField.text;
             break;
-        case 5:
+        case 4:
+            self.productoutprice2 = textField.text;
+            break;
+        case 6:
             self.productstock = textField.text;
             break;
         case 7:
