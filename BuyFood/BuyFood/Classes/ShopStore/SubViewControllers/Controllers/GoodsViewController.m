@@ -270,6 +270,7 @@
     if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 5 || indexPath.row == 7)
     {
         PromotionTextFieldViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PromotionTextFieldViewCell" forIndexPath:indexPath];
+    
         cell.contentTextField.tag = indexPath.row;
         cell.contentTextField.delegate = self;
         [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
@@ -407,7 +408,6 @@
     if (indexPath.row == 6)
     {
         NSArray * array = @[@"普通",
-                            @"促销",
                             @"热销"];
         MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品标签" style:MHSheetStyleWeiChat itemTitles:array];
         actionSheet.cancleTitle = @"取消选择";

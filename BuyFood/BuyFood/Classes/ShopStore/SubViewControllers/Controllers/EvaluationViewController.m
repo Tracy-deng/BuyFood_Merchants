@@ -18,6 +18,8 @@
 #import "EvaluationModelList.h"
 #import "MJExtension.h"
 #import "HttpRequestTool.h"
+#import "RequestTool.h"
+
 
 @interface EvaluationViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
@@ -29,6 +31,7 @@
 @property (nonatomic, strong) EvaluationFooterView* footerView;
 @property (nonatomic, strong) NSMutableArray* array;
 @property (nonatomic, strong) ShopsUserInfo* userInfo;
+@property (nonatomic, assign) CGRect rect;
 
 
 @end
@@ -49,10 +52,16 @@
     [super viewDidLoad];
     self.title = @"评价详情";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
-    [self getEvaluationList];
+    
     [self setUpContentHeaderView];
     [self createTableViewCell];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getEvaluationList];
 }
 
 /** 获取留言评价列表 */
@@ -71,9 +80,6 @@
     
     
 }
-
-
-
 - (void)setUpContentHeaderView
 {
     self.contentHeaderView = [EvaluationHeaderView initEvaluationHeaderView];
@@ -87,10 +93,14 @@
         make.width.equalTo(self.view.mas_width);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.14);
     }];
+    
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"statistics/GetMarketUserScore"];
     NSMutableDictionary* dic = [NSMutableDictionary dictionary];
     dic[@"marketuserid"] = self.userInfo.marketuserid;
     [HttpRequestTool GET:url parameters:dic progress:nil completionHandler:^(id model, NSError *error) {
+        HDCLog(@"%@", model);
+        HDCLog(@"%@", model[@"totalordercount"]);
+        HDCLog(@"%@", model[@"score"]);
         [self.contentHeaderView setOrderNumberLabel:model[@"totalordercount"] andGreatEvaluationLabel:model[@"score"]];
     }];
 }
@@ -158,12 +168,12 @@
 {
     self.footerView = [EvaluationFooterView initFootView];
     self.footerView.userInteractionEnabled = YES;
-    self.footerView.tag = section;
     [self.footerView setBackgroundColor:[UIColor whiteColor]];
     [self.footerView setUpContentView];
+    
     EvaluationModelList *modelList = [self.array objectAtIndex:section];
     NSRange range = [modelList.modifytime rangeOfString:@"T"];
-    NSString *modifytime = [modelList.modifytime substringFromIndex:range.location + 1];
+    NSString *modifytime = [modelList.modifytime substringToIndex:range.location];
     NSString *evaluation;
     if ([modelList.score isEqualToString:@"1"])
     {
@@ -178,6 +188,8 @@
         evaluation = @"差评";
     }
     [self.footerView setFooterViewContentWithHeaderImage:@"rectangle9" andUserName:modelList.showname andEvaluate:evaluation andEvaluateContent:modelList.charcontent andEvaluateTime:modifytime];
+    self.rect = [self.footerView.evaluateContent.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: self.footerView.evaluateContent.font} context:nil];
+    HDCLog(@"%lf",self.rect.size.height);
     if (section != 0)
     {
         UILabel* line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, self.footerView.height, self.view.frame.size.width - 10, 1)];
@@ -186,7 +198,9 @@
     }
     [self.footerView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(display1:)]];
     [self.footerView.replyBtn addTarget:self action:@selector(replyBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.footerView.tag = section;
     self.footerView.replyBtn.tag = section;
+    self.footerView.replyBtn.hidden = !Display[section];
     return self.footerView;
 }
 

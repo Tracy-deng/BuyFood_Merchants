@@ -36,7 +36,7 @@ UITableViewDataSource>
     self.title = @"促销管理";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self createTabeleViewAndBottomBtn];
-    [self getProductSalesData];
+//    [self getProductSalesData];
 }
 
 
@@ -73,12 +73,12 @@ UITableViewDataSource>
     [loadView startAnimation];
     SalesProductParams *params = [[SalesProductParams alloc]init];
     ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
-    params.categoryid = shopsInfo.categoryid;
+//    params.categoryid = shopsInfo.categoryid;
     params.marketuserid = shopsInfo.marketuserid;
-    params.subcategoryid = @"0";
-    params.threecategoryid = @"0";
-    params.pagesize = @"0";
-    params.page = @"0";
+//    params.subcategoryid = @"0";
+//    params.threecategoryid = @"0";
+//    params.pagesize = @"0";
+//    params.page = @"0";
     [RequestTool getSalesProduce:params success:^(ResultsModel *result) {
         
         NSLog(@"请求促销管理数据成功 %@",result.ModelList);
