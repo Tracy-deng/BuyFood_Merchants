@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface SalesPromotionViewController : UIViewController
-
+@property (nonatomic, strong) NSMutableArray * addDataArray;
 @end

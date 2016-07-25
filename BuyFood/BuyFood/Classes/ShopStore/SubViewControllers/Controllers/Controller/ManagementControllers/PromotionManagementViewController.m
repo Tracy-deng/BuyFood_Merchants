@@ -101,7 +101,9 @@ UITableViewDataSource>
 }
 - (void)bottomBtnClick:(UIButton* )sender
 {
-    [self.navigationController pushViewController:[[SalesPromotionViewController alloc] init] animated:YES];
+    SalesPromotionViewController *saleVC = [[SalesPromotionViewController alloc] init];
+    saleVC.addDataArray = self.salesDataArray;
+    [self.navigationController pushViewController:saleVC animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

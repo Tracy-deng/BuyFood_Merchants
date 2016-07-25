@@ -11,6 +11,14 @@
 #import "PromotionTextFieldViewCell.h"
 #import "MHActionSheet.h"
 #import "LoadView.h"
+#import "ModlistModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "ShopsSecAndThirdClassParams.h"
+#import "ThreeCatego.h"
+#import "ResultsModel.h"
+#import "MJExtension.h"
 @interface SalesPromotionViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     LoadView *loadView;
@@ -40,9 +48,14 @@
 @property (nonatomic, strong) UIImagePickerController *imagePickController;
 @property (nonatomic, strong) NSMutableArray * threeArray;
 @property (nonatomic, strong) NSMutableArray *twoArray;
+@property (nonatomic, strong) ModlistModel *modlst;
 @end
 
 @implementation SalesPromotionViewController
+{
+    NSMutableDictionary<NSString *, NSMutableArray<ModlistModel *> *> *billData;
+}
+
 - (NSMutableArray *)twoArray
 {
     if (_twoArray == nil) {
@@ -68,10 +81,61 @@
     _imagePickController.delegate = self;
     _imagePickController.allowsEditing = YES;
     _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    
+    [self configureData];
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
     [self.tableView registerClass:[PromotionTextFieldViewCell class] forCellReuseIdentifier:@"PromotionTextFieldViewCell"];
+}
+// 数据请求 左控制器数据
+- (void)configureData
+{
+    ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    [RequestTool shopsSecAndThirdClass:params success:^(ResultsModel *result) {
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        dataArray  = [ThreeCatego mj_objectArrayWithKeyValuesArray:result.ModelList];
+        for (ThreeCatego *modle in dataArray) {
+            
+            for (NSDictionary *dic in modle.ModelList) {
+                NSString *subCate = dic[@"subcategoryid"];
+                HDCLog(@"subcategoryid == %@",subCate);
+                if (![billData.allKeys containsObject:subCate]){
+                    [billData setObject:[NSMutableArray new] forKey:subCate];
+                }
+                self.modlst = [[ModlistModel alloc]init];
+                self.modlst.subcategoryid  = subCate;
+                self.modlst.subcategoryname = dic[@"subcategoryname"];
+                HDCLog(@"subcategoryname == %@",self.modlst.subcategoryname);
+                self.modlst.threecategoryid = dic[@"threecategoryid"];
+                HDCLog(@"threecategoryid == %@",self.modlst.threecategoryid);
+                self.modlst.threecategoryname = dic[@"threecategoryname"];
+                HDCLog(@"threecategoryname == %@",self.modlst.threecategoryname);
+                NSMutableArray<ModlistModel *> *date = [billData objectForKey:subCate];
+                [date addObject:self.modlst];
+            }
+            
+            
+        }
+    } failure:^(NSError *error) {
+        ;
+    }];
+}
+
+- (void)addDataSales
+{
+    NSArray *sortKeys = [self getSortedKeys:billData];
+    
+    
+    if (sortKeys.count != 0) {
+        for(int i = 0; i < sortKeys.count; i ++)
+        {
+            NSString *catego = [sortKeys objectAtIndex:i];
+            ModlistModel *model =  [[billData objectForKey:catego] firstObject];
+            [self.twoArray addObject :model.subcategoryname ];
+            
+        }
+    }
 }
 
 - (void)addShopsImage
@@ -373,6 +437,24 @@
     }else{
         return ;
     }
+}
+
+-(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
+{
+    NSArray *keys = [dictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *first = obj1;
+        NSString *second = obj2;
+        int firstValue = [first intValue];
+        int secondValue = [second intValue];
+        if (firstValue < secondValue) {
+            return NSOrderedAscending;
+        }else if(firstValue > secondValue){
+            return NSOrderedDescending;
+        }else{
+            return NSOrderedSame;
+        }
+    }];
+    return keys;
 }
 
 @end
