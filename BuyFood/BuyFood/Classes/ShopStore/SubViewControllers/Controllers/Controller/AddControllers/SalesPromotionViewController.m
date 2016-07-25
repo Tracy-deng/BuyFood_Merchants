@@ -11,10 +11,21 @@
 #import "PromotionTextFieldViewCell.h"
 #import "MHActionSheet.h"
 #import "LoadView.h"
+#import "ModlistModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "ShopsSecAndThirdClassParams.h"
+#import "ThreeCatego.h"
+#import "ResultsModel.h"
+#import "MJExtension.h"
+#import "UpLoadImageUtil.h"
+#import "AddProductParams.h"
 @interface SalesPromotionViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     LoadView *loadView;
     UIButton *bottomBtn;
+
 }
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
@@ -35,14 +46,25 @@
 /** 商品现价 */
 @property (nonatomic, strong) NSString* productoutprice2;
 
+/** 二级分类id*/
+@property (nonatomic, assign) NSInteger selectSecClassIndex;
+/** 三级分类id */
+@property (nonatomic, assign) NSInteger selectThirdClassIndex;
+
+
 /** 商品描述 */
 @property (nonatomic, strong) NSString* productremark;
 @property (nonatomic, strong) UIImagePickerController *imagePickController;
 @property (nonatomic, strong) NSMutableArray * threeArray;
 @property (nonatomic, strong) NSMutableArray *twoArray;
+@property (nonatomic, strong) ModlistModel *modlst;
 @end
 
 @implementation SalesPromotionViewController
+{
+    NSMutableDictionary<NSString *, NSMutableArray<ModlistModel *> *> *billData;
+}
+
 - (NSMutableArray *)twoArray
 {
     if (_twoArray == nil) {
@@ -68,10 +90,64 @@
     _imagePickController.delegate = self;
     _imagePickController.allowsEditing = YES;
     _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    
+    billData = [NSMutableDictionary new];
+    [self configureData];
+ 
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
+ 
     [self.tableView registerClass:[PromotionTextFieldViewCell class] forCellReuseIdentifier:@"PromotionTextFieldViewCell"];
+}
+// 数据请求 左控制器数据
+- (void)configureData
+{
+    ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    [RequestTool shopsSecAndThirdClass:params success:^(ResultsModel *result) {
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        dataArray  = [ThreeCatego mj_objectArrayWithKeyValuesArray:result.ModelList];
+        for (ThreeCatego *modle in dataArray) {
+            
+            for (NSDictionary *dic in modle.ModelList) {
+                NSString *subCate = dic[@"subcategoryid"];
+                HDCLog(@"subcategoryid == %@",subCate);
+                if (![billData.allKeys containsObject:subCate]){
+                    [billData setObject:[NSMutableArray new] forKey:subCate];
+                }
+                self.modlst = [[ModlistModel alloc]init];
+                self.modlst.subcategoryid  = subCate;
+                self.modlst.subcategoryname = dic[@"subcategoryname"];
+                HDCLog(@"subcategoryname == %@",self.modlst.subcategoryname);
+                self.modlst.threecategoryid = dic[@"threecategoryid"];
+                HDCLog(@"threecategoryid == %@",self.modlst.threecategoryid);
+                self.modlst.threecategoryname = dic[@"threecategoryname"];
+                HDCLog(@"threecategoryname == %@",self.modlst.threecategoryname);
+                NSMutableArray<ModlistModel *> *date = [billData objectForKey:subCate];
+                [date addObject:self.modlst];
+            }
+            
+          
+        }
+          [self addDataSales];
+    } failure:^(NSError *error) {
+        ;
+    }];
+}
+
+- (void)addDataSales
+{
+    NSMutableDictionary *dic = billData;
+    NSArray *sortKeys = [self getSortedKeys:dic];
+    if (sortKeys.count != 0) {
+        for(int i = 0; i < sortKeys.count; i ++)
+        {
+            NSString *catego = [sortKeys objectAtIndex:i];
+            ModlistModel *model =  [[billData objectForKey:catego] firstObject];
+            [self.twoArray addObject :model.subcategoryname ];
+            
+        }
+    }
 }
 
 - (void)addShopsImage
@@ -80,9 +156,9 @@
     self.imageView.userInteractionEnabled = YES;
     [self.view addSubview:self.imageView];
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view);
+        make.left.mas_equalTo(self.view).offset((SCREEN_WIDTH - SCREEN_HEIGHT*0.25)/2);
         make.top.mas_equalTo(self.view.mas_top).offset(64);
-        make.width.equalTo(self.view.mas_width);
+        make.width.mas_equalTo(self.view.mas_height).multipliedBy(0.25);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.25);
     }];
     // 1.创建Tap手势
@@ -110,6 +186,7 @@
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"保存" forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
+    [bottomBtn addTarget:self action:@selector(saveBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:bottomBtn];
     [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view.mas_left).offset(21);
@@ -288,11 +365,68 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+   
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 6 || indexPath.row == 7)
+    
+    if (indexPath.row == 1)
     {
-        [self.view endEditing:YES];
+        
+        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:self.twoArray];
+        actionSheet.cancleTitle = @"取消选择";
+        [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
+         {
+             
+             self.selectSecClassIndex = [[[self getSortedKeys:billData] objectAtIndex:index]integerValue] ;
+             HDCLog(@"%ld", self.selectSecClassIndex);
+             self.secClass = title;
+             self.threeArray = [billData objectForKey:[[self getSortedKeys:billData] objectAtIndex:index]];
+             self.thirdClass = @"";
+             [self.tableView reloadData];
+         }];
     }
+    if (indexPath.row == 2)
+    {
+        if(self.secClass.length == 0)
+        {
+            UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有选择二级菜单" message:@"请您先选择二级菜单" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+            [selct addAction:action];
+            [self presentViewController:selct animated:YES completion:nil];
+            return;
+        }else{
+            NSMutableArray *three  = [NSMutableArray arrayWithCapacity:0];
+            for ( ModlistModel *model in self.threeArray) {
+                
+                [three addObject:model.threecategoryname];
+            }
+            
+            MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品三级分类" style:MHSheetStyleWeiChat itemTitles:three];
+            actionSheet.cancleTitle = @"取消选择";
+            [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
+             {
+                 ModlistModel *indexModel =  [self.threeArray objectAtIndex:index];
+                 self.selectThirdClassIndex = [indexModel.threecategoryid integerValue];
+                 self.thirdClass = title;
+                 [self.tableView reloadData];
+                 HDCLog(@"%ld",self.selectThirdClassIndex);
+             }];
+        }
+        
+    }
+    if (indexPath.row == 5)
+    {
+        NSArray * array = @[@"份",
+                            @"克"];
+        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择单位" style:MHSheetStyleWeiChat itemTitles:array];
+        actionSheet.cancleTitle = @"取消选择";
+        [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
+         {
+             self.unitStr = title;
+             [self.tableView reloadData];
+         }];
+    }
+
+
 }
 
 #pragma textField输入
@@ -321,6 +455,61 @@
     }
 }
 
+
+/**
+ *  保存上传
+ *
+ */
+
+- (void)saveBtn:(UIButton *)sender
+{
+    
+    loadView = [LoadView new];
+    bottomBtn.userInteractionEnabled = NO;
+    bottomBtn.backgroundColor = [UIColor grayColor];
+    [loadView startAnimation];
+    [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
+        NSLog(@"上传图片成功 %@",response[@"data"][0][@"littlepic"]);
+        ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+        AddProductParams* params = [[AddProductParams alloc] init];
+        params.categoryid = shopsInfo.categoryid;
+        params.marketuserid = shopsInfo.marketuserid;
+        params.subcategoryid = [NSString stringWithFormat:@"%ld", self.selectSecClassIndex];
+        params.threecategoryid = [NSString stringWithFormat:@"%ld", self.selectThirdClassIndex];
+        params.productname = self.productname;
+        params.productstock = self.productstock;
+        params.productoutprice = self.productoutprice;
+        params.productoutprice2 = self.productoutprice2;
+        params.productremark = self.productremark;
+        params.Productlabel = @"促销";
+        params.productunit = self.unitStr;
+        params.promotion = @"1";
+        params.productpic = response[@"data"][0][@"littlepic"];
+        [RequestTool addProducts:params success:^(ResultsModel *result) {
+            HDCLog(@"%@",result);
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            [loadView stopAnimation];
+            bottomBtn.userInteractionEnabled = YES;
+            bottomBtn.backgroundColor = greenColor;
+            
+        } failure:^(NSError *error) {
+            [loadView stopAnimation];
+            bottomBtn.userInteractionEnabled = YES;
+            bottomBtn.backgroundColor = greenColor;
+            ;
+        }];
+    } failure:^{
+        NSLog(@"上传图片失败");
+        [loadView stopAnimation];
+        bottomBtn.userInteractionEnabled = YES;
+        bottomBtn.backgroundColor = greenColor;
+    }];
+    
+
+}
 #pragma mark -- 点击键盘上的return按钮  收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
@@ -373,6 +562,24 @@
     }else{
         return ;
     }
+}
+
+-(NSArray *)getSortedKeys:(NSMutableDictionary *)dictionary
+{
+    NSArray *keys = [dictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *first = obj1;
+        NSString *second = obj2;
+        int firstValue = [first intValue];
+        int secondValue = [second intValue];
+        if (firstValue < secondValue) {
+            return NSOrderedAscending;
+        }else if(firstValue > secondValue){
+            return NSOrderedDescending;
+        }else{
+            return NSOrderedSame;
+        }
+    }];
+    return keys;
 }
 
 @end

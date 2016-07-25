@@ -22,6 +22,6 @@
  UILabel* shopsPromotionPriceTitle;
  UILabel* shopsPromotionPrice;
  */
-- (void)setShopsImageName:(NSString* )shopsImageName andShopsNameLabel:(NSString* )shopsName andShopsWeight:(NSString* )shopsWeight andShopsSpecifications:(NSString* )shopsSpecifications andShopsOriginalPriceTitle:(NSString* )shopsOriginalPriceTitle andShopsOriginalPrice:(NSString* )shopsOriginalPrice andShopsPromotionPriceTitle:(NSString* )shopsPromotionPriceTitle andShopsPromotionPrice:(NSString* )shopsPromotionPrice;
+- (void)setShopsImage:(NSString * )shopsImage andShopsNameLabel:(NSString* )shopsName andShopsWeight:(NSString* )shopsWeight andShopsSpecifications:(NSString* )shopsSpecifications andShopsOriginalPriceTitle:(NSString* )shopsOriginalPriceTitle andShopsOriginalPrice:(NSString* )shopsOriginalPrice andShopsPromotionPriceTitle:(NSString* )shopsPromotionPriceTitle andShopsPromotionPrice:(NSString* )shopsPromotionPrice;
 
 @end
