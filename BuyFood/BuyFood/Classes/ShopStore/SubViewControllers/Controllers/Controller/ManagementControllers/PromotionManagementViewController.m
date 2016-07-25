@@ -17,6 +17,7 @@
 #import "ShopsUserInfoTool.h"
 #import "ModlistModel.h"
 #import "ResultsModel.h"
+
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
@@ -24,19 +25,25 @@
 UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tabelView;
-
+@property (nonatomic, strong) NSMutableArray * salesDataArray;
 
 @end
 
 @implementation PromotionManagementViewController
-
+- (NSMutableArray *)salesDataArray
+{
+    if (_salesDataArray == nil) {
+        self.salesDataArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _salesDataArray;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"促销管理";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self createTabeleViewAndBottomBtn];
-//    [self getProductSalesData];
+    [self getProductSalesData];
 }
 
 
@@ -79,6 +86,13 @@ UITableViewDataSource>
     [RequestTool getSalesProduce:params success:^(ResultsModel *result) {
         
         NSLog(@"请求促销管理数据成功 %@",result.ModelList);
+        for (NSDictionary *Pdic in result.ModelList) {
+            ModlistModel *model = [[ModlistModel alloc]init];
+            [model setValuesForKeysWithDictionary:Pdic];
+            [self.salesDataArray addObject:model];
+        }
+        [self.tabelView reloadData];
+        [loadView stopAnimation];
         
     } failure:^(NSError *error) {
         NSLog(@"请求促销管理失败%@",error);
@@ -92,12 +106,24 @@ UITableViewDataSource>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return self.salesDataArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ManagementCell* cell = [ManagementCell cellWithTableView:tableView];
-    [cell setShopsImageName:@"shopsImage" andShopsNameLabel:@"新鲜大白菜" andShopsWeight:@"500g" andShopsSpecifications:@"/份" andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:@"6.00" andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:@"5.00"];
+    ModlistModel * salesModel = self.salesDataArray [indexPath.row];
+ 
+    
+    
+    CGFloat stockNumber = [salesModel.productstock floatValue];
+    NSString *stock = [NSString stringWithFormat:@"%.2f", stockNumber];
+    
+    CGFloat originPrice = [salesModel.productoutprice floatValue];
+    NSString *oriPrice = [NSString stringWithFormat:@"%.2f",originPrice];
+    
+    CGFloat nowPrice = [salesModel.productoutprice2 floatValue];
+    NSString *nowPricetring = [NSString stringWithFormat:@"%.2f",nowPrice];
+    [cell setShopsImage:salesModel.productpic andShopsNameLabel:salesModel.productname andShopsWeight:stock  andShopsSpecifications:[NSString stringWithFormat:@"/%@",salesModel.productunit]andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:oriPrice andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:nowPricetring];
     return cell;
 }
 

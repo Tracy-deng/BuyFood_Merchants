@@ -24,9 +24,11 @@
 
 @property (nonatomic, strong) NSString * productname;// 商品名称
 @property (nonatomic, strong) NSString * productpic; // 商品图片
-@property (nonatomic, strong) NSString * productoutprice; // 商品价格
+@property (nonatomic, strong) NSString * productoutprice; // 商品原价格
 @property (nonatomic, strong) NSString * productlabel; // 标签
 @property (nonatomic, strong) NSString * productunit; //单位
 @property (nonatomic, strong) NSString * productstock; // 重量
 @property (nonatomic, strong) NSString * productid; // 商品id
+
+@property (nonatomic, strong) NSString * productoutprice2; // 促销价格
 @end

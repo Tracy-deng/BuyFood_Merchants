@@ -68,7 +68,8 @@ UITableViewDataSource>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ManagementCell* cell = [ManagementCell cellWithTableView:tableView];
-    [cell setShopsImageName:@"shopsImage" andShopsNameLabel:@"新鲜大白菜" andShopsWeight:@"500g" andShopsSpecifications:@"/份" andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:@"6.00" andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:@"5.00"];
+//    [cell setShopsImageName:@"shopsImage" andShopsNameLabel:@"新鲜大白菜" andShopsWeight:@"500g" andShopsSpecifications:@"/份" andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:@"6.00" andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:@"5.00"];
+    [cell setShopsImage: @"shopsImage" andShopsNameLabel:@"新鲜大白菜"  andShopsWeight:@"500g" andShopsSpecifications:@"/份"andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:@"6.00" andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:@"5.00"];
     return cell;
 }
 
