@@ -483,7 +483,7 @@
         params.productremark = self.productremark;
         params.Productlabel = @"促销";
         params.productunit = self.unitStr;
-        params.promotion = @"1";
+        params.promotion = @"2";
         params.productpic = response[@"data"][0][@"littlepic"];
         [RequestTool addProducts:params success:^(ResultsModel *result) {
             HDCLog(@"%@",result);

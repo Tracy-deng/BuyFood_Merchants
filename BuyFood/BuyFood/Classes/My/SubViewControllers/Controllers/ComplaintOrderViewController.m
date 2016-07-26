@@ -27,6 +27,12 @@
     self.title = @"投诉订单";
     [self setUpTableView];
 }
+
+- (void)setComPlaintOrder
+{
+    
+}
+
 /** 设置tableView */
 - (void)setUpTableView
 {
