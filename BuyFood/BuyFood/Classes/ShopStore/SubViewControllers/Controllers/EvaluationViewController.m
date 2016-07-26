@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NSMutableArray* array;
 @property (nonatomic, strong) ShopsUserInfo* userInfo;
 @property (nonatomic, assign) CGRect rect;
+@property (nonatomic, strong) EvaluateCell *cell;
 
 
 @end
@@ -151,12 +152,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    EvaluateCell* cell = [EvaluateCell cellWithTableView:tableView];
-    return cell;
+    self.cell = [EvaluateCell cellWithTableView:tableView];
+    return self.cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return self.view.height * 0.15;
+    
+    return 230;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -190,6 +192,13 @@
     [self.footerView setFooterViewContentWithHeaderImage:@"rectangle9" andUserName:modelList.showname andEvaluate:evaluation andEvaluateContent:modelList.charcontent andEvaluateTime:modifytime];
     self.rect = [self.footerView.evaluateContent.text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 20, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: self.footerView.evaluateContent.font} context:nil];
     HDCLog(@"%lf",self.rect.size.height);
+    
+    [self.footerView.evaluateContent mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.footerView.mas_left).offset(20);
+        make.top.mas_equalTo(self.footerView.headerImage.mas_bottom).offset(5);
+        make.width.equalTo(@(SCREEN_WIDTH - 40));
+        make.height.equalTo(@(self.rect.size.height));
+    }];
     if (section != 0)
     {
         UILabel* line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, self.footerView.height, self.view.frame.size.width - 10, 1)];
@@ -201,6 +210,19 @@
     self.footerView.tag = section;
     self.footerView.replyBtn.tag = section;
     self.footerView.replyBtn.hidden = !Display[section];
+    
+    
+    /** 商家回复 */
+//    self.replayContentLabel = [[UILabel alloc] init];
+//    [self.replayContentLabel setBackgroundColor:[UIColor orangeColor]];
+//    [self.footerView addSubview:self.replayContentLabel];
+//    [self.replayContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.footerView.evaluateContent);
+//        make.bottom.mas_equalTo(self.footerView.mas_bottom).offset(-5);
+//        make.width.equalTo(self.footerView.evaluateContent);
+//        make.height.equalTo(@(30));
+//    }];
+    
     return self.footerView;
 }
 
@@ -213,8 +235,19 @@
 }
 - (void)replyBtnClick:(UIButton* )sender
 {
-    NSLog(@"。。。。");
-    NSLog(@"%ld",sender.tag);
+    for (EvaluationModelList *modelList in self.array)
+    {
+        HDCLog(@"%@", modelList.chartid);
+        HDCLog(@"%@", modelList.charcontent);
+    }
+    
+//    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+//    params[@"chartid"] = [NSString stringWithFormat:@"%ld", self.chartid];
+//    params[@"charcontent2"] = self.cell.textView.text;
+//    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuserblog/UpdateReplay"];
+//    [HttpRequestTool POST:url parameters:params progress:nil completionHandler:^(id model, NSError *error) {
+//        HDCLog(@"modelmodelmodelmodel%@", model);
+//    }];
     Display[sender.tag] = NO;
     NSIndexSet * set = [NSIndexSet indexSetWithIndex:sender.tag];
     [self.tableView reloadSections:set withRowAnimation:UITableViewRowAnimationFade];

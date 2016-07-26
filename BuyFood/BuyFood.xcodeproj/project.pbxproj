@@ -123,6 +123,7 @@
 		0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */; };
 		0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */; };
 		0E7103691D4117B6006E307E /* EvaluationModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7103681D4117B6006E307E /* EvaluationModelList.m */; };
+		0EAB1C141D4698E60025D8E3 /* AddShopsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB1C131D4698E60025D8E3 /* AddShopsCell.m */; };
 		0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08031D141E13002DD7A4 /* PickUpCell.m */; };
 		0EBD080A1D153CA9002DD7A4 /* DispatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08091D153CA9002DD7A4 /* DispatchCell.m */; };
 		0EBD080D1D1572B3002DD7A4 /* OrderDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD080C1D1572B3002DD7A4 /* OrderDetailsViewController.m */; };
@@ -471,6 +472,8 @@
 		0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPrinterViewController.m; sourceTree = "<group>"; };
 		0E7103671D4117B6006E307E /* EvaluationModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationModelList.h; sourceTree = "<group>"; };
 		0E7103681D4117B6006E307E /* EvaluationModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationModelList.m; sourceTree = "<group>"; };
+		0EAB1C121D4698E60025D8E3 /* AddShopsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopsCell.h; sourceTree = "<group>"; };
+		0EAB1C131D4698E60025D8E3 /* AddShopsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopsCell.m; sourceTree = "<group>"; };
 		0EBD08021D141E13002DD7A4 /* PickUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickUpCell.h; sourceTree = "<group>"; };
 		0EBD08031D141E13002DD7A4 /* PickUpCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickUpCell.m; sourceTree = "<group>"; };
 		0EBD08081D153CA9002DD7A4 /* DispatchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchCell.h; sourceTree = "<group>"; };
@@ -826,6 +829,8 @@
 				0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */,
 				78089F781D34D81500DBAB88 /* ShopThreeCate.h */,
 				78089F791D34D81500DBAB88 /* ShopThreeCate.m */,
+				0EAB1C121D4698E60025D8E3 /* AddShopsCell.h */,
+				0EAB1C131D4698E60025D8E3 /* AddShopsCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1723,6 +1728,7 @@
 				784A116A1D2640A200245304 /* ShopDetailViewController.h in Sources */,
 				0EEF9DB31D3368A900CD83E9 /* ImproveinformationParams.m in Sources */,
 				784A116B1D2640A200245304 /* ShopDetailViewController.m in Sources */,
+				0EAB1C141D4698E60025D8E3 /* AddShopsCell.m in Sources */,
 				7802E6DB1D1A87F4000B03C2 /* DistributionViewController.h in Sources */,
 				0E6319C81D258D2600D59998 /* TakeMoneyViewController.m in Sources */,
 				780984B01D3F1FC4009E7E84 /* SDWebImageDownloaderOperation.m in Sources */,
