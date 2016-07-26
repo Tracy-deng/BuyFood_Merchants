@@ -474,8 +474,8 @@
         AddProductParams* params = [[AddProductParams alloc] init];
         params.categoryid = shopsInfo.categoryid;
         params.marketuserid = shopsInfo.marketuserid;
-        params.subcategoryid = [NSString stringWithFormat:@"%ld", self.selectSecClassIndex];
-        params.threecategoryid = [NSString stringWithFormat:@"%ld", self.selectThirdClassIndex];
+        params.subcategoryid = [NSString stringWithFormat:@"%ld", (long)self.selectSecClassIndex];
+        params.threecategoryid = [NSString stringWithFormat:@"%ld", (long)self.selectThirdClassIndex];
         params.productname = self.productname;
         params.productstock = self.productstock;
         params.productoutprice = self.productoutprice;
@@ -483,7 +483,7 @@
         params.productremark = self.productremark;
         params.Productlabel = @"促销";
         params.productunit = self.unitStr;
-        params.promotion = @"1";
+        params.promotion = @"2";
         params.productpic = response[@"data"][0][@"littlepic"];
         [RequestTool addProducts:params success:^(ResultsModel *result) {
             HDCLog(@"%@",result);

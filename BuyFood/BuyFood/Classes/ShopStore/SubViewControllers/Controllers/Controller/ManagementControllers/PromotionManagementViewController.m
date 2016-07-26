@@ -17,13 +17,15 @@
 #import "ShopsUserInfoTool.h"
 #import "ModlistModel.h"
 #import "ResultsModel.h"
-
+#import "MJRefresh.h"
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
 @interface PromotionManagementViewController ()<UITableViewDelegate,
 UITableViewDataSource>
-
+{
+    BOOL toAddVC;
+}
 @property (nonatomic, strong) UITableView* tabelView;
 @property (nonatomic, strong) NSMutableArray * salesDataArray;
 
@@ -43,7 +45,10 @@ UITableViewDataSource>
     self.title = @"促销管理";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self createTabeleViewAndBottomBtn];
-    [self getProductSalesData];
+    
+    self.tabelView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getProductSalesData];
+    }];
 }
 
 
@@ -57,7 +62,7 @@ UITableViewDataSource>
         make.left.equalTo(self.view);
         make.top.equalTo(self.view);
         make.width.equalTo(self.view);
-        make.height.mas_equalTo(self.view).multipliedBy(0.75);
+        make.height.equalTo(@(SCREEN_HEIGHT - 64 - 30));
     }];
     UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
@@ -73,8 +78,23 @@ UITableViewDataSource>
     }];
 }
 
+// 当页面出现的时候 从添加页面返回 刷新数据
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    if (toAddVC) {
+        toAddVC = NO;
+        [self.tabelView reloadData];
+        return;
+    }else{
+        [self.salesDataArray removeAllObjects];
+        [self getProductSalesData];
+        return;
+    }
+}
+
 - (void)getProductSalesData
 {
+    
     NSLog(@"请求促销管理数据");
     LoadView *loadView = [LoadView new];
     [loadView startAnimation];
@@ -86,21 +106,27 @@ UITableViewDataSource>
     [RequestTool getSalesProduce:params success:^(ResultsModel *result) {
         
         NSLog(@"请求促销管理数据成功 %@",result.ModelList);
+        [self.salesDataArray removeAllObjects];
         for (NSDictionary *Pdic in result.ModelList) {
             ModlistModel *model = [[ModlistModel alloc]init];
             [model setValuesForKeysWithDictionary:Pdic];
+            
             [self.salesDataArray addObject:model];
         }
-        [self.tabelView reloadData];
+        
         [loadView stopAnimation];
+        [self.tabelView.header endRefreshing];
+        [self.tabelView reloadData];
         
     } failure:^(NSError *error) {
         NSLog(@"请求促销管理失败%@",error);
+        [loadView stopAnimation];
     }];
     
 }
 - (void)bottomBtnClick:(UIButton* )sender
 {
+    toAddVC = YES;
     SalesPromotionViewController *saleVC = [[SalesPromotionViewController alloc] init];
     saleVC.addDataArray = self.salesDataArray;
     [self.navigationController pushViewController:saleVC animated:YES];
@@ -113,10 +139,8 @@ UITableViewDataSource>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ManagementCell* cell = [ManagementCell cellWithTableView:tableView];
-    ModlistModel * salesModel = self.salesDataArray [indexPath.row];
+    ModlistModel * salesModel = self.salesDataArray[indexPath.row];
  
-    
-    
     CGFloat stockNumber = [salesModel.productstock floatValue];
     NSString *stock = [NSString stringWithFormat:@"%.2f", stockNumber];
     

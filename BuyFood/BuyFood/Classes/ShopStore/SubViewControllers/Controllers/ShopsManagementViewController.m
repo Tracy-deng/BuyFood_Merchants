@@ -66,7 +66,7 @@
 
     
     self.mainTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self.productMainDataArray removeAllObjects];
+        
         [self getMainTableDataSource];
     }];
     
@@ -139,6 +139,7 @@
     params.pagesize = @"0";
     params.page = @"0";
     [RequestTool getProduct:params success:^(ResultsModel *result) {
+        [self.productMainDataArray removeAllObjects];
         for (NSDictionary *Pdic in result.ModelList) {
             ModlistModel *model = [[ModlistModel alloc]init];
             [model setValuesForKeysWithDictionary:Pdic];
