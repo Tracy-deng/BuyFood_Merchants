@@ -79,8 +79,9 @@
     self.shopsWeight = [[UILabel alloc] init];
     self.shopsWeight.textAlignment = NSTextAlignmentCenter;
     self.shopsWeight.textColor = [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
-    self.shopsWeight.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    self.shopsWeight.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     [self.contentView addSubview:self.shopsWeight];
+    self.shopsWeight.textAlignment = NSTextAlignmentRight;
     [self.shopsWeight mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.shopsName);
         make.top.mas_equalTo(self.shopsName.mas_bottom).offset(15);
@@ -91,7 +92,7 @@
     self.shopsSpecifications = [[UILabel alloc] init];
     self.shopsWeight.textAlignment = NSTextAlignmentLeft;
     self.shopsSpecifications.textColor = [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
-    self.shopsSpecifications.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+    self.shopsSpecifications.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     [self.contentView addSubview:self.shopsSpecifications];
     [self.shopsSpecifications mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.shopsWeight.mas_right);
@@ -102,45 +103,49 @@
     
     self.shopsOriginalPrice = [[UILabel alloc] init];
     self.shopsOriginalPrice.textColor = [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
-    self.shopsOriginalPrice.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+    self.shopsOriginalPrice.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     [self.contentView addSubview:self.shopsOriginalPrice];
+    self.shopsOriginalPrice.textAlignment = NSTextAlignmentRight;
     [self.shopsOriginalPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView.mas_right).offset(-10);
         make.top.equalTo(self.shopsName);
-        make.width.equalTo(@(self.contentView.frame.size.width * 0.29 * 0.50));
+        make.width.equalTo(@(self.contentView.frame.size.width * 0.18));
         make.height.equalTo(self.shopsName);
     }];
     
     self.shopsOriginalPriceTitle = [[UILabel alloc] init];
     self.shopsOriginalPriceTitle.textColor = [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
-    self.shopsOriginalPriceTitle.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+    self.shopsOriginalPriceTitle.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     [self.contentView addSubview:self.shopsOriginalPriceTitle];
+    self.shopsOriginalPriceTitle.textAlignment = NSTextAlignmentRight;
     [self.shopsOriginalPriceTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.shopsOriginalPrice.mas_left).offset(-5);
+        make.right.mas_equalTo(self.shopsOriginalPrice.mas_left).offset(-2);
         make.top.equalTo(self.shopsName);
-        make.width.equalTo(@(self.contentView.frame.size.width * 0.29 * 0.50));
+        make.width.equalTo(@(50));
         make.height.equalTo(self.shopsName);
     }];
     
     self.shopsPromotionPrice = [[UILabel alloc] init];
     self.shopsPromotionPrice.textColor = [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
-    self.shopsPromotionPrice.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+    self.shopsPromotionPrice.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     [self.contentView addSubview:self.shopsPromotionPrice];
+    self.shopsPromotionPrice.textAlignment = NSTextAlignmentRight;
     [self.shopsPromotionPrice mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView.mas_right).offset(-5);
         make.top.equalTo(self.shopsWeight);
-        make.width.equalTo(@(self.contentView.frame.size.width * 0.30 * 0.40));
+        make.width.equalTo(@(self.contentView.frame.size.width * 0.18));
         make.height.equalTo(self.shopsName);
     }];
     
     self.shopsPromotionPriceTitle = [[UILabel alloc] init];
     self.shopsPromotionPriceTitle.textColor = [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
-    self.shopsPromotionPriceTitle.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
+    self.shopsPromotionPriceTitle.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     [self.contentView addSubview:self.shopsPromotionPriceTitle];
+    self.shopsPromotionPriceTitle.textAlignment = NSTextAlignmentRight;
     [self.shopsPromotionPriceTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.shopsOriginalPriceTitle);
+        make.right.equalTo(self.shopsPromotionPrice.mas_left).offset(-2);
         make.top.equalTo(self.shopsWeight);
-        make.width.equalTo(@(self.contentView.frame.size.width * 0.29 * 0.60));
+        make.width.equalTo(@(50));
         make.height.equalTo(self.shopsOriginalPriceTitle);
     }];
 }
