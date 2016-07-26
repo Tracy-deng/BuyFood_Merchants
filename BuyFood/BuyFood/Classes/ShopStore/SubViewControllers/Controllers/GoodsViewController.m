@@ -7,9 +7,7 @@
 //
 
 #import "GoodsViewController.h"
-#import "SalesPromotionCell.h"
 #import "MHActionSheet.h"
-#import "PromotionTextFieldViewCell.h"
 #import "RequestTool.h"
 #import "AddProductParams.h"
 #import "ShopsUserInfo.h"
@@ -86,7 +84,6 @@
     
 
     [self creatDataSoruce];
-//    [self.tableView registerClass:[PromotionTextFieldViewCell class] forCellReuseIdentifier:@"PromotionTextFieldViewCell"];
 }
 - (void)creatDataSoruce
 {

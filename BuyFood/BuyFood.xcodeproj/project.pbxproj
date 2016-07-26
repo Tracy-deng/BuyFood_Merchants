@@ -101,9 +101,7 @@
 		0E6319CB1D25909900D59998 /* TakeMoneyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319CA1D25909900D59998 /* TakeMoneyCell.m */; };
 		0E6398ED1D362677008D9DC0 /* AddProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6398EC1D362677008D9DC0 /* AddProductParams.m */; };
 		0E6398F01D362B35008D9DC0 /* GetProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6398EF1D362B35008D9DC0 /* GetProductParams.m */; };
-		0E6398F31D36B782008D9DC0 /* PromotionTextFieldViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6398F21D36B782008D9DC0 /* PromotionTextFieldViewCell.m */; };
 		0E67DFE81D22C86B00E025BD /* ManagementCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE31D22C86B00E025BD /* ManagementCell.m */; };
-		0E67DFE91D22C86B00E025BD /* SalesPromotionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */; };
 		0E67DFEA1D22C86B00E025BD /* SecondsKillCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */; };
 		0E67E0021D22C89200E025BD /* FightGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFEE1D22C89200E025BD /* FightGroupsViewController.m */; };
 		0E67E0031D22C89200E025BD /* GroupPurchaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67DFF01D22C89200E025BD /* GroupPurchaseViewController.m */; };
@@ -428,12 +426,8 @@
 		0E6398EC1D362677008D9DC0 /* AddProductParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProductParams.m; sourceTree = "<group>"; };
 		0E6398EE1D362B35008D9DC0 /* GetProductParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetProductParams.h; sourceTree = "<group>"; };
 		0E6398EF1D362B35008D9DC0 /* GetProductParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetProductParams.m; sourceTree = "<group>"; };
-		0E6398F11D36B782008D9DC0 /* PromotionTextFieldViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromotionTextFieldViewCell.h; sourceTree = "<group>"; };
-		0E6398F21D36B782008D9DC0 /* PromotionTextFieldViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromotionTextFieldViewCell.m; sourceTree = "<group>"; };
 		0E67DFE21D22C86B00E025BD /* ManagementCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManagementCell.h; sourceTree = "<group>"; };
 		0E67DFE31D22C86B00E025BD /* ManagementCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManagementCell.m; sourceTree = "<group>"; };
-		0E67DFE41D22C86B00E025BD /* SalesPromotionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesPromotionCell.h; sourceTree = "<group>"; };
-		0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesPromotionCell.m; sourceTree = "<group>"; };
 		0E67DFE61D22C86B00E025BD /* SecondsKillCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondsKillCell.h; sourceTree = "<group>"; };
 		0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondsKillCell.m; sourceTree = "<group>"; };
 		0E67DFED1D22C89200E025BD /* FightGroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FightGroupsViewController.h; sourceTree = "<group>"; };
@@ -813,10 +807,6 @@
 				78444B561D212872001F3E9D /* ShopTableViewCell.m */,
 				0E67DFE21D22C86B00E025BD /* ManagementCell.h */,
 				0E67DFE31D22C86B00E025BD /* ManagementCell.m */,
-				0E67DFE41D22C86B00E025BD /* SalesPromotionCell.h */,
-				0E67DFE51D22C86B00E025BD /* SalesPromotionCell.m */,
-				0E6398F11D36B782008D9DC0 /* PromotionTextFieldViewCell.h */,
-				0E6398F21D36B782008D9DC0 /* PromotionTextFieldViewCell.m */,
 				0E67DFE61D22C86B00E025BD /* SecondsKillCell.h */,
 				0E67DFE71D22C86B00E025BD /* SecondsKillCell.m */,
 				0E67E00C1D22C97000E025BD /* SetPriceAdviceCell.h */,
@@ -1771,7 +1761,6 @@
 				0E12A2651D2B986A008066CC /* MJPropertyKey.m in Sources */,
 				0E12A28B1D2B9898008066CC /* MBProgressHUD.m in Sources */,
 				780984ED1D3F59B2009E7E84 /* MJRefreshAutoStateFooter.m in Sources */,
-				0E6398F31D36B782008D9DC0 /* PromotionTextFieldViewCell.m in Sources */,
 				0E3C1AA01D1C37EB0060A7F4 /* MyBillHeaderView.m in Sources */,
 				7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */,
 				7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */,
@@ -1848,7 +1837,6 @@
 				780984E61D3F59B2009E7E84 /* MJRefreshAutoFooter.m in Sources */,
 				0E67E0031D22C89200E025BD /* GroupPurchaseViewController.m in Sources */,
 				0EF5A6631D40709B00053F13 /* UpdateProductParams.m in Sources */,
-				0E67DFE91D22C86B00E025BD /* SalesPromotionCell.m in Sources */,
 				0EBD081D1D179035002DD7A4 /* ChangePasswordViewController.m in Sources */,
 				0E12A23F1D2B9815008066CC /* BalanceAccountParams.m in Sources */,
 				0E3C1A941D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m in Sources */,

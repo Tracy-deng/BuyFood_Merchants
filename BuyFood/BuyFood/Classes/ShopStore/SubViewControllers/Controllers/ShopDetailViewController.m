@@ -7,9 +7,7 @@
 //
 
 #import "ShopDetailViewController.h"
-#import "SalesPromotionCell.h"
 #import "UIImageView+WebCache.h"
-#import "PromotionTextFieldViewCell.h"
 #import "MHActionSheet.h"
 #import "RequestTool.h"
 #import "ShopsUserInfo.h"
@@ -19,6 +17,8 @@
 #import "UpLoadImageUtil.h"
 #import "ResultsModel.h"
 #import "DeleteProductParams.h"
+#import "AddShopsCell.h"
+
 @interface ShopDetailViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     BOOL isValue;
@@ -75,9 +75,7 @@
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
-    [self.tableView registerClass:[PromotionTextFieldViewCell class] forCellReuseIdentifier:@"PromotionTextFieldViewCell"];
     
-    HDCLog(@"self.detailModel.subcategoryname == %@", self.detailModel.subcategoryname);
     self.productname = self.detailModel.productname;
     NSInteger priceNum = [self.detailModel.productoutprice integerValue];
     NSString *price = [NSString stringWithFormat:@"%ld", priceNum];
@@ -90,7 +88,6 @@
     _imagePickController.delegate = self;
     _imagePickController.allowsEditing = YES;
     _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    
 }
 
 - (void)creatDataSoruce
@@ -192,9 +189,6 @@
 
 - (void)tap:(UITapGestureRecognizer* )tapGesture
 {
-    NSLog(@"点击添加图片");
-    
-    
     
     NSArray *photoArray = @[@"相机拍照",@"本地上传"];
     MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleWeiChat itemTitles:photoArray];
@@ -274,8 +268,7 @@
 }
 
 
-- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
-
+- (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName
 {
     NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
     // 获取沙盒目录
@@ -291,77 +284,74 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-    if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 5 || indexPath.row == 7)
+    NSString *ID = [NSString stringWithFormat:@"ID %ld", indexPath.row];
+    AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell)
     {
-        PromotionTextFieldViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PromotionTextFieldViewCell" forIndexPath:indexPath];
-        cell.contentTextField.tag = indexPath.row;
-        cell.contentTextField.delegate = self;
-        [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
-        if (indexPath.row == 0)
+        if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 5 || indexPath.row == 7)
         {
-            cell.titleLabel.text = @"商品名称:";
-            cell.contentTextField.text = self.productname;
+            cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell.contentTextField.tag = indexPath.row;
+            cell.contentTextField.delegate = self;
+            [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
+            if (indexPath.row == 0)
+            {
+                cell.titleLabel.text = @"商品名称:";
+                cell.contentTextField.text = self.productname;
+            }
+            else if (indexPath.row == 3)
+            {
+                
+                cell.titleLabel.text = @"商品价格:";
+                cell.contentTextField.text = self.productoutprice;
+                cell.contentTextField.keyboardType = UIKeyboardTypeNumberPad;
+            }
+            else if (indexPath.row == 5)
+            {
+                cell.titleLabel.text = @"商品重量:";
+                NSInteger stockNumber = [self.detailModel.productstock integerValue];
+                NSString *stock = [NSString stringWithFormat:@"%ld", stockNumber];
+                cell.contentTextField.text = stock;
+            }
+            else if (indexPath.row == 7)
+            {
+                cell.titleLabel.text = @"商品描述:";
+                cell.contentTextField.text = self.productremark;
+            }
         }
-        else if (indexPath.row == 3)
+        else
         {
-            
-            cell.titleLabel.text = @"商品价格:";
-            cell.contentTextField.text = self.productoutprice;
-            cell.contentTextField.keyboardType = UIKeyboardTypeNumberPad;
-        }
-        else if (indexPath.row == 5)
-        {
-            cell.titleLabel.text = @"商品重量:";
-            NSInteger stockNumber = [self.detailModel.productstock integerValue];
-            NSString *stock = [NSString stringWithFormat:@"%ld", stockNumber];
-            cell.contentTextField.text = stock;
-        }
-        else if (indexPath.row == 7)
-        {
-            cell.titleLabel.text = @"商品描述:";
-            cell.contentTextField.text = self.productremark;
-        }
-        return cell;
-    }
-    else
-    {
-        SalesPromotionCell* cell = [SalesPromotionCell cellWithTableView:tableView];
-        switch (indexPath.row)
-        {
-            case 1:
-                 cell.accessoryType = UITableViewCellAccessoryNone;
-                if (isValue == NO) {
-                    [cell setTitleLabel:@"二级分类:" andContentLabel:self.detailModel.subcategoryname];
-                }else{
-                    [cell setTitleLabel:@"二级分类:" andContentLabel:self.secClass];
-                }
+            cell = [[AddShopsCell alloc]initWithChooseCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            switch (indexPath.row)
+            {
+                case 1:
+                    if (isValue == NO) {
+                        [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.detailModel.subcategoryname];
+                    }else{
+                        [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];
+                    }
+                    break;
+                case 2:
+                    if (isValue == NO) {
+                        [cell setChooseTitleLabel:@"三级分类" andContentLabel:self.detailModel.threecategoryname];
+                    }else{
+                        [cell setChooseTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
+                    }
+                    break;
+                case 4:
+                    [cell setChooseTitleLabel:@"单位:" andContentLabel:self.unitStr];
+                    break;
+                case 6:
+                    [cell setChooseTitleLabel:@"标签:" andContentLabel:self.shopsTag];
+                    break;
+                default:
+                    break;
+            }
 
-                break;
-            case 2:
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                if (isValue == NO) {
-                    [cell setTitleLabel:@"三级分类:" andContentLabel:self.detailModel.threecategoryname];
-                }else{
-                     [cell setTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
-                }
-                
-                
-                break;
-            case 4:
-                [cell setTitleLabel:@"标签:" andContentLabel:self.unitStr];
-                break;
-            case 6:
-                [cell setTitleLabel:@"标签:" andContentLabel:self.shopsTag];
-                
-                break;
-                
-            default:
-                break;
         }
-        return cell;
     }
-   
+    return cell;
 }
 
 - (void)changeValue:(UITextField *)textField
@@ -394,18 +384,17 @@
 {
     isValue = YES;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    AddShopsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.row == 1)
     {
-        
         MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:self.twoArray];
         actionSheet.cancleTitle = @"取消选择";
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
          {
-             
              self.selectSecClassIndex = [[[self getSortedKeys:self.goodsDic] objectAtIndex:index]integerValue] ;
              HDCLog(@"%ld", self.selectSecClassIndex);
              self.secClass = title;
+             [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];
              self.threeArray = [self.goodsDic objectForKey:[[self getSortedKeys:self.goodsDic] objectAtIndex:index]];
              self.thirdClass = @"";
              [self.tableView reloadData];
@@ -434,6 +423,7 @@
                  ModlistModel *indexModel =  [self.threeArray objectAtIndex:index];
                  self.selectThirdClassIndex = [indexModel.threecategoryid integerValue];
                  self.thirdClass = title;
+                 [cell setChooseTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
                  [self.tableView reloadData];
                  HDCLog(@"%ld",self.selectThirdClassIndex);
              }];
@@ -449,28 +439,27 @@
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
          {
              self.unitStr = title;
+             [cell setChooseTitleLabel:@"单位:" andContentLabel:self.unitStr];
              [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
          }];
     }
     if (indexPath.row == 6)
     {
         NSArray * array = @[@"普通",
-                            @"促销",
                             @"热销"];
         MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品标签" style:MHSheetStyleWeiChat itemTitles:array];
         actionSheet.cancleTitle = @"取消选择";
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
          {
              self.shopsTag = title;
+             [cell setChooseTitleLabel:@"标签:" andContentLabel:self.shopsTag];
              [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
          }];
     }
-    
 }
 
 - (void)didBottomBtn:(UIButton *)sender
 {
-    NSLog(@"点击保存");
     bottomBtn.userInteractionEnabled = NO;
     bottomBtn.backgroundColor = [UIColor grayColor];
     LoadView *loadView = [LoadView new];
@@ -562,8 +551,6 @@
     
     [self packUpDownTextField:textField isShow:NO];
 }
-
-
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
     if (textField.tag == 3 || textField.tag == 5 || textField.tag == 7) {

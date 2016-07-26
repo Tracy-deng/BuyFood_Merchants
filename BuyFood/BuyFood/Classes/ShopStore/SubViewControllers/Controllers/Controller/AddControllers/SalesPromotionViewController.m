@@ -7,8 +7,6 @@
 //
 
 #import "SalesPromotionViewController.h"
-#import "SalesPromotionCell.h"
-#import "PromotionTextFieldViewCell.h"
 #import "MHActionSheet.h"
 #import "LoadView.h"
 #import "ModlistModel.h"
@@ -21,11 +19,13 @@
 #import "MJExtension.h"
 #import "UpLoadImageUtil.h"
 #import "AddProductParams.h"
+#import "AddShopsCell.h"
+
 @interface SalesPromotionViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     LoadView *loadView;
     UIButton *bottomBtn;
-
+    
 }
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIImageView* imageView;
@@ -50,7 +50,6 @@
 @property (nonatomic, assign) NSInteger selectSecClassIndex;
 /** 三级分类id */
 @property (nonatomic, assign) NSInteger selectThirdClassIndex;
-
 
 /** 商品描述 */
 @property (nonatomic, strong) NSString* productremark;
@@ -92,11 +91,9 @@
     _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     billData = [NSMutableDictionary new];
     [self configureData];
- 
+    
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
- 
-    [self.tableView registerClass:[PromotionTextFieldViewCell class] forCellReuseIdentifier:@"PromotionTextFieldViewCell"];
 }
 // 数据请求 左控制器数据
 - (void)configureData
@@ -127,9 +124,9 @@
                 [date addObject:self.modlst];
             }
             
-          
+            
         }
-          [self addDataSales];
+        [self addDataSales];
     } failure:^(NSError *error) {
         ;
     }];
@@ -205,10 +202,6 @@
 
 - (void)tap:(UITapGestureRecognizer* )tapGesture
 {
-    NSLog(@"点击添加图片");
-    
-    
-    
     NSArray *photoArray = @[@"相机拍照",@"本地上传"];
     MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleWeiChat itemTitles:photoArray];
     actionSheet.cancleTitle = @"取消选择";
@@ -261,8 +254,6 @@
         
     }];
 }
-
-
 #pragma mark-- imagePicker delegate 事件
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
@@ -287,8 +278,6 @@
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 - (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
 
 {
@@ -306,56 +295,59 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 6 || indexPath.row == 7)
+    NSString *ID = [NSString stringWithFormat:@"ID %ld", indexPath.row];
+    AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell)
     {
-        PromotionTextFieldViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PromotionTextFieldViewCell" forIndexPath:indexPath];
-//        PromotionTextFieldViewCell *cell = [PromotionTextFieldViewCell cellWithTableView:tableView andIndexPath:indexPath];
-        
-        cell.contentTextField.tag = indexPath.row;
-        cell.contentTextField.delegate = self;
-        [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
-        switch (cell.contentTextField.tag)
+        if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 6 || indexPath.row == 7)
         {
-            case 0:
-                [cell setTitleLabel:@"商品名称:" andContentTextFieldPlaceholder:@"请输入商品名称"];
-                break;
-            case 3:
-                [cell setTitleLabel:@"商品原价:" andContentTextFieldPlaceholder:@"请输入商品原价格"];
-                break;
-            case 4:
-                [cell setTitleLabel:@"商品现价:" andContentTextFieldPlaceholder:@"请输入商品现价格"];
-                break;
-            case 6:
-                [cell setTitleLabel:@"重量:" andContentTextFieldPlaceholder:@"请输入商品重量"];
-                break;
-            case 7:
-                [cell setTitleLabel:@"描述:" andContentTextFieldPlaceholder:@"二十字以内"];
-                break;
-            default:
-                break;
+            cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell.contentTextField.tag = indexPath.row;
+            cell.contentTextField.delegate = self;
+            [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
+            switch (cell.contentTextField.tag)
+            {
+                case 0:
+                    [cell setTitleLabel:@"商品名称:" andContentTextFieldPlaceholder:@"请输入商品名称"];
+                    break;
+                case 3:
+                    [cell setTitleLabel:@"商品原价:" andContentTextFieldPlaceholder:@"请输入商品原价格"];
+                    break;
+                case 4:
+                    [cell setTitleLabel:@"商品现价:" andContentTextFieldPlaceholder:@"请输入商品现价格"];
+                    break;
+                case 6:
+                    [cell setTitleLabel:@"重量:" andContentTextFieldPlaceholder:@"请输入商品重量"];
+                    break;
+                case 7:
+                    [cell setTitleLabel:@"描述:" andContentTextFieldPlaceholder:@"二十字以内"];
+                    break;
+                default:
+                    break;
+            }
         }
-        return cell;
-    }
-    else
-    {
-        SalesPromotionCell* cell = [SalesPromotionCell cellWithTableView:tableView];
-        switch (indexPath.row)
+        else
         {
-            case 1:
-                [cell setTitleLabel:@"二级分类:" andContentLabel:self.secClass];
-                break;
-            case 2:
-                [cell setTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
-                break;
-            case 5:
-                [cell setTitleLabel:@"单位:" andContentLabel:self.unitStr];
-                break;
-            default:
-                break;
+            cell = [[AddShopsCell alloc]initWithChooseCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            switch (indexPath.row)
+            {
+                case 1:
+                    [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];
+                    break;
+                case 2:
+                    [cell setChooseTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
+                    break;
+                case 5:
+                    [cell setChooseTitleLabel:@"单位:" andContentLabel:self.unitStr];
+                    break;
+                default:
+                    break;
+                    
+            }
         }
-        return cell;
     }
-    
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -365,9 +357,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AddShopsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.row == 1)
     {
         
@@ -379,6 +371,7 @@
              self.selectSecClassIndex = [[[self getSortedKeys:billData] objectAtIndex:index]integerValue] ;
              HDCLog(@"%ld", self.selectSecClassIndex);
              self.secClass = title;
+             [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];
              self.threeArray = [billData objectForKey:[[self getSortedKeys:billData] objectAtIndex:index]];
              self.thirdClass = @"";
              [self.tableView reloadData];
@@ -407,11 +400,11 @@
                  ModlistModel *indexModel =  [self.threeArray objectAtIndex:index];
                  self.selectThirdClassIndex = [indexModel.threecategoryid integerValue];
                  self.thirdClass = title;
+                 [cell setChooseTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
                  [self.tableView reloadData];
                  HDCLog(@"%ld",self.selectThirdClassIndex);
              }];
         }
-        
     }
     if (indexPath.row == 5)
     {
@@ -422,17 +415,15 @@
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
          {
              self.unitStr = title;
+             [cell setChooseTitleLabel:@"单位:" andContentLabel:self.unitStr];
              [self.tableView reloadData];
          }];
     }
-
-
 }
 
 #pragma textField输入
 - (void)changeValue:(UITextField *)textField
 {
-    HDCLog(@"%@", textField.text);
     switch (textField.tag)
     {
         case 0:
@@ -455,12 +446,10 @@
     }
 }
 
-
 /**
  *  保存上传
  *
  */
-
 - (void)saveBtn:(UIButton *)sender
 {
     
@@ -508,7 +497,7 @@
         bottomBtn.backgroundColor = greenColor;
     }];
     
-
+    
 }
 #pragma mark -- 点击键盘上的return按钮  收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -536,8 +525,6 @@
     
     [self packUpDownTextField:textField isShow:NO];
 }
-
-
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
     if (textField.tag == 3 || textField.tag == 5 || textField.tag == 7) {
