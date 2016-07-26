@@ -76,6 +76,11 @@ UITableViewDataSource>
         make.width.equalTo(@(SCREEN_WIDTH - 2 * 21));
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.08);
     }];
+    
+    // 消除字下面多余的线
+    UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
+    
+    self.tabelView.tableFooterView = view;
 }
 
 // 当页面出现的时候 从添加页面返回 刷新数据

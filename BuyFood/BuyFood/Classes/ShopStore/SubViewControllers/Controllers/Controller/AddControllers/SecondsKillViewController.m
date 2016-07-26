@@ -8,13 +8,13 @@
 
 #import "SecondsKillViewController.h"
 #import "SecondsKillCell.h"
-
+#import "AddShopsCell.h"
 #define Start_X self.view.frame.size.width * 0.05           // 第一个按钮的X坐标
 #define Start_Y self.view.frame.size.height - (self.view.frame.size.height * 0.19) - (self.view.frame.size.width * 0.27)          // 第一个按钮的Y坐标
 #define Width_Space self.view.frame.size.width * 0.05        // 2个按钮之间的横间距
 #define Button_Width self.view.frame.size.width * 0.27 //宽 
 
-@interface SecondsKillViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SecondsKillViewController ()<UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate>
 
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIButton* imageViewBtn;
@@ -67,59 +67,107 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0)
+    
+    
+//    if (indexPath.row == 0)
+//    {
+//        static NSString* ID = @"Cell";
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//        
+//        if (!cell)
+//        {
+//            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+//        }
+//        cell.textLabel.text = @"商品名称:";
+//        cell.textLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
+//        cell.textLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
+//        UITextField* textField = [[UITextField alloc] init];
+//        textField.placeholder = @"输入蔬菜名";
+//        textField.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
+//        textField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
+//        [cell.contentView addSubview:textField];
+//        [textField mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.mas_equalTo(cell.contentView.mas_left).offset(120);
+//            make.top.mas_equalTo(cell.contentView.mas_top).offset(15);
+//            make.width.equalTo(@150);
+//            make.height.equalTo(@30);
+//        }];
+//        return cell;
+//    }
+//    else
+//    {
+//        
+//        SecondsKillCell* cell = [SecondsKillCell cellWithTableView:tableView];
+//        if (indexPath.row == 1)
+//        {
+//            [cell setTitleLabel:@"秒杀价：" andContentLabel:@"0.00"];
+//        }
+//        else if (indexPath.row == 2)
+//        {
+//            [cell setTitleLabel:@"原价：" andContentLabel:@"0.00"];
+//        }
+//        else if (indexPath.row == 3)
+//        {
+//            [cell setTitleLabel:@"单位" andContentLabel:@"份"];
+//        }
+//        else if (indexPath.row == 4)
+//        {
+//            [cell setTitleLabel:@"重量" andContentLabel:@""];
+//        }
+//        else
+//        {
+//            [cell setTitleLabel:@"秒杀时间" andContentLabel:@""];
+//        }
+//        return cell;
+//    }
+    NSString *ID = [NSString stringWithFormat:@"ID %ld", indexPath.row];
+    AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell)
     {
-        static NSString* ID = @"Cell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (!cell)
-        {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        }
-        cell.textLabel.text = @"商品名称:";
-        cell.textLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
-        cell.textLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
-        UITextField* textField = [[UITextField alloc] init];
-        textField.placeholder = @"输入蔬菜名";
-        textField.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
-        textField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
-        [cell.contentView addSubview:textField];
-        [textField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(cell.contentView.mas_left).offset(120);
-            make.top.mas_equalTo(cell.contentView.mas_top).offset(15);
-            make.width.equalTo(@150);
-            make.height.equalTo(@30);
-        }];
-        return cell;
-    }
-    else
-    {
-        
-        SecondsKillCell* cell = [SecondsKillCell cellWithTableView:tableView];
-        if (indexPath.row == 1)
-        {
-            [cell setTitleLabel:@"秒杀价：" andContentLabel:@"0.00"];
-        }
-        else if (indexPath.row == 2)
-        {
-            [cell setTitleLabel:@"原价：" andContentLabel:@"0.00"];
-        }
-        else if (indexPath.row == 3)
-        {
-            [cell setTitleLabel:@"单位" andContentLabel:@"份"];
-        }
-        else if (indexPath.row == 4)
-        {
-            [cell setTitleLabel:@"重量" andContentLabel:@""];
-        }
-        else
-        {
-            [cell setTitleLabel:@"秒杀时间" andContentLabel:@""];
-        }
-        return cell;
-    }
-}
 
+            cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell.contentTextField.tag = indexPath.row;
+            cell.contentTextField.delegate = self;
+            [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
+            switch (cell.contentTextField.tag)
+            {
+                    case 0:
+                    [cell setTitleLabel:@"商品名称" andContentTextFieldPlaceholder:@"输入蔬菜名"];
+                    break;
+                    
+                    case 1:
+                    [cell setTitleLabel:@"秒杀价：" andContentTextFieldPlaceholder:@"请输入秒杀价"];
+                    break;
+                    
+                    case 2:
+                     [cell setTitleLabel:@"原价：" andContentTextFieldPlaceholder:@"请输入原价格"];
+                    break;
+                    
+                    case 3:
+                    [cell setTitleLabel:@"单位" andContentTextFieldPlaceholder:@"请输入商品单位"];
+                    break;
+                    
+                    case 4:
+                    [cell setTitleLabel:@"重量" andContentTextFieldPlaceholder:@"请输入商品重量"];
+                    break;
+                    
+                    
+                    case 5:
+                    [cell setTitleLabel:@"秒杀时间" andContentTextFieldPlaceholder:@"请输入秒杀时间"];
+                    break;
+                    
+                    
+
+            }
+        }
+        
+    
+    return cell;
+}
+- (void)changeValue:(UITextField *)textField
+{
+
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 60;
