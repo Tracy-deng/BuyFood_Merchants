@@ -29,6 +29,7 @@
     NSString * twoProductId;  // 传入的二级id
     BOOL toAddVC;
     NSString * headTitle;
+    BOOL isSelcted;
 }
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
@@ -66,8 +67,12 @@
 
     
     self.mainTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        if (isSelcted == YES) {
+            [self getHotDataBase];
+        }else{
+            [self getMainTableDataSource];
+        }
         
-        [self getMainTableDataSource];
     }];
     
 
@@ -174,6 +179,7 @@
     params.pagesize = @"0";
     params.page = @"0";
     [RequestTool getProduct:params success:^(ResultsModel *result) {
+        [self.productMainDataArray removeAllObjects];
         for (NSDictionary *Pdic in result.ModelList) {
             ModlistModel *model = [[ModlistModel alloc]init];
             [model setValuesForKeysWithDictionary:Pdic];
@@ -191,7 +197,7 @@
 - (void)didHeadBtn:(UIButton *)sender
 {
     NSLog(@"点击热销按钮");
-    [self.productMainDataArray removeAllObjects];
+    isSelcted = YES;
     [self getHotDataBase];
 }
 
@@ -388,7 +394,7 @@
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
             cell.textLabel.text = model.threecategoryname;
         }
-
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
@@ -423,6 +429,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     toAddVC = YES;
+    isSelcted = NO;
     // 点击 mainTableView 进入商品详情
     if([tableView isEqual:_mainTableView])
     {
