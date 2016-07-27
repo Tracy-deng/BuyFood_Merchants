@@ -13,6 +13,6 @@
 @property (nonatomic, strong) NSString *CurrentPageIndex;
 @property (nonatomic, strong) NSString *ErrorCode;
 @property (nonatomic, strong) NSString *ErrorMsg;
-@property (nonatomic, strong) NSString *OrderMarket;
+@property (nonatomic, strong) NSArray *OrderMarket;
 
 @end

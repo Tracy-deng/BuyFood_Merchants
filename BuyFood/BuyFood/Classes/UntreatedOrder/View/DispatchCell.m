@@ -10,8 +10,7 @@
 
 @interface DispatchCell()
 
-/** 订单编号 */
-@property (nonatomic, strong) UILabel* orderNumLabel;
+
 /** 订单号 */
 @property (nonatomic, strong) UILabel* orderNumberLabel;
 /** 送达时间 */
@@ -94,17 +93,7 @@
     }];
 #pragma 设置UI布局
     
-    // 设置订单编号 orderNumLabel
-    self.orderNumLabel = [[UILabel alloc] init];
-    self.orderNumLabel.textColor = HDCColor(102, 102, 102);
-    self.orderNumLabel.font = [UIFont fontWithName:@"DINAlternate-Bold" size:30];
-    [whiteView addSubview:self.orderNumLabel];
-    [self.orderNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(whiteView.mas_top).offset(10);
-        make.left.equalTo(whiteView.mas_left).offset(20);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.14);
-        make.height.mas_equalTo(self.orderNumLabel.mas_width).multipliedBy(0.6);
-    }];
+
     
     // 订单号 orderNumberLabel
     self.orderNumberLabel = [[UILabel alloc] init];
@@ -112,8 +101,8 @@
     self.orderNumberLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     [whiteView addSubview:self.orderNumberLabel];
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderNumLabel.mas_top);
-        make.left.equalTo(self.orderNumLabel.mas_right).offset(10);
+        make.top.mas_equalTo(whiteView.mas_top).offset(10);
+        make.left.equalTo(whiteView.mas_left).offset(30);
         make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.40);
         make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.15);
     }];
@@ -206,9 +195,8 @@
     }];
 }
 
-- (void)setOrderNumLabelText:(NSString* )orderNumLabelText andOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText
+- (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText
 {
-    self.orderNumLabel.text = orderNumLabelText;
     self.orderNumberLabel.text = orderNumberLabelText;
     [self.getTimeBtn setTitle:getTimeBtnText forState:UIControlStateNormal];
     self.orderTimeLabel.text = orderTimeLabelText;

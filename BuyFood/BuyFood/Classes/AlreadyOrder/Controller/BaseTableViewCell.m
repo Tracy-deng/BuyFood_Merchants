@@ -51,28 +51,17 @@
         
 #pragma mark -- UI控件的布局
         
-        _numberLabel = [[UILabel alloc]init];
-        _numberLabel.textColor = HDCColor(102, 102, 102);
-        _numberLabel.font = [UIFont fontWithName:@"DINAlternate-Bold" size:30];
-        _numberLabel.text = @"#54";
-        [_whiteView addSubview:_numberLabel];
-        [_numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_whiteView).offset(5);
-            make.left.equalTo(_whiteView).offset(20);
-            make.width.equalTo(@50);;
-            make.height.equalTo(@42);
-        }];
         
         
         _orderNumLabel = [[UILabel alloc]init];
         _orderNumLabel.textColor = [UIColor grayColor];
         _orderNumLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
         _orderNumLabel.text = @"订单号 145443455";
-        _numberLabel.textAlignment = NSTextAlignmentLeft;
+        _orderNumLabel.textAlignment = NSTextAlignmentLeft;
         [_whiteView addSubview:_orderNumLabel];
         [_orderNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_numberLabel);
-            make.left.equalTo(_numberLabel.mas_right).offset(12);
+            make.top.equalTo(_whiteView).offset(5);
+            make.left.equalTo(_whiteView).offset(32);
             make.height.equalTo(@20);
             make.right.equalTo(_whiteView).offset(-20);
         }];

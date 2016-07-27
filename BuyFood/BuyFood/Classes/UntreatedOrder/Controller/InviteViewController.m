@@ -50,7 +50,7 @@
     MarketUserIDParams *params = [[MarketUserIDParams alloc] init];
     params.marketuserid = userInfo.marketuserid;
     [RequestTool untreatedInviteOrderList:params success:^(MarketOrderModelList *result) {
-        HDCLog(@"%@", result.ErrorMsg);
+        HDCLog(@"%@", result.OrderMarket);
     } failure:^(NSError *error) {
         ;
     }];
@@ -65,7 +65,8 @@
 {
     PickUpCell *cell = [PickUpCell cellWithTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setOrderNumLabelText:@"#54" andOrderNumberLabelText:@"订单号 145443455" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
+    [cell setOrderNumberLabelText:@"订单号 145443455" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
+  
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;

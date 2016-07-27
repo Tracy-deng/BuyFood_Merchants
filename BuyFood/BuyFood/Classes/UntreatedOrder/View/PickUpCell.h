@@ -16,6 +16,6 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
-- (void)setOrderNumLabelText:(NSString* )orderNumLabelText andOrderNumberLabelText:(NSString* )orderNumberLabelText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText;
+- (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText;
 
 @end

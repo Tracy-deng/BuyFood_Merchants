@@ -230,6 +230,7 @@
 		784D64B71D42171C00F16E21 /* SalesProductParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 784D64B61D42171C00F16E21 /* SalesProductParams.m */; };
 		78639ADC1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */; };
 		788084E01D3348FB00D3FCDD /* UpLoadImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */; };
+		78D870361D48B8AA008EAE72 /* OrderMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D870351D48B8AA008EAE72 /* OrderMarketModel.m */; };
 		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
 		78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */; };
 /* End PBXBuildFile section */
@@ -667,6 +668,8 @@
 		78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+FDFullscreenPopGesture.m"; sourceTree = "<group>"; };
 		788084DE1D3348FB00D3FCDD /* UpLoadImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpLoadImageUtil.h; sourceTree = "<group>"; };
 		788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpLoadImageUtil.m; sourceTree = "<group>"; };
+		78D870341D48B8AA008EAE72 /* OrderMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderMarketModel.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Model/OrderMarketModel.h; sourceTree = SOURCE_ROOT; };
+		78D870351D48B8AA008EAE72 /* OrderMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderMarketModel.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Model/OrderMarketModel.m; sourceTree = SOURCE_ROOT; };
 		78FEA85F1D1B8560001D23BC /* CCTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTitleView.h; sourceTree = "<group>"; };
 		78FEA8601D1B8560001D23BC /* CCTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTitleView.m; sourceTree = "<group>"; };
 		78FFC5BD1D23690000FDE9C6 /* GoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsViewController.h; sourceTree = "<group>"; };
@@ -1273,6 +1276,8 @@
 		0E525A6E1D1284EB00AFC95B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				78D870341D48B8AA008EAE72 /* OrderMarketModel.h */,
+				78D870351D48B8AA008EAE72 /* OrderMarketModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1674,7 +1679,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 8V5V9GRF46;
+						DevelopmentTeam = 2VKY6QPH98;
 					};
 				};
 			};
@@ -1931,6 +1936,7 @@
 				0E67E0051D22C89200E025BD /* SalesPromotionViewController.m in Sources */,
 				0E67E0111D22CC0800E025BD /* CardListViewController.m in Sources */,
 				0E110C991D19889E00161ACB /* OrderListCell.m in Sources */,
+				78D870361D48B8AA008EAE72 /* OrderMarketModel.m in Sources */,
 				78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */,
 				0E12A2431D2B9815008066CC /* ShopsManagementParams.m in Sources */,
 				0E110CBE1D19B78E00161ACB /* SaleManagementViewController.m in Sources */,

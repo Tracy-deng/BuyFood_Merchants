@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BaseTableViewCell : UITableViewCell
-@property (nonatomic, strong) UILabel * numberLabel;  // 编号
+
 @property (nonatomic, strong) UILabel * orderNumLabel; // 订单号
 @property (nonatomic, strong) UILabel * timeLabel; // 时间
 @property (nonatomic, strong) UILabel * addressLabel; // 地址
