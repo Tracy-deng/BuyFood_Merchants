@@ -66,8 +66,8 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ManagementCell* cell = [ManagementCell cellWithTableView:tableView];
-   [cell setShopsImage: @"shopsImage" andShopsNameLabel:@"新鲜大白菜"  andShopsWeight:@"500g" andShopsSpecifications:@"/份"andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:@"6.00" andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:@"5.00"];
+    ManagementCell *cell = [ManagementCell cellWithOtherTableView:tableView];
+    [cell setOtherShopsImage:@"rectangle9" andShopsNameLabel:@"大百草" andShopsWeight:@"222.0" andShopsSpecifications:@"/千克" andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:@"18" andShopsPromotionPriceTitle:@"秒杀价" andShopsPromotionPrice:@"¥14" andTime:@"12:00"];
     return cell;
 }
 

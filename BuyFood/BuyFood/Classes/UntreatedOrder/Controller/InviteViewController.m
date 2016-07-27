@@ -9,6 +9,11 @@
 #import "InviteViewController.h"
 #import "PickUpCell.h"
 #import "ComplaintOrderDetailsViewController.h"
+#import "MarketOrderModelList.h"
+#import "RequestTool.h"
+#import "MarketUserIDParams.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
 
 @interface InviteViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -36,6 +41,19 @@
     }];
     self.tableView.rowHeight = 155;
     self.tableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
+    [self GetOrderList];
+}
+
+- (void)GetOrderList
+{
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    MarketUserIDParams *params = [[MarketUserIDParams alloc] init];
+    params.marketuserid = userInfo.marketuserid;
+    [RequestTool untreatedInviteOrderList:params success:^(MarketOrderModelList *result) {
+        HDCLog(@"%@", result.ErrorMsg);
+    } failure:^(NSError *error) {
+        ;
+    }];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

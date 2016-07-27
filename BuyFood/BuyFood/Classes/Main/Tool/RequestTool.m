@@ -26,6 +26,9 @@
 #import "UpdateProductParams.h"
 #import "EvaluationParams.h"
 #import "SalesProductParams.h"
+#import "MarketUserIDParams.h"
+#import "MarketOrderModelList.h"
+
 @implementation RequestTool
 
 #pragma mark - login
@@ -111,6 +114,27 @@
             success(result);
         }
     }];
+}
+
+#pragma mark - UntreatedOrder <未处理订单>
+/** 自提订单 */
++ (void)untreatedInviteOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketOrderUserGet"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 配送订单 */
++ (void)untreatedDistributionOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    
 }
 
 
@@ -242,8 +266,20 @@
     }];
     
 }
-
-
+/** 获取秒杀时间表 */
++ (void)getSecKillTimeSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_seckilltime/GetModelList"];
+    [HttpRequestTool GET:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
 
 
 @end

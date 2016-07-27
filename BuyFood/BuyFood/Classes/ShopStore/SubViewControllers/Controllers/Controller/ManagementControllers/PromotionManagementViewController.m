@@ -143,7 +143,7 @@ UITableViewDataSource>
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ManagementCell* cell = [ManagementCell cellWithTableView:tableView];
+    ManagementCell* cell = [ManagementCell cellWithSalesPromotionTableView:tableView];
     ModlistModel * salesModel = self.salesDataArray[indexPath.row];
  
     CGFloat stockNumber = [salesModel.productstock floatValue];
