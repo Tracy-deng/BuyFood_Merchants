@@ -295,7 +295,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *ID = [NSString stringWithFormat:@"ID %ld", indexPath.row];
+    NSString *ID = [NSString stringWithFormat:@"ID %ld", (long)indexPath.row];
     AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell)
     {
@@ -369,7 +369,7 @@
          {
              
              self.selectSecClassIndex = [[[self getSortedKeys:billData] objectAtIndex:index]integerValue] ;
-             HDCLog(@"%ld", self.selectSecClassIndex);
+             HDCLog(@"%ld", (long)self.selectSecClassIndex);
              self.secClass = title;
              [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];
              self.threeArray = [billData objectForKey:[[self getSortedKeys:billData] objectAtIndex:index]];
@@ -402,7 +402,7 @@
                  self.thirdClass = title;
                  [cell setChooseTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
                  [self.tableView reloadData];
-                 HDCLog(@"%ld",self.selectThirdClassIndex);
+                 HDCLog(@"%ld",(long)self.selectThirdClassIndex);
              }];
         }
     }
