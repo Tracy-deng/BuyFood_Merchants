@@ -245,7 +245,6 @@
 // 编辑结束 视图返回
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    
     [self packUpDownTextField:textField isShow:NO];
 }
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow

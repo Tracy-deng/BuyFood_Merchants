@@ -15,7 +15,7 @@
         ImproveinformationParams,
         ShopsUserInfo,
         realNameParams,
-        inviteOrderListParams,
+        MarketUserIDParams,
         DistributionParams,
         OwnOrderListParams,
         PushOrderListParams,
@@ -34,7 +34,8 @@
         ChangeTimeParams,
         UpdateProductParams,
         DeleteProductParams,
-        SalesProductParams;
+        SalesProductParams,
+        MarketOrderModelList;
 
 @interface RequestTool : NSObject
 
@@ -55,9 +56,9 @@
 
 #pragma mark - UntreatedOrder <未处理订单>
 /** 自提订单 */
-+ (void)untreatedInviteOrderList:(inviteOrderListParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)untreatedInviteOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 配送订单 */
-+ (void)untreatedDistributionOrderList:(DistributionParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)untreatedDistributionOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 
 #pragma mark - AlreadyOrder <已处理订单>
 /** 自提订单 */
@@ -66,13 +67,11 @@
 + (void)alreadyDistributionOrderList:(PushOrderListParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 失效订单 */
 + (void)alreadySolvedOrderList:(SolvedOrderListParams *)param success :(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-
 #pragma mark - ShopStore <门店管理>
 /** 账户余额 */
 + (void)balanceAccount:(BalanceAccountParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 我的账单 */
 + (void)myBill:(MyBillParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-
 /** 留言评价 */
 + (void)evaluation:(EvaluationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 营业状态 */
@@ -99,7 +98,8 @@
 /**
  *  促销管理
  */
-+(void)getSalesProduce:(SalesProductParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-
++ (void)getSalesProduce:(SalesProductParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取秒杀时间表 */
++ (void)getSecKillTimeSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 @end

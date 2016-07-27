@@ -17,7 +17,7 @@
     {
         self.titleLabel = [[UILabel alloc] init];
         self.titleLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
-        self.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
+        self.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         [self.contentView addSubview:self.titleLabel];
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView.mas_left).offset(10);
@@ -28,7 +28,7 @@
         
         self.contentTextField = [[UITextField alloc] init];
         self.contentTextField.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
-        self.contentTextField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:18];
+        self.contentTextField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         [self.contentView addSubview:self.contentTextField];
         [self.contentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.titleLabel.mas_right).offset(20);
@@ -47,7 +47,7 @@
     {
         self.chooseLabel = [[UILabel alloc] init];
         self.chooseLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
-        self.chooseLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
+        self.chooseLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         [self.contentView addSubview:self.chooseLabel];
         [self.chooseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView.mas_left).offset(10);
@@ -58,10 +58,10 @@
         
         self.chooseContentLabel = [[UILabel alloc] init];
         self.chooseContentLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
-        self.chooseContentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
+        self.chooseContentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         [self.contentView addSubview:self.chooseContentLabel];
         [self.chooseContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.self.chooseLabel.mas_right).offset(30);
+            make.left.mas_equalTo(self.self.chooseLabel.mas_right).offset(15);
             make.top.equalTo(self.chooseLabel);
             make.width.equalTo(@200);
             make.height.equalTo(self.self.chooseLabel);
