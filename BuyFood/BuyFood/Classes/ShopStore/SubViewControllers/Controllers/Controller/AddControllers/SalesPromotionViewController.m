@@ -527,7 +527,7 @@
 }
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
-    if (textField.tag == 3 || textField.tag == 5 || textField.tag == 7) {
+    if (textField.tag == 0 || textField.tag == 3 || textField.tag == 4 || textField.tag == 6 || textField.tag == 7) {
         
         //设置动画的名字
         [UIView beginAnimations:@"Animation" context:nil];
