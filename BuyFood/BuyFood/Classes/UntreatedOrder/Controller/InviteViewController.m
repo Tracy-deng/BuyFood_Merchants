@@ -11,7 +11,7 @@
 #import "ComplaintOrderDetailsViewController.h"
 #import "MarketOrderModelList.h"
 #import "RequestTool.h"
-#import "MarketUserIDParams.h"
+#import "OrderParams.h"
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "OrderMarketModel.h"
@@ -60,9 +60,10 @@
     LoadView *loadView = [LoadView new];
     [loadView startAnimation];
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
-    MarketUserIDParams *params = [[MarketUserIDParams alloc] init];
+    OrderParams *params = [[OrderParams alloc] init];
     params.marketuserid = userInfo.marketuserid;
-    
+    params.pageindex = @"1";
+    params.pagesize = @"10";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         [RequestTool untreatedInviteOrderList:params success:^(MarketOrderModelList *result) {

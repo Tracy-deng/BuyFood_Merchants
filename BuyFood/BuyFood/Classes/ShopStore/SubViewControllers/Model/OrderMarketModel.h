@@ -27,7 +27,7 @@
 @property (nonatomic, strong) NSString *orderstatus;
 /** 订单时间 */
 @property (nonatomic, strong) NSString *ordertime;
-/** */
+/** 订单*/
 @property (nonatomic, strong) NSString *posttypeid;
 /** */
 @property (nonatomic, strong) NSString *posttypename;

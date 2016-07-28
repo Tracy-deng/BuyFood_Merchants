@@ -120,9 +120,11 @@
 		0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */; };
 		0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */; };
 		0E7103691D4117B6006E307E /* EvaluationModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7103681D4117B6006E307E /* EvaluationModelList.m */; };
+		0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E791D4A579200C3516A /* GetOrderParams.m */; };
+		0E830E7D1D4A7AC200C3516A /* OrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E7C1D4A7AC200C3516A /* OrderParams.m */; };
+		0E830E801D4A855300C3516A /* OrderDetailsParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E7F1D4A855300C3516A /* OrderDetailsParams.m */; };
 		0EAB1C141D4698E60025D8E3 /* AddShopsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB1C131D4698E60025D8E3 /* AddShopsCell.m */; };
 		0EB7C7731D47D1CA00172FBB /* SecKillStartTimeAndEndTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7C7721D47D1CA00172FBB /* SecKillStartTimeAndEndTime.m */; };
-		0EB7C77C1D48939500172FBB /* MarketUserIDParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7C77B1D48939500172FBB /* MarketUserIDParams.m */; };
 		0EB7C77F1D4894F700172FBB /* MarketOrderModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7C77E1D4894F700172FBB /* MarketOrderModelList.m */; };
 		0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08031D141E13002DD7A4 /* PickUpCell.m */; };
 		0EBD080A1D153CA9002DD7A4 /* DispatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08091D153CA9002DD7A4 /* DispatchCell.m */; };
@@ -468,12 +470,16 @@
 		0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPrinterViewController.m; sourceTree = "<group>"; };
 		0E7103671D4117B6006E307E /* EvaluationModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationModelList.h; sourceTree = "<group>"; };
 		0E7103681D4117B6006E307E /* EvaluationModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationModelList.m; sourceTree = "<group>"; };
+		0E830E781D4A579200C3516A /* GetOrderParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetOrderParams.h; sourceTree = "<group>"; };
+		0E830E791D4A579200C3516A /* GetOrderParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetOrderParams.m; sourceTree = "<group>"; };
+		0E830E7B1D4A7AC200C3516A /* OrderParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderParams.h; sourceTree = "<group>"; };
+		0E830E7C1D4A7AC200C3516A /* OrderParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderParams.m; sourceTree = "<group>"; };
+		0E830E7E1D4A855300C3516A /* OrderDetailsParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsParams.h; sourceTree = "<group>"; };
+		0E830E7F1D4A855300C3516A /* OrderDetailsParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsParams.m; sourceTree = "<group>"; };
 		0EAB1C121D4698E60025D8E3 /* AddShopsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopsCell.h; sourceTree = "<group>"; };
 		0EAB1C131D4698E60025D8E3 /* AddShopsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopsCell.m; sourceTree = "<group>"; };
 		0EB7C7711D47D1CA00172FBB /* SecKillStartTimeAndEndTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecKillStartTimeAndEndTime.h; sourceTree = "<group>"; };
 		0EB7C7721D47D1CA00172FBB /* SecKillStartTimeAndEndTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecKillStartTimeAndEndTime.m; sourceTree = "<group>"; };
-		0EB7C77A1D48939500172FBB /* MarketUserIDParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketUserIDParams.h; sourceTree = "<group>"; };
-		0EB7C77B1D48939500172FBB /* MarketUserIDParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketUserIDParams.m; sourceTree = "<group>"; };
 		0EB7C77D1D4894F700172FBB /* MarketOrderModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketOrderModelList.h; sourceTree = "<group>"; };
 		0EB7C77E1D4894F700172FBB /* MarketOrderModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketOrderModelList.m; sourceTree = "<group>"; };
 		0EBD08021D141E13002DD7A4 /* PickUpCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickUpCell.h; sourceTree = "<group>"; };
@@ -785,8 +791,6 @@
 				784D64B61D42171C00F16E21 /* SalesProductParams.m */,
 				0EB7C7711D47D1CA00172FBB /* SecKillStartTimeAndEndTime.h */,
 				0EB7C7721D47D1CA00172FBB /* SecKillStartTimeAndEndTime.m */,
-				0EB7C77A1D48939500172FBB /* MarketUserIDParams.h */,
-				0EB7C77B1D48939500172FBB /* MarketUserIDParams.m */,
 				0EB7C77D1D4894F700172FBB /* MarketOrderModelList.h */,
 				0EB7C77E1D4894F700172FBB /* MarketOrderModelList.m */,
 			);
@@ -1283,6 +1287,12 @@
 				78D870351D48B8AA008EAE72 /* OrderMarketModel.m */,
 				78D870371D49EC83008EAE72 /* OrderDetailModel.h */,
 				78D870381D49EC83008EAE72 /* OrderDetailModel.m */,
+				0E830E781D4A579200C3516A /* GetOrderParams.h */,
+				0E830E791D4A579200C3516A /* GetOrderParams.m */,
+				0E830E7B1D4A7AC200C3516A /* OrderParams.h */,
+				0E830E7C1D4A7AC200C3516A /* OrderParams.m */,
+				0E830E7E1D4A855300C3516A /* OrderDetailsParams.h */,
+				0E830E7F1D4A855300C3516A /* OrderDetailsParams.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1766,7 +1776,6 @@
 				0E525A4D1D1283A700AFC95B /* SuccessViewController.m in Sources */,
 				7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */,
 				780984B21D3F1FC4009E7E84 /* SDWebImagePrefetcher.m in Sources */,
-				0EB7C77C1D48939500172FBB /* MarketUserIDParams.m in Sources */,
 				784D3ED91D38DECA00C82C1D /* AFURLResponseSerialization.m in Sources */,
 				780984EE1D3F59B2009E7E84 /* MJRefreshBackGifFooter.m in Sources */,
 				780984EB1D3F59B2009E7E84 /* MJRefreshAutoGifFooter.m in Sources */,
@@ -1846,6 +1855,7 @@
 				784D3EDB1D38DECA00C82C1D /* HttpRequestTool.m in Sources */,
 				0E525A581D1283A700AFC95B /* MASViewAttribute.m in Sources */,
 				0EEF9D1A1D317EE600CD83E9 /* MHSheetView.m in Sources */,
+				0E830E7D1D4A7AC200C3516A /* OrderParams.m in Sources */,
 				780984F11D3F59B2009E7E84 /* MJRefreshGifHeader.m in Sources */,
 				780984F31D3F59B2009E7E84 /* MJRefreshStateHeader.m in Sources */,
 				0E12A2681D2B986A008066CC /* NSObject+MJCoding.m in Sources */,
@@ -1872,6 +1882,7 @@
 				0E525A531D1283A700AFC95B /* HDCTabBarViewController.m in Sources */,
 				0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */,
 				784D3EDA1D38DECA00C82C1D /* AFURLSessionManager.m in Sources */,
+				0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */,
 				0E12A2401D2B9815008066CC /* MyBillParams.m in Sources */,
 				0E6398F01D362B35008D9DC0 /* GetProductParams.m in Sources */,
 				0E525A501D1283A700AFC95B /* UIView+HDCExtension.m in Sources */,
@@ -1934,6 +1945,7 @@
 				0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */,
 				7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */,
 				78639ADC1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
+				0E830E801D4A855300C3516A /* OrderDetailsParams.m in Sources */,
 				0E5259D51D12810F00AFC95B /* main.m in Sources */,
 				0EEF9CE21D3166D600CD83E9 /* RegisterCell.m in Sources */,
 				780984EA1D3F59B2009E7E84 /* MJRefreshHeader.m in Sources */,

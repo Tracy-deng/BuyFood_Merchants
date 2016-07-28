@@ -26,8 +26,10 @@
 #import "UpdateProductParams.h"
 #import "EvaluationParams.h"
 #import "SalesProductParams.h"
-#import "MarketUserIDParams.h"
+#import "OrderParams.h"
 #import "MarketOrderModelList.h"
+#import "GetOrderParams.h"
+#import "OrderDetailsParams.h"
 
 @implementation RequestTool
 
@@ -118,25 +120,130 @@
 
 #pragma mark - UntreatedOrder <未处理订单>
 /** 自提订单 */
-+ (void)untreatedInviteOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
++ (void)untreatedInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketOrderUserGet"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketZT"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
             failure(error);
-        } else {
+        } else
+        {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 配送订单 */
++ (void)untreatedDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketPost"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 接单 */
++ (void)getOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/UpdateOrderForMarketGet"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+#pragma mark - AlreadyOrder <已处理订单>
+/** 自提订单 */
++ (void)alreadyInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketZTFinished"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
     }];
 }
 /** 配送订单 */
-+ (void)untreatedDistributionOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
++ (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketPostFinished"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 失效订单 */
++ (void)alreadySolvedOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetCusOrderListError"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 投诉订单 */
++ (void)ComplaintOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketOrderComplaint"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
 }
 
+/** 订单详情 */
++ (void)orderDetails:(OrderDetailsParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketOrderByOrderNo"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
 
 /** 获取根据商家注册的一级分类下边的二级分类 */
 /** 获取所有商品二三级分类 */

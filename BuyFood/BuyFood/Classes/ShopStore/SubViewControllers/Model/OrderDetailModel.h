@@ -10,7 +10,7 @@
 
 @interface OrderDetailModel : NSObject
 
-@property (nonatomic, strong) NSString * MarketUser ;
+@property (nonatomic, strong) NSString * MarketUser;
 @property (nonatomic, assign) NSInteger  detailid;
 @property (nonatomic, strong) NSString * detailstatus;
 @property (nonatomic, assign) NSInteger  marketuserid;

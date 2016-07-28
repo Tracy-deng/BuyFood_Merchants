@@ -15,7 +15,7 @@
         ImproveinformationParams,
         ShopsUserInfo,
         realNameParams,
-        MarketUserIDParams,
+        OrderParams,
         DistributionParams,
         OwnOrderListParams,
         PushOrderListParams,
@@ -35,7 +35,9 @@
         UpdateProductParams,
         DeleteProductParams,
         SalesProductParams,
-        MarketOrderModelList;
+        MarketOrderModelList,
+        GetOrderParams,
+        OrderDetailsParams;
 
 @interface RequestTool : NSObject
 
@@ -49,24 +51,30 @@
 /** 登录 */
 + (void)login:(LoginParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 完善商户资料 */
-//+ (void)improveInformation:(ShopsUserInfo *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 + (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 忘记密码 */
 + (void)forgetPwd:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 #pragma mark - UntreatedOrder <未处理订单>
 /** 自提订单 */
-+ (void)untreatedInviteOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
++ (void)untreatedInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 配送订单 */
-+ (void)untreatedDistributionOrderList:(MarketUserIDParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
++ (void)untreatedDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
+/** 接单 */
++ (void)getOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 #pragma mark - AlreadyOrder <已处理订单>
 /** 自提订单 */
-+ (void)alreadyInviteOrderList:(OwnOrderListParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)alreadyInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 配送订单 */
-+ (void)alreadyDistributionOrderList:(PushOrderListParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 失效订单 */
-+ (void)alreadySolvedOrderList:(SolvedOrderListParams *)param success :(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)alreadySolvedOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
+/** 投诉订单 */
++ (void)ComplaintOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
+/** 订单详情 */
++ (void)orderDetails:(OrderDetailsParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
+
 #pragma mark - ShopStore <门店管理>
 /** 账户余额 */
 + (void)balanceAccount:(BalanceAccountParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
