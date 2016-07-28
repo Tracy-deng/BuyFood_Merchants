@@ -98,8 +98,8 @@
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        make.top.mas_equalTo(whiteView.mas_top).offset(10);
         make.left.equalTo(whiteView.mas_left).offset(30);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.60);
-        make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.15);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.80);
+        make.height.mas_equalTo(@20);
     }];
     // 下单时间 orderTimeLabel
     self.orderTimeLabel = [[UILabel alloc] init];
@@ -109,8 +109,8 @@
     [self.orderTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(29);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.50);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.12);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.80);
+        make.height.mas_equalTo(@20);
     }];
     // 下单地址 orderAddressLabel
     self.orderAddressLabel = [[UILabel alloc] init];
@@ -121,7 +121,7 @@
         make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(2);
         make.left.equalTo(self.orderNumberLabel.mas_left);
         make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.50);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.12);
+        make.height.mas_equalTo(@20);
     }];
     // 接单按钮 getOrderBtn  HDCColor(36, 197, 67)
     self.getOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -152,7 +152,7 @@
     
     self.totalMoney = [UILabel new];
     self.totalMoney.font = [UIFont fontWithName:@"DINAlternate-Bold" size:17];
-    self.totalMoney.text = @"¥56";
+//    self.totalMoney.text = @"¥56";
     self.totalMoney.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:self.totalMoney];
     [self.totalMoney mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -179,10 +179,10 @@
 - (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText moneyLabel:(NSString *)moneyText
 {
    
-    self.orderNumberLabel.text = orderNumberLabelText;
-    self.orderTimeLabel.text = orderTimeLabelText;
+    self.orderNumberLabel.text = [NSString stringWithFormat:@"订单号 %@",orderNumberLabelText];
+    self.orderTimeLabel.text = [NSString stringWithFormat:@"下单时间 %@",orderTimeLabelText];
     self.orderAddressLabel.text = orderAddressLabelText;
-    self.totalLabel.text = moneyText;
+    self.totalMoney.text = [NSString stringWithFormat:@"¥%@",moneyText];
 }
 
 - (void)btn:(UIButton* )sender
