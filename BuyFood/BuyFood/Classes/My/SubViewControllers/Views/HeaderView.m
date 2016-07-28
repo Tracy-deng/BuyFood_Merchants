@@ -11,8 +11,6 @@
 
 @interface HeaderView ()
 
-/** 订单编号 */
-@property (nonatomic, strong) UILabel* orderNumLabel;
 /** 订单号 */
 @property (nonatomic, strong) UILabel* orderNumberLabel;
 /** 送达时间 */
@@ -33,17 +31,7 @@
 
 - (void)setUpContentView
 {
-    // 设置订单编号 orderNumLabel
-    self.orderNumLabel = [[UILabel alloc] init];
-    self.orderNumLabel.textColor = HDCColor(102, 102, 102);
-    self.orderNumLabel.font = [UIFont fontWithName:@"DINAlternate-Bold" size:40];
-    [self addSubview:self.orderNumLabel];
-    [self.orderNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top).offset(21);
-        make.left.equalTo(self.mas_left).offset(30);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.20);
-        make.height.mas_equalTo(self.orderNumLabel.mas_width).multipliedBy(0.8);
-    }];
+
     
     // 订单号 orderNumberLabel
     self.orderNumberLabel = [[UILabel alloc] init];
@@ -51,8 +39,8 @@
     self.orderNumberLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     [self addSubview:self.orderNumberLabel];
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderNumLabel.mas_top);
-        make.left.equalTo(self.orderNumLabel.mas_right).offset(10);
+        make.top.mas_equalTo(self.mas_top).offset(21);
+        make.left.equalTo(self.mas_left).offset(110);
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.45);
         make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.17);
     }];
@@ -65,9 +53,6 @@
     [self.getTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(5);
         make.left.equalTo(self.orderNumberLabel);
-        
-        //        make.width.mas_offset([self boundingRectWithSize:self.getTimeBtn.titleLabel.text Font:self.getTimeBtn.titleLabel.font Size:self.getTimeBtn.size].width);
-        //        make.height.mas_offset([self boundingRectWithSize:self.getTimeBtn.titleLabel.text Font:self.getTimeBtn.titleLabel.font Size:self.getTimeBtn.size].height);
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.30);
         make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.10);
     }];
@@ -112,14 +97,14 @@
     [self addSubview:infoLabel];
     [infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(line.mas_bottom).offset(10);
-        make.left.mas_equalTo(self.orderNumLabel);
+        make.left.equalTo(self.mas_left).offset(30);
         make.width.equalTo(@100);//mas_equalTo(self.mas_width).multipliedBy(0.15)
         make.height.equalTo(@20);//mas_equalTo(infoLabel.width).multipliedBy(0.16)
     }];
 }
-- (void)setOrderNumLabelText:(NSString* )orderNumLabelText andOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText
+- (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText
 {
-    self.orderNumLabel.text = orderNumLabelText;
+
     self.orderNumberLabel.text = orderNumberLabelText;
     [self.getTimeBtn setTitle:getTimeBtnText forState:UIControlStateNormal];
     self.orderTimeLabel.text = orderTimeLabelText;

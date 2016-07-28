@@ -231,6 +231,7 @@
 		78639ADC1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 78639ADB1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m */; };
 		788084E01D3348FB00D3FCDD /* UpLoadImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */; };
 		78D870361D48B8AA008EAE72 /* OrderMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D870351D48B8AA008EAE72 /* OrderMarketModel.m */; };
+		78D870391D49EC83008EAE72 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D870381D49EC83008EAE72 /* OrderDetailModel.m */; };
 		78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FEA8601D1B8560001D23BC /* CCTitleView.m */; };
 		78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */; };
 /* End PBXBuildFile section */
@@ -670,6 +671,8 @@
 		788084DF1D3348FB00D3FCDD /* UpLoadImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpLoadImageUtil.m; sourceTree = "<group>"; };
 		78D870341D48B8AA008EAE72 /* OrderMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderMarketModel.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Model/OrderMarketModel.h; sourceTree = SOURCE_ROOT; };
 		78D870351D48B8AA008EAE72 /* OrderMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderMarketModel.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Model/OrderMarketModel.m; sourceTree = SOURCE_ROOT; };
+		78D870371D49EC83008EAE72 /* OrderDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDetailModel.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Model/OrderDetailModel.h; sourceTree = SOURCE_ROOT; };
+		78D870381D49EC83008EAE72 /* OrderDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDetailModel.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Model/OrderDetailModel.m; sourceTree = SOURCE_ROOT; };
 		78FEA85F1D1B8560001D23BC /* CCTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTitleView.h; sourceTree = "<group>"; };
 		78FEA8601D1B8560001D23BC /* CCTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTitleView.m; sourceTree = "<group>"; };
 		78FFC5BD1D23690000FDE9C6 /* GoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsViewController.h; sourceTree = "<group>"; };
@@ -1278,6 +1281,8 @@
 			children = (
 				78D870341D48B8AA008EAE72 /* OrderMarketModel.h */,
 				78D870351D48B8AA008EAE72 /* OrderMarketModel.m */,
+				78D870371D49EC83008EAE72 /* OrderDetailModel.h */,
+				78D870381D49EC83008EAE72 /* OrderDetailModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1885,6 +1890,7 @@
 				78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */,
 				780984B41D3F1FC4009E7E84 /* UIImage+GIF.m in Sources */,
 				0E16FD021D33DD5B009AAF31 /* ShopsUserInfo.m in Sources */,
+				78D870391D49EC83008EAE72 /* OrderDetailModel.m in Sources */,
 				784A11D91D2C97D200245304 /* PrinterFile.m in Sources */,
 				784D3ED81D38DECA00C82C1D /* AFURLRequestSerialization.m in Sources */,
 				0E525A521D1283A700AFC95B /* HDCNavigationController.m in Sources */,

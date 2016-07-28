@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ComplaintOrderDetailsViewController : UIViewController
-
+@property (nonatomic, strong) NSMutableArray * detailArrar; // 详情数据
 @end

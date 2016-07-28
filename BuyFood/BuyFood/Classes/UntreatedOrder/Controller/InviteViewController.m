@@ -69,7 +69,6 @@
             HDCLog(@"%@", result.OrderMarket);
             [self.inviteDataArray removeAllObjects];
             for (NSDictionary *dict in result.OrderMarket) {
-                NSLog(@"%@",dict[@"OrderDetailList"]);
                 OrderMarketModel *model = [[OrderMarketModel alloc]init];
                 [model setValuesForKeysWithDictionary:dict];
                 [self.inviteDataArray addObject:model];
@@ -102,7 +101,6 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     OrderMarketModel * model = self.inviteDataArray[indexPath.row];
-    
     [cell setOrderNumberLabelText:model.orderno andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.marketuseraddress moneyLabel:model.markettotalmoney];
   
     cell.searchListBtn.tag = indexPath.row;
@@ -116,10 +114,9 @@
 {
     NSLog(@"进入订单详情");
     
-    
+     OrderMarketModel * model = self.inviteDataArray[sender.tag];
     ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
-    
-    
+    detailVC.detailArrar = model.OrderDetailList;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
