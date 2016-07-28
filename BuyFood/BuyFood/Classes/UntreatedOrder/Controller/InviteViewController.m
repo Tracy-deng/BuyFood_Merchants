@@ -14,16 +14,24 @@
 #import "MarketUserIDParams.h"
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
-
+#import "OrderMarketModel.h"
+#import "LoadView.h"
+#import "MJRefresh.h"
 @interface InviteViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tableView;
-
+@property (nonatomic, strong) NSMutableArray * inviteDataArray;
 
 @end
 
 @implementation InviteViewController
 
+- (NSMutableArray *)inviteDataArray{
+    if (_inviteDataArray == nil) {
+        self.inviteDataArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _inviteDataArray;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -42,30 +50,60 @@
     self.tableView.rowHeight = 155;
     self.tableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
     [self GetOrderList];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self GetOrderList];
+    }];
 }
 
 - (void)GetOrderList
 {
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
     MarketUserIDParams *params = [[MarketUserIDParams alloc] init];
     params.marketuserid = userInfo.marketuserid;
-    [RequestTool untreatedInviteOrderList:params success:^(MarketOrderModelList *result) {
-        HDCLog(@"%@", result.OrderMarket);
-    } failure:^(NSError *error) {
-        ;
-    }];
-}
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [RequestTool untreatedInviteOrderList:params success:^(MarketOrderModelList *result) {
+            HDCLog(@"%@", result.OrderMarket);
+            [self.inviteDataArray removeAllObjects];
+            for (NSDictionary *dict in result.OrderMarket) {
+                NSLog(@"%@",dict[@"OrderDetailList"]);
+                OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                [model setValuesForKeysWithDictionary:dict];
+                [self.inviteDataArray addObject:model];
+            }
+            [loadView stopAnimation];
+            NSLog(@"%@",self.inviteDataArray);
+            [self.tableView.header endRefreshing];
+            
+        dispatch_async(dispatch_get_main_queue(), ^{
+             [self.tableView reloadData];
+        });
+           
+        } failure:^(NSError *error) {
+            ;
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+
+    });
+    }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.inviteDataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PickUpCell *cell = [PickUpCell cellWithTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setOrderNumberLabelText:@"订单号 145443455" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
+    
+    OrderMarketModel * model = self.inviteDataArray[indexPath.row];
+    
+    [cell setOrderNumberLabelText:model.orderno andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.marketuseraddress moneyLabel:model.markettotalmoney];
   
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];

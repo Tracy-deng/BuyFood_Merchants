@@ -1,3 +1,4 @@
+
 //
 //  OrderMarketModel.m
 //  RegisterDemo
@@ -9,5 +10,8 @@
 #import "OrderMarketModel.h"
 
 @implementation OrderMarketModel
-
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key
+{
+    
+}
 @end

@@ -98,7 +98,7 @@
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
        make.top.mas_equalTo(whiteView.mas_top).offset(10);
         make.left.equalTo(whiteView.mas_left).offset(30);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.40);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.60);
         make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.15);
     }];
     // 下单时间 orderTimeLabel
@@ -176,12 +176,13 @@
     
 }
 
-- (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText
+- (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText moneyLabel:(NSString *)moneyText
 {
    
     self.orderNumberLabel.text = orderNumberLabelText;
     self.orderTimeLabel.text = orderTimeLabelText;
     self.orderAddressLabel.text = orderAddressLabelText;
+    self.totalLabel.text = moneyText;
 }
 
 - (void)btn:(UIButton* )sender
