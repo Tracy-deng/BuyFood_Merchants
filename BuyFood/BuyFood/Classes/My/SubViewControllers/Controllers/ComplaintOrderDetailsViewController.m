@@ -16,6 +16,8 @@
 #import "OrderDetailsParams.h"
 #import "MarketOrderModelList.h"
 #import "OrderDetailModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
 @interface ComplaintOrderDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     OrderDetailModel *detailModel;
@@ -111,7 +113,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderListCell* cell = [OrderListCell cellWithTableView:tableView];
-    [cell setUpFoodNameLabel:@"白菜" andNumberLabel:@"X1份" andMoneyLabel:@"10.00"];
+
+    NSDictionary * p =  productEveryModel.OrderDetailList[indexPath.row];
+    OrderDetailModel * detail = [[OrderDetailModel alloc]init];
+    [detail setValuesForKeysWithDictionary:p];
+     [cell setUpFoodNameLabel:detail.productname andNumberLabel:[NSString stringWithFormat:@"%ld",detail.productcount] andMoneyLabel:[NSString stringWithFormat:@"%.2f",detail.productprice]];
+    
     return cell;
 }
 
@@ -130,7 +137,8 @@
     UIView* headerView = [[UIView alloc] init];
     [headerView setBackgroundColor:[UIColor clearColor]];
     UILabel* shopStoreName = [[UILabel alloc] init];
-    shopStoreName.text = @"天天蔬菜";
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    shopStoreName.text =  shopsInfo.marketname;
     shopStoreName.textColor = HDCColor(43, 131, 56);
     [headerView addSubview:shopStoreName];
     [shopStoreName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -152,7 +160,7 @@
 {
     FooterView* footerView = [FooterView initWithFooterView];
     [footerView setUpContentView];
-    [footerView setUpMoneyLabel:@"50" andOrderNumberLabel:@"123456789"];
+    [footerView setUpMoneyLabel:[NSString stringWithFormat:@"%.2f",productEveryModel.markettotalmoney] andOrderNumberLabel:[productEveryModel.orderno substringFromIndex:productEveryModel.orderno.length - 4]];
     return footerView;
 }
 

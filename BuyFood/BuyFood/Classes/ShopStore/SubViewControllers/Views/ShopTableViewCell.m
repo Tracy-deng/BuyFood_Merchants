@@ -87,7 +87,7 @@
     
    // 价格
     NSInteger priceNum = [productModel.productoutprice integerValue];
-    _priceLabel.text = [NSString stringWithFormat:@"%ld/%@", priceNum,unit ];;
+    _priceLabel.text = [NSString stringWithFormat:@"%ld/%@", (long)priceNum,unit ];;
 }
 - (void)awakeFromNib {
     [super awakeFromNib];
