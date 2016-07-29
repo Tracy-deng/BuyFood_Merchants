@@ -117,7 +117,7 @@
     NSDictionary * p =  productEveryModel.OrderDetailList[indexPath.row];
     OrderDetailModel * detail = [[OrderDetailModel alloc]init];
     [detail setValuesForKeysWithDictionary:p];
-     [cell setUpFoodNameLabel:detail.productname andNumberLabel:[NSString stringWithFormat:@"%ld",detail.productcount] andMoneyLabel:[NSString stringWithFormat:@"%.2f",detail.productprice]];
+     [cell setUpFoodNameLabel:detail.productname andNumberLabel:[NSString stringWithFormat:@"%ld",(long)detail.productcount] andMoneyLabel:[NSString stringWithFormat:@"%.2f",detail.productprice]];
     
     return cell;
 }
@@ -172,6 +172,7 @@
     [bottomBtn setTitle:@"联系买家" forState:UIControlStateNormal];
     [bottomBtn setTitleColor:HDCColor(36, 197, 67) forState:UIControlStateNormal];
     [self.view addSubview:bottomBtn];
+    [bottomBtn addTarget:self action:@selector(didPhone:) forControlEvents:(UIControlEventTouchUpInside)];
     [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.view.mas_bottom).offset(-20);
         make.centerX.mas_equalTo(self.view.mas_centerX);
@@ -179,5 +180,12 @@
         make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.56);
     }];
 }
-
+- (void)didPhone:(UIButton *)sender
+{
+    UIWebView*callWebview =[[UIWebView alloc] init];
+    NSURL *telURL =[NSURL URLWithString:[NSString stringWithFormat:@"tel:%ld",productEveryModel.telephone]];// 貌似tel:// 或者 tel: 都行
+    [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+    //记得添加到view上
+    [self.view addSubview:callWebview];
+}
 @end

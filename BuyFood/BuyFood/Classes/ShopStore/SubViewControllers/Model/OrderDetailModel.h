@@ -29,5 +29,5 @@
 @property (nonatomic, strong) NSString * ordertime; // 下单时间
 @property (nonatomic, strong) NSString * useraddress; //下单地址
 @property (nonatomic, assign) CGFloat markettotalmoney; // 钱总数
-
+@property (nonatomic, assign) NSInteger telephone;
 @end
