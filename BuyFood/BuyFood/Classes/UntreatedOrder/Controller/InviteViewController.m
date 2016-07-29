@@ -17,6 +17,8 @@
 #import "OrderMarketModel.h"
 #import "LoadView.h"
 #import "MJRefresh.h"
+#import "GetOrderParams.h"
+#import "ResultsModel.h"
 @interface InviteViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tableView;
@@ -106,6 +108,10 @@
   
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 接单
+    cell.getOrderBtn.tag = indexPath.row;
+    [cell.getOrderBtn addTarget:self action:@selector(didGetOrder:) forControlEvents:(UIControlEventTouchUpInside)];
     return cell;
     
 }
@@ -121,4 +127,29 @@
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
+- (void)didGetOrder:(UIButton *)sender
+{
+   
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    
+    NSLog(@"接单处理%ld",sender.tag);
+    OrderMarketModel * model = self.inviteDataArray[sender.tag];
+    NSString *orderNum = model.orderno; // 订单号
+    
+    GetOrderParams *parms = [[GetOrderParams alloc]init];
+    parms.orderno = orderNum;
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    parms.marketuserid = userInfo.marketuserid;
+    parms.posttypeid = 1;
+    [RequestTool getOrder:parms success:^(ResultsModel *result) {
+        NSLog(@"%@",result.ModelList);
+        [self GetOrderList];
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [loadView stopAnimation];
+    }];
+    
+}
 @end
