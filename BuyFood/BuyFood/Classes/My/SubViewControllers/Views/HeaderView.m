@@ -40,7 +40,7 @@
     [self addSubview:self.orderNumberLabel];
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).offset(74);
-        make.left.equalTo(self.mas_left).offset(110);
+        make.left.equalTo(self.mas_left).offset(50);
         make.width.mas_equalTo(@300);
         make.height.mas_equalTo(@25);
     }];

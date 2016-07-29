@@ -20,6 +20,7 @@
 {
     OrderDetailModel *detailModel;
     OrderDetailModel * productEveryModel;
+    UIButton* bottomBtn;  // 联系卖家
     
 }
 
@@ -84,6 +85,7 @@
 /** 设置tableView */
 - (void)setUpTableView
 {
+   
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = HDCColor(238, 238, 238);
     self.tableView.delegate = self;
@@ -96,7 +98,7 @@
 - (void)setUpTableViewHeader
 {
     HeaderView* headerView = [HeaderView initWithHeaderView];
-    headerView.height = self.view.height * 0.30;
+    headerView.height = 230;
     [headerView setUpContentView];
     
     [headerView setOrderNumberLabelText:[NSString stringWithFormat:@"订单号 %@",productEveryModel.orderno] andGetTimeBtnText:@"" andOrderTimeLabelText:[NSString stringWithFormat:@"下单时间 %@",productEveryModel.ordertime] andOrderAddressLabelText:productEveryModel.useraddress];
@@ -105,7 +107,7 @@
 #pragma tableViewDelegate UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return productEveryModel.OrderDetailList.count;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -125,7 +127,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 50;
 }
 
 - (UIView* )tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -137,11 +139,12 @@
     shopStoreName.textColor = HDCColor(43, 131, 56);
     [headerView addSubview:shopStoreName];
     [shopStoreName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(headerView.mas_bottom).offset(10);
+        make.top.mas_equalTo(headerView.mas_top).offset(10);
         make.left.equalTo(headerView.mas_left).offset(30);
         make.width.equalTo(@68);
         make.height.equalTo(@24);
     }];
+
     return headerView;
 }
 
@@ -161,7 +164,7 @@
 /** 设置底部【联系买家】按钮 */
 - (void)setUpBottomBtn
 {
-    UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [bottomBtn setBackgroundImage:[UIImage imageNamed:@"Rectangle 12"] forState:UIControlStateNormal];
     [bottomBtn setTitle:@"联系买家" forState:UIControlStateNormal];
     [bottomBtn setTitleColor:HDCColor(36, 197, 67) forState:UIControlStateNormal];
