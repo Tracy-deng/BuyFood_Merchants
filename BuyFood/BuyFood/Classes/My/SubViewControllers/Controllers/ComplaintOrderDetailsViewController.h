@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ComplaintOrderDetailsViewController : UIViewController
-@property (nonatomic, strong) NSMutableArray * detailArrar; // 详情数据
+@property (nonatomic, strong) NSString * detailUrl; // 传详情订单号
 @end

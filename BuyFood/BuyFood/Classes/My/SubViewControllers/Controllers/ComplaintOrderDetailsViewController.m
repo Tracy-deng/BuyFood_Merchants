@@ -43,22 +43,18 @@
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     self.title = @"订单详情";
     
-    NSLog(@"%@",self.detailArrar);
     [self creatDataDetailSource];
-   
     [self setUpBottomBtn];
 }
 
 -(void)creatDataDetailSource
 {
+
     LoadView *loadView = [LoadView new];
     [loadView startAnimation];
-    for (NSDictionary *detailPic in self.detailArrar) {
-        detailModel = [[OrderDetailModel alloc]init];
-        [detailModel setValuesForKeysWithDictionary:detailPic];
-        NSString *detailUrl = detailModel.orderno;
+
         OrderDetailsParams *parms = [[OrderDetailsParams alloc]init];
-        parms.orderno = detailUrl;
+        parms.orderno = self.detailUrl;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [RequestTool orderDetails:parms success:^(MarketOrderModelList *result) {
                 NSLog(@"%@",result.OrderMarket);
@@ -70,7 +66,7 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [loadView stopAnimation];
-                     [self setUpTableView];
+                    [self setUpTableView];
                     [self.tableView reloadData];
                 });
                 
@@ -79,8 +75,7 @@
                 [loadView stopAnimation];
             }];
         });
-        
-    }
+    
 }
 /** 设置tableView */
 - (void)setUpTableView
@@ -98,7 +93,7 @@
 - (void)setUpTableViewHeader
 {
     HeaderView* headerView = [HeaderView initWithHeaderView];
-    headerView.height = 230;
+    headerView.height = SCREEN_HEIGHT* 0.37;
     [headerView setUpContentView];
     
     [headerView setOrderNumberLabelText:[NSString stringWithFormat:@"订单号 %@",productEveryModel.orderno] andGetTimeBtnText:@"" andOrderTimeLabelText:[NSString stringWithFormat:@"下单时间 %@",productEveryModel.ordertime] andOrderAddressLabelText:productEveryModel.useraddress];

@@ -117,7 +117,7 @@
     
      OrderMarketModel * model = self.inviteDataArray[sender.tag];
     ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
-    detailVC.detailArrar = model.OrderDetailList;
+    detailVC.detailUrl = model.orderno;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
