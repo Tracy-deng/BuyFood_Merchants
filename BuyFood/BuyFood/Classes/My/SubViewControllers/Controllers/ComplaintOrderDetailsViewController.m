@@ -11,33 +11,74 @@
 #import "OrderListCell.h"
 #import "FooterView.h"
 #import "OrderDetailModel.h"
+#import "LoadView.h"
+#import "RequestTool.h"
+#import "OrderDetailsParams.h"
+#import "MarketOrderModelList.h"
+#import "OrderDetailModel.h"
 @interface ComplaintOrderDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 {
     OrderDetailModel *detailModel;
+    OrderDetailModel * productEveryModel;
+    
 }
-@property (nonatomic, strong) UITableView* tableView;
 
+@property (nonatomic, strong) UITableView* tableView;
+@property (nonatomic, strong) NSMutableArray * productDetailData;
 
 @end
 
 @implementation ComplaintOrderDetailsViewController
-
+- (NSMutableArray *)productDetailData
+{
+    if (_productDetailData == nil) {
+        self.productDetailData = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _productDetailData;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     self.title = @"订单详情";
-    [self setUpTableView];
-    [self setUpBottomBtn];
+    
     NSLog(@"%@",self.detailArrar);
     [self creatDataDetailSource];
+   
+    [self setUpBottomBtn];
 }
 
 -(void)creatDataDetailSource
 {
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
     for (NSDictionary *detailPic in self.detailArrar) {
         detailModel = [[OrderDetailModel alloc]init];
         [detailModel setValuesForKeysWithDictionary:detailPic];
+        NSString *detailUrl = detailModel.orderno;
+        OrderDetailsParams *parms = [[OrderDetailsParams alloc]init];
+        parms.orderno = detailUrl;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [RequestTool orderDetails:parms success:^(MarketOrderModelList *result) {
+                NSLog(@"%@",result.OrderMarket);
+                for (NSDictionary *detailPdic in result.OrderMarket) {
+                    productEveryModel = [[OrderDetailModel alloc]init];
+                    [productEveryModel setValuesForKeysWithDictionary:detailPdic];
+                    [self.productDetailData addObject:productEveryModel];
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [loadView stopAnimation];
+                     [self setUpTableView];
+                    [self.tableView reloadData];
+                });
+                
+            } failure:^(NSError *error) {
+                NSLog(@"%@",error);
+                [loadView stopAnimation];
+            }];
+        });
+        
     }
 }
 /** 设置tableView */
@@ -57,7 +98,8 @@
     HeaderView* headerView = [HeaderView initWithHeaderView];
     headerView.height = self.view.height * 0.30;
     [headerView setUpContentView];
-    [headerView setOrderNumberLabelText:@"订单号 145443455" andGetTimeBtnText:@"不新鲜" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
+    
+    [headerView setOrderNumberLabelText:[NSString stringWithFormat:@"订单号 %@",productEveryModel.orderno] andGetTimeBtnText:@"" andOrderTimeLabelText:[NSString stringWithFormat:@"下单时间 %@",productEveryModel.ordertime] andOrderAddressLabelText:productEveryModel.useraddress];
     self.tableView.tableHeaderView = headerView;
 }
 #pragma tableViewDelegate UITableViewDataSource
@@ -83,7 +125,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return self.view.height * 0.10;
+    return 30;
 }
 
 - (UIView* )tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -95,7 +137,7 @@
     shopStoreName.textColor = HDCColor(43, 131, 56);
     [headerView addSubview:shopStoreName];
     [shopStoreName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(headerView.mas_top).offset(10);
+        make.top.mas_equalTo(headerView.mas_bottom).offset(10);
         make.left.equalTo(headerView.mas_left).offset(30);
         make.width.equalTo(@68);
         make.height.equalTo(@24);

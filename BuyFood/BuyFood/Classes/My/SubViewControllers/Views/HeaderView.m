@@ -39,10 +39,10 @@
     self.orderNumberLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     [self addSubview:self.orderNumberLabel];
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.mas_top).offset(21);
+        make.top.mas_equalTo(self.mas_top).offset(74);
         make.left.equalTo(self.mas_left).offset(110);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.45);
-        make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.17);
+        make.width.mas_equalTo(@300);
+        make.height.mas_equalTo(@25);
     }];
     // 送达时间 getTimeBtn
     self.getTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -64,8 +64,8 @@
     [self.orderTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(29);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.50);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.12);
+        make.width.mas_equalTo(@300);
+        make.height.mas_equalTo(@25);
     }];
     // 下单地址 orderAddressLabel
     self.orderAddressLabel = [[UILabel alloc] init];
@@ -75,8 +75,8 @@
     [self.orderAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(2);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.50);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.12);
+        make.width.mas_equalTo(@300);
+        make.height.mas_equalTo(@25);
     }];
     /** 分割线 HDCColor(224, 224, 224)*/  
     UILabel* line = [[UILabel alloc] init];
@@ -107,6 +107,7 @@
 
     self.orderNumberLabel.text = orderNumberLabelText;
     [self.getTimeBtn setTitle:getTimeBtnText forState:UIControlStateNormal];
+    self.getTimeBtn.hidden = YES;
     self.orderTimeLabel.text = orderTimeLabelText;
     self.orderAddressLabel.text = orderAddressLabelText;
 }
