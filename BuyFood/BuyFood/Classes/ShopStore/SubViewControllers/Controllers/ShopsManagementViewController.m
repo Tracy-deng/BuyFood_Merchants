@@ -245,7 +245,7 @@
         make.top.equalTo(headButton.mas_bottom);
         make.left.equalTo(self.view);
         make.width.equalTo(@100);
-        make.height.equalTo(@(SCREEN_HEIGHT -64));
+        make.height.equalTo(@(SCREEN_HEIGHT -64 - 50));
     }];
     _selectedTableView.delegate = self;
     _selectedTableView.dataSource = self;

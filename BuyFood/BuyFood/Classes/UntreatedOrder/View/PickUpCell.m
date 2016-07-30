@@ -127,7 +127,6 @@
     self.getOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.getOrderBtn setTitle:@"接单" forState:UIControlStateNormal];
     [self.getOrderBtn setBackgroundColor:HDCColor(36, 197, 67)];
-    [self.getOrderBtn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
     [whiteView addSubview:self.getOrderBtn];
     [self.getOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(whiteView.mas_centerY);
@@ -185,10 +184,7 @@
     self.totalMoney.text = [NSString stringWithFormat:@"¥%@",moneyText];
 }
 
-- (void)btn:(UIButton* )sender
-{
-    NSLog(@"...");
-}
+
 
 
 /**
