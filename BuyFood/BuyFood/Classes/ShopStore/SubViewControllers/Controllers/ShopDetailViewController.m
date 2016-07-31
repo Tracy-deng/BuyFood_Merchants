@@ -100,11 +100,9 @@
         {
             NSString *catego = [sortKeys objectAtIndex:i];
             ModlistModel *model =  [[self.goodsDic objectForKey:catego] firstObject];
-            [self.twoArray addObject :model.subcategoryname ];
-            
+            [self.twoArray addObject :model.subcategoryname];
         }
     }
-    
 }
 
 - (void)addShopsImage
@@ -280,7 +278,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -288,7 +286,7 @@
     AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell)
     {
-        if (indexPath.row == 0 || indexPath.row == 3 || indexPath.row == 5 || indexPath.row == 7)
+        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 3 || indexPath.row == 5)
         {
             cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.contentTextField.tag = indexPath.row;
@@ -299,21 +297,21 @@
                 cell.titleLabel.text = @"商品名称:";
                 cell.contentTextField.text = self.productname;
             }
-            else if (indexPath.row == 3)
+            else if (indexPath.row == 1)
             {
                 
                 cell.titleLabel.text = @"商品价格:";
                 cell.contentTextField.text = self.productoutprice;
                 cell.contentTextField.keyboardType = UIKeyboardTypeNumberPad;
             }
-            else if (indexPath.row == 5)
+            else if (indexPath.row == 3)
             {
                 cell.titleLabel.text = @"商品重量:";
                 NSInteger stockNumber = [self.detailModel.productstock integerValue];
                 NSString *stock = [NSString stringWithFormat:@"%ld", stockNumber];
                 cell.contentTextField.text = stock;
             }
-            else if (indexPath.row == 7)
+            else if (indexPath.row == 5)
             {
                 cell.titleLabel.text = @"商品描述:";
                 cell.contentTextField.text = self.productremark;
@@ -325,24 +323,10 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             switch (indexPath.row)
             {
-                case 1:
-                    if (isValue == NO) {
-                        [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.detailModel.subcategoryname];
-                    }else{
-                        [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];
-                    }
-                    break;
                 case 2:
-                    if (isValue == NO) {
-                        [cell setChooseTitleLabel:@"三级分类" andContentLabel:self.detailModel.threecategoryname];
-                    }else{
-                        [cell setChooseTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
-                    }
-                    break;
-                case 4:
                     [cell setChooseTitleLabel:@"单位:" andContentLabel:self.unitStr];
                     break;
-                case 6:
+                case 4:
                     [cell setChooseTitleLabel:@"标签:" andContentLabel:self.shopsTag];
                     break;
                 default:
@@ -361,13 +345,13 @@
         case 0:
             self.productname = textField.text;
             break;
-        case 3:
+        case 1:
             self.productoutprice = textField.text;
             break;
-        case 5:
+        case 3:
             self.productstock = textField.text;
             break;
-        case 7:
+        case 5:
             self.productremark = textField.text;
             break;
         default:
@@ -385,52 +369,7 @@
     isValue = YES;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     AddShopsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath.row == 1)
-    {
-        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:self.twoArray];
-        actionSheet.cancleTitle = @"取消选择";
-        [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
-         {
-             self.selectSecClassIndex = [[[self getSortedKeys:self.goodsDic] objectAtIndex:index]integerValue] ;
-             HDCLog(@"%ld", self.selectSecClassIndex);
-             self.secClass = title;
-             [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];
-             self.threeArray = [self.goodsDic objectForKey:[[self getSortedKeys:self.goodsDic] objectAtIndex:index]];
-             self.thirdClass = @"";
-             [self.tableView reloadData];
-         }];
-    }
     if (indexPath.row == 2)
-    {
-        if(self.secClass.length == 0)
-        {
-            UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有选择二级菜单" message:@"请您先选择二级菜单" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
-            [selct addAction:action];
-            [self presentViewController:selct animated:YES completion:nil];
-            return;
-        }else{
-            NSMutableArray *three  = [NSMutableArray arrayWithCapacity:0];
-            for ( ModlistModel *model in self.threeArray) {
-                
-                [three addObject:model.threecategoryname];
-            }
-            
-            MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品三级分类" style:MHSheetStyleWeiChat itemTitles:three];
-            actionSheet.cancleTitle = @"取消选择";
-            [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
-             {
-                 ModlistModel *indexModel =  [self.threeArray objectAtIndex:index];
-                 self.selectThirdClassIndex = [indexModel.threecategoryid integerValue];
-                 self.thirdClass = title;
-                 [cell setChooseTitleLabel:@"三级分类:" andContentLabel:self.thirdClass];
-                 [self.tableView reloadData];
-                 HDCLog(@"%ld",self.selectThirdClassIndex);
-             }];
-        }
-        
-    }
-    if (indexPath.row == 4)
     {
         NSArray * array = @[@"份",
                             @"克"];
@@ -443,7 +382,7 @@
              [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
          }];
     }
-    if (indexPath.row == 6)
+    if (indexPath.row == 4)
     {
         NSArray * array = @[@"普通",
                             @"热销"];
@@ -469,8 +408,10 @@
         params.productid = [self.detailModel.productid integerValue];
         params.categoryid = shopsInfo.categoryid;
         params.marketuserid = shopsInfo.marketuserid;
-        params.subcategoryid = [NSString stringWithFormat:@"%ld", self.selectSecClassIndex];
-        params.threecategoryid = [NSString stringWithFormat:@"%ld", self.selectThirdClassIndex];
+        params.subcategoryid = self.detailModel.subcategoryid;
+        params.threecategoryid = self.detailModel.threecategoryid;
+        params.subcategoryid = self.detailModel.subcategoryid;
+        params.threecategoryid = self.detailModel.threecategoryid;
         params.productname = self.productname;
         params.productstock = [self.productstock floatValue];
         params.productoutprice = [self.productoutprice floatValue];

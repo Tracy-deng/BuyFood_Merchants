@@ -135,17 +135,17 @@
  
     HDCLog(@"点击登录");
 
-    if (_phoneTextField.text.length != 11)
-    {
-        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
-    }
-    else
-    {
+//    if (_phoneTextField.text.length != 11)
+//    {
+//        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
+//    }
+//    else
+//    {
         LoginParams* params = [[LoginParams alloc]init];
-        params.telephone = _phoneTextField.text;
-        params.pswd = _passwordTextField.text;
-//        params.telephone = @"13066666666";
-//        params.pswd = @"1";
+//        params.telephone = _phoneTextField.text;
+//        params.pswd = _passwordTextField.text;
+        params.telephone = @"13055555555";
+        params.pswd = @"123456";
         [RequestTool login:params success:^(ResultsModel *result)
          {
              HDCLog(@"%@", result.ModelList);
@@ -165,7 +165,7 @@
          } failure:^(NSError *error) {
              
          }];
-    }
+//    }
 
 }
 /** 切换根视图 */

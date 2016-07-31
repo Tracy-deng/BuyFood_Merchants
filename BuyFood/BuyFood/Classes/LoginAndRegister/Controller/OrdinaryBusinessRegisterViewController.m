@@ -120,7 +120,7 @@
         self.cell.contentTextField.hidden = YES;
         self.cell.leftTitleLabel.text = @"分类名称:";
         self.contentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.contentBtn setImage:[UIImage imageNamed:@"shopsImage"] forState:UIControlStateNormal];
+        [self.contentBtn setImage:[UIImage imageNamed:@"under"] forState:UIControlStateNormal];
         [self.contentBtn addTarget:self action:@selector(fourBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.cell.contentView addSubview:self.contentBtn];
         [self.contentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -144,7 +144,7 @@
         self.cell.contentTextField.hidden = YES;
         self.cell.leftTitleLabel.text = @"所属菜场:";
         self.contentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [self.contentBtn setImage:[UIImage imageNamed:@"shopsImage"] forState:UIControlStateNormal];
+        [self.contentBtn setImage:[UIImage imageNamed:@"under"] forState:UIControlStateNormal];
         [self.contentBtn addTarget:self action:@selector(fiveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.cell.contentView addSubview:self.contentBtn];
         [self.contentBtn mas_makeConstraints:^(MASConstraintMaker *make) {

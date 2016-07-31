@@ -281,13 +281,14 @@
 /** 账户余额 */
 + (void)balanceAccount:(BalanceAccountParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_wallet/GetModelList"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_wallet/GetModelListForMarketUser"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
     }];
