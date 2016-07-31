@@ -13,12 +13,15 @@
 #import "HttpRequestTool.h"
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "BalanceAccountParams.h"
+#import "ResultsModel.h"
 
-@interface BalanceAccountViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface BalanceAccountViewController ()
+
 @property (nonatomic, strong) HeaderViews* headerView;
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) ShopsUserInfo* userInfo;
-
 
 @end
 
@@ -36,7 +39,6 @@
 
 - (void)setUpHeaderView
 {
-    
     self.headerView = [HeaderViews initWithHeaderViews];
     [self.headerView setUpContentView];
     
@@ -49,38 +51,27 @@
         make.width.mas_equalTo(self.view);
     }];
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    params[@"userid"] = self.userInfo.marketuserid;
-    [HttpRequestTool GET:[urlPrex stringByAppendingString:@"t_wallet/GetModelList"] parameters:params progress:nil completionHandler:^(id model, NSError *error) {
-        NSString *money = model[@"ModelList"][0][@"totalmoney"];
+    
+    BalanceAccountParams *params = [[BalanceAccountParams alloc] init];
+    params.userid = self.userInfo.marketuserid;
+    [RequestTool balanceAccount:params success:^(ResultsModel *result) {
+        NSString *money = result.ModelList[0][@"totalmoney"];
         self.headerView.withdrawMoney.text = [NSString stringWithFormat:@"%@", money];
+    } failure:^(NSError *error) {
+        ;
     }];
-    
-    
 }
-
-
+/** 提现按钮点击 */
 - (void)withdrawMoneyBtnClick:(UIButton* )sender
 {
-    HDCLog(@"取现按钮点击");
     [self.navigationController pushViewController:[[CardListViewController alloc] init] animated:YES];
 }
 
-/** 设置tableView */
+/** 设置提现状态View */
 - (void)setUpTableView
 {
-    self.tableView = [[UITableView alloc] init];
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    [self.view addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.headerView.mas_bottom).offset(20);
-        make.left.equalTo(self.view);
-        make.width.equalTo(self.view);
-        make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.43);
-    }];
     UILabel* label = [[UILabel alloc] init];
-    label.text = @"提现记录";
+    label.text = @"提现状态";
     label.textColor = HDCColor(153, 153, 153);
     label.font = [UIFont fontWithName:@"PingFangSC-Light" size:12];
     [self.view addSubview:label];
@@ -90,24 +81,21 @@
         make.width.mas_equalTo(self.view.mas_width).multipliedBy(0.15);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.02);
     }];
-}
-
-#pragma UITableViewDelegate, UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 10;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    BalanceAccountCell* cell = [BalanceAccountCell cellWithTableView:tableView];
-    [cell setUpAccountMoneyLabel:@"110" andAccountTimeLabel:@"昨天14:00" andAccountCardLabel:@"跳转到工商银行卡"];
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 60;
+    
+    UIView *view = [[UIView alloc] init];
+    [view setBackgroundColor:WhiteColor];
+    [self.view addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.headerView.mas_bottom).offset(20);
+        make.left.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.47);
+    }];
+    
+//    UIImageView *imageView = [[UIImageView alloc] init];
+    
+    
+    
 }
 
 @end

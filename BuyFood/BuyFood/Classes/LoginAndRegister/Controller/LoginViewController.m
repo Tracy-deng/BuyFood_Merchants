@@ -144,6 +144,8 @@
         LoginParams* params = [[LoginParams alloc]init];
         params.telephone = _phoneTextField.text;
         params.pswd = _passwordTextField.text;
+//        params.telephone = @"13066666666";
+//        params.pswd = @"1";
         [RequestTool login:params success:^(ResultsModel *result)
          {
              HDCLog(@"%@", result.ModelList);

@@ -91,9 +91,11 @@
 		0E525A641D1283A700AFC95B /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E525A441D1283A700AFC95B /* Line.m */; };
 		0E525A651D1283A700AFC95B /* TagLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E525A461D1283A700AFC95B /* TagLabels.m */; };
 		0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E525A6D1D1284EA00AFC95B /* UntreatedOrderViewController.m */; };
+		0E5FEE611D4CC73F00452B5D /* JADEMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE5E1D4CC73E00452B5D /* JADEMethods.m */; };
+		0E5FEE651D4CC92A00452B5D /* jadeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE641D4CC92A00452B5D /* jadeModel.m */; };
+		0E5FEE681D4CDA4600452B5D /* ReplyEvaluationParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE671D4CDA4600452B5D /* ReplyEvaluationParams.m */; };
 		0E6319B81D2567CC00D59998 /* CCLickButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B51D2567CC00D59998 /* CCLickButton.m */; };
 		0E6319B91D2567CC00D59998 /* CCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B71D2567CC00D59998 /* CCTextField.m */; };
-		0E6319BC1D256BDB00D59998 /* EvaluationFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319BB1D256BDB00D59998 /* EvaluationFooterView.m */; };
 		0E6319BF1D256C7300D59998 /* EvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319BE1D256C7300D59998 /* EvaluateCell.m */; };
 		0E6319C41D25759000D59998 /* tapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319C11D25759000D59998 /* tapImageView.m */; };
 		0E6319C51D25759000D59998 /* userTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319C31D25759000D59998 /* userTextField.m */; };
@@ -119,7 +121,6 @@
 		0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0191D22CD0E00E025BD /* AddView.m */; };
 		0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */; };
 		0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */; };
-		0E7103691D4117B6006E307E /* EvaluationModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7103681D4117B6006E307E /* EvaluationModelList.m */; };
 		0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E791D4A579200C3516A /* GetOrderParams.m */; };
 		0E830E7D1D4A7AC200C3516A /* OrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E7C1D4A7AC200C3516A /* OrderParams.m */; };
 		0E830E801D4A855300C3516A /* OrderDetailsParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E7F1D4A855300C3516A /* OrderDetailsParams.m */; };
@@ -412,12 +413,16 @@
 		0E525A671D1283E700AFC95B /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		0E525A6C1D1284EA00AFC95B /* UntreatedOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UntreatedOrderViewController.h; sourceTree = "<group>"; };
 		0E525A6D1D1284EA00AFC95B /* UntreatedOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UntreatedOrderViewController.m; sourceTree = "<group>"; };
+		0E5FEE5D1D4CC73E00452B5D /* JADEMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JADEMethods.h; path = ../../../../../JADEMethods.h; sourceTree = "<group>"; };
+		0E5FEE5E1D4CC73E00452B5D /* JADEMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JADEMethods.m; path = ../../../../../JADEMethods.m; sourceTree = "<group>"; };
+		0E5FEE631D4CC92A00452B5D /* jadeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jadeModel.h; sourceTree = "<group>"; };
+		0E5FEE641D4CC92A00452B5D /* jadeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jadeModel.m; sourceTree = "<group>"; };
+		0E5FEE661D4CDA4600452B5D /* ReplyEvaluationParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyEvaluationParams.h; sourceTree = "<group>"; };
+		0E5FEE671D4CDA4600452B5D /* ReplyEvaluationParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyEvaluationParams.m; sourceTree = "<group>"; };
 		0E6319B41D2567CC00D59998 /* CCLickButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLickButton.h; sourceTree = "<group>"; };
 		0E6319B51D2567CC00D59998 /* CCLickButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLickButton.m; sourceTree = "<group>"; };
 		0E6319B61D2567CC00D59998 /* CCTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextField.h; sourceTree = "<group>"; };
 		0E6319B71D2567CC00D59998 /* CCTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCTextField.m; sourceTree = "<group>"; };
-		0E6319BA1D256BDB00D59998 /* EvaluationFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationFooterView.h; sourceTree = "<group>"; };
-		0E6319BB1D256BDB00D59998 /* EvaluationFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationFooterView.m; sourceTree = "<group>"; };
 		0E6319BD1D256C7300D59998 /* EvaluateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluateCell.h; sourceTree = "<group>"; };
 		0E6319BE1D256C7300D59998 /* EvaluateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluateCell.m; sourceTree = "<group>"; };
 		0E6319C01D25759000D59998 /* tapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tapImageView.h; sourceTree = "<group>"; };
@@ -468,8 +473,6 @@
 		0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WB_Stopwatch.m; sourceTree = "<group>"; };
 		0E67E01E1D22CFD600E025BD /* AddPrinterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPrinterViewController.h; sourceTree = "<group>"; };
 		0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPrinterViewController.m; sourceTree = "<group>"; };
-		0E7103671D4117B6006E307E /* EvaluationModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvaluationModelList.h; sourceTree = "<group>"; };
-		0E7103681D4117B6006E307E /* EvaluationModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvaluationModelList.m; sourceTree = "<group>"; };
 		0E830E781D4A579200C3516A /* GetOrderParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetOrderParams.h; sourceTree = "<group>"; };
 		0E830E791D4A579200C3516A /* GetOrderParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetOrderParams.m; sourceTree = "<group>"; };
 		0E830E7B1D4A7AC200C3516A /* OrderParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderParams.h; sourceTree = "<group>"; };
@@ -747,14 +750,18 @@
 		0E110CA21D199BDB00161ACB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E5FEE5D1D4CC73E00452B5D /* JADEMethods.h */,
+				0E5FEE5E1D4CC73E00452B5D /* JADEMethods.m */,
+				0E5FEE631D4CC92A00452B5D /* jadeModel.h */,
+				0E5FEE641D4CC92A00452B5D /* jadeModel.m */,
 				0E12A2351D2B9815008066CC /* BalanceAccountParams.h */,
 				0E12A2361D2B9815008066CC /* BalanceAccountParams.m */,
 				0E12A2371D2B9815008066CC /* MyBillParams.h */,
 				0E12A2381D2B9815008066CC /* MyBillParams.m */,
 				0E12A2391D2B9815008066CC /* EvaluationParams.h */,
 				0E12A23A1D2B9815008066CC /* EvaluationParams.m */,
-				0E7103671D4117B6006E307E /* EvaluationModelList.h */,
-				0E7103681D4117B6006E307E /* EvaluationModelList.m */,
+				0E5FEE661D4CDA4600452B5D /* ReplyEvaluationParams.h */,
+				0E5FEE671D4CDA4600452B5D /* ReplyEvaluationParams.m */,
 				0E12A23B1D2B9815008066CC /* BusinessStatusParams.h */,
 				0E12A23C1D2B9815008066CC /* BusinessStatusParams.m */,
 				0E12A23D1D2B9815008066CC /* ShopsManagementParams.h */,
@@ -817,8 +824,6 @@
 				0E3C1AA81D1C53B40060A7F4 /* MyBillSpendingCell.m */,
 				0E110D0C1D1AE20100161ACB /* EvaluationHeaderView.h */,
 				0E110D0D1D1AE20100161ACB /* EvaluationHeaderView.m */,
-				0E6319BA1D256BDB00D59998 /* EvaluationFooterView.h */,
-				0E6319BB1D256BDB00D59998 /* EvaluationFooterView.m */,
 				0E6319BD1D256C7300D59998 /* EvaluateCell.h */,
 				0E6319BE1D256C7300D59998 /* EvaluateCell.m */,
 				0E110D0F1D1AF59100161ACB /* BusinessStatusView.h */,
@@ -1797,7 +1802,6 @@
 				0E525A611D1283A700AFC95B /* NewFeatureViewController.m in Sources */,
 				780984F81D3F59B2009E7E84 /* UIView+MJExtension.m in Sources */,
 				780984AA1D3F1FC4009E7E84 /* README.md in Sources */,
-				0E6319BC1D256BDB00D59998 /* EvaluationFooterView.m in Sources */,
 				0E67E0091D22C89200E025BD /* OutdoorActivitiesManagementViewController.m in Sources */,
 				0EEF9D6A1D32441300CD83E9 /* NearbyMarketsParams.m in Sources */,
 				0EBD08171D178354002DD7A4 /* ComplaintOrderCell.m in Sources */,
@@ -1844,7 +1848,6 @@
 				0E6319B91D2567CC00D59998 /* CCTextField.m in Sources */,
 				0E12A2691D2B986A008066CC /* NSObject+MJKeyValue.m in Sources */,
 				784D3ED51D38DECA00C82C1D /* AFHTTPSessionManager.m in Sources */,
-				0E7103691D4117B6006E307E /* EvaluationModelList.m in Sources */,
 				780984B61D3F1FC4009E7E84 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
 				0EEF9DB01D3359CE00CD83E9 /* GetMsgCodeParams.m in Sources */,
@@ -1881,6 +1884,7 @@
 				0E525A561D1283A700AFC95B /* MASConstraintMaker.m in Sources */,
 				0E525A531D1283A700AFC95B /* HDCTabBarViewController.m in Sources */,
 				0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */,
+				0E5FEE681D4CDA4600452B5D /* ReplyEvaluationParams.m in Sources */,
 				784D3EDA1D38DECA00C82C1D /* AFURLSessionManager.m in Sources */,
 				0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */,
 				0E12A2401D2B9815008066CC /* MyBillParams.m in Sources */,
@@ -1893,9 +1897,11 @@
 				0EEF9D161D317EE600CD83E9 /* MHSheetFoot.m in Sources */,
 				0E110D0E1D1AE20100161ACB /* EvaluationHeaderView.m in Sources */,
 				0EBD08381D17EF18002DD7A4 /* OwnHavePushController.m in Sources */,
+				0E5FEE651D4CC92A00452B5D /* jadeModel.m in Sources */,
 				0E525A651D1283A700AFC95B /* TagLabels.m in Sources */,
 				0E525A5F1D1283A700AFC95B /* SettingViewController.m in Sources */,
 				780984F01D3F59B2009E7E84 /* MJRefreshBackStateFooter.m in Sources */,
+				0E5FEE611D4CC73F00452B5D /* JADEMethods.m in Sources */,
 				0EBD080D1D1572B3002DD7A4 /* OrderDetailsViewController.m in Sources */,
 				780984F21D3F59B2009E7E84 /* MJRefreshNormalHeader.m in Sources */,
 				78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */,

@@ -36,6 +36,8 @@
 @property (nonatomic, strong) NSMutableArray * selectArray; // 选择数据源
 @property (nonatomic, strong) NSMutableArray * productMainDataArray; // 主页面的数据源
 @property (nonatomic, strong) ModlistModel *modlst;
+/** */
+@property (nonatomic, strong) UIButton *headButton;
 
 @end
 
@@ -197,7 +199,8 @@
 - (void)didHeadBtn:(UIButton *)sender
 {
     NSLog(@"点击热销按钮");
-    isSelcted = YES;
+    sender.backgroundColor = HDCColor(217, 217, 217);
+    isSelcted = !isSelcted;
     [self getHotDataBase];
 }
 
@@ -223,15 +226,15 @@
 - (void)creatTableView
 {
     
-    
-    UIButton * headButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [headButton setTitle:@"热销" forState:(UIControlStateNormal)];
-    [headButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    headButton.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
-    headButton.titleLabel.font = [UIFont systemFontOfSize:20];
-    [self.view addSubview:headButton];
-    [headButton addTarget:self action:@selector(didHeadBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-    [headButton mas_makeConstraints:^(MASConstraintMaker *make) {
+     self.headButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [self.headButton setTitle:@"热销" forState:(UIControlStateNormal)];
+    self.headButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+    [self.headButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    self.headButton.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
+    self.headButton.titleLabel.font = [UIFont systemFontOfSize:20];
+    [self.view addSubview:self.headButton];
+    [self.headButton addTarget:self action:@selector(didHeadBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.headButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(64);
         make.left.equalTo(self.view);
         make.width.equalTo(@100);
@@ -242,7 +245,7 @@
     [self.view addSubview:_selectedTableView];
     _selectedTableView.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
     [_selectedTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(headButton.mas_bottom);
+        make.top.equalTo(self.headButton.mas_bottom);
         make.left.equalTo(self.view);
         make.width.equalTo(@100);
         make.height.equalTo(@(SCREEN_HEIGHT -64 - 50));
@@ -266,7 +269,6 @@
     _mainTableView.delegate = self;
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectZero];
-    
     self.selectedTableView.tableFooterView = view;
     self.mainTableView.tableFooterView = view;
     
@@ -342,7 +344,6 @@
         UIView *headView = [[UIView alloc]init];
         
         headView.backgroundColor = [UIColor colorWithWhite:0.915 alpha:1.000];
-        
         headView.frame = CGRectMake(0, 0, 100, 40);
         
         UILabel *headLabel = [UILabel new];
@@ -351,19 +352,18 @@
         headLabel.frame = CGRectMake(10, 10, 100, 30);
         headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
         
-        
-        
         return headView;
     }else if([tableView isEqual:_selectedTableView]){
         
         NSArray *sortKeys = [self getSortedKeys:billData];
         if (sortKeys.count != 0) {
-            
             NSString *catego = [sortKeys objectAtIndex:section];
             ShopThreeCate * headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
-            headView.frame = CGRectMake(0, 0, 100, 50);
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+            [view setBackgroundColor:[UIColor colorWithWhite:0.950 alpha:0.8000]];
+            [view addSubview:headView];
             headView.model = [[billData objectForKey:catego] firstObject];
-            return headView;
+            return view;
             
         }
         
@@ -395,12 +395,11 @@
             cell.textLabel.text = model.threecategoryname;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor colorWithWhite:0.875 alpha:1.000];
+        cell.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
         [tableView setSeparatorColor:[UIColor whiteColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
         // cell 选中的颜色
-        cell.selectedBackgroundView = [[UIView alloc]initWithFrame:cell.frame];
-        cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         return cell;
         
     }else{

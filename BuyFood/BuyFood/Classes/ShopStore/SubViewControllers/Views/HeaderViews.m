@@ -32,7 +32,7 @@
     UILabel* label = [[UILabel alloc] init];
     label.text = @"可提现金额";
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = HDCColor(153, 153, 153);
+    label.textColor = greenColor;
     label.font = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
     [self addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,8 +44,9 @@
     
     self.withdrawMoneyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.withdrawMoneyBtn setTitleColor:HDCColor(250, 250, 250) forState:UIControlStateNormal];
-    [self.withdrawMoneyBtn setBackgroundImage:[UIImage imageNamed:@"bj_biaoqian"] forState:UIControlStateNormal];
-    [self.withdrawMoneyBtn setTitle:@"立即提现" forState:UIControlStateNormal];
+    [self.withdrawMoneyBtn setImage:[UIImage imageNamed:@"Immediate-withdrawal"] forState:UIControlStateNormal];
+//    [self.withdrawMoneyBtn setBackgroundImage:[UIImage imageNamed:@"bj_biaoqian"] forState:UIControlStateNormal];
+//    [self.withdrawMoneyBtn setTitle:@"立即提现" forState:UIControlStateNormal];
     self.withdrawMoneyBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
     [self addSubview:self.withdrawMoneyBtn];
     [self.withdrawMoneyBtn mas_makeConstraints:^(MASConstraintMaker *make) {

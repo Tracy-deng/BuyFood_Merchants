@@ -53,4 +53,9 @@
 //#define urlPrex @"http://114.55.55.74/goucaiapi/"
 #define imgPrex @"http://114.55.55.74/goucaiapi/"
 
+
+
+#define JADESIZE [UIScreen mainScreen].bounds.size
+#define JADESCREENSCALE JADESIZE.width/375
+#define JADERect(x,y,w,h) CGRectMake(x*JADESCREENSCALE, y*JADESCREENSCALE, w*JADESCREENSCALE, h*JADESCREENSCALE)
 #endif /* PrefixHeader_pch */
