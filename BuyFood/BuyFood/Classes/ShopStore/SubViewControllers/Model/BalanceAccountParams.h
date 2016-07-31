@@ -10,4 +10,7 @@
 
 @interface BalanceAccountParams : NSObject
 
+/** 商户id */
+@property (nonatomic, strong) NSString *userid;
+
 @end

@@ -15,7 +15,6 @@
     self = [super initWithReuseIdentifier:reuseIdentifier];
     if (self) {
         
-        
         _nameLabel = [UILabel new];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
         _nameLabel.font = [UIFont systemFontOfSize:20];

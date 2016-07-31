@@ -109,7 +109,7 @@
 
 - (void)addShopsImage
 {
-    self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"shopsImage"]];
+    self.imageView = [[UIImageView alloc] init];
     self.imageView.userInteractionEnabled = YES;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.detailModel.productpic] placeholderImage:nil];
     [self.view addSubview:self.imageView];
@@ -538,7 +538,6 @@
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
-
 // 在UITextField 编辑之前调用方法  视图上移
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
