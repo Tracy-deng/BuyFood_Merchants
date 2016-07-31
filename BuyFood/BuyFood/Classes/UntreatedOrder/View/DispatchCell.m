@@ -147,7 +147,7 @@
     self.getOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.getOrderBtn setTitle:@"接单" forState:UIControlStateNormal];
     [self.getOrderBtn setBackgroundColor:HDCColor(36, 197, 67)];
-    [self.getOrderBtn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+
     [whiteView addSubview:self.getOrderBtn];
     [self.getOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(whiteView.mas_centerY);
@@ -195,18 +195,15 @@
     }];
 }
 
-- (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText
+- (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText moneyLabel:(NSString *)moneyText
 {
-    self.orderNumberLabel.text = orderNumberLabelText;
+    self.orderNumberLabel.text = [NSString stringWithFormat:@"订单号 %@",orderNumberLabelText];
     [self.getTimeBtn setTitle:getTimeBtnText forState:UIControlStateNormal];
-    self.orderTimeLabel.text = orderTimeLabelText;
+    self.orderTimeLabel.text = [NSString stringWithFormat:@"下单时间 %@",orderTimeLabelText];
     self.orderAddressLabel.text = orderAddressLabelText;
 }
 
-- (void)btn:(UIButton* )sender
-{
-    NSLog(@"...");
-}
+
 /** 
  // 设置订单编号 orderNumLabel
  self.orderNumLabel = [[UILabel alloc] init];
