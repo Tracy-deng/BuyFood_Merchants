@@ -23,13 +23,15 @@
 #import "GetProductParams.h"
 #import "LoadView.h"
 #import "MJRefresh.h"
+
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 {
     NSString * threeProductId; // 传入的三级id
     NSString * twoProductId;  // 传入的二级id
     BOOL toAddVC;
     NSString * headTitle;
-    BOOL isSelcted;
+    NSInteger isSelcted;
+    NSString * twoID;
 }
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
@@ -69,22 +71,29 @@
 
     
     self.mainTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        if (isSelcted == YES) {
-            [self getHotDataBase];
-        }else{
-            [self getMainTableDataSource];
-        }
-        
+       
+        [self selfReloadData];
     }];
     
 
+}
+- (void)selfReloadData
+{
+    if (isSelcted == 1) {
+        [self getHotDataBase];
+    }else if (isSelcted == 2){
+        [self getMainTableDataSource];
+    }else if (isSelcted == 3){
+        [self getHeaderViewSource];
+    }
 }
 // 当页面出现的时候 从添加页面返回 刷新数据
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if (toAddVC) {
-        toAddVC = NO;
-        [self.mainTableView reloadData];
+        
+        [self.productMainDataArray removeAllObjects];
+        [self selfReloadData];
         return;
     }else{
         [self.productMainDataArray removeAllObjects];
@@ -121,7 +130,7 @@
                 NSMutableArray<ModlistModel *> *date = [billData objectForKey:subCate];
                 [date addObject:self.modlst];
             }
-            
+            NSLog(@"%@",billData);
             [self.mainTableView reloadData];
             [self.selectedTableView reloadData];
             
@@ -196,11 +205,43 @@
     }];
 }
 
+/**
+ *  请求区头数据
+ */
+
+- (void)getHeaderViewSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    GetProductParams* params = [[GetProductParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.categoryid = shopsInfo.categoryid;
+    params.marketuserid = shopsInfo.marketuserid;
+    params.subcategoryid = twoID;
+    params.pagesize = @"0";
+    params.page = @"0";
+    [RequestTool getProduct:params success:^(ResultsModel *result) {
+        [self.productMainDataArray removeAllObjects];
+        for (NSDictionary *Pdic in result.ModelList) {
+            ModlistModel *model = [[ModlistModel alloc]init];
+            [model setValuesForKeysWithDictionary:Pdic];
+            [self.productMainDataArray addObject:model];
+        }
+        [self.mainTableView reloadData];
+        [loadView stopAnimation];
+        [self.mainTableView.header endRefreshing];
+    } failure:^(NSError *error) {
+        NSLog(@"error");
+        [loadView stopAnimation];
+    }];
+
+    
+}
 - (void)didHeadBtn:(UIButton *)sender
 {
     NSLog(@"点击热销按钮");
     sender.backgroundColor = HDCColor(217, 217, 217);
-    isSelcted = !isSelcted;
+    isSelcted = 1;
     [self getHotDataBase];
 }
 
@@ -352,6 +393,8 @@
         headLabel.frame = CGRectMake(10, 10, 100, 30);
         headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
         
+       
+        
         return headView;
     }else if([tableView isEqual:_selectedTableView]){
         
@@ -359,11 +402,25 @@
         if (sortKeys.count != 0) {
             NSString *catego = [sortKeys objectAtIndex:section];
             ShopThreeCate * headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
-            [view setBackgroundColor:[UIColor colorWithWhite:0.950 alpha:0.8000]];
-            [view addSubview:headView];
+            headView.frame = CGRectMake(0, 0, 100, 50);
+            headView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
             headView.model = [[billData objectForKey:catego] firstObject];
-            return view;
+            
+            __block typeof (self) weakself = self;
+            
+            headView.touch = ^{
+                
+                NSArray *keys = [self getSortedKeys:billData];
+
+                if (keys.count != 0) {
+                    
+                    twoID = [keys objectAtIndex:section];
+                    headTitle = [[billData objectForKey:catego] firstObject].subcategoryname;
+                }
+                isSelcted = 3;
+                [weakself getHeaderViewSource];
+            };
+            return headView;
             
         }
         
@@ -428,7 +485,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     toAddVC = YES;
-    isSelcted = NO;
+    isSelcted = 2;
     // 点击 mainTableView 进入商品详情
     if([tableView isEqual:_mainTableView])
     {

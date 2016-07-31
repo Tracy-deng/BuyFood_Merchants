@@ -25,6 +25,10 @@
             make.height.equalTo(@30);
             make.width.equalTo(@80);
         }];
+        
+        
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchWithHeaderSource:)];
+        [self addGestureRecognizer:tap];
     }
     
     return self;
@@ -35,4 +39,10 @@
     _nameLabel.text = model.subcategoryname;
 }
 
+- (void)touchWithHeaderSource:(UITapGestureRecognizer *)tap
+{
+    if (_touch ) {
+        _touch();
+    }
+}
 @end
