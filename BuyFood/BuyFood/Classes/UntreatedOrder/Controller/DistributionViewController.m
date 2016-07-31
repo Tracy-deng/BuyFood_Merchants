@@ -9,20 +9,33 @@
 #import "DistributionViewController.h"
 #import "DispatchCell.h"
 #import "ComplaintOrderDetailsViewController.h"
-
+#import "LoadView.h"
+#import "MJRefresh.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "OrderParams.h"
+#import "MarketOrderModelList.h"
+#import "OrderMarketModel.h"
+#import "MJRefresh.h"
 @interface DistributionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tableView;
-
+@property (nonatomic, strong) NSMutableArray * distributionDataArray;
 @end
 
 @implementation DistributionViewController
-
+- (NSMutableArray *)distributionDataArray{
+    if (_distributionDataArray == nil) {
+        self.distributionDataArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _distributionDataArray;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
-    
+   
     
     UIView* view = [[UIView alloc]init];
     view.backgroundColor = greenColor;
@@ -42,30 +55,69 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(view.mas_bottom);
-        
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.height.equalTo(@(SCREEN_HEIGHT - 44 - 70));
-//        make.top.equalTo(self.view.mas_top).offset(64);
-//        make.left.equalTo(self.view);
-//        make.right.equalTo(self.view);
-//        make.height.equalTo(@(SCREEN_HEIGHT - 44 - 70));
+        
     }];
     self.tableView.rowHeight = 155;
     self.tableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
     
+    
+    [self createDistributionData];
+    
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self createDistributionData];
+    }];
 }
 
+- (void)createDistributionData
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    OrderParams *params = [[OrderParams alloc] init];
+    params.marketuserid = userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"10";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [RequestTool untreatedDistributionOrderList:params success:^(MarketOrderModelList *result) {
+            NSLog(@"%@",result.OrderMarket);
+            [self.distributionDataArray removeAllObjects];
+            for (NSDictionary *dict in result.OrderMarket) {
+                OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                [model setValuesForKeysWithDictionary:dict];
+                [self.distributionDataArray addObject:model];
+            }
+            NSLog(@"%@",self.distributionDataArray);
+            [loadView stopAnimation];
+            [self.tableView .header endRefreshing];
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+
+    });
+    
+    
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.distributionDataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DispatchCell *cell = [DispatchCell cellWithTableView:tableView];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setOrderNumberLabelText:@"订单号 145443455" andGetTimeBtnText:@"立即送达" andOrderTimeLabelText:@"下单时间 11 -6   09:00" andOrderAddressLabelText:@"紫东国际创意园e1栋3楼"];
+    
+    OrderMarketModel *model = self.distributionDataArray[indexPath.row];
+    [cell setOrderNumberLabelText:model.orderno andGetTimeBtnText:@"立即送达" andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.marketuseraddress moneyLabel:model.markettotalmoney];
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     return cell;
