@@ -74,7 +74,7 @@
         _timeLabel.textColor = [UIColor grayColor];
         [_timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_orderNumLabel.mas_bottom).offset(29);
-            make.left.equalTo(_whiteView).offset(80);
+            make.left.equalTo(_orderNumLabel);
             make.height.equalTo(@20);
             make.right.equalTo(_whiteView).offset(100);
         }];
@@ -87,7 +87,7 @@
         _addressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
         [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_timeLabel.mas_bottom).offset(2);
-            make.left.height.equalTo(_timeLabel);
+            make.left.height.equalTo(_orderNumLabel);
             make.right.equalTo(_whiteView).offset(80);
         }];
         

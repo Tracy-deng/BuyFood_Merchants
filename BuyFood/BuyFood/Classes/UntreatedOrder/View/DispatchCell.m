@@ -125,7 +125,7 @@
     [self.orderTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(29);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.60);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.70);
         make.height.mas_equalTo(@20);
     }];
     // 下单地址 orderAddressLabel

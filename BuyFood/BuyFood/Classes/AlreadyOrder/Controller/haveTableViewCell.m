@@ -15,12 +15,14 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
       
-        _addOrderBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        _addOrderBtn = [[UILabel alloc]init];;
         _addOrderBtn.layer.masksToBounds = YES;
         _addOrderBtn.layer.cornerRadius = 32;
         _addOrderBtn.backgroundColor = greenColor;
-        [_addOrderBtn setTitle:@"已接单" forState:(UIControlStateNormal)];
-        _addOrderBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        _addOrderBtn.text = @"已接单";
+        _addOrderBtn.textColor = [UIColor whiteColor];
+        _addOrderBtn.textAlignment = NSTextAlignmentCenter;
+        _addOrderBtn.font = [UIFont systemFontOfSize:13];
         [self.contentView addSubview:_addOrderBtn];
         [_addOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).offset(35);
@@ -34,6 +36,22 @@
 }
 
 
+- (void)setModel:(OrderMarketModel *)model
+{
+    self.orderNumLabel.text = model.orderno;
+    self.timeLabel.text = model.ordertime;
+    self.addressLabel.text = model.useraddress;
+    self.moneyLabel.text = [NSString stringWithFormat:@"¥%@",model.markettotalmoney];
+    if ([model.orderstatus isEqualToString:@"3"])
+    {
+        self.addOrderBtn.text = @"已接单";
+    }else if ([model.orderstatus isEqualToString:@"10"]){
+        self.addOrderBtn.text = @"配送中";
+    }else if ([model.orderstatus isEqualToString:@"12"])
+    {
+        self.addOrderBtn.text = @"已完成";
+    }
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
