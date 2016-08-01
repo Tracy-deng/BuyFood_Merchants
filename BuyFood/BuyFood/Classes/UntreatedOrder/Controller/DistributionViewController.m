@@ -146,7 +146,7 @@
     LoadView *loadView = [LoadView new];
     [loadView startAnimation];
     
-    NSLog(@"接单处理%ld",sender.tag);
+    NSLog(@"接单处理%ld",(long)sender.tag);
     OrderMarketModel * model = self.distributionDataArray[sender.tag];
     NSString *orderNum = model.orderno; // 订单号
     

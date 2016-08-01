@@ -235,21 +235,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     OrderMarketModel * model = self.inviteDataArray[indexPath.row];
-   
-    if ([model.orderstatus isEqualToString:@"10"]){
-        
-        NSLog(@"配送中");
-        _isSelected = YES;
-        
-    }else if ([model.orderstatus isEqualToString:@"12"])
-    {
-        NSLog(@"已完成");
-        _isSelected = NO;
-    }
+    
     
     if (_isSelected == YES) {
-        
+        OrderMarketModel * model = self.inviteDataArray[indexPath.row];
          pushTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"push"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -258,10 +247,10 @@
         cell.model = model;
         return cell;
     }else{
-        
+        OrderMarketModel * model = self.havePushedDataArray[indexPath.row];
         alreadyTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"already"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        cell.model = model;
         
         cell.detailBtn.tag = indexPath.row;
         [cell.detailBtn addTarget:self action:@selector(didDetailBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -277,7 +266,14 @@
     NSLog(@"进入详情");
     
     ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
-    
+    if (_isSelected == YES) {
+        OrderMarketModel * model = self.inviteDataArray[sender.tag];
+        detailVC.detailUrl = model.orderno;
+    }else if(_isSelected == NO)
+    {
+        OrderMarketModel * model = self.havePushedDataArray[sender.tag];
+        detailVC.detailUrl = model.orderno;
+    }
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
