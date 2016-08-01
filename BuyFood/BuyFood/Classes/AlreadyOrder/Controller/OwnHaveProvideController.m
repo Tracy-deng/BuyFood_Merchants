@@ -9,12 +9,27 @@
 #import "OwnHaveProvideController.h"
 #import "haveTableViewCell.h"
 #import "ComplaintOrderDetailsViewController.h"
+#import "ResultsModel.h"
+#import "RequestTool.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "LoadView.h"
+#import "MJRefresh.h"
+#import "OrderParams.h"
+#import "OrderMarketModel.h"
+#import "MarketOrderModelList.h"
 @interface OwnHaveProvideController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *haveTableView;
+@property (nonatomic, strong) NSMutableArray * inviteDataArray;
 @end
 
 @implementation OwnHaveProvideController
-
+- (NSMutableArray *)inviteDataArray{
+    if (_inviteDataArray == nil) {
+        self.inviteDataArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _inviteDataArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -33,15 +48,53 @@
     _haveTableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线
     [_haveTableView registerClass:[haveTableViewCell class] forCellReuseIdentifier:@"haveView"];
 
+    [self getOwnHabveProvideData];
+    self.haveTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getOwnHabveProvideData];
+    }];
 }
 
+
+- (void)getOwnHabveProvideData
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    OrderParams *params = [[OrderParams alloc] init];
+    params.marketuserid = userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"10";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [RequestTool alreadyInviteOrderList:params success:^(MarketOrderModelList *result) {
+            HDCLog(@"%@", result.OrderMarket);
+            [self.inviteDataArray removeAllObjects];
+            for (NSDictionary *dict in result.OrderMarket) {
+                OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                [model setValuesForKeysWithDictionary:dict];
+                [self.inviteDataArray addObject:model];
+            }
+            [loadView stopAnimation];
+            NSLog(@"%@",self.inviteDataArray);
+            [self.haveTableView.header endRefreshing];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.haveTableView reloadData];
+            });
+
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+    });
+    
+}
 /**
  *   实现tableView代理方法
  */
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.inviteDataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -50,11 +103,14 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //设置分割线颜色
 //    tableView.separatorColor = HDCColor(238, 238, 238);
+    OrderMarketModel * model = self.inviteDataArray[indexPath.row];
+
+    cell.model = model;
     
     cell.detailBtn.tag = indexPath.row;
     // 点击进详情
     [cell.detailBtn addTarget:self action:@selector(buttonAutoDetail:) forControlEvents:(UIControlEventTouchUpInside)];
-    
+   
     
     return cell;
     
@@ -65,12 +121,12 @@
 {
     NSLog(@"进入订单详情");
     
-   
+    OrderMarketModel * model = self.inviteDataArray[sender.tag];
     ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
-    
-    
+    detailVC.detailUrl = model.orderno;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

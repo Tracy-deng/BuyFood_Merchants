@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseTableViewCell.h"
+#import "OrderMarketModel.h"
 @interface haveTableViewCell : BaseTableViewCell
 
-@property (nonatomic, strong) UIButton * addOrderBtn; // 接单按钮
-
+@property (nonatomic, strong) UILabel * addOrderBtn; // 接单按钮
+@property (nonatomic, strong) OrderMarketModel * model;
 
 @end
