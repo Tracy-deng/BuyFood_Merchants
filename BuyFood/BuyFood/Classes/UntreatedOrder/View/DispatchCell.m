@@ -19,8 +19,7 @@
 @property (nonatomic, strong) UILabel* orderTimeLabel;
 /** 下单地址 */
 @property (nonatomic, strong) UILabel* orderAddressLabel;
-/** 接单按钮 */
-@property (nonatomic, strong) UIButton* getOrderBtn;
+
 /** 合计label */
 @property (nonatomic, strong) UILabel* totalLabel;
 /** 合计金额 */

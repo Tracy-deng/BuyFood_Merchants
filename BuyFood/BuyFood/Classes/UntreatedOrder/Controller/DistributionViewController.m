@@ -18,6 +18,8 @@
 #import "MarketOrderModelList.h"
 #import "OrderMarketModel.h"
 #import "MJRefresh.h"
+#import "GetOrderParams.h"
+#import "ResultsModel.h"
 @interface DistributionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tableView;
@@ -118,8 +120,13 @@
     
     OrderMarketModel *model = self.distributionDataArray[indexPath.row];
     [cell setOrderNumberLabelText:model.orderno andGetTimeBtnText:@"立即送达" andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.marketuseraddress moneyLabel:model.markettotalmoney];
+    
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 接单
+    cell.getOrderBtn.tag = indexPath.row;
+    [cell.getOrderBtn addTarget:self action:@selector(didGetOrder:) forControlEvents:(UIControlEventTouchUpInside)];
     return cell;
     
 }
@@ -128,11 +135,35 @@
 {
     NSLog(@"进入订单详情");
     
-    
+    OrderMarketModel * model = self.distributionDataArray[sender.tag];
     ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
-    
-    
+    detailVC.detailUrl = model.orderno;
     [self.navigationController pushViewController:detailVC animated:YES];
+}
+- (void)didGetOrder:(UIButton *)sender
+{
+    
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    
+    NSLog(@"接单处理%ld",sender.tag);
+    OrderMarketModel * model = self.distributionDataArray[sender.tag];
+    NSString *orderNum = model.orderno; // 订单号
+    
+    GetOrderParams *parms = [[GetOrderParams alloc]init];
+    parms.orderno = orderNum;
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    parms.marketuserid = userInfo.marketuserid;
+    parms.posttypeid = 1;
+    [RequestTool getOrder:parms success:^(ResultsModel *result) {
+        NSLog(@"%@",result.ModelList);
+        [self createDistributionData];
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [loadView stopAnimation];
+    }];
+    
 }
 
 @end
