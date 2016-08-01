@@ -484,7 +484,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     toAddVC = YES;
-    isSelcted = 2;
     // 点击 mainTableView 进入商品详情
     if([tableView isEqual:_mainTableView])
     {
@@ -496,6 +495,7 @@
     else{// 点击selectedTableView切换数据
         HDCLog(@"indexPath.row === %ld", indexPath.row);
         // 点击  传入三级id  mainTableView 获取数据
+        isSelcted = 2;
         [self.productMainDataArray removeAllObjects];
         NSArray *keys = [self getSortedKeys:billData];
         if (keys.count != 0) {

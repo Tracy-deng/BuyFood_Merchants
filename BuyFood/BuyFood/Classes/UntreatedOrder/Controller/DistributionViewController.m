@@ -154,7 +154,7 @@
     parms.orderno = orderNum;
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
     parms.marketuserid = userInfo.marketuserid;
-    parms.posttypeid = 1;
+    parms.posttypeid = 2;
     [RequestTool getOrder:parms success:^(ResultsModel *result) {
         NSLog(@"%@",result.ModelList);
         [self createDistributionData];
