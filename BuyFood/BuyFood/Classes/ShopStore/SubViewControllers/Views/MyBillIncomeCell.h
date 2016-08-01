@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyBillModel.h"
 
 @interface MyBillIncomeCell : UITableViewCell
 
+@property (nonatomic, strong) MyBillModel *model;
+
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
-- (void)setuserHeaderImageName:(NSString* )userHeaderImageName andUserName:(NSString* )userName andOrderText:(NSString* )order andTimeLabel:(NSString* )time andMoneyText:(NSString* )money;
+- (void)setuserHeaderImageName:(NSString* )userHeaderImageName andUserName:(NSString* )userName;
 
 @end

@@ -42,7 +42,8 @@
         FeedBackParams,
         ChangePwdParams,
         ChangeHeaderImageParams,
-        GetCityAndCountryParams;
+        GetCityAndCountryParams,
+        TodayBalanceAndVolumeModel;
 
 @interface RequestTool : NSObject
 
@@ -71,8 +72,10 @@
 #pragma mark - AlreadyOrder <已处理订单>
 /** 自提订单 */
 + (void)alreadyInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
-/** 配送订单 */
+/** 配送订单 --配送中 */
 + (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
+/** 配送订单 --已完成--历史订单 */
++ (void)alreadyDistributionOverOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 失效订单 */
 + (void)alreadySolvedOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 投诉订单 */
@@ -82,7 +85,7 @@
 
 #pragma mark - ShopStore <门店管理>
 /** 今日营业额和今日成交量 */
-+ (void)todayBalanceAndVolume:(EvaluationParams *)params :(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)todayBalanceAndVolume:(EvaluationParams *)params :(void(^)(TodayBalanceAndVolumeModel *result))success failure:(void (^)(NSError *error))failure;
 /** 账户余额 */
 + (void)balanceAccount:(BalanceAccountParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 我的账单 */

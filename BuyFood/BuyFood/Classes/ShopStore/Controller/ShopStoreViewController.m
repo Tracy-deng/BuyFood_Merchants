@@ -19,10 +19,12 @@
 #import "PriceGuideViewController.h"
 #import "AddPrinterViewController.h"
 #import "RequestTool.h"
-#import "ShopsSecAndThirdClassParams.h"
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "ResultsModel.h"
+#import "EvaluationParams.h"
+#import "TodayBalanceAndVolumeModel.h"
+#import "MBProgressHUD.h"
 
 @interface ShopStoreViewController ()
 /** 今日营业额数字 */
@@ -81,13 +83,40 @@
 {
     // 今日营业额数字
     self.todayTurnoverNum = [TagLabels initTaglabel];
-    [self.todayTurnoverNum createLabelText:@"2399" andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.14 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
     [self.view addSubview:self.todayTurnoverNum];
-    
     // 今日营业额数字
     self.todayOrderNum = [TagLabels initTaglabel];
-    [self.todayOrderNum createLabelText:@"93" andLabelX:self.view.width * 0.72 andLabelY:self.todayTurnoverNum.y andLabelHeight:self.todayTurnoverNum.height andLabelWidth:self.todayTurnoverNum.width andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
     [self.view addSubview:self.todayOrderNum];
+    
+    EvaluationParams* params = [[EvaluationParams alloc] init];
+    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
+    params.marketuserid = shopsInfo.marketuserid;
+    [RequestTool todayBalanceAndVolume:params :^(TodayBalanceAndVolumeModel *result) {
+        HDCLog(@"%@", result.totalmoney);
+        if ([result.ErrorCode isEqualToString:@"1"])
+        {
+            [MBProgressHUD showSuccess:@"数据请求成功"];
+            if (result.totalmoney == nil)
+            {
+                [self.todayTurnoverNum createLabelText:@"0" andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.14 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
+                
+                [self.todayOrderNum createLabelText:@"0" andLabelX:self.view.width * 0.72 andLabelY:self.todayTurnoverNum.y andLabelHeight:self.todayTurnoverNum.height andLabelWidth:self.todayTurnoverNum.width andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
+            }
+            else
+            {
+                [self.todayTurnoverNum createLabelText:result.totalmoney andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.14 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
+                
+                [self.todayOrderNum createLabelText:result.totalordercount andLabelX:self.view.width * 0.72 andLabelY:self.todayTurnoverNum.y andLabelHeight:self.todayTurnoverNum.height andLabelWidth:self.todayTurnoverNum.width andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
+            }
+            
+        }
+        else
+        {
+            [MBProgressHUD showError:result.ErrorMsg];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
     
     // 今日营业额标签
     self.todayTurnoverTag = [TagLabels initTaglabel];
@@ -256,19 +285,4 @@
     HDCLog(@"定价指导按钮点击");
     [self.navigationController pushViewController:[[PriceGuideViewController alloc] init] animated:YES];
 }
-
-/**
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    HDCLog(@"...");
-    ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
-    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
-    params.categoryid = shopsInfo.categoryid;
-    [RequestTool shopsSecAndThirdClass:params success:^(ResultsModel *result) {
-        HDCLog(@"%@", result.ModelList);
-    } failure:^(NSError *error) {
-        ;
-    }];
-}
-*/
 @end
