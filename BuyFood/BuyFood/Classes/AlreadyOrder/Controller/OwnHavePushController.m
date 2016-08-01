@@ -10,6 +10,16 @@
 #import "pushTableViewCell.h"
 #import "alreadyTableViewCell.h"
 #import "ComplaintOrderDetailsViewController.h"
+#import "ResultsModel.h"
+#import "RequestTool.h"
+#import "MarketOrderModelList.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "LoadView.h"
+#import "MJRefresh.h"
+#import "ResultsModel.h"
+#import "OrderParams.h"
+#import "OrderMarketModel.h"
 @interface OwnHavePushController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *view1;
 @property (nonatomic, strong) UIView *view2;
@@ -17,10 +27,16 @@
 @property (nonatomic, strong) UIButton *alreadBtn;
 @property (nonatomic, strong) UITableView * mainPushTabview;
 @property (nonatomic, assign) BOOL isSelected;  //判断加载哪个cell
+@property (nonatomic, strong) NSMutableArray * inviteDataArray;
 @end
 
 @implementation OwnHavePushController
-
+- (NSMutableArray *)inviteDataArray{
+    if (_inviteDataArray == nil) {
+        self.inviteDataArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _inviteDataArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -28,9 +44,45 @@
     self.view.backgroundColor = HDCColor(238, 238, 238);
     [self creatTableView];
     _isSelected = YES;
+    [self getHavePushedDataSource];
 }
 
+-(void)getHavePushedDataSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    OrderParams *params = [[OrderParams alloc] init];
+    params.marketuserid = userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"10";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [RequestTool untreatedDistributionOrderList:params success:^(MarketOrderModelList *result) {
+            HDCLog(@"%@", result.OrderMarket);
+            [self.inviteDataArray removeAllObjects];
+            for (NSDictionary *dict in result.OrderMarket) {
+                OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                [model setValuesForKeysWithDictionary:dict];
+                [self.inviteDataArray addObject:model];
+            }
+            [loadView stopAnimation];
+            NSLog(@"%@",self.inviteDataArray);
+            [self.mainPushTabview.header endRefreshing];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.mainPushTabview reloadData];
+            });
+            
+        } failure:^(NSError *error) {
+            ;
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+        
+    });
 
+}
 - (void)addSegmentControl
 {
     _view1 = [[UIView alloc]init];
@@ -121,11 +173,24 @@
 #pragma mark -- TableView的代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.inviteDataArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+     OrderMarketModel * model = self.inviteDataArray[indexPath.row];
+   
+    if ([model.orderstatus isEqualToString:@"10"]){
+        
+        NSLog(@"配送中");
+        _isSelected = YES;
+        
+    }else if ([model.orderstatus isEqualToString:@"12"])
+    {
+        NSLog(@"已完成");
+        _isSelected = NO;
+    }
+    
     if (_isSelected == YES) {
         
          pushTableViewCell *cell = [_mainPushTabview dequeueReusableCellWithIdentifier:@"push"];
@@ -133,7 +198,7 @@
         
         cell.detailBtn.tag = indexPath.row;
         [cell.detailBtn addTarget:self action:@selector(didDetailBtn:) forControlEvents:(UIControlEventTouchUpInside)];
-        
+        cell.model = model;
         return cell;
     }else{
         
