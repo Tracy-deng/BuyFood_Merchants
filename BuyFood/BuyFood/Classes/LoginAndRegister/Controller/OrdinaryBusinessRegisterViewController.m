@@ -19,8 +19,9 @@
 #import "NearbyMarketsParams.h"
 #import "ImproveinformationParams.h"
 #import "ShopsUserInfoTool.h"
+#import "UpLoadImageUtil.h"
 
-@interface OrdinaryBusinessRegisterViewController ()<UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITextFieldDelegate>
+@interface OrdinaryBusinessRegisterViewController ()<UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) RegisterCell* cell;
 @property (nonatomic, strong) UITableView* tableView;
@@ -41,6 +42,9 @@
 @property (nonatomic, strong) NSString* telephone;
 @property (nonatomic, strong) NSString* address;
 
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIImagePickerController *imagePickController;
+
 @end
 
 @implementation OrdinaryBusinessRegisterViewController
@@ -51,6 +55,11 @@
     [self setNavLeftBtn];
     self.view.backgroundColor = [UIColor colorWithWhite:0.911 alpha:1.000];
     [self createTableView];
+    
+    _imagePickController = [[UIImagePickerController alloc]init];
+    _imagePickController.delegate = self;
+    _imagePickController.allowsEditing = YES;
+    _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     
     // 初始化定位
     self.locationManager = [[CLLocationManager alloc] init];
@@ -92,6 +101,7 @@
         make.width.equalTo(self.view);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.50);
     }];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -274,23 +284,149 @@
         make.height.equalTo(@50);
         make.width.equalTo(self.view);
     }];
+    
+    self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"picture"]];
+    self.imageView.userInteractionEnabled = YES;
+    [self.view addSubview:self.imageView];
+    [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view).offset(30);
+        make.bottom.mas_equalTo(nextBtn.mas_top).offset(- 50);
+        make.width.equalTo(@(SCREEN_WIDTH - 30 * 2));
+        make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.25);
+    }];
+    
+    // 1.创建Tap手势
+    UITapGestureRecognizer* tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    // 2.设置手势的属性
+    // 设置需要触发手势的点击数
+    tapGR.numberOfTapsRequired = 1;
+    
+    // 设置需要触发手势的触点的个数
+    tapGR.numberOfTouchesRequired = 1;
+    
+    // 3.将手势与具体的视图绑定在一起
+    [self.imageView addGestureRecognizer:tapGR];
+    
 }
+
+- (void)tap:(UITapGestureRecognizer* )tapGesture
+{
+    HDCLog(@"添加图片...");
+    NSArray *photoArray = @[@"相机拍照",@"本地上传"];
+    MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleWeiChat itemTitles:photoArray];
+    actionSheet.cancleTitle = @"取消选择";
+    static NSInteger sourceType = 0 ;
+    
+    [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title) {
+        if (index == 0) {
+            NSLog(@"相机拍照");
+            // 判断相机有没有权限
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                _imagePickController.sourceType = sourceType;
+                // 进入相机
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+                
+            }else{
+                
+                UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有相机权限" message:@"请您在设置里面打开权限" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+                [selct addAction:action];
+                [self presentViewController:selct animated:YES completion:nil];
+            }
+            
+            
+            
+        }else{
+            
+            NSLog(@"本地上传");
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                NSLog(@"进去图片库");
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+                
+                
+            }else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            {
+                NSLog(@"进入相册");
+                
+                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+                
+            }
+        }
+        
+        
+    }];
+}
+
+#pragma mark-- imagePicker delegate 事件
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{}];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //图片存入相册
+    
+    [self saveImage:image withName:@"IMAGE_0.jpg"];
+    
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"IMAGE_0.jpg"];
+    
+    UIImage *savedImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
+    
+    [self.imageView setImage:savedImage];
+    
+    self.imageView.tag = 100;
+    
+}
+// 相机选择取消按钮
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+{
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    // 获取沙盒目录
+    
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
+    // 将图片写入文件
+    [imageData writeToFile:fullPath atomically:NO];
+}
+
 - (void)nextBtnClick:(UIButton* )sender
 {
-    ImproveinformationParams *params = [[ImproveinformationParams alloc] init];
-    params.marketname = self.marketname;
-    params.telephone2 = self.telephone;
-    params.detailaddress = self.address;
-    params.marketuserid = self.marketuserid;
-    params.marketsubname = _foodMarketLabel.text;
-    params.marketsubid = [NSString stringWithFormat:@"%ld",_selectMarketIndex];
-    params.categoryid = [NSString stringWithFormat:@"%ld", self.selectClassIndex];
-    [RequestTool improveInformation:params success:^(ResultsModel *result) {
-        NSLog(@"%@", result.ErrorMsg);
-        [MBProgressHUD showSuccess:result.ErrorMsg];
-    } failure:^(NSError *error) {
+    [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
+        ;
+        ImproveinformationParams *params = [[ImproveinformationParams alloc] init];
+        params.marketname = self.marketname;
+        params.telephone2 = self.telephone;
+        params.detailaddress = self.address;
+        params.marketuserid = self.marketuserid;
+        params.marketsubname = _foodMarketLabel.text;
+        params.marketsubid = [NSString stringWithFormat:@"%ld",_selectMarketIndex];
+        params.categoryid = [NSString stringWithFormat:@"%ld", self.selectClassIndex];
+        params.pic = response[@"data"][0][@"littlepic"];
+        [RequestTool improveInformation:params success:^(ResultsModel *result) {
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [MBProgressHUD showSuccess:result.ErrorMsg];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+        } failure:^(NSError *error) {
+            ;
+        }];
+    } failure:^{
         ;
     }];
+    
 }
 - (void)changeValue:(UITextField *)textField
 {
@@ -307,6 +443,51 @@
             break;
         default:
             break;
+    }
+}
+
+// 点击屏幕空白  收起键盘
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
+// 在UITextField 编辑之前调用方法  视图上移
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self packUpDownTextField:textField isShow:YES];
+    
+}
+// 编辑结束 视图返回
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+    [self packUpDownTextField:textField isShow:NO];
+}
+
+
+- (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
+{
+    if (textField.tag == 3 || textField.tag == 5 || textField.tag == 7) {
+        
+        //设置动画的名字
+        [UIView beginAnimations:@"Animation" context:nil];
+        //设置动画的间隔时间
+        [UIView setAnimationDuration:0.20];
+        //??使用当前正在运行的状态开始下一段动画
+        [UIView setAnimationBeginsFromCurrentState: YES];
+        if (isShow == YES) {
+            //设置视图下移动的位移
+            self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y - 0.3*SCREEN_HEIGHT, self.view.frame.size.width, self.view.frame.size.height);
+        }else{
+            //设置视图上移动的位移
+            self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + 0.3*SCREEN_HEIGHT, self.view.frame.size.width, self.view.frame.size.height);
+            
+        }
+        
+        //设置动画结束
+        [UIView commitAnimations];
+    }else{
+        return ;
     }
 }
 

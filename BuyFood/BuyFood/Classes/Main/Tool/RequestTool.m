@@ -32,6 +32,12 @@
 #import "OrderDetailsParams.h"
 #import "BalanceAccountParams.h"
 #import "ReplyEvaluationParams.h"
+#import "BusinessStatusParams.h"
+#import "FeedBackParams.h"
+#import "ChangePwdParams.h"
+#import "MyBillParams.h"
+#import "ChangeHeaderImageParams.h"
+#import "GetCityAndCountryParams.h"
 
 @implementation RequestTool
 
@@ -69,6 +75,48 @@
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateMarketInfo"];
     [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 获取省 */
++ (void)getProvinceListSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"area/GetProvince"];
+    [HttpRequestTool GET:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 获取市 */
++ (void)getCityList:(GetCityAndCountryParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"area/GetCityByProvinceName"];
+    [HttpRequestTool POST:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 获取县 */
++ (void)getCountryList:(GetCityAndCountryParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"area/GetCountryByCityName"];
+    [HttpRequestTool POST:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             failure(error);
         } else {
@@ -294,6 +342,72 @@
     }];
 }
 
+/** 我的账单 */
++ (void)myBill:(MyBillParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_bill_marketuser/GetModelList"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 营业状态 */
++ (void)businessStatus:(BusinessStatusParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateMarketStatus"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 今日营业额和今日成交量 */
++ (void)todayBalanceAndVolume:(EvaluationParams *)params :(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"statistics/GetMarketUserOrderForDay"];
+    [HttpRequestTool GET:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 定价指导 */
++ (void)pricingGuidanceSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productguideprice/GetModelListALL"];
+    [HttpRequestTool GET:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
 /** 留言评价 */
 + (void)evaluation:(EvaluationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
@@ -420,5 +534,66 @@
     }];
 }
 
+/** 意见反馈 */
++ (void)feedBack:(FeedBackParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_suggestion/Add"];
+    [HttpRequestTool POST:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
 
+/** 修改密码 */
++ (void)changePwd:(ChangePwdParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateUserPswdByOldPswd"];
+    [HttpRequestTool POST:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 自动接单 */
++ (void)autoGetOrder:(BusinessStatusParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateMarketStatus"];
+    [HttpRequestTool POST:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 修改头像 */
++ (void)changeHeaderImage:(ChangeHeaderImageParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateUserPicByTelephone"];
+    [HttpRequestTool GET:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
 @end

@@ -38,7 +38,11 @@
         MarketOrderModelList,
         GetOrderParams,
         OrderDetailsParams,
-        ReplyEvaluationParams;
+        ReplyEvaluationParams,
+        FeedBackParams,
+        ChangePwdParams,
+        ChangeHeaderImageParams,
+        GetCityAndCountryParams;
 
 @interface RequestTool : NSObject
 
@@ -77,6 +81,8 @@
 + (void)orderDetails:(OrderDetailsParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 
 #pragma mark - ShopStore <门店管理>
+/** 今日营业额和今日成交量 */
++ (void)todayBalanceAndVolume:(EvaluationParams *)params :(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 账户余额 */
 + (void)balanceAccount:(BalanceAccountParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 我的账单 */
@@ -89,6 +95,9 @@
 + (void)businessStatus:(BusinessStatusParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 修改营业时间*/
 + (void)chnageBusinessStatus:(ChangeTimeParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 定价指导 */
++ (void)pricingGuidanceSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+
 /** 商品管理 */
 + (void)shopsManagement:(ShopsManagementParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取所有商品一级分类 */
@@ -113,4 +122,18 @@
 /** 获取秒杀时间表 */
 + (void)getSecKillTimeSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
+/** 意见反馈 */
++ (void)feedBack:(FeedBackParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 修改密码 */
++ (void)changePwd:(ChangePwdParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 自动接单 */
++ (void)autoGetOrder:(BusinessStatusParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 修改头像 */
++ (void)changeHeaderImage:(ChangeHeaderImageParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取省 */
++ (void)getProvinceListSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取市 */
++ (void)getCityList:(GetCityAndCountryParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取县 */
++ (void)getCountryList:(GetCityAndCountryParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 @end

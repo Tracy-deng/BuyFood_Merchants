@@ -7,13 +7,15 @@
 //
 
 #import "CardListViewController.h"
-#import "CardCell.h"
-#import "AddBankCardViewController.h"
 #import "TakeMoneyViewController.h"
 
 @interface CardListViewController ()<UITableViewDelegate, UITableViewDataSource>
+{
+     NSInteger current;
+}
 
 @property (nonatomic, strong) UITableView* tableView;
+@property (nonatomic, strong) NSArray *array;
 
 
 @end
@@ -23,74 +25,89 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor blackColor]];
-    self.title = @"钱包";
-    // 解决navigationBar影响tableView的问题
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self createTableView];
-    [self setNavRightBtn];
+    [self.view setBackgroundColor:WhiteColor];
+    self.title = @"选择提现方式";
+    [self createTableViewAndBtn];
+    self.array = @[@"支付宝",
+                   @"银行卡"];
 }
 
-- (void)setNavRightBtn
+- (void)createTableViewAndBtn
 {
-    UIButton* addRightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [addRightBtn addTarget:self action:@selector(addRightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [addRightBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-    [addRightBtn setFrame:CGRectMake(30, 30, 15, 15)];
-    UIBarButtonItem* addRightBtnBarItem = [[UIBarButtonItem alloc] initWithCustomView:addRightBtn];
-    
-    self.navigationItem.rightBarButtonItem = addRightBtnBarItem;
-}
-
-- (void)addRightBtnClick:(UIButton* )sender
-{
-    [self.navigationController pushViewController:[[AddBankCardViewController alloc] init] animated:YES];
-}
-
-- (void)createTableView
-{
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.tableFooterView = [[UIView alloc] init];//关键语句
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view.mas_left).offset(10);
-        make.top.mas_equalTo(self.view.mas_top).offset(50);
-        make.width.equalTo(@(SCREEN_WIDTH - 20));
-        make.height.equalTo(@(SCREEN_HEIGHT - 50));
+        make.left.top.width.equalTo(self.view);
+        make.height.equalTo(@(200));
+    }];
+    /** 设置按钮 */
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:greenColor];
+    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [button setTitle:@"确认" forState:UIControlStateNormal];
+    button.layer.cornerRadius = 5.0;
+    [self.view addSubview:button];
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.tableView.mas_bottom).offset(30);
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.width.equalTo(@(150));
+        make.height.equalTo(@(40));
     }];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 5;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.array.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CardCell* cell = [CardCell cellWithTableView:tableView];
-    [cell setUpBackGroundImageName:@"cardListBackGroundImage" andBankName:@"中国农业银行" andCardType:@"储蓄卡" andCardNumber:@"***** **** **** 9987"];
+    static NSString* ID = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    
+    if (!cell)
+    {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+    }
+    
+    cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    if (indexPath.row == current)
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    cell.textLabel.text = self.array[indexPath.row];
+    
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return SCREEN_HEIGHT * 0.22;
+    return 44;
 }
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    NSLog(@"%ld",indexPath.section);
-    [self.navigationController pushViewController:[[TakeMoneyViewController alloc] init] animated:YES];
+    current = indexPath.row;
+    [self.tableView reloadData];
 }
+
+- (void)buttonClick:(UIButton *)sender
+{
+    TakeMoneyViewController *takeMoney = [[TakeMoneyViewController alloc] init];
+    takeMoney.selectIndex = current;
+    [self.navigationController pushViewController:takeMoney animated:YES];
+
+}
+
 
 
 @end

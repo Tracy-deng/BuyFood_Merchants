@@ -17,6 +17,8 @@
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "MJExtension.h"
+#import "GetCityAndCountryParams.h"
+#import "ProvinceAndCityAndCountryModelList.h"
 
 @interface LoginViewController ()
 
@@ -199,6 +201,30 @@
 {
     [self.phoneTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
+    /** 获取省 */
+//    [RequestTool getProvinceListSuccess:^(ResultsModel *result) {
+//        HDCLog(@"%@", result.ModelList);
+//        NSArray *array = [ProvinceAndCityAndCountryModelList mj_objectArrayWithKeyValuesArray:result.ModelList];
+//        for (ProvinceAndCityAndCountryModelList *modelList in array)
+//        {
+//            HDCLog(@"%@", modelList.province);
+//        }
+//    } failure:^(NSError *error) {
+//        ;
+//    }];
+    
+    /** 获取市 */
+//    GetCityAndCountryParams *params = [[GetCityAndCountryParams alloc] init];
+//    params.province = @"北京";
+//    [RequestTool getCityList:params success:^(ResultsModel *result) {
+//        HDCLog(@"%@", result.ErrorMsg);
+////        for (NSString *str in result.ModelList)
+////        {
+////            HDCLog(@"%@", str);
+////        }
+//    } failure:^(NSError *error) {
+//        ;
+//    }];
 }
 
 

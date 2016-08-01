@@ -10,4 +10,6 @@
 
 @interface TakeMoneyViewController : UIViewController
 
+@property (nonatomic, assign) NSInteger selectIndex;
+
 @end

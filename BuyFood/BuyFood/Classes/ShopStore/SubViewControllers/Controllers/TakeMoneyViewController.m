@@ -24,6 +24,7 @@
     [self.view setBackgroundColor:HDCBackViewColor];
     self.title = @"取现";
     [self setUpTableViewAndBtn];
+    HDCLog(@"%ld", self.selectIndex);
 }
 
 - (void)setUpTableViewAndBtn

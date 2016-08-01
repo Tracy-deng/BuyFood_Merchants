@@ -94,6 +94,11 @@
 		0E5FEE611D4CC73F00452B5D /* JADEMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE5E1D4CC73E00452B5D /* JADEMethods.m */; };
 		0E5FEE651D4CC92A00452B5D /* jadeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE641D4CC92A00452B5D /* jadeModel.m */; };
 		0E5FEE681D4CDA4600452B5D /* ReplyEvaluationParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE671D4CDA4600452B5D /* ReplyEvaluationParams.m */; };
+		0E5FEE6B1D4E2CA200452B5D /* FeedBackParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE6A1D4E2CA200452B5D /* FeedBackParams.m */; };
+		0E5FEE6E1D4E2DDD00452B5D /* ChangePwdParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE6D1D4E2DDD00452B5D /* ChangePwdParams.m */; };
+		0E5FEE711D4E314500452B5D /* ChangeHeaderImageParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE701D4E314500452B5D /* ChangeHeaderImageParams.m */; };
+		0E5FEE741D4E46F800452B5D /* GetCityAndCountryParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE731D4E46F800452B5D /* GetCityAndCountryParams.m */; };
+		0E5FEE771D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE761D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m */; };
 		0E6319B81D2567CC00D59998 /* CCLickButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B51D2567CC00D59998 /* CCLickButton.m */; };
 		0E6319B91D2567CC00D59998 /* CCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B71D2567CC00D59998 /* CCTextField.m */; };
 		0E6319BF1D256C7300D59998 /* EvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319BE1D256C7300D59998 /* EvaluateCell.m */; };
@@ -116,8 +121,6 @@
 		0E67E00B1D22C89200E025BD /* SecondsKillManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0011D22C89200E025BD /* SecondsKillManagementViewController.m */; };
 		0E67E00E1D22C97000E025BD /* SetPriceAdviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E00D1D22C97000E025BD /* SetPriceAdviceCell.m */; };
 		0E67E0111D22CC0800E025BD /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0101D22CC0800E025BD /* CardListViewController.m */; };
-		0E67E0141D22CC7800E025BD /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0131D22CC7800E025BD /* CardCell.m */; };
-		0E67E0171D22CC9D00E025BD /* AddBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0161D22CC9D00E025BD /* AddBankCardViewController.m */; };
 		0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0191D22CD0E00E025BD /* AddView.m */; };
 		0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01C1D22CD2200E025BD /* WB_Stopwatch.m */; };
 		0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */; };
@@ -419,6 +422,16 @@
 		0E5FEE641D4CC92A00452B5D /* jadeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jadeModel.m; sourceTree = "<group>"; };
 		0E5FEE661D4CDA4600452B5D /* ReplyEvaluationParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyEvaluationParams.h; sourceTree = "<group>"; };
 		0E5FEE671D4CDA4600452B5D /* ReplyEvaluationParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyEvaluationParams.m; sourceTree = "<group>"; };
+		0E5FEE691D4E2CA200452B5D /* FeedBackParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBackParams.h; sourceTree = "<group>"; };
+		0E5FEE6A1D4E2CA200452B5D /* FeedBackParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBackParams.m; sourceTree = "<group>"; };
+		0E5FEE6C1D4E2DDD00452B5D /* ChangePwdParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePwdParams.h; sourceTree = "<group>"; };
+		0E5FEE6D1D4E2DDD00452B5D /* ChangePwdParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePwdParams.m; sourceTree = "<group>"; };
+		0E5FEE6F1D4E314500452B5D /* ChangeHeaderImageParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeHeaderImageParams.h; sourceTree = "<group>"; };
+		0E5FEE701D4E314500452B5D /* ChangeHeaderImageParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeHeaderImageParams.m; sourceTree = "<group>"; };
+		0E5FEE721D4E46F800452B5D /* GetCityAndCountryParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCityAndCountryParams.h; sourceTree = "<group>"; };
+		0E5FEE731D4E46F800452B5D /* GetCityAndCountryParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityAndCountryParams.m; sourceTree = "<group>"; };
+		0E5FEE751D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceAndCityAndCountryModelList.h; sourceTree = "<group>"; };
+		0E5FEE761D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceAndCityAndCountryModelList.m; sourceTree = "<group>"; };
 		0E6319B41D2567CC00D59998 /* CCLickButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLickButton.h; sourceTree = "<group>"; };
 		0E6319B51D2567CC00D59998 /* CCLickButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLickButton.m; sourceTree = "<group>"; };
 		0E6319B61D2567CC00D59998 /* CCTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextField.h; sourceTree = "<group>"; };
@@ -463,10 +476,6 @@
 		0E67E00D1D22C97000E025BD /* SetPriceAdviceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPriceAdviceCell.m; sourceTree = "<group>"; };
 		0E67E00F1D22CC0800E025BD /* CardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListViewController.h; sourceTree = "<group>"; };
 		0E67E0101D22CC0800E025BD /* CardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListViewController.m; sourceTree = "<group>"; };
-		0E67E0121D22CC7800E025BD /* CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
-		0E67E0131D22CC7800E025BD /* CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCell.m; sourceTree = "<group>"; };
-		0E67E0151D22CC9D00E025BD /* AddBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBankCardViewController.h; sourceTree = "<group>"; };
-		0E67E0161D22CC9D00E025BD /* AddBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBankCardViewController.m; sourceTree = "<group>"; };
 		0E67E0181D22CD0E00E025BD /* AddView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddView.h; sourceTree = "<group>"; };
 		0E67E0191D22CD0E00E025BD /* AddView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddView.m; sourceTree = "<group>"; };
 		0E67E01B1D22CD2200E025BD /* WB_Stopwatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WB_Stopwatch.h; sourceTree = "<group>"; };
@@ -721,8 +730,6 @@
 				0E67E0101D22CC0800E025BD /* CardListViewController.m */,
 				0E6319C61D258D2600D59998 /* TakeMoneyViewController.h */,
 				0E6319C71D258D2600D59998 /* TakeMoneyViewController.m */,
-				0E67E0151D22CC9D00E025BD /* AddBankCardViewController.h */,
-				0E67E0161D22CC9D00E025BD /* AddBankCardViewController.m */,
 				0E110CB01D19B5F700161ACB /* MyBillViewController.h */,
 				0E110CB11D19B5F700161ACB /* MyBillViewController.m */,
 				0E67E01E1D22CFD600E025BD /* AddPrinterViewController.h */,
@@ -836,8 +843,6 @@
 				0E67DFE31D22C86B00E025BD /* ManagementCell.m */,
 				0E67E00C1D22C97000E025BD /* SetPriceAdviceCell.h */,
 				0E67E00D1D22C97000E025BD /* SetPriceAdviceCell.m */,
-				0E67E0121D22CC7800E025BD /* CardCell.h */,
-				0E67E0131D22CC7800E025BD /* CardCell.m */,
 				0E67E0181D22CD0E00E025BD /* AddView.h */,
 				0E67E0191D22CD0E00E025BD /* AddView.m */,
 				0E67E01B1D22CD2200E025BD /* WB_Stopwatch.h */,
@@ -1007,6 +1012,10 @@
 				0E0416A91D3B6865007DF5AB /* CCLocationManager.m */,
 				0E0416AA1D3B6865007DF5AB /* CLLocation+YCLocation.h */,
 				0E0416AB1D3B6865007DF5AB /* CLLocation+YCLocation.m */,
+				0E5FEE721D4E46F800452B5D /* GetCityAndCountryParams.h */,
+				0E5FEE731D4E46F800452B5D /* GetCityAndCountryParams.m */,
+				0E5FEE751D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.h */,
+				0E5FEE761D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1386,6 +1395,12 @@
 		0EBD08101D157612002DD7A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E5FEE691D4E2CA200452B5D /* FeedBackParams.h */,
+				0E5FEE6A1D4E2CA200452B5D /* FeedBackParams.m */,
+				0E5FEE6C1D4E2DDD00452B5D /* ChangePwdParams.h */,
+				0E5FEE6D1D4E2DDD00452B5D /* ChangePwdParams.m */,
+				0E5FEE6F1D4E314500452B5D /* ChangeHeaderImageParams.h */,
+				0E5FEE701D4E314500452B5D /* ChangeHeaderImageParams.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1813,7 +1828,6 @@
 				0E6319B81D2567CC00D59998 /* CCLickButton.m in Sources */,
 				0E67E00E1D22C97000E025BD /* SetPriceAdviceCell.m in Sources */,
 				0E110CB21D19B5F700161ACB /* MyBillViewController.m in Sources */,
-				0E67E0141D22CC7800E025BD /* CardCell.m in Sources */,
 				782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */,
 				78089F7A1D34D81500DBAB88 /* ShopThreeCate.m in Sources */,
 				780984E91D3F59B2009E7E84 /* MJRefreshFooter.m in Sources */,
@@ -1856,6 +1870,7 @@
 				780984B81D3F1FC4009E7E84 /* UIView+WebCacheOperation.m in Sources */,
 				0E67E0071D22C89200E025BD /* FightGroupsManagementViewController.m in Sources */,
 				784D3EDB1D38DECA00C82C1D /* HttpRequestTool.m in Sources */,
+				0E5FEE6E1D4E2DDD00452B5D /* ChangePwdParams.m in Sources */,
 				0E525A581D1283A700AFC95B /* MASViewAttribute.m in Sources */,
 				0EEF9D1A1D317EE600CD83E9 /* MHSheetView.m in Sources */,
 				0E830E7D1D4A7AC200C3516A /* OrderParams.m in Sources */,
@@ -1863,6 +1878,7 @@
 				780984F31D3F59B2009E7E84 /* MJRefreshStateHeader.m in Sources */,
 				0E12A2681D2B986A008066CC /* NSObject+MJCoding.m in Sources */,
 				0E12A2641D2B986A008066CC /* MJProperty.m in Sources */,
+				0E5FEE6B1D4E2CA200452B5D /* FeedBackParams.m in Sources */,
 				0E110CAF1D19AA5600161ACB /* BalanceAccountCell.m in Sources */,
 				780984F71D3F59B2009E7E84 /* UIScrollView+MJRefresh.m in Sources */,
 				0EF5A6371D3FD6DB00053F13 /* ChangeTimeParams.m in Sources */,
@@ -1903,9 +1919,11 @@
 				780984F01D3F59B2009E7E84 /* MJRefreshBackStateFooter.m in Sources */,
 				0E5FEE611D4CC73F00452B5D /* JADEMethods.m in Sources */,
 				0EBD080D1D1572B3002DD7A4 /* OrderDetailsViewController.m in Sources */,
+				0E5FEE741D4E46F800452B5D /* GetCityAndCountryParams.m in Sources */,
 				780984F21D3F59B2009E7E84 /* MJRefreshNormalHeader.m in Sources */,
 				78444B571D212872001F3E9D /* ShopTableViewCell.m in Sources */,
 				780984B41D3F1FC4009E7E84 /* UIImage+GIF.m in Sources */,
+				0E5FEE711D4E314500452B5D /* ChangeHeaderImageParams.m in Sources */,
 				0E16FD021D33DD5B009AAF31 /* ShopsUserInfo.m in Sources */,
 				78D870391D49EC83008EAE72 /* OrderDetailModel.m in Sources */,
 				784A11D91D2C97D200245304 /* PrinterFile.m in Sources */,
@@ -1932,7 +1950,6 @@
 				780984AD1D3F1FC4009E7E84 /* SDWebImageCompat.m in Sources */,
 				0E67E00A1D22C89200E025BD /* PromotionManagementViewController.m in Sources */,
 				0E6319CB1D25909900D59998 /* TakeMoneyCell.m in Sources */,
-				0E67E0171D22CC9D00E025BD /* AddBankCardViewController.m in Sources */,
 				0E525A571D1283A700AFC95B /* MASLayoutConstraint.m in Sources */,
 				0E6319C51D25759000D59998 /* userTextField.m in Sources */,
 				0E12A2481D2B9838008066CC /* realNameParams.m in Sources */,
@@ -1947,6 +1964,7 @@
 				0E6319BF1D256C7300D59998 /* EvaluateCell.m in Sources */,
 				0E12A2491D2B9838008066CC /* RegisterParams.m in Sources */,
 				0E525A5E1D1283A700AFC95B /* AppDelegate.m in Sources */,
+				0E5FEE771D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m in Sources */,
 				0E525A4B1D1283A700AFC95B /* RealnameViewController.m in Sources */,
 				0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */,
 				7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */,

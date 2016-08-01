@@ -15,6 +15,7 @@
 #import "LoginViewController.h"
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
+#import "UIImageView+WebCache.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -87,8 +88,15 @@
     // 设置店铺头像
     UIImageView* headerImageView = [[UIImageView alloc] init];
     [headerImageView setFrame:CGRectMake(self.view.width * 0.06, self.view.height * 0.13, self.view.width * 0.19, self.view.height * 0.11)];
-    [headerImageView setImage:[UIImage imageNamed:@"oval1"]];
+    [headerImageView sd_setImageWithURL:[NSURL URLWithString:self.shopsUserInfo.pic]];
     [self.view addSubview:headerImageView];
+    
+    headerImageView.layer.masksToBounds = YES;
+    headerImageView.layer.cornerRadius = headerImageView.width * 0.5;
+    headerImageView.layer.borderWidth = 3.0;
+    headerImageView.layer.borderColor=[[UIColor whiteColor] CGColor];//边框颜色
+    
+    
     // 设置店铺名称
     TagLabels* shopName = [TagLabels initTaglabel];
     [shopName createLabelText:self.shopsUserInfo.marketname andLabelX:self.view.width * 0.288 andLabelY:headerImageView.y + 10 andLabelHeight:self.view.height * 0.04 andLabelWidth:self.view.width * 0.25 andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:18 andtextColor:HDCColor(246, 246, 246)];

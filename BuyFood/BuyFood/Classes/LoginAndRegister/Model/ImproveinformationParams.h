@@ -16,7 +16,6 @@
 @property (nonatomic, strong) NSString* marketname;
 /** 固定电话 */
 @property (nonatomic, strong) NSString* telephone2;
-
 /** 详细地址 */
 @property (nonatomic, strong) NSString* detailaddress;
 /** 属于哪个菜场ID */
@@ -25,8 +24,13 @@
 @property (nonatomic, strong) NSString* marketsubname;
 /** 商品类别ID,标志该店家卖啥 */
 @property (nonatomic, strong) NSString* categoryid;
-
 /** 店铺图片 */
 @property (nonatomic, strong) NSString* pic;
+/** 省 */
+@property (nonatomic, strong) NSString *province;
+/** 市 */
+@property (nonatomic, strong) NSString *city;
+/** 县 */
+@property (nonatomic, strong) NSString *country;
 
 @end

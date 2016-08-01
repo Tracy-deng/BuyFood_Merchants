@@ -271,7 +271,7 @@
     [self.headButton setTitle:@"热销" forState:(UIControlStateNormal)];
     self.headButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     [self.headButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
-    self.headButton.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
+    self.headButton.backgroundColor = HDCColor(215, 215, 215);
     self.headButton.titleLabel.font = [UIFont systemFontOfSize:20];
     [self.view addSubview:self.headButton];
     [self.headButton addTarget:self action:@selector(didHeadBtn:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -316,8 +316,6 @@
     [self.mainTableView registerClass:[ShopTableViewCell class] forCellReuseIdentifier:@"reuse"];
     
     
-    
-    
     UIButton * addBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     addBtn.backgroundColor = greenColor;
     [addBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
@@ -325,8 +323,8 @@
     [addBtn setTitle:@"添加" forState:(UIControlStateNormal)];
     [addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view.mas_bottom).offset(-30);
-        make.left.equalTo(self.selectedTableView.mas_right).offset(10);
-        make.width.equalTo(@(0.26*SCREEN_WIDTH));
+        make.left.equalTo(self.selectedTableView.mas_right).offset(30);
+        make.width.equalTo(@(0.5*SCREEN_WIDTH));
         make.height.equalTo(@40);
     }];
     addBtn.layer.masksToBounds = YES;
@@ -335,6 +333,7 @@
     
     UIButton * reorderBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     reorderBtn.backgroundColor = greenColor;
+    reorderBtn.hidden = YES;
     [reorderBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.view addSubview:reorderBtn];
     [reorderBtn setTitle:@"排序" forState:(UIControlStateNormal)];
@@ -403,7 +402,7 @@
             NSString *catego = [sortKeys objectAtIndex:section];
             ShopThreeCate * headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
             headView.frame = CGRectMake(0, 0, 100, 50);
-            headView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
+//            headView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
             headView.model = [[billData objectForKey:catego] firstObject];
             
             __block typeof (self) weakself = self;
@@ -452,7 +451,7 @@
             cell.textLabel.text = model.threecategoryname;
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
+        cell.backgroundColor = HDCColor(215, 215, 215);
         [tableView setSeparatorColor:[UIColor whiteColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
         // cell 选中的颜色
@@ -546,28 +545,28 @@
     
 }
 
-#pragma mark 提交编辑操作时会调用这个方法(删除，添加)
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    // 删除操作
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // 1.删除数据
-        [self.productMainDataArray removeObjectAtIndex:indexPath.row];
-        
-        // 2.更新UITableView UI界面
-        // [tableView reloadData];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-{
-    [self.productMainDataArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
-}
+//#pragma mark 提交编辑操作时会调用这个方法(删除，添加)
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    // 删除操作
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        // 1.删除数据
+//        [self.productMainDataArray removeObjectAtIndex:indexPath.row];
+//        
+//        // 2.更新UITableView UI界面
+////         [tableView reloadData];
+//        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+//    }
+//}
+//
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    
+//    return YES;
+//}
+//
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+//{
+//    [self.productMainDataArray exchangeObjectAtIndex:sourceIndexPath.row withObjectAtIndex:destinationIndexPath.row];
+//}
 
 @end

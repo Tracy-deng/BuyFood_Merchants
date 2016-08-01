@@ -96,7 +96,7 @@
     
     // 今日订单数标签
     self.todayOrderTag = [TagLabels initTaglabel];
-    [self.todayOrderTag createLabelText:@"今日营业额" andLabelX:self.view.width * 0.66 andLabelY:self.todayTurnoverTag.y andLabelHeight:self.todayTurnoverTag.height andLabelWidth:self.todayTurnoverTag.width andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:15     andtextColor:HDCColor(240, 240, 240)];
+    [self.todayOrderTag createLabelText:@"今日成交量" andLabelX:self.view.width * 0.66 andLabelY:self.todayTurnoverTag.y andLabelHeight:self.todayTurnoverTag.height andLabelWidth:self.todayTurnoverTag.width andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:15     andtextColor:HDCColor(240, 240, 240)];
     [self.view addSubview:self.todayOrderTag];
     
     
