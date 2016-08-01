@@ -9,19 +9,75 @@
 #import "OwnHaveNoSolvedController.h"
 #import "ownSlovedTableViewCell.h"
 #import "ComplaintOrderDetailsViewController.h"
+#import "LoadView.h"
+#import "MJRefresh.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "OrderParams.h"
+#import "MarketOrderModelList.h"
+#import "OrderMarketModel.h"
+#import "MJRefresh.h"
+#import "GetOrderParams.h"
+#import "ResultsModel.h"
 @interface OwnHaveNoSolvedController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView * ownSolvedTableView;
+@property (nonatomic, strong) NSMutableArray * noSolvedArray; //
 @end
 
 @implementation OwnHaveNoSolvedController
-
+- (NSMutableArray *)noSolvedArray
+{
+    if (_noSolvedArray == nil) {
+        self.noSolvedArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _noSolvedArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
    self.view.backgroundColor = [UIColor whiteColor];
     [self creatTableView];
+    
+    [self getNoSolvedDataSource];
+    self.ownSolvedTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self getNoSolvedDataSource];
+    }];
 }
 
+- (void)getNoSolvedDataSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    OrderParams *params = [[OrderParams alloc] init];
+    params.marketuserid = userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"10";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [RequestTool alreadySolvedOrderList:params success:^(MarketOrderModelList *result) {
+            NSLog(@"%@",result.OrderMarket);
+            [self.noSolvedArray removeAllObjects];
+            for (NSDictionary *dict in result.OrderMarket) {
+                OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                [model setValuesForKeysWithDictionary:dict];
+                [self.noSolvedArray addObject:model];
+            }
+            NSLog(@"%@",self.noSolvedArray);
+            [loadView stopAnimation];
+            [self.ownSolvedTableView .header endRefreshing];
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.ownSolvedTableView reloadData];
+            });
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+        
+    });
+}
 - (void)creatTableView
 {
     UIView *view = [[UIView alloc]init];
@@ -55,7 +111,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.noSolvedArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -65,6 +121,8 @@
     //设置分割线颜色
     //    tableView.separatorColor = HDCColor(238, 238, 238);
     
+    OrderMarketModel *model = self.noSolvedArray[indexPath.row];
+    cell.model = model;
     cell.detailBtn.tag = indexPath.row;
     [cell.detailBtn addTarget:self action:@selector(didDetailBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     return cell;
@@ -75,9 +133,9 @@
 - (void)didDetailBtn:(UIButton *)sender
 {
     NSLog(@"进入详情");
-    
+    OrderMarketModel * model = self.noSolvedArray[sender.tag];
     ComplaintOrderDetailsViewController *detailVC = [[ComplaintOrderDetailsViewController alloc]init];
-    
+    detailVC.detailUrl = model.orderno;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

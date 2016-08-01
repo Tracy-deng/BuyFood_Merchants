@@ -52,6 +52,14 @@
     [self creatTableView];
     _isSelected = YES;
     [self getHavePushedDataSource];
+    
+    self.mainPushTabview.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        if (_isSelected == YES) {
+            [self getHavePushedDataSource];
+        }else{
+            [self getPushedData];
+        }
+    }];
 }
 
 // 配送中
