@@ -38,6 +38,7 @@
 #import "MyBillParams.h"
 #import "ChangeHeaderImageParams.h"
 #import "GetCityAndCountryParams.h"
+#import "TodayBalanceAndVolumeModel.h"
 
 @implementation RequestTool
 
@@ -233,7 +234,7 @@
         }
     }];
 }
-/** 配送订单 */
+/** 配送订单 -- 配送中 */
 + (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketPostFinished"];
@@ -243,6 +244,23 @@
             failure(error);
         } else
         {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 配送订单 --已完成--历史订单 */
++ (void)alreadyDistributionOverOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetBuyedHistoryOrderByUserID"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            HDCLog(@"%@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -376,7 +394,7 @@
 }
 
 /** 今日营业额和今日成交量 */
-+ (void)todayBalanceAndVolume:(EvaluationParams *)params :(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
++ (void)todayBalanceAndVolume:(EvaluationParams *)params :(void(^)(TodayBalanceAndVolumeModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"statistics/GetMarketUserOrderForDay"];
     [HttpRequestTool GET:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
@@ -386,7 +404,7 @@
             failure(error);
         } else {
             HDCLog(@"%@", model);
-            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            TodayBalanceAndVolumeModel *result = [TodayBalanceAndVolumeModel mj_objectWithKeyValues:model];
             success(result);
         }
     }];

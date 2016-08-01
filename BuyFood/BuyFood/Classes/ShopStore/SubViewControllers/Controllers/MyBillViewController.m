@@ -11,25 +11,107 @@
 #import "MyBillAllCell.h"
 #import "MyBillIncomeCell.h"
 #import "MyBillSpendingCell.h"
+#import "RequestTool.h"
+#import "MyBillParams.h"
+#import "RequestTool.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "ResultsModel.h"
+#import "MyBillModel.h"
+#import "MJExtension.h"
+#import "MJRefresh.h"
+#import "LoadView.h"
+
 @interface MyBillViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) MyBillHeaderView* myBillHeaderView;
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, assign) NSInteger tag;
+@property (nonatomic, strong) ShopsUserInfo *userInfo;
 
 
 @end
 
 @implementation MyBillViewController
+{
+    NSMutableArray *dataSource;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.title = @"我的账单";
+    self.userInfo = [ShopsUserInfoTool account];
     [self.view setBackgroundColor:HDCBackViewColor];
     [self setUpThreeBtn];
     [self createTableView];
+    [self prepareAllDataSource];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self prepareAllDataSource];
+    }];
     self.tag = 1;
+}
+/** 获取全部账单 */
+- (void)prepareAllDataSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    MyBillParams *params = [[MyBillParams alloc] init];
+    params.userid = self.userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"0";
+    params.billtype = @"1";
+    [RequestTool myBill:params success:^(ResultsModel *result) {
+        dataSource = [NSMutableArray array];
+        dataSource = [MyBillModel mj_objectArrayWithKeyValuesArray:result.ModelList];
+        [self.tableView reloadData];
+        [self.tableView.header endRefreshing];
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        ;
+    }];
+}
+/** 获取收入账单 */
+- (void)prepareIncomeDataSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    MyBillParams *params = [[MyBillParams alloc] init];
+    params.userid = self.userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"0";
+    params.billtype = @"1";
+    [RequestTool myBill:params success:^(ResultsModel *result) {
+        dataSource = [NSMutableArray array];
+        dataSource = [MyBillModel mj_objectArrayWithKeyValuesArray:result.ModelList];
+        [self.tableView reloadData];
+        [self.tableView.header endRefreshing];
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        ;
+    }];
+}
+
+/** 获取支出账单 */
+- (void)prepareSpendingDataSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    MyBillParams *params = [[MyBillParams alloc] init];
+    params.userid = self.userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"0";
+    params.billtype = @"1";
+    [RequestTool myBill:params success:^(ResultsModel *result) {
+        dataSource = [NSMutableArray array];
+        dataSource = [MyBillModel mj_objectArrayWithKeyValuesArray:result.ModelList];
+        [self.tableView reloadData];
+        [self.tableView.header endRefreshing];
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        ;
+    }];
 }
 
 - (void)setUpThreeBtn
@@ -52,7 +134,6 @@
 
 - (void)allBtnClick:(UIButton* )allBtn
 {
-    HDCLog(@"allBtn");
     self.tag = 1;
     allBtn.selected = !allBtn.isSelected;
     self.myBillHeaderView.incomeBtn.selected = NO;
@@ -64,7 +145,7 @@
 }
 - (void)incomeBtnClick:(UIButton* )incomeBtn
 {
-    HDCLog(@"incomeBtn");
+    [self prepareIncomeDataSource];
     self.tag = 2;
     incomeBtn.selected = !incomeBtn.isSelected;
     self.myBillHeaderView.allBtn.selected = NO;
@@ -102,13 +183,9 @@
     }];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,20 +193,15 @@
     if (self.tag == 1)
     {
         MyBillAllCell* cell = [MyBillAllCell cellWithTableView:tableView];
-        if (indexPath.row == 0)
-        {
-            [cell setuserHeaderImageName:@"headerImage" andUserName:@"小张" andOrderText:@"蔬菜订单" andTimeLabel:@"13:13" andMoneyText:@"+100.00"];
-        }
-        else
-        {
-            [cell setuserHeaderImageName:@"headerImage" andUserName:@"小张" andOrderText:@"转到银行卡" andTimeLabel:@"14:14" andMoneyText:@"-150.00"];
-        }
+        cell.model = dataSource[indexPath.row];
+        [cell setuserHeaderImageName:self.userInfo.pic andUserName:self.userInfo.marketname];
         return cell;
     }
     else if (self.tag == 2)
     {
         MyBillIncomeCell* cell = [MyBillIncomeCell cellWithTableView:tableView];
-        [cell setuserHeaderImageName:@"headerImage" andUserName:@"小张" andOrderText:@"蔬菜订单" andTimeLabel:@"13:13" andMoneyText:@"+100.00"];
+        cell.model = dataSource[indexPath.row];
+        [cell setuserHeaderImageName:self.userInfo.pic andUserName:self.userInfo.marketname];
         return cell;
     }
     else

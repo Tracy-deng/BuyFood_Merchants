@@ -99,6 +99,8 @@
 		0E5FEE711D4E314500452B5D /* ChangeHeaderImageParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE701D4E314500452B5D /* ChangeHeaderImageParams.m */; };
 		0E5FEE741D4E46F800452B5D /* GetCityAndCountryParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE731D4E46F800452B5D /* GetCityAndCountryParams.m */; };
 		0E5FEE771D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE761D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m */; };
+		0E5FEE7A1D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE791D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m */; };
+		0E5FEE7D1D4F049C00452B5D /* MyBillModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE7C1D4F049C00452B5D /* MyBillModel.m */; };
 		0E6319B81D2567CC00D59998 /* CCLickButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B51D2567CC00D59998 /* CCLickButton.m */; };
 		0E6319B91D2567CC00D59998 /* CCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B71D2567CC00D59998 /* CCTextField.m */; };
 		0E6319BF1D256C7300D59998 /* EvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319BE1D256C7300D59998 /* EvaluateCell.m */; };
@@ -432,6 +434,10 @@
 		0E5FEE731D4E46F800452B5D /* GetCityAndCountryParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCityAndCountryParams.m; sourceTree = "<group>"; };
 		0E5FEE751D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceAndCityAndCountryModelList.h; sourceTree = "<group>"; };
 		0E5FEE761D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceAndCityAndCountryModelList.m; sourceTree = "<group>"; };
+		0E5FEE781D4EF51A00452B5D /* TodayBalanceAndVolumeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TodayBalanceAndVolumeModel.h; sourceTree = "<group>"; };
+		0E5FEE791D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayBalanceAndVolumeModel.m; sourceTree = "<group>"; };
+		0E5FEE7B1D4F049C00452B5D /* MyBillModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBillModel.h; sourceTree = "<group>"; };
+		0E5FEE7C1D4F049C00452B5D /* MyBillModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBillModel.m; sourceTree = "<group>"; };
 		0E6319B41D2567CC00D59998 /* CCLickButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLickButton.h; sourceTree = "<group>"; };
 		0E6319B51D2567CC00D59998 /* CCLickButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLickButton.m; sourceTree = "<group>"; };
 		0E6319B61D2567CC00D59998 /* CCTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextField.h; sourceTree = "<group>"; };
@@ -807,6 +813,8 @@
 				0EB7C7721D47D1CA00172FBB /* SecKillStartTimeAndEndTime.m */,
 				0EB7C77D1D4894F700172FBB /* MarketOrderModelList.h */,
 				0EB7C77E1D4894F700172FBB /* MarketOrderModelList.m */,
+				0E5FEE7B1D4F049C00452B5D /* MyBillModel.h */,
+				0E5FEE7C1D4F049C00452B5D /* MyBillModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1239,6 +1247,8 @@
 		0E525A3F1D1283A700AFC95B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0E5FEE781D4EF51A00452B5D /* TodayBalanceAndVolumeModel.h */,
+				0E5FEE791D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1792,6 +1802,7 @@
 				0E0416AC1D3B6865007DF5AB /* CCLocationManager.m in Sources */,
 				0E67E01D1D22CD2200E025BD /* WB_Stopwatch.m in Sources */,
 				0E3C1AA31D1C482C0060A7F4 /* MyBillAllCell.m in Sources */,
+				0E5FEE7D1D4F049C00452B5D /* MyBillModel.m in Sources */,
 				0EEF9CE81D31724B00CD83E9 /* FoodMarketModel.m in Sources */,
 				0E525A4D1D1283A700AFC95B /* SuccessViewController.m in Sources */,
 				7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */,
@@ -1949,6 +1960,7 @@
 				0E3C1AA61D1C52AD0060A7F4 /* MyBillIncomeCell.m in Sources */,
 				780984AD1D3F1FC4009E7E84 /* SDWebImageCompat.m in Sources */,
 				0E67E00A1D22C89200E025BD /* PromotionManagementViewController.m in Sources */,
+				0E5FEE7A1D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m in Sources */,
 				0E6319CB1D25909900D59998 /* TakeMoneyCell.m in Sources */,
 				0E525A571D1283A700AFC95B /* MASLayoutConstraint.m in Sources */,
 				0E6319C51D25759000D59998 /* userTextField.m in Sources */,
