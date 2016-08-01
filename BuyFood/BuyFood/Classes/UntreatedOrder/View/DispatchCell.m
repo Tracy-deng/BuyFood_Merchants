@@ -102,8 +102,8 @@
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(whiteView.mas_top).offset(10);
         make.left.equalTo(whiteView.mas_left).offset(30);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.40);
-        make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.15);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.80);
+        make.height.mas_equalTo(@20);
     }];
     // 送达时间 getTimeBtn
     self.getTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,11 +114,8 @@
     [self.getTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(5);
         make.left.equalTo(self.orderNumberLabel);
-        
-        //        make.width.mas_offset([self boundingRectWithSize:self.getTimeBtn.titleLabel.text Font:self.getTimeBtn.titleLabel.font Size:self.getTimeBtn.size].width);
-        //        make.height.mas_offset([self boundingRectWithSize:self.getTimeBtn.titleLabel.text Font:self.getTimeBtn.titleLabel.font Size:self.getTimeBtn.size].height);
         make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.30);
-        make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.15);
+        make.height.mas_equalTo(@25);
     }];
     // 下单时间 orderTimeLabel
     self.orderTimeLabel = [[UILabel alloc] init];
@@ -128,8 +125,8 @@
     [self.orderTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(29);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.50);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.12);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.60);
+        make.height.mas_equalTo(@20);
     }];
     // 下单地址 orderAddressLabel
     self.orderAddressLabel = [[UILabel alloc] init];
@@ -139,8 +136,8 @@
     [self.orderAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(2);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.50);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.12);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.70);
+        make.height.mas_equalTo(@20);
     }];
     // 接单按钮 getOrderBtn  HDCColor(36, 197, 67)
     self.getOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -158,7 +155,7 @@
     self.getOrderBtn.layer.masksToBounds = YES;
     
     self.totalLabel = [UILabel new];
-    self.totalLabel.text = @"合计";
+    self.totalLabel.text = @"合计:";
     self.totalLabel.textColor = [UIColor grayColor];
     self.totalLabel.font = [UIFont systemFontOfSize:12];
     [whiteView addSubview:self.totalLabel];
@@ -171,7 +168,6 @@
     
     self.totalMoney = [UILabel new];
     self.totalMoney.font = [UIFont fontWithName:@"DINAlternate-Bold" size:17];
-    self.totalMoney.text = @"¥56";
     self.totalMoney.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:self.totalMoney];
     [self.totalMoney mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -200,6 +196,7 @@
     [self.getTimeBtn setTitle:getTimeBtnText forState:UIControlStateNormal];
     self.orderTimeLabel.text = [NSString stringWithFormat:@"下单时间 %@",orderTimeLabelText];
     self.orderAddressLabel.text = orderAddressLabelText;
+    self.totalMoney.text = moneyText;
 }
 
 
