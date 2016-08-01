@@ -27,7 +27,8 @@
 @property (nonatomic, strong) UIButton *alreadBtn;
 @property (nonatomic, strong) UITableView * mainPushTabview;
 @property (nonatomic, assign) BOOL isSelected;  //判断加载哪个cell
-@property (nonatomic, strong) NSMutableArray * inviteDataArray;
+@property (nonatomic, strong) NSMutableArray * inviteDataArray; // 配送中的数据源
+@property (nonatomic, strong) NSMutableArray * havePushedDataArray; // 已完成的数据源
 @end
 
 @implementation OwnHavePushController
@@ -36,6 +37,12 @@
         self.inviteDataArray = [NSMutableArray arrayWithCapacity:0];
     }
     return _inviteDataArray;
+}
+- (NSMutableArray *)havePushedDataArray{
+    if (_havePushedDataArray == nil) {
+        self.havePushedDataArray = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _havePushedDataArray;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +54,7 @@
     [self getHavePushedDataSource];
 }
 
+// 配送中
 -(void)getHavePushedDataSource
 {
     LoadView *loadView = [LoadView new];
@@ -58,7 +66,7 @@
     params.pagesize = @"10";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        [RequestTool untreatedDistributionOrderList:params success:^(MarketOrderModelList *result) {
+        [RequestTool alreadyDistributionOrderList:params success:^(MarketOrderModelList *result) {
             HDCLog(@"%@", result.OrderMarket);
             [self.inviteDataArray removeAllObjects];
             for (NSDictionary *dict in result.OrderMarket) {
@@ -83,6 +91,46 @@
     });
 
 }
+
+
+//  已完成
+-(void)getPushedData
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    OrderParams *params = [[OrderParams alloc] init];
+    params.marketuserid = userInfo.marketuserid;
+    params.pageindex = @"1";
+    params.pagesize = @"10";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        [RequestTool alreadyDistributionOverOrderList:params success:^(MarketOrderModelList *result) {
+            HDCLog(@"%@", result.OrderMarket);
+            [self.havePushedDataArray removeAllObjects];
+            for (NSDictionary *dict in result.OrderMarket) {
+                OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                [model setValuesForKeysWithDictionary:dict];
+                [self.havePushedDataArray addObject:model];
+            }
+            [loadView stopAnimation];
+            NSLog(@"%@",self.havePushedDataArray);
+            [self.mainPushTabview.header endRefreshing];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.mainPushTabview reloadData];
+            });
+            
+        } failure:^(NSError *error) {
+            ;
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+        
+    });
+    
+}
+
 - (void)addSegmentControl
 {
     _view1 = [[UIView alloc]init];
@@ -137,6 +185,7 @@
     [_alreadBtn setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
     _view2.backgroundColor = [UIColor whiteColor];
     _isSelected = YES;
+    [self getHavePushedDataSource]; // 配送中
     [self.mainPushTabview reloadData];
 }
 
@@ -149,6 +198,7 @@
     [_pushBtn setTitleColor:[UIColor grayColor] forState:(UIControlStateNormal)];
     _view1.backgroundColor = [UIColor whiteColor];
     _isSelected = NO;
+    [self getPushedData]; // 已完成
     [self.mainPushTabview reloadData];
     
 }
@@ -173,7 +223,14 @@
 #pragma mark -- TableView的代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.inviteDataArray.count;
+    if (_isSelected == YES) {
+        
+        return self.inviteDataArray.count;
+    }else{
+        
+        return self.havePushedDataArray.count;
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
