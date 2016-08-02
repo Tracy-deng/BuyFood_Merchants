@@ -136,7 +136,7 @@
     [self.orderAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(2);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.70);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.90);
         make.height.mas_equalTo(@20);
     }];
     // 接单按钮 getOrderBtn  HDCColor(36, 197, 67)

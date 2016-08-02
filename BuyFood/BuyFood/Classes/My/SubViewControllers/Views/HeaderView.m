@@ -70,13 +70,14 @@
     // 下单地址 orderAddressLabel
     self.orderAddressLabel = [[UILabel alloc] init];
     self.orderAddressLabel.textColor = HDCColor(102, 102, 102);
-    self.orderAddressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
+    self.orderAddressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     [self addSubview:self.orderAddressLabel];
+    self.orderAddressLabel.numberOfLines = 0;
     [self.orderAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(2);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(@300);
-        make.height.mas_equalTo(@25);
+        make.width.mas_equalTo(@280);
+        make.height.mas_equalTo(@40);
     }];
     /** 分割线 HDCColor(224, 224, 224)*/  
     UILabel* line = [[UILabel alloc] init];

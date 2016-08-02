@@ -22,7 +22,7 @@
         [_pushAddTimeBtn setTitleColor:greenColor forState:(UIControlStateNormal)];;
         [_pushAddTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).offset(37);
-            make.left.equalTo(self.contentView).offset(85);
+            make.left.equalTo(self.orderNumLabel);
             make.width.equalTo(@(0.4*SCREEN_WIDTH));
             make.height.equalTo(@20);
             
