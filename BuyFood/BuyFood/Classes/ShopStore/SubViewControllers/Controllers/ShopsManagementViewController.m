@@ -267,7 +267,7 @@
 - (void)creatTableView
 {
     
-     self.headButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    self.headButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.headButton setTitle:@"热销" forState:(UIControlStateNormal)];
     self.headButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
     [self.headButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];

@@ -48,28 +48,27 @@
     self.shopsName.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     [self.contentView addSubview:self.shopsName];
     [self.shopsName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.contentView.mas_left).offset(17);
+        make.left.mas_equalTo(self.contentView.mas_left).offset(10);
         make.centerY.mas_equalTo(self.contentView.mas_centerY);
-        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.11);
-        make.height.mas_equalTo(self.shopsName.mas_width).multipliedBy(0.71);
+        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.15);
+        make.height.mas_equalTo(self.shopsName.mas_width).multipliedBy(0.65);
     }];
     
-    self.downOrUpImage = [[UIImageView alloc] init];
-    [self.contentView addSubview:self.downOrUpImage];
-    [self.downOrUpImage mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(@(self.contentView.frame.size.width / 2));
-        make.left.mas_equalTo(self.shopsName.mas_right).offset(85);
-        make.top.mas_equalTo(self.contentView).offset(15);
-        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.04);
-        make.height.mas_equalTo(self.downOrUpImage.mas_width).multipliedBy(1.12);
-    }];
+//    self.downOrUpImage = [[UIImageView alloc] init];
+//    [self.contentView addSubview:self.downOrUpImage];
+//    [self.downOrUpImage mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.mas_equalTo(self.contentView.mas_centerX);
+//        make.top.mas_equalTo(self.contentView).offset(15);
+//        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.04);
+//        make.height.mas_equalTo(self.downOrUpImage.mas_width).multipliedBy(1.12);
+//    }];
     
     self.buyMoney = [[UILabel alloc] init];
     self.buyMoney.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
     self.buyMoney.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     [self.contentView addSubview:self.buyMoney];
     [self.buyMoney mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.downOrUpImage.mas_right).offset(5);
+         make.centerX.mas_equalTo(self.contentView.mas_centerX);
         make.top.equalTo(self.shopsName);
         make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.18);
         make.height.equalTo(self.shopsName);
@@ -87,11 +86,19 @@
     }];
     
 }
-- (void)setTitleLabel:(NSString* )title andBuyMoneyLabel:(NSString* )buyMoneyLabel andAveragePrice:(NSString* )averagePrice andDownOrImageName:(NSString* )imageName
+
+- (void)setModel:(PricingGuidanceModel *)model
 {
-    self.shopsName.text = title;
-    self.buyMoney.text = [NSString stringWithFormat:@"%@/份",buyMoneyLabel];
-    self.averagePrice.text = [NSString stringWithFormat:@"%@/份",averagePrice];;
-    self.downOrUpImage.image = [UIImage imageNamed:imageName];
+    self.shopsName.text = model.productname;
+    self.buyMoney.text = [NSString stringWithFormat:@"%@元/份",model.inprice];
+    self.averagePrice.text = [NSString stringWithFormat:@"%@元/份",model.avgprice];
 }
+
+//- (void)setTitleLabel:(NSString* )title andBuyMoneyLabel:(NSString* )buyMoneyLabel andAveragePrice:(NSString* )averagePrice andDownOrImageName:(NSString* )imageName
+//{
+//    self.shopsName.text = title;
+//    self.buyMoney.text = [NSString stringWithFormat:@"%@/份",buyMoneyLabel];
+//    self.averagePrice.text = [NSString stringWithFormat:@"%@/份",averagePrice];;
+//    self.downOrUpImage.image = [UIImage imageNamed:imageName];
+//}
 @end

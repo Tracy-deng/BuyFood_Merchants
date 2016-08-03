@@ -106,7 +106,6 @@
         if (error) {
             failure(error);
         } else {
-            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -163,6 +162,21 @@
         if (error) {
             failure(error);
         } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 根据城市获取区域的菜市场 */
++ (void)getMarketsListAll:(NearbyMarketsParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/GetMarketListByCountry"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            HDCLog(@"%@" ,model[@"ErrorMsg"]);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -561,6 +575,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
+            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -576,6 +591,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
+            HDCLog(@"%@" ,model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }

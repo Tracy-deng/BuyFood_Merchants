@@ -23,6 +23,7 @@
 @property (nonatomic, strong) ShopsUserInfo* shopsUserInfo;
 
 
+
 @end
 
 @implementation SettingViewController
@@ -39,7 +40,6 @@
     // 解决navigationBar影响tableView的问题
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.shopsUserInfo = [ShopsUserInfoTool account];
-    HDCLog(@"%@\n%@", self.shopsUserInfo.marketname, self.shopsUserInfo.telephone);
     // 设置表头视图
     [self setUpHeaderView];
     // 设置tableView
@@ -87,42 +87,64 @@
 {
     // 设置店铺头像
     UIImageView* headerImageView = [[UIImageView alloc] init];
-    [headerImageView setFrame:CGRectMake(self.view.width * 0.06, self.view.height * 0.13, self.view.width * 0.19, self.view.height * 0.11)];
+    
     [headerImageView sd_setImageWithURL:[NSURL URLWithString:self.shopsUserInfo.pic]];
     [self.view addSubview:headerImageView];
-    
+    [headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.top.equalTo(@(64));
+        make.width.height.equalTo(@(self.view.width * 0.15));
+    }];
     headerImageView.layer.masksToBounds = YES;
-    headerImageView.layer.cornerRadius = headerImageView.width * 0.5;
-    headerImageView.layer.borderWidth = 3.0;
+    headerImageView.layer.cornerRadius = self.view.width * 0.15 * 0.5;
+    headerImageView.layer.borderWidth = 1.0;
     headerImageView.layer.borderColor=[[UIColor whiteColor] CGColor];//边框颜色
     
     
     // 设置店铺名称
-    TagLabels* shopName = [TagLabels initTaglabel];
-    [shopName createLabelText:self.shopsUserInfo.marketname andLabelX:self.view.width * 0.288 andLabelY:headerImageView.y + 10 andLabelHeight:self.view.height * 0.04 andLabelWidth:self.view.width * 0.25 andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:18 andtextColor:HDCColor(246, 246, 246)];
+    UILabel *shopName = [[UILabel alloc] init];
+    [shopName setFont:[UIFont fontWithName:@"PingFangSC-Regular" size:16]];
+    [shopName setTextColor:HDCColor(246, 246, 246)];
+    shopName.text = self.shopsUserInfo.marketname;
+    shopName.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:shopName];
+    [shopName mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.top.mas_equalTo(headerImageView.mas_bottom).offset(5);
+        make.width.equalTo(@(self.view.width * 0.50));
+        make.height.equalTo(@(20));
+    }];
+    
     // 设置店家手机号码
-    UIImageView* phoneImageView = [[UIImageView alloc] init];
-    [phoneImageView setFrame:CGRectMake(self.view.width * 0.31, self.view.height * 0.20, self.view.width * 0.05, self.view.height * 0.03)];
-    [phoneImageView setImage:[UIImage imageNamed:@"screenSmartphoneSimpleLineIcons"]];
-    [self.view addSubview:phoneImageView];
-    TagLabels* phoneNum = [TagLabels initTaglabel];
-    [phoneNum createLabelText:self.shopsUserInfo.telephone andLabelX:self.view.width * 0.36 andLabelY:phoneImageView.y andLabelHeight:self.view.height * 0.03 andLabelWidth:self.view.width * 0.35 andLabelTextStytle:@"PingFangSC-Regular" andLabelFontsize:14 andtextColor:HDCColor(240, 240, 240)];
+    UILabel *phoneNum = [[UILabel alloc] init];
+    [phoneNum setFont:[UIFont fontWithName:@"PingFangSC-Regular" size:16]];
+    [phoneNum setTextColor:HDCColor(246, 246, 246)];
+    phoneNum.text = self.shopsUserInfo.telephone;
+    phoneNum.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:phoneNum];
+    [phoneNum mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.top.mas_equalTo(shopName.mas_bottom).offset(3);
+        make.width.height.equalTo(shopName);
+    }];
 }
 
 /** 设置tableView */
 - (void)setTableView
 {
-    UIView* tableViewBackView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height * 0.27, self.view.width, self.view.height - self.view.height * 0.27)];
-    tableViewBackView.backgroundColor = [UIColor lightGrayColor];
+    UIView* tableViewBackView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.height * 0.33, self.view.width, self.view.height - self.view.height * 0.33)];
+    tableViewBackView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:tableViewBackView];
-    UITableView* tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, tableViewBackView.width, tableViewBackView.height - 50) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] init];
+    [tableView setBackgroundColor:[UIColor whiteColor]];
     tableView.delegate = self;
     tableView.dataSource = self;
-    // 去掉多余的cell
-    tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [tableViewBackView addSubview:tableView];
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.top.equalTo(tableViewBackView);
+        make.height.equalTo(@(self.view.height - self.view.height * 0.330 - 49));
+    }];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -177,8 +199,9 @@
     }
     if (indexPath.row == 2)
     {
-        UIWebView*callWebview =[[UIWebView alloc] init];
-        NSURL *telURL =[NSURL URLWithString:@"tel:10010"];// 貌似tel:// 或者 tel: 都行
+        UIWebView*callWebview =[[UIWebView alloc] init];//self.shopsUserInfo.telephone2
+        NSString *tellPhone = [@"tel:" stringByAppendingString:self.shopsUserInfo.telephone2];
+        NSURL *telURL =[NSURL URLWithString:tellPhone];// 貌似tel:// 或者 tel: 都行
         [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
         //记得添加到view上
         [self.view addSubview:callWebview];
@@ -194,6 +217,20 @@
     if (indexPath.row == 5)
     {
         [self.navigationController pushViewController:[[FeedBackViewController alloc] init] animated:YES];
+    }
+    if (indexPath.row == 6)
+    {
+        //            清除缓存
+        [MBProgressHUD showMessage:@"正在清理缓存..."];
+        
+        // 几秒后消失
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // 移除HUD
+            [MBProgressHUD hideHUD];
+            
+            // 提醒有没有新版本
+            [MBProgressHUD showSuccess:@"清理成功"];
+        });
     }
     if (indexPath.row == 7)
     {

@@ -7,6 +7,7 @@
 //
 
 #import "MyBillSpendingCell.h"
+#import "UIImageView+WebCache.h"
 
 @interface MyBillSpendingCell ()
 
@@ -62,8 +63,8 @@
     [self.userName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.userHeaderImageView);
         make.left.mas_equalTo(self.userHeaderImageView.mas_right).offset(20);
-        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.15);
-        make.height.mas_equalTo(self.userName.mas_width).multipliedBy(0.5);
+        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.30);
+        make.height.mas_equalTo(self.userName.mas_width).multipliedBy(0.20);
     }];
     self.order = [[UILabel alloc] init];
     self.order.textColor = HDCColor(153, 153, 153);
@@ -72,17 +73,17 @@
     [self.order mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-5);
         make.left.equalTo(self.userName);
-        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.22);
-        make.height.mas_equalTo(self.order.mas_width).multipliedBy(0.306);
+        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.30);
+        make.height.mas_equalTo(self.order.mas_width).multipliedBy(0.23);
     }];
     self.time = [[UILabel alloc] init];
     self.time.textColor = HDCColor(153, 153, 153);
-    self.time.font = [UIFont fontWithName:@"PingFangSC-Light" size:14];
+    self.time.font = [UIFont fontWithName:@"PingFangSC-Light" size:13];
     [self.contentView addSubview:self.time];
     [self.time mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.userHeaderImageView.mas_top).offset(-2);
-        make.right.mas_equalTo(self.contentView.mas_right).offset(-10);
-        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.11);
+        make.right.mas_equalTo(self.contentView.mas_right).offset(-5);
+        make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.40);
         make.height.equalTo(self.order);
     }];
     self.money = [[UILabel alloc] init];
@@ -92,20 +93,24 @@
     [self.contentView addSubview:self.money];
     [self.money mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(self.contentView.mas_bottom).offset(-5);
-        make.right.equalTo(self.time);
+        make.right.mas_equalTo(self.contentView.mas_right).offset(-15);
         make.width.mas_equalTo(self.contentView.mas_width).multipliedBy(0.29);
         make.height.mas_equalTo(self.money.mas_width).multipliedBy(0.35);
     }];
 }
 
-- (void)setuserHeaderImageName:(NSString* )userHeaderImageName andUserName:(NSString* )userName andOrderText:(NSString* )order andTimeLabel:(NSString* )time andMoneyText:(NSString* )money;
+- (void)setModel:(MyBillModel *)model
 {
-    [self.userHeaderImageView setImage:[UIImage imageNamed:userHeaderImageName]];
-    self.userName.text = userName;
-    self.order.text = order;
+    self.order.text = model._comefrom;
+    NSString *time = [model._modifytime stringByReplacingOccurrencesOfString:@"T" withString:@" "];
     self.time.text = time;
-    self.money.text = money;
+    self.money.text = model._cash;
 }
 
+- (void)setuserHeaderImageName:(NSString* )userHeaderImageName andUserName:(NSString* )userName
+{
+    [self.userHeaderImageView sd_setImageWithURL:[NSURL URLWithString:userHeaderImageName]];
+    self.userName.text = userName;
+}
 
 @end

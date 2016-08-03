@@ -25,6 +25,7 @@
 #import "EvaluationParams.h"
 #import "TodayBalanceAndVolumeModel.h"
 #import "MBProgressHUD.h"
+#import "BrandShopManagementViewController.h"
 
 @interface ShopStoreViewController ()
 /** 今日营业额数字 */
@@ -35,6 +36,7 @@
 @property (nonatomic, strong) TagLabels* todayTurnoverTag;
 /** 今日订单数标签 */
 @property (nonatomic, strong) TagLabels* todayOrderTag;
+@property (nonatomic, strong) ShopsUserInfo* shopsInfo;
 
 @end
 
@@ -49,6 +51,7 @@
     [self.view setBackgroundColor:HDCColor(68, 192, 88)];
     /** 设置去掉导航条下面的线*/
     navBarHairlineImageView = [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    self.shopsInfo = [ShopsUserInfoTool account];
     [self setUpContentView];
 }
 /** 设置去掉导航条下面的线 */
@@ -89,8 +92,8 @@
     [self.view addSubview:self.todayOrderNum];
     
     EvaluationParams* params = [[EvaluationParams alloc] init];
-    ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
-    params.marketuserid = shopsInfo.marketuserid;
+    
+    params.marketuserid = self.shopsInfo.marketuserid;
     [RequestTool todayBalanceAndVolume:params :^(TodayBalanceAndVolumeModel *result) {
         HDCLog(@"%@", result.totalmoney);
         if ([result.ErrorCode isEqualToString:@"1"])
@@ -271,7 +274,14 @@
 - (void)shopsInfoButtonClick:(UIButton* )sender
 {
     HDCLog(@"商品管理按钮点击");
-    [self.navigationController pushViewController:[[ShopsManagementViewController alloc] init] animated:YES];
+    if ([self.shopsInfo.markettypeid isEqualToString:@"1"])
+    {
+        [self.navigationController pushViewController:[[ShopsManagementViewController alloc] init] animated:YES];
+    }
+    else
+    {
+        [self.navigationController pushViewController:[[BrandShopManagementViewController alloc] init] animated:YES];
+    }
 }
 /** 促销按钮点击 */
 - (void)shopsManageButtonClick:(UIButton* )sender

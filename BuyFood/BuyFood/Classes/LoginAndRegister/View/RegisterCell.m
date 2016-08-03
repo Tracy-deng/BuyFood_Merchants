@@ -11,53 +11,76 @@
 
 @implementation RegisterCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView
-{
-    static NSString *ID = @"status";
-    RegisterCell* cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell)
-    {
-        cell = [[RegisterCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    return cell;
-}
-
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+- (instancetype)initWithInputCellStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self)
     {
-        [self setUpContentView];
+        self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
+        self.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
+        [self.contentView addSubview:self.titleLabel];
+        [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+            make.centerY.mas_equalTo(self.contentView.mas_centerY);
+            make.width.equalTo(@80);
+            make.height.equalTo(@30);
+        }];
+        
+        self.contentTextField = [[UITextField alloc] init];
+        self.contentTextField.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
+        self.contentTextField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
+        [self.contentView addSubview:self.contentTextField];
+        [self.contentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.titleLabel.mas_right).offset(20);
+            make.top.equalTo(self.titleLabel);
+            make.width.equalTo(@150);
+            make.height.equalTo(@35);
+        }];
     }
     return self;
 }
 
-- (void)setUpContentView
+- (instancetype)initWithChooseCellStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    self.leftTitleLabel = [[UILabel alloc] init];
-    [self addSubview:self.leftTitleLabel];
-    [self.leftTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.mas_left).offset(10);
-        make.top.mas_equalTo(self.mas_top).offset(10);
-        make.width.equalTo(@80);
-        make.height.equalTo(@30);
-    }];
-    
-    self.contentTextField = [[UITextField alloc] init];
-    [self addSubview:self.contentTextField];
-    [self.contentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.leftTitleLabel.mas_right).offset(5);
-        make.top.equalTo(self.leftTitleLabel);
-        make.right.equalTo(self.contentView).offset(11);
-        make.height.equalTo(@30);
-    }];
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self)
+    {
+        self.chooseLabel = [[UILabel alloc] init];
+        self.chooseLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
+        self.chooseLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
+        [self.contentView addSubview:self.chooseLabel];
+        [self.chooseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.contentView.mas_left).offset(10);
+            make.centerY.mas_equalTo(self.contentView.mas_centerY);
+            make.width.equalTo(@100);
+            make.height.equalTo(@30);
+        }];
+        
+        self.chooseContentLabel = [[UILabel alloc] init];
+        self.chooseContentLabel.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
+        self.chooseContentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
+        [self.contentView addSubview:self.chooseContentLabel];
+        [self.chooseContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.chooseLabel.mas_right).offset(15);
+            make.top.equalTo(self.chooseLabel);
+            make.width.equalTo(@200);
+            make.height.equalTo(self.self.chooseLabel);
+        }];
+    }
+    return self;
 }
 
-- (void)setLeftTitleLabel:(NSString* )leftTitleLabel andContentTextFieldPlaceholder:(NSString* )textFieldPlaceholder 
+- (void)setTitleLabel:(NSString* )title andContentTextFieldPlaceholder:(NSString* )contentTextFieldPlaceholder
 {
-    self.leftTitleLabel.text = leftTitleLabel;
-    self.contentTextField.placeholder = textFieldPlaceholder;
+    self.titleLabel.text = title;
+    self.contentTextField.placeholder = contentTextFieldPlaceholder;
+}
+
+- (void)setChooseTitleLabel:(NSString* )title andContentLabel:(NSString* )contentText;
+{
+    self.chooseLabel.text = title;
+    self.chooseContentLabel.text = contentText;
 }
 
 @end

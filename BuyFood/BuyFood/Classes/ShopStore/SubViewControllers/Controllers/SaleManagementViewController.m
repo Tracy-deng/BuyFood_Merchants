@@ -60,6 +60,10 @@
     {
         return 1;
     }
+    else if ([self.shopinfo.markettypeid isEqualToString:@"2"])
+    {
+        return 4;
+    }
     else
     {
         return 5;
@@ -81,9 +85,39 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
-    else
+    else if ([self.shopinfo.markettypeid isEqualToString:@"2"])
     {
         static NSString* ID = @"Cell1";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+        
+        if (!cell)
+        {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        switch (indexPath.row)
+        {
+            case 0:
+                cell.textLabel.text = @"促销";
+                break;
+            case 1:
+                cell.textLabel.text = @"秒杀";
+                break;
+            case 2:
+                cell.textLabel.text = @"团购";
+                break;
+            case 3:
+                cell.textLabel.text = @"拼团";
+                break;
+                
+            default:
+                break;
+        }
+        return cell;
+    }
+    else
+    {
+        static NSString* ID = @"Cell2";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
         
         if (!cell)
@@ -123,6 +157,26 @@
     if ([self.shopinfo.markettypeid isEqualToString:@"1"])
     {
         [self.navigationController pushViewController:[[PromotionManagementViewController alloc] init] animated:YES];
+    }
+    else if ([self.shopinfo.markettypeid isEqualToString:@"2"])
+    {
+        switch (indexPath.row)
+        {
+            case 0:
+                [self.navigationController pushViewController:[[PromotionManagementViewController alloc] init] animated:YES];
+                break;
+            case 1:
+                [self.navigationController pushViewController:[[SecondsKillManagementViewController alloc] init] animated:YES];
+                break;
+            case 2:
+                [self.navigationController pushViewController:[[GroupPurchaseManagementViewController alloc] init] animated:YES];
+                break;
+            case 3:
+                [self.navigationController pushViewController:[[FightGroupsManagementViewController alloc] init] animated:YES];
+                break;
+            default:
+                break;
+        }
     }
     else
     {

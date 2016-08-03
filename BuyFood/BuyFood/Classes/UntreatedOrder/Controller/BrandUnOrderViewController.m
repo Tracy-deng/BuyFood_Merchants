@@ -41,14 +41,9 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.top.equalTo(view.mas_bottom);
-        
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.height.equalTo(@(SCREEN_HEIGHT - 44 - 70));
-        //        make.top.equalTo(self.view.mas_top).offset(64);
-        //        make.left.equalTo(self.view);
-        //        make.right.equalTo(self.view);
-        //        make.height.equalTo(@(SCREEN_HEIGHT - 44 - 70));
     }];
     self.tableView.rowHeight = 155;
     self.tableView.separatorStyle =  UITableViewCellSeparatorStyleNone; // 删除分割线

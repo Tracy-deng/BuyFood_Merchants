@@ -30,7 +30,12 @@
 @property (nonatomic, strong) NSString *province;
 /** 市 */
 @property (nonatomic, strong) NSString *city;
-/** 县 */
+/** 县 / 区  */
 @property (nonatomic, strong) NSString *country;
+/** 经度 */
+@property (nonatomic, assign) CGFloat lon;
+/** 纬度 */
+@property (nonatomic, assign) CGFloat lat;
+
 
 @end

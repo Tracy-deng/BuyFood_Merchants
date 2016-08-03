@@ -8,6 +8,13 @@
 
 #import "PriceGuideViewController.h"
 #import "SetPriceAdviceCell.h"
+#import "RequestTool.h"
+#import "MJExtension.h"
+#import "MJRefresh.h"
+#import "ResultsModel.h"
+#import "PricingGuidanceModel.h"
+#import "MJRefresh.h"
+#import "LoadView.h"
 
 #define Start_X self.view.frame.size.width * 0.05  // 第一个label的X坐标
 #define Start_Y  8    // 第一个label的Y坐标
@@ -24,6 +31,9 @@
 @end
 
 @implementation PriceGuideViewController
+{
+    NSMutableArray *dataSource;
+}
 
 - (void)viewDidLoad
 {
@@ -32,6 +42,26 @@
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     [self setUpTitleView];
     [self createTableView];
+    [self prepareDataSource];
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self prepareDataSource];
+    }];
+}
+
+
+- (void)prepareDataSource
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    [RequestTool pricingGuidanceSuccess:^(ResultsModel *result)
+    {
+        dataSource = [PricingGuidanceModel mj_objectArrayWithKeyValuesArray:result.ModelList];
+        [self.tableView reloadData];
+        [self.tableView.header endRefreshing];
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        [loadView stopAnimation];
+    }];
 }
 
 - (void)setUpTitleView
@@ -72,21 +102,19 @@
         make.top.equalTo(self.titleView.mas_bottom);
         make.left.equalTo(self.view);
         make.width.equalTo(self.view);
-        make.height.equalTo(@(SCREEN_HEIGHT - self.titleView.frame.size.height - 64));
+        make.height.equalTo(@(SCREEN_HEIGHT - self.titleView.height - 64));
     }];
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     SetPriceAdviceCell* cell = [SetPriceAdviceCell cellWithTableView:tableView];
-    [cell setTitleLabel:@"白菜" andBuyMoneyLabel:@"2.67" andAveragePrice:@"3.00" andDownOrImageName:@"addShopsImage"];
+    cell.model = dataSource[indexPath.row];
     return cell;
 }
-
-
 
 @end
