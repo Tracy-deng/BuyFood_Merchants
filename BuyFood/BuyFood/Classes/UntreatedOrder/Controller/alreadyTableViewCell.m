@@ -24,7 +24,7 @@
         [_pushAddTimeBtn setTitleColor:greenColor forState:(UIControlStateNormal)];;
         [_pushAddTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).offset(37);
-            make.left.equalTo(self.contentView).offset(85);
+            make.left.equalTo(self.orderNumLabel);
             make.width.equalTo(@(0.4*SCREEN_WIDTH));
             make.height.equalTo(@20);
             
@@ -33,14 +33,16 @@
         
         
         
-        _addOrderBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-        _addOrderBtn.layer.masksToBounds = YES;
-        _addOrderBtn.layer.cornerRadius = 32;
-        _addOrderBtn.backgroundColor = [UIColor colorWithWhite:0.704 alpha:1.000];
-        [_addOrderBtn setTitle:@"送达" forState:(UIControlStateNormal)];
-        _addOrderBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        [self.contentView addSubview:_addOrderBtn];
-        [_addOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _addOrderLabel = [[UILabel alloc]init];
+        _addOrderLabel.layer.masksToBounds = YES;
+        _addOrderLabel.layer.cornerRadius = 32;
+        _addOrderLabel.backgroundColor = [UIColor colorWithWhite:0.704 alpha:1.000];
+        _addOrderLabel.text = @"已送达";
+        _addOrderLabel.font = [UIFont systemFontOfSize:13];
+        _addOrderLabel.textColor = [UIColor whiteColor];
+        _addOrderLabel.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_addOrderLabel];
+        [_addOrderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).offset(35);
             make.right.equalTo(self.contentView).offset(-10);
             make.width.height.equalTo(@64);
@@ -49,6 +51,22 @@
         
     }
     return self;
+}
+- (void)setModel:(OrderMarketModel *)model
+{
+    self.orderNumLabel.text = model.orderno;
+    self.timeLabel.text = model.ordertime;
+    self.addressLabel.text = model.useraddress;
+    self.moneyLabel.text = [NSString stringWithFormat:@"¥%@",model.markettotalmoney];
+    if ([model.orderstatus isEqualToString:@"3"])
+    {
+        self.addOrderLabel.text = @"已接单";
+    }else if ([model.orderstatus isEqualToString:@"10"]){
+        self.addOrderLabel.text = @"配送中";
+    }else if ([model.orderstatus isEqualToString:@"12"])
+    {
+        self.addOrderLabel.text = @"已完成";
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -104,7 +104,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     OrderMarketModel * model = self.inviteDataArray[indexPath.row];
-    [cell setOrderNumberLabelText:model.orderno andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.marketuseraddress moneyLabel:model.markettotalmoney];
+    [cell setOrderNumberLabelText:model.orderno andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.useraddress moneyLabel:model.markettotalmoney];
   
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];

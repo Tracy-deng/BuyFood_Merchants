@@ -258,6 +258,7 @@
             failure(error);
         } else
         {
+            HDCLog(@"%@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }

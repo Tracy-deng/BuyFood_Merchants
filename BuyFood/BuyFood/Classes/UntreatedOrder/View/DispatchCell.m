@@ -131,13 +131,14 @@
     // 下单地址 orderAddressLabel
     self.orderAddressLabel = [[UILabel alloc] init];
     self.orderAddressLabel.textColor = HDCColor(102, 102, 102);
-    self.orderAddressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    self.orderAddressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    self.orderAddressLabel.numberOfLines = 0;
     [whiteView addSubview:self.orderAddressLabel];
     [self.orderAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(2);
+        make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(1);
         make.left.equalTo(self.orderNumberLabel.mas_left);
         make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.70);
-        make.height.mas_equalTo(@20);
+        make.height.mas_equalTo(@40);
     }];
     // 接单按钮 getOrderBtn  HDCColor(36, 197, 67)
     self.getOrderBtn = [UIButton buttonWithType:UIButtonTypeCustom];

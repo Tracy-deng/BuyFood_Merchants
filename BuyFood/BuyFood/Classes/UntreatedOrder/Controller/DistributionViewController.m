@@ -119,7 +119,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     OrderMarketModel *model = self.distributionDataArray[indexPath.row];
-    [cell setOrderNumberLabelText:model.orderno andGetTimeBtnText:@"立即送达" andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.marketuseraddress moneyLabel:model.markettotalmoney];
+    [cell setOrderNumberLabelText:model.orderno andGetTimeBtnText:@"立即送达" andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.useraddress moneyLabel:model.markettotalmoney];
     
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -146,7 +146,7 @@
     LoadView *loadView = [LoadView new];
     [loadView startAnimation];
     
-    NSLog(@"接单处理%ld",sender.tag);
+    NSLog(@"接单处理%ld",(long)sender.tag);
     OrderMarketModel * model = self.distributionDataArray[sender.tag];
     NSString *orderNum = model.orderno; // 订单号
     

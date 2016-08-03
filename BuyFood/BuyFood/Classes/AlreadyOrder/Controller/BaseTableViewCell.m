@@ -83,12 +83,14 @@
         _addressLabel.textColor = [UIColor grayColor];
         _addressLabel.text = @"紫东国际创意园e1栋3楼";
         [_whiteView addSubview:_addressLabel];
+        _addressLabel.numberOfLines = 0;
         _addressLabel.textAlignment = NSTextAlignmentLeft;
-        _addressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+        _addressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
         [_addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(_timeLabel.mas_bottom).offset(2);
-            make.left.height.equalTo(_orderNumLabel);
-            make.right.equalTo(_whiteView).offset(80);
+            make.left.equalTo(_orderNumLabel);
+            make.height.equalTo(@40);
+            make.right.equalTo(_whiteView).offset(-40);
         }];
         
     

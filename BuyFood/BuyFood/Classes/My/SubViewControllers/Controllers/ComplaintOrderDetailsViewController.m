@@ -95,7 +95,7 @@
 - (void)setUpTableViewHeader
 {
     HeaderView* headerView = [HeaderView initWithHeaderView];
-    headerView.height = SCREEN_HEIGHT* 0.37;
+    headerView.height = SCREEN_HEIGHT* 0.39;
     [headerView setUpContentView];
     
     [headerView setOrderNumberLabelText:[NSString stringWithFormat:@"订单号 %@",productEveryModel.orderno] andGetTimeBtnText:@"" andOrderTimeLabelText:[NSString stringWithFormat:@"下单时间 %@",productEveryModel.ordertime] andOrderAddressLabelText:productEveryModel.useraddress];
