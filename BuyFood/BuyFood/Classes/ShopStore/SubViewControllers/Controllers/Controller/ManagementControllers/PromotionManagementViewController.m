@@ -51,7 +51,6 @@ UITableViewDataSource>
     }];
 }
 
-
 - (void)createTabeleViewAndBottomBtn
 {
     self.tabelView = [[UITableView alloc] init];

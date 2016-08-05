@@ -140,20 +140,20 @@
     HDCLog(@"点击登录");
     
     [MBProgressHUD showMessage:@"正在登录中..."];
-
-//    if (_phoneTextField.text.length != 11)
+//
+//    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1+[3578]+\\d{9}"] evaluateWithObject:_phoneTextField.text])
 //    {
 //        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
 //    }
 //    else
 //    {
         LoginParams* params = [[LoginParams alloc]init];
-//        params.telephone = _phoneTextField.text;
-//        params.pswd = _passwordTextField.text;
-        params.telephone = @"13888888888";
-//    params.telephone = @"13999999999";
-//    params.telephone = @"13055555555";
-        params.pswd = @"1";
+    //        params.telephone = _phoneTextField.text;
+    //        params.pswd = _passwordTextField.text;
+//            params.telephone = @"13888888888"; // 品牌馆
+//            params.telephone = @"13999999999"; // 社区店
+            params.telephone = @"13777777777";   // 普通商家
+            params.pswd = @"1";
         [RequestTool login:params success:^(ResultsModel *result)
          {
              HDCLog(@"%@", result.ModelList);
@@ -202,9 +202,9 @@
 /** 注册按钮点击 */
 - (void)registerBtnClick:(UIButton* )sender
 {
-//    [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
     
-    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
+//    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
     
 //    [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
 //    [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];

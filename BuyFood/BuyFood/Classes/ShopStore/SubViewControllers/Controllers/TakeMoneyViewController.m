@@ -10,9 +10,10 @@
 #import "TakeMoneyCell.h"
 
 @interface TakeMoneyViewController ()<UITableViewDelegate, UITableViewDataSource>
-
+{
+    UIButton *button;
+}
 @property (nonatomic, strong) UITableView* tableView;
-
 
 @end
 
@@ -21,15 +22,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view setBackgroundColor:HDCBackViewColor];
+    [self.view setBackgroundColor:WhiteColor];
     self.title = @"取现";
     [self setUpTableViewAndBtn];
-    HDCLog(@"%ld", self.selectIndex);
 }
 
 - (void)setUpTableViewAndBtn
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
@@ -39,11 +39,13 @@
         make.width.equalTo(self.view);
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.60);
     }];
+     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
-    UIButton* btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton* btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn setBackgroundColor:HDCColor(35, 194, 61)];
     btn.layer.cornerRadius = 3.0;
     [btn setTitle:@"提交审核" forState:UIControlStateNormal];
+    [btn setTitleColor:WhiteColor forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -58,73 +60,97 @@
 {
     HDCLog(@"提交审核");
 }
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
-}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-    {
-        return 3;
-    }
-    else
-    {
-        return 1;
-    }
+    
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0)
+    
+    TakeMoneyCell* cell = [TakeMoneyCell cellWithTableView:tableView];
+    if (indexPath.row == 0)
     {
-        if (indexPath.row == 2)
+        if (self.selectIndex == 0)
         {
-            static NSString* ID = @"Cell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-            
-            if (!cell)
-            {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-            }
-            
-            cell.textLabel.text = @"中国农业银行";
-            cell.textLabel.textColor = HDCColor(102, 102, 102);
-            cell.textLabel.font = [UIFont fontWithName:@"PingFangSC-Medium" size:20];
-            return cell;
+            [cell setUpTitleText:@"支付宝号:" andInputTextPlaceholder:@"请输入支付宝账号" andInputText:@""];
         }
         else
         {
-            TakeMoneyCell* cell = [TakeMoneyCell cellWithTableView:tableView];
-            switch (indexPath.row)
-            {
-                case 0:
-                    [cell setUpTitleText:@"姓名" andInputTextPlaceholder:@"请输入姓名" andInputText:@""];
-                    break;
-                case 1:
-                    [cell setUpTitleText:@"卡号" andInputTextPlaceholder:@"23435344564" andInputText:@""];
-                default:
-                    break;
-            }
-            return cell;
+            [cell setUpTitleText:@"银行卡号:" andInputTextPlaceholder:@"请输入银行卡号" andInputText:@""];
         }
-        
+    }
+    else if (indexPath.row == 1)
+    {
+        [cell setUpTitleText:@"姓名:" andInputTextPlaceholder:@"请输入姓名" andInputText:@""];
+    }
+    else if (indexPath.row == 2)
+    {
+        [cell setUpTitleText:@"提现金额:" andInputTextPlaceholder:@"请输入提现金额" andInputText:@""];
     }
     else
     {
-        TakeMoneyCell* cell = [TakeMoneyCell cellWithTableView:tableView];
-        [cell setUpTitleText:@"提现金额" andInputTextPlaceholder:@"最多可提现5000" andInputText:@""];
-        return cell;
+        // 设置验证码按钮
+        button = [[UIButton alloc] init];
+        [button setTitle:@"发送验证码" forState:UIControlStateNormal];
+        button .titleLabel.font = [UIFont systemFontOfSize:14];
+        [button setTitleColor:WhiteColor forState:UIControlStateNormal];
+        [button setBackgroundColor:greenColor];
+        [button.layer setMasksToBounds:YES];
+        [button.layer setCornerRadius:5.0];
+        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(cell.contentView.mas_right).offset(-5);
+            make.centerY.mas_equalTo(cell.contentView.mas_centerY);
+            make.width.equalTo(@(125));
+            make.height.equalTo(@(40));
+        }];
+        [cell setUpTitleText:@"验证码:" andInputTextPlaceholder:@"请输入验证码" andInputText:@""];
     }
+    
+    return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (void)buttonClick:(UIButton *)sender
 {
-    return 5;
+    button.userInteractionEnabled = NO;
+    HDCLog(@"发送验证码");
+    [self startTime];
 }
 
 
+
+-(void)startTime{
+    __block int timeout=59; //倒计时时间
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_event_handler(_timer, ^{
+        if(timeout<=0){ //倒计时结束，关闭
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                [ button setTitle:@"发送验证码" forState:UIControlStateNormal];
+                button.userInteractionEnabled = YES;
+            });
+        }else{
+            //            int minutes = timeout / 60;
+            int seconds = timeout % 60;
+            NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                //                NSLog(@"____%@",strTime);
+                [button setTitle:[NSString stringWithFormat:@"%@秒后重新发送",strTime] forState:UIControlStateNormal];
+                button.userInteractionEnabled = NO;
+            });
+            timeout--;
+            
+        }
+    });
+    dispatch_resume(_timer);
+}
 
 
 @end

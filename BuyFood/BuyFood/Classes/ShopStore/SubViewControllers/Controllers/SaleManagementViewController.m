@@ -56,23 +56,19 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if ([self.shopinfo.markettypeid isEqualToString:@"1"])
+    if ([self.shopinfo.markettypeid isEqualToString:@"1"] || [self.shopinfo.markettypeid isEqualToString:@"2"])
     {
         return 1;
     }
-    else if ([self.shopinfo.markettypeid isEqualToString:@"2"])
-    {
-        return 4;
-    }
     else
     {
-        return 5;
+        return 2;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.shopinfo.markettypeid isEqualToString:@"1"])
+    if ([self.shopinfo.markettypeid isEqualToString:@"1"] || [self.shopinfo.markettypeid isEqualToString:@"2"])
     {
         static NSString* ID = @"Cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
@@ -83,36 +79,6 @@
         }
         cell.textLabel.text = @"促销";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
-    }
-    else if ([self.shopinfo.markettypeid isEqualToString:@"2"])
-    {
-        static NSString* ID = @"Cell1";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-        
-        if (!cell)
-        {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
-        }
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        switch (indexPath.row)
-        {
-            case 0:
-                cell.textLabel.text = @"促销";
-                break;
-            case 1:
-                cell.textLabel.text = @"秒杀";
-                break;
-            case 2:
-                cell.textLabel.text = @"团购";
-                break;
-            case 3:
-                cell.textLabel.text = @"拼团";
-                break;
-                
-            default:
-                break;
-        }
         return cell;
     }
     else
@@ -128,21 +94,11 @@
         switch (indexPath.row)
         {
             case 0:
-                 cell.textLabel.text = @"促销";
-                break;
-            case 1:
-                 cell.textLabel.text = @"秒杀";
-                break;
-            case 2:
-                 cell.textLabel.text = @"团购";
-                break;
-            case 3:
                  cell.textLabel.text = @"户外活动";
                 break;
-            case 4:
-                 cell.textLabel.text = @"拼团";
+            case 1:
+                 cell.textLabel.text = @"团购";
                 break;
-            
             default:
                 break;
         }
@@ -154,50 +110,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([self.shopinfo.markettypeid isEqualToString:@"1"])
+    if ([self.shopinfo.markettypeid isEqualToString:@"1"] || [self.shopinfo.markettypeid isEqualToString:@"2"])
     {
         [self.navigationController pushViewController:[[PromotionManagementViewController alloc] init] animated:YES];
-    }
-    else if ([self.shopinfo.markettypeid isEqualToString:@"2"])
-    {
-        switch (indexPath.row)
-        {
-            case 0:
-                [self.navigationController pushViewController:[[PromotionManagementViewController alloc] init] animated:YES];
-                break;
-            case 1:
-                [self.navigationController pushViewController:[[SecondsKillManagementViewController alloc] init] animated:YES];
-                break;
-            case 2:
-                [self.navigationController pushViewController:[[GroupPurchaseManagementViewController alloc] init] animated:YES];
-                break;
-            case 3:
-                [self.navigationController pushViewController:[[FightGroupsManagementViewController alloc] init] animated:YES];
-                break;
-            default:
-                break;
-        }
     }
     else
     {
         switch (indexPath.row)
         {
             case 0:
-                [self.navigationController pushViewController:[[PromotionManagementViewController alloc] init] animated:YES];
-                break;
-            case 1:
-                [self.navigationController pushViewController:[[SecondsKillManagementViewController alloc] init] animated:YES];
-                break;
-            case 2:
-                [self.navigationController pushViewController:[[GroupPurchaseManagementViewController alloc] init] animated:YES];
-                break;
-            case 3:
                 [self.navigationController pushViewController:[[OutdoorActivitiesManagementViewController alloc] init] animated:YES];
                 break;
-            case 4:
-                [self.navigationController pushViewController:[[FightGroupsManagementViewController alloc] init] animated:YES];
+            case 1:
+                [self.navigationController pushViewController:[[GroupPurchaseManagementViewController alloc] init] animated:YES];
                 break;
-            default:
+                default:
                 break;
         }
     }
@@ -270,6 +197,40 @@
             break;
     }
 }
+ 
+ 
+ else if ([self.shopinfo.markettypeid isEqualToString:@"2"])
+ {
+ static NSString* ID = @"Cell1";
+ UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+ 
+ if (!cell)
+ {
+ cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+ }
+ cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+ switch (indexPath.row)
+ {
+ case 0:
+ cell.textLabel.text = @"促销";
+ break;
+ case 1:
+ cell.textLabel.text = @"秒杀";
+ break;
+ case 2:
+ cell.textLabel.text = @"团购";
+ break;
+ case 3:
+ cell.textLabel.text = @"拼团";
+ break;
+ 
+ default:
+ break;
+ }
+ return cell;
+ }
+
+ 
 */
 
 @end

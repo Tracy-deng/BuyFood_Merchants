@@ -42,6 +42,8 @@
 #import "AddCtcategoryParams.h"
 #import "realNameParams.h"
 #import "GetBrandsAndCommunityClassifyParams.h"
+#import "TelephoneParams.h"
+#import "CashOutParams.h"
 
 @implementation RequestTool
 
@@ -467,6 +469,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
+            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -605,10 +608,9 @@
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateUserPswdByOldPswd"];
     [HttpRequestTool POST:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
-            HDCLog(@"%@______________________", error.userInfo);
+            HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@+++++++++++++++++++++++" ,model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -679,7 +681,38 @@
             success(result);
         }
     }];
-    
+}
+/** 获取提现验证码 */
++ (void)getCashOutMsgCode:(TelephoneParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_cashout/GetSMSCodeForAddToCashout"];
+    [HttpRequestTool GET:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 申请提现 */
++ (void)cashOut:(CashOutParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_cashout/Add"];
+    [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
 }
 
 @end

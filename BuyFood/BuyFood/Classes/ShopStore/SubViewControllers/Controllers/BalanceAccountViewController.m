@@ -57,10 +57,11 @@
     params.userid = self.userInfo.marketuserid;
     [RequestTool balanceAccount:params success:^(ResultsModel *result)
      {
-         if (![result.ErrorMsg isEqualToString:@"成功"])
+         if ([result.totalcount isEqualToString:@"0"])
          {
              [MBProgressHUD hideHUD];
              [MBProgressHUD showSuccess:@"暂无数据..."];
+             self.headerView.withdrawMoney.text = @"0";
          }
          else
          {

@@ -33,7 +33,9 @@ static NSInteger selectNum;
 @end
 
 @implementation RegisterViewController
-
+{
+    UIButton * button;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -86,7 +88,8 @@ static NSInteger selectNum;
      *  获取验证码
      */
     _recive = [CCTextField textFiledWithName:@"请输入验证码" UIimageView:@"write"];
-    UIButton * button = [UIButton buttonWithType:(UIButtonTypeSystem)];
+    _recive.clearButtonMode = UITextFieldViewModeNever;
+    button = [[UIButton alloc] init];
     [button setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self addButtonTouch:button font:14];
     [button addTarget:self action:@selector(didRecive:) forControlEvents:(UIControlEventTouchUpInside)];
@@ -204,9 +207,6 @@ static NSInteger selectNum;
     [self.secondView addSubview:_comBtn];
     
     [_comBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        /**
-         self.frame = CGRectMake(10, y, 20, 20);
-         */
         make.left.equalTo(_shopBtn);
         make.top.mas_equalTo(_hotBtn.mas_bottom);
         make.width.equalTo(_shopBtn);
@@ -229,8 +229,8 @@ static NSInteger selectNum;
 - (void)didRecive:(UIButton *)sender
 {
     NSLog(@"点击获取验证码");
-    
-    if (_textfield.text.length != 11 || [_textfield.text isEqualToString:@""])
+    button.userInteractionEnabled = NO;
+    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1+[3578]+\\d{9}"] evaluateWithObject:self.textfield.text])
     {
         [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
     }
@@ -243,7 +243,7 @@ static NSInteger selectNum;
             if ([result.ErrorCode isEqualToString:@"1"])
             {
                 [MBProgressHUD showSuccess:@"验证码已发送"];
-                self.recive.text = result.ErrorMsg;
+                [self startTime];
             }
             else
             {
@@ -255,6 +255,38 @@ static NSInteger selectNum;
         }];
     }
 }
+
+
+-(void)startTime{
+    __block int timeout=59; //倒计时时间
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,queue);
+    dispatch_source_set_timer(_timer,dispatch_walltime(NULL, 0),1.0*NSEC_PER_SEC, 0); //每秒执行
+    dispatch_source_set_event_handler(_timer, ^{
+        if(timeout<=0){ //倒计时结束，关闭
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                [ button setTitle:@"发送验证码" forState:UIControlStateNormal];
+                button.userInteractionEnabled = YES;
+            });
+        }else{
+            //            int minutes = timeout / 60;
+            int seconds = timeout % 60;
+            NSString *strTime = [NSString stringWithFormat:@"%.2d", seconds];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //设置界面的按钮显示 根据自己需求设置
+                //                NSLog(@"____%@",strTime);
+                [button setTitle:[NSString stringWithFormat:@"%@秒后重试",strTime] forState:UIControlStateNormal];
+                button.userInteractionEnabled = NO;
+            });
+            timeout--;
+            
+        }
+    });
+    dispatch_resume(_timer);
+}
+
 
 - (void)didPassWord:(UIButton *)sender
 {

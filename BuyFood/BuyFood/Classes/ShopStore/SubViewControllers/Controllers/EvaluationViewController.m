@@ -22,6 +22,7 @@
 #import "ReplyEvaluationParams.h"
 #import "MJRefresh.h"
 #import "LoadView.h"
+#import "MBProgressHUD.h"
 
 static CGFloat textFieldH = 40;
 @interface EvaluationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>
@@ -41,7 +42,6 @@ static CGFloat textFieldH = 40;
     CGFloat _totalKeybordHeight;
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -52,8 +52,8 @@ static CGFloat textFieldH = 40;
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     self.userInfo = [ShopsUserInfoTool account];
     [self prepareEvaluationData];
+    
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        
         [self prepareEvaluationData];
     }];
 }
@@ -61,24 +61,33 @@ static CGFloat textFieldH = 40;
 /** 请求cell的数据 */
 -(void)prepareEvaluationData
 {
-    LoadView *loadView = [[LoadView alloc] init];
-    [loadView startAnimation];
-    dataSource = [[NSMutableArray alloc]init];
+    [MBProgressHUD showMessage:@"数据加载中..."];
     EvaluationParams *params = [[EvaluationParams alloc] init];
     params.marketuserid = self.userInfo.marketuserid;
     [RequestTool evaluation:params success:^(ResultsModel *result) {
-        HDCLog(@"%@", result.ModelList);
-        for (NSDictionary *dic in result.ModelList) {
-            jadeModel *model = [[jadeModel alloc]initWithDic:dic];
-            [dataSource addObject:model];
-            [self.tableView reloadData];
-            [self.tableView.header endRefreshing];
-            [loadView stopAnimation];
+        if ([result.totalcount isEqualToString:@"0"])
+        {
+             [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"暂无数据!"];
+           
         }
-        
+        else
+        {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"数据加载成功!"];
+            dataSource = [[NSMutableArray alloc]init];
+            for (NSDictionary *dic in result.ModelList)
+            {
+                jadeModel *model = [[jadeModel alloc]initWithDic:dic];
+                [dataSource addObject:model];
+                [self.tableView reloadData];
+            }
+            
+        }
+        [self.tableView.header endRefreshing];
     } failure:^(NSError *error) {
-        [loadView stopAnimation];
-        
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showError:@"数据加载失败"];
     }];
 }
 - (void)createTableView
@@ -135,11 +144,14 @@ static CGFloat textFieldH = 40;
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"statistics/GetMarketUserScore"];
     NSMutableDictionary* dic = [NSMutableDictionary dictionary];
     dic[@"marketuserid"] = self.userInfo.marketuserid;
-    [HttpRequestTool GET:url parameters:dic progress:nil completionHandler:^(id model, NSError *error) {
-        HDCLog(@"%@", model);
-        HDCLog(@"%@", model[@"totalordercount"]);
-        HDCLog(@"%@", model[@"score"]);
-        [self.contentHeaderView setOrderNumberLabel:model[@"totalordercount"] andGreatEvaluationLabel:model[@"score"]];
+    [HttpRequestTool GET:url parameters:dic progress:nil completionHandler:^(id model, NSError *error)
+    {
+        NSString *score = model[@"score"];
+        if ([model[@"score"] isEqualToString:@""])
+        {
+            score = @"0";
+        }
+        [self.contentHeaderView setOrderNumberLabel:model[@"totalordercount"] andGreatEvaluationLabel:score];
     }];
     return self.contentHeaderView;
 }
