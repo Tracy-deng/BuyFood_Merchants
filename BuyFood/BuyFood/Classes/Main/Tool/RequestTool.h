@@ -43,7 +43,9 @@
         ChangePwdParams,
         ChangeHeaderImageParams,
         GetCityAndCountryParams,
-        TodayBalanceAndVolumeModel;
+        TodayBalanceAndVolumeModel,
+        AddCtcategoryParams,
+        GetBrandsAndCommunityClassifyParams;
 
 @interface RequestTool : NSObject
 
@@ -99,9 +101,6 @@
 + (void)chnageBusinessStatus:(ChangeTimeParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 定价指导 */
 + (void)pricingGuidanceSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-
-/** 商品管理 */
-+ (void)shopsManagement:(ShopsManagementParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取所有商品一级分类 */
 + (void)shopsListAll:(ShopsManagementParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 根据经纬度获取附近的菜场 */
@@ -140,4 +139,8 @@
 + (void)getCityList:(GetCityAndCountryParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取县 */
 + (void)getCountryList:(GetCityAndCountryParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 社区店跟品牌馆新增分类 */
++ (void)addCtcategory:(AddCtcategoryParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 社区店跟品牌馆查询分类 */
++ (void)searchCtcategory:(GetBrandsAndCommunityClassifyParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 @end

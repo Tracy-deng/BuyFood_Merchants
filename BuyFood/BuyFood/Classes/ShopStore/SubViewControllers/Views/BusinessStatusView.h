@@ -12,11 +12,13 @@
 
 /** 营业时间 */
 @property (nonatomic, strong) UIButton* businessTime;
+/** 商家头像 */
+@property (nonatomic, strong) UIImageView* businessHeaderImageView;
 
 + (instancetype)initBusinessStatusView;
 
 - (void)creatHeaderContentView;
 
-- (void)setHeaderImageViewName:(NSString* )headerImageViewName andBusinessStatus:(NSString* )businessStatus andBusinessTime:(NSString* )businessTime andBusinessStatusLabel:(NSString* )businessStatusLabel;
+- (void)setBusinessStatus:(NSString* )businessStatus andBusinessTime:(NSString* )businessTime andBusinessStatusLabel:(NSString* )businessStatusLabel;
 
 @end

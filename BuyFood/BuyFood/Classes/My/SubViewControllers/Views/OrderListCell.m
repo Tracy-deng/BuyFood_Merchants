@@ -60,7 +60,6 @@
     [self.contentView addSubview:self.number];
     [self.number mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.foodName);
-//        make.left.mas_equalTo(self.foodName.mas_right).offset(50);
         make.centerX.mas_equalTo(self.contentView.mas_centerX);
         make.width.equalTo(@51);
         make.height.equalTo(@24);

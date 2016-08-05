@@ -7,16 +7,20 @@
 //
 
 #import "BusinessStatusView.h"
+#import "ShopsUserInfoTool.h"
+#import "ShopsUserInfo.h"
+#import "UIImageView+WebCache.h"
 
 @interface BusinessStatusView ()
 
 /** 营业状态*/
 @property (nonatomic, strong) UILabel* businessStatus;
 
-/** 商家头像 */
-@property (nonatomic, strong) UIImageView* businessHeaderImageView;
 /** 状态标签 */
 @property (nonatomic, strong) UILabel* businessStatusLabel;
+
+@property (nonatomic, strong) ShopsUserInfo *userInfo;
+
 @end
 
 @implementation BusinessStatusView
@@ -28,15 +32,23 @@
 
 - (void)creatHeaderContentView
 {
+    self.userInfo = [ShopsUserInfoTool account];
     [self setBackgroundColor:HDCColor(250, 250, 250)];
     self.businessHeaderImageView = [[UIImageView alloc] init];
+    [self.businessHeaderImageView sd_setImageWithURL:[NSURL URLWithString:self.userInfo.pic]];
     [self addSubview:self.businessHeaderImageView];
     [self.businessHeaderImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_top).offset(10);
         make.left.mas_equalTo(self.mas_left).offset(18);
-        make.width.mas_equalTo(self.mas_width).multipliedBy(0.15);
-        make.height.mas_equalTo(self.businessHeaderImageView.mas_width);
+       make.width.height.equalTo(@(50));
     }];
+    
+    self.businessHeaderImageView.layer.masksToBounds = YES;
+    self.businessHeaderImageView.layer.cornerRadius = 50 * 0.5;
+    self.businessHeaderImageView.layer.borderWidth = 1.0;
+    self.businessHeaderImageView.layer.borderColor=[[UIColor whiteColor] CGColor];//边框颜色
+    
+    
     self.businessStatus = [[UILabel alloc] init];
     self.businessStatus.textColor = HDCColor(35, 188, 49);
     self.businessStatus.font = [UIFont fontWithName:@"PingFangSC-Medium" size:18];
@@ -58,24 +70,6 @@
         make.width.mas_equalTo(self.mas_width).multipliedBy(0.45);
         make.height.mas_equalTo(self.businessStatus.mas_width).multipliedBy(0.11);
     }];
-//    UILabel* btnLine = [[UILabel alloc] init];
-//    [btnLine setBackgroundColor:HDCColor(153, 153, 153)];
-//    [self addSubview:btnLine];
-//    [btnLine mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(self.businessTime.mas_bottom).offset(0.5);
-//        make.left.equalTo(self.businessStatus);
-//        make.width.equalTo(self.businessTime);
-//        make.height.equalTo(@1);
-//    }];
-//    UILabel* dividerLine = [[UILabel alloc] init];
-//    [dividerLine setBackgroundColor:HDCColor(153, 153, 153)];
-//    [self addSubview:dividerLine];
-//    [dividerLine mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(btnLine.mas_bottom).offset(30);
-//        make.left.mas_equalTo(self.mas_left).offset(13);
-//        make.width.mas_equalTo(self.mas_width).multipliedBy(0.93);
-//        make.height.equalTo(@1);
-//    }];
     self.businessStatusLabel = [[UILabel alloc] init];
     self.businessStatusLabel.textColor = HDCColor(153, 153, 153);
     self.businessStatusLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
@@ -87,9 +81,8 @@
         make.height.mas_equalTo(self.businessStatus.mas_width).multipliedBy(0.15);
     }];
 }
-- (void)setHeaderImageViewName:(NSString* )headerImageViewName andBusinessStatus:(NSString* )businessStatus andBusinessTime:(NSString* )businessTime andBusinessStatusLabel:(NSString* )businessStatusLabel
+- (void)setBusinessStatus:(NSString* )businessStatus andBusinessTime:(NSString* )businessTime andBusinessStatusLabel:(NSString* )businessStatusLabel
 {
-    self.businessHeaderImageView.image = [UIImage imageNamed:headerImageViewName];
     [self.businessTime setTitle:[NSString stringWithFormat:@"营业时间：%@",businessTime] forState:UIControlStateNormal];
     self.businessStatus.text = businessStatus;
     self.businessStatusLabel.text = businessStatusLabel;

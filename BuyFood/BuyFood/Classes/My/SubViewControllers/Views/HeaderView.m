@@ -31,8 +31,6 @@
 
 - (void)setUpContentView
 {
-
-    
     // 订单号 orderNumberLabel
     self.orderNumberLabel = [[UILabel alloc] init];
     self.orderNumberLabel.textColor = HDCColor(153, 153, 153);

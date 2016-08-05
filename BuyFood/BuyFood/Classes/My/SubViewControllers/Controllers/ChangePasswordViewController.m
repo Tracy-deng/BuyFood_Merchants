@@ -14,6 +14,8 @@
 #import "RequestTool.h"
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
+#import "ResultsModel.h"
+#import "MBProgressHUD.h"
 
 @interface ChangePasswordViewController ()<UITextFieldDelegate>
 
@@ -114,6 +116,7 @@
     params.pswd = self.oldPassword.text;
     params.newpswd = self.passwordNew.text;
     
+    
     if (self.passwordNew.text.length == 0 || self.oldPassword.text.length == 0 || self.passwordNewAgian.text.length == 0)
     {
         UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"请注意 !!!" message:@"请完整输入需要修改信息" preferredStyle:UIAlertControllerStyleAlert];
@@ -134,7 +137,11 @@
     {
         [RequestTool changePwd:params success:^(ResultsModel *result)
         {
-            ;
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [MBProgressHUD showSuccess:@"修改密码成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         } failure:^(NSError *error) {
             ;
         }];

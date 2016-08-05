@@ -39,6 +39,9 @@
 #import "ChangeHeaderImageParams.h"
 #import "GetCityAndCountryParams.h"
 #import "TodayBalanceAndVolumeModel.h"
+#import "AddCtcategoryParams.h"
+#import "realNameParams.h"
+#import "GetBrandsAndCommunityClassifyParams.h"
 
 @implementation RequestTool
 
@@ -71,6 +74,19 @@
         }
     }];
 }
+
+
+/** 实名认证 */
++ (void)realname:(realNameParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    
+}
+/** 忘记密码 */
++ (void)forgetPwd:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    
+}
+
 /** 完善商户资料 */
 + (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
@@ -176,7 +192,6 @@
         if (error) {
             failure(error);
         } else {
-            HDCLog(@"%@" ,model[@"ErrorMsg"]);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -210,6 +225,7 @@
             failure(error);
         } else
         {
+            HDCLog(@"modelmodelmodelmodelmodelmodelmodelmodelmodel=== %@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -338,6 +354,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
+            HDCLog(@"%@",model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -479,7 +496,6 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@",model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -571,12 +587,12 @@
 + (void)feedBack:(FeedBackParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_suggestion/Add"];
-    [HttpRequestTool POST:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+    [HttpRequestTool POST:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+            HDCLog(@"%@", model[@"ErrorMsg"]);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -587,12 +603,12 @@
 + (void)changePwd:(ChangePwdParams *)parm success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/UpdateUserPswdByOldPswd"];
-    [HttpRequestTool POST:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+    [HttpRequestTool POST:url parameters:parm.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
-            HDCLog(@"%@", error.userInfo);
+            HDCLog(@"%@______________________", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@" ,model);
+            HDCLog(@"%@+++++++++++++++++++++++" ,model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -631,4 +647,39 @@
         }
     }];
 }
+
+/** 社区店跟品牌馆新增分类 */
++ (void)addCtcategory:(AddCtcategoryParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productcategorythree/Add"];
+    [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 社区店跟品牌馆查询分类 */
++ (void)searchCtcategory:(GetBrandsAndCommunityClassifyParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productcategorythree/GetModelList"];
+    [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+    
+}
+
 @end

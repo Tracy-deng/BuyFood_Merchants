@@ -10,8 +10,6 @@
 
 @interface ComplaintOrderCell()
 
-/** 订单编号 */
-@property (nonatomic, strong) UILabel* orderNumLabel;
 /** 订单号 */
 @property (nonatomic, strong) UILabel* orderNumberLabel;
 /** 送达时间 */
@@ -78,29 +76,17 @@
         make.bottom.equalTo(whiteView.mas_bottom).offset(-30);
     }];
 #pragma 设置UI布局
-    
-    // 设置订单编号 orderNumLabel
-    self.orderNumLabel = [[UILabel alloc] init];
-    self.orderNumLabel.textColor = HDCColor(102, 102, 102);
-    self.orderNumLabel.font = [UIFont fontWithName:@"DINAlternate-Bold" size:30];
-    [whiteView addSubview:self.orderNumLabel];
-    [self.orderNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(whiteView.mas_top).offset(10);
-        make.left.equalTo(whiteView.mas_left).offset(20);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.14);
-        make.height.mas_equalTo(self.orderNumLabel.mas_width).multipliedBy(0.6);
-    }];
-    
+
     // 订单号 orderNumberLabel
     self.orderNumberLabel = [[UILabel alloc] init];
     self.orderNumberLabel.textColor = HDCColor(153, 153, 153);
     self.orderNumberLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:12];
     [whiteView addSubview:self.orderNumberLabel];
     [self.orderNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderNumLabel.mas_top);
-        make.left.equalTo(self.orderNumLabel.mas_right).offset(10);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.35);
-        make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.17);
+        make.top.mas_equalTo(whiteView.mas_top).offset(5);
+        make.left.equalTo(whiteView.mas_left).offset(40);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.70);
+        make.height.equalTo(@(20));
     }];
     // 送达时间 getTimeBtn
     self.getTimeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -109,11 +95,11 @@
     [self.getTimeBtn setTitleColor:HDCColor(35, 189, 52) forState:UIControlStateNormal];
     [whiteView addSubview:self.getTimeBtn];
     [self.getTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(5);
+        make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(2);
         make.left.equalTo(self.orderNumberLabel);
 
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.30);
-        make.height.mas_equalTo(self.orderNumberLabel.mas_width).multipliedBy(0.15);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.35);
+        make.height.equalTo(@(20));
     }];
     // 下单时间 orderTimeLabel
     self.orderTimeLabel = [[UILabel alloc] init];
@@ -121,25 +107,26 @@
     self.orderTimeLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     [whiteView addSubview:self.orderTimeLabel];
     [self.orderTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderNumberLabel.mas_bottom).offset(29);
+        make.top.mas_equalTo(self.getTimeBtn.mas_bottom).offset(5);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.55);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.10);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.70);
+        make.height.mas_equalTo(@(20));
     }];
     // 下单地址 orderAddressLabel
     self.orderAddressLabel = [[UILabel alloc] init];
+    self.orderAddressLabel.numberOfLines = 0;
     self.orderAddressLabel.textColor = HDCColor(102, 102, 102);
-    self.orderAddressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
+    self.orderAddressLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
     [whiteView addSubview:self.orderAddressLabel];
     [self.orderAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(2);
+        make.top.mas_equalTo(self.orderTimeLabel.mas_bottom).offset(0);
         make.left.equalTo(self.orderNumberLabel.mas_left);
-        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.55);
-        make.height.mas_equalTo(self.orderTimeLabel.mas_width).multipliedBy(0.10);
+        make.width.mas_equalTo(whiteView.mas_width).multipliedBy(0.80);
+        make.height.mas_equalTo(@(40));
     }];
     
     self.totalLabel = [UILabel new];
-    self.totalLabel.text = @"合计";
+    self.totalLabel.text = @"合计:";
     self.totalLabel.textColor = [UIColor grayColor];
     self.totalLabel.font = [UIFont systemFontOfSize:12];
     [whiteView addSubview:self.totalLabel];
@@ -152,7 +139,6 @@
     
     self.totalMoney = [UILabel new];
     self.totalMoney.font = [UIFont fontWithName:@"DINAlternate-Bold" size:17];
-    self.totalMoney.text = @"¥56";
     self.totalMoney.textAlignment = NSTextAlignmentLeft;
     [whiteView addSubview:self.totalMoney];
     [self.totalMoney mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -175,13 +161,24 @@
     }];
 }
 
-- (void)setOrderNumLabelText:(NSString* )orderNumLabelText andOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText
+
+- (void)setModel:(OrderMarketModel *)model
 {
-    self.orderNumLabel.text = orderNumLabelText;
-    self.orderNumberLabel.text = orderNumberLabelText;
-    [self.getTimeBtn setTitle:getTimeBtnText forState:UIControlStateNormal];
-    self.orderTimeLabel.text = orderTimeLabelText;
-    self.orderAddressLabel.text = orderAddressLabelText;
+    // 订单号拼接
+    NSString *orderNumber = [NSString stringWithFormat:@"%@%@", @"订单号:  ",model.orderno];
+    self.orderNumberLabel.text = orderNumber;
+    
+    // 订单时间拼接
+    NSString *orderTime = [NSString stringWithFormat:@"%@%@", @"下单时间:  ",model.ordertime];
+    self.orderTimeLabel.text = orderTime;
+    // 订单地址
+    self.orderAddressLabel.text = model.useraddress;
+    // 价格拼接
+    NSString *totalMoney = [NSString stringWithFormat:@"%@%@", @"¥",model.markettotalmoney];
+    self.totalMoney.text = totalMoney;
+    // 送达时间
+    [self.getTimeBtn setTitle:model.finishedtime forState:UIControlStateNormal];
 }
+
 
 @end

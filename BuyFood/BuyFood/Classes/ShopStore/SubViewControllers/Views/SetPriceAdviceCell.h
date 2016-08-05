@@ -15,6 +15,6 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
-- (void)setTitleLabel:(NSString* )title andBuyMoneyLabel:(NSString* )buyMoneyLabel andAveragePrice:(NSString* )averagePrice andDownOrImageName:(NSString* )imageName;
+//- (void)setTitleLabel:(NSString* )title andBuyMoneyLabel:(NSString* )buyMoneyLabel andAveragePrice:(NSString* )averagePrice andDownOrImageName:(NSString* )imageName;
 
 @end

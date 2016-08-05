@@ -150,7 +150,9 @@
         LoginParams* params = [[LoginParams alloc]init];
 //        params.telephone = _phoneTextField.text;
 //        params.pswd = _passwordTextField.text;
-        params.telephone = @"13099999999";
+        params.telephone = @"13888888888";
+//    params.telephone = @"13999999999";
+//    params.telephone = @"13055555555";
         params.pswd = @"1";
         [RequestTool login:params success:^(ResultsModel *result)
          {
@@ -200,9 +202,9 @@
 /** 注册按钮点击 */
 - (void)registerBtnClick:(UIButton* )sender
 {
-    [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
+//    [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
     
-//    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
     
 //    [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
 //    [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];

@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString *ErrorCode;
 @property (nonatomic, strong) NSString *ErrorMsg;
 @property (nonatomic, strong) NSArray *OrderMarket;
+@property (nonatomic, strong) NSString *totalcount;
 
 @end

@@ -25,10 +25,9 @@
 #import "GetCityAndCountryParams.h"
 #import "MBProgressHUD.h"
 #import "LoadView.h"
-#import <CoreLocation/CoreLocation.h>
 
 @interface CommonShopsRegisterViewController ()
-<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate>
+<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView* tableView;
 
@@ -55,13 +54,12 @@
 /** 上传图片*/
 @property (nonatomic, strong) UIImageView *imageView;
 /** 经度 */
-@property (nonatomic, assign)float lon1;
+@property (nonatomic, strong) NSString *lon;
 /** 纬度 */
-@property (nonatomic, assign)float lat1;
+@property (nonatomic, strong) NSString *lat;
 
 @property (nonatomic, strong) UIImagePickerController *imagePickController;
 
-@property (nonatomic, strong) CLLocationManager* locationManager;
 
 @end
 
@@ -86,11 +84,6 @@
     _imagePickController.allowsEditing = YES;
     _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    
-    [self findMe];
     
     [self setUpNextBtn];
 }
@@ -111,37 +104,7 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-- (void)findMe
-{
-    // 由于IOS8中定位的授权机制改变 需要进行手动授权
-    // 获取授权认证，两个方法：
-    [self.locationManager requestWhenInUseAuthorization];
-    [self.locationManager requestAlwaysAuthorization];
-    
-    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
-    {
-        [self.locationManager requestAlwaysAuthorization];
-    }
-    
-    //开始定位，不断调用其代理方法
-    [self.locationManager startUpdatingLocation];
-}
-
-#pragma mark - 定位代理
-- (void)locationManager:(CLLocationManager *)manager
-     didUpdateLocations:(NSArray *)locations
-{
-    // 1.获取用户位置的对象
-    CLLocation *location = [locations lastObject];
-    CLLocationCoordinate2D coordinate = location.coordinate;
-    HDCLog(@"纬度:%f 经度:%f", coordinate.latitude, coordinate.longitude);
-    self.lat1 = coordinate.latitude;
-    self.lon1 = coordinate.longitude;
-    
-    // 2.停止定位
-    [manager stopUpdatingLocation];
-}
+/** 创建tableView*/
 - (void)createTableView
 {
     self.tableView = [[UITableView alloc] init];
@@ -169,7 +132,7 @@
     RegisterCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell)
     {
-        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 5)
+        if (indexPath.row == 0 || indexPath.row == 1)
         {
             cell = [[RegisterCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.contentTextField.tag = indexPath.row;
@@ -182,9 +145,6 @@
                     break;
                 case 1:
                     [cell setTitleLabel:@"联系电话:" andContentTextFieldPlaceholder:@"请输入联系电话"];
-                    break;
-                case 5:
-                    [cell setTitleLabel:@"详细地址:" andContentTextFieldPlaceholder:@"请输入菜场详细地址"];
                     break;
                 default:
                     break;
@@ -200,18 +160,20 @@
                     [cell setChooseTitleLabel:@"选择省份:" andContentLabel:self.province];
                     break;
                 case 3:
-                    [cell setChooseTitleLabel:@"选择城市" andContentLabel:self.city];
+                    [cell setChooseTitleLabel:@"选择城市:" andContentLabel:self.city];
                     break;
                 case 4:
                     [cell setChooseTitleLabel:@"选择区域:" andContentLabel:self.country];
                     break;
-                case 6:
+                case 5:
                     [cell setChooseTitleLabel:@"分类名称:" andContentLabel:self.className];
                     break;
-                case 7:
+                case 6:
                     [cell setChooseTitleLabel:@"所属菜场:" andContentLabel:self.foodMarket];
                     break;
-                    
+                case 7:
+                    [cell setChooseTitleLabel:@"菜场地址:" andContentLabel:self.address];
+                    break;
                 default:
                     break;
             }
@@ -225,10 +187,10 @@
     RegisterCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     LoadView *loadView = [[LoadView alloc] init];
+    /** 获取省 */
     if (indexPath.row == 2)
     {
         [loadView startAnimation];
-        /** 获取省 */
         [RequestTool getProvinceListSuccess:^(ResultsModel *result)
          {
              if ([result.ErrorCode isEqualToString:@"1"])
@@ -257,6 +219,7 @@
              [loadView stopAnimation];
          }];
     }
+    /** 获取市 */
     else if (indexPath.row == 3)
     {
         if (self.province.length == 0)
@@ -301,6 +264,7 @@
              }];
         }
     }
+    /** 获取区域 */
     else if (indexPath.row == 4)
     {
         if (self.city.length == 0)
@@ -345,7 +309,8 @@
              }];
         }
     }
-    else if(indexPath.row == 6)
+    /** 获取分类 */
+    else if(indexPath.row == 5)
     {
         [loadView startAnimation];
         [RequestTool shopsListAll:nil success:^(ResultsModel *result)
@@ -379,7 +344,8 @@
          }];
         
     }
-    else if (indexPath.row == 7)
+    /** 获取菜场 */
+    else if (indexPath.row == 6)
     {
         if (self.country.length == 0)
         {
@@ -403,13 +369,17 @@
                     foodMarketDataSource = [NSMutableArray array];
                     for (FoodMarketModel* classModel in array)
                     {
-                        HDCLog(@"%@", classModel.marketname);
                         [foodMarketDataSource addObject:classModel.marketname];
                     }
                     MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择菜场" style:MHSheetStyleDefault itemTitles:foodMarketDataSource];
                     actionSheet.cancleTitle = @"取消选择";
                     [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
                      {
+                         FoodMarketModel* classModel = array[index];
+                         HDCLog(@"%@ %@",classModel.lon, classModel.lat);
+                         HDCLog(@"%@", classModel.detailaddress);
+                        
+                         self.address = classModel.detailaddress;
                          self.foodMarket = title;
                          self.selectMarketIndex = index;
                          [cell setChooseTitleLabel:@"所属菜场:" andContentLabel:self.foodMarket];
@@ -419,12 +389,11 @@
                 }
                 else
                 {
-                    [loadView stopAnimation];
                     [MBProgressHUD showError:@"暂无菜场数据"];
                 }
                 
             } failure:^(NSError *error) {
-                ;
+                [loadView stopAnimation];
             }];
         }
     }
@@ -569,9 +538,6 @@
         case 1:
             self.telephone = textField.text;
             break;
-        case 5:
-            self.address = textField.text;
-            break;
         default:
             break;
     }
@@ -607,8 +573,8 @@
                 params.province = self.province;
                 params.city = self.city;
                 params.country = self.country;
-                params.lon = self.lon1;
-                params.lat = self.lat1;
+                params.lon = self.lon;
+                params.lat = self.lat;
                 [RequestTool improveInformation:params success:^(ResultsModel *result)
                  {
                      if ([result.ErrorCode isEqualToString:@"1"])
@@ -629,8 +595,6 @@
             ;
         }];
     }
-    HDCLog(@"%@", self.country);
-    HDCLog(@"%@", self.province);
 }
 
 

@@ -12,4 +12,8 @@
 
 @property (nonatomic, strong) NSString* categoryid;
 
+/** 商户id */
+@property (nonatomic, strong) NSString *marketuserid;
+
+
 @end
