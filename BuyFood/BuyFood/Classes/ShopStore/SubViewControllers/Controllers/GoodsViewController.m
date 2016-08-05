@@ -55,7 +55,7 @@
 - (NSMutableArray *)twoArray
 {
     if (_twoArray == nil) {
-         self.twoArray = [NSMutableArray arrayWithCapacity:0];
+        self.twoArray = [NSMutableArray arrayWithCapacity:0];
     }
     return _twoArray;
 }
@@ -78,17 +78,16 @@
     _imagePickController.allowsEditing = YES;
     _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     
-    
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
     
-
+    
     [self creatDataSoruce];
 }
 - (void)creatDataSoruce
 {
     NSArray *sortKeys = [self getSortedKeys:self.goodsDic];
-   
+    
     
     if (sortKeys.count != 0) {
         for(int i = 0; i < sortKeys.count; i ++)
@@ -99,7 +98,7 @@
             
         }
     }
-
+    
 }
 
 - (void)addShopsImage
@@ -158,13 +157,10 @@
 - (void)tap:(UITapGestureRecognizer* )tapGesture
 {
     NSLog(@"点击添加图片");
-    
-    
-    
     NSArray *photoArray = @[@"相机拍照",@"本地上传"];
     MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleWeiChat itemTitles:photoArray];
     actionSheet.cancleTitle = @"取消选择";
-   static NSInteger sourceType = 0 ;
+    static NSInteger sourceType = 0 ;
     
     [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title) {
         if (index == 0) {
@@ -172,62 +168,58 @@
             // 判断相机有没有权限
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 
-                 sourceType = UIImagePickerControllerSourceTypeCamera;
+                sourceType = UIImagePickerControllerSourceTypeCamera;
                 _imagePickController.sourceType = sourceType;
                 // 进入相机
                 [self presentViewController:_imagePickController animated:YES completion:nil];
                 
-            }else{
+            }
+            else
+            {
                 
                 UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有相机权限" message:@"请您在设置里面打开权限" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
                 [selct addAction:action];
                 [self presentViewController:selct animated:YES completion:nil];
             }
+        }
+        else
+        {
             
-            
-            
-        }else{
-            
-            NSLog(@"本地上传");
+            HDCLog(@"本地上传");
             if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-                NSLog(@"进去图片库");
+                HDCLog(@"进去图片库");
                 sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                 _imagePickController.sourceType = sourceType;
+                _imagePickController.sourceType = sourceType;
                 
                 [self presentViewController:_imagePickController animated:YES completion:nil];
-                
-                
-            }else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            }
+            else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
             {
-                NSLog(@"进入相册");
-                
+                HDCLog(@"进入相册");
                 sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                 _imagePickController.sourceType = sourceType;
+                _imagePickController.sourceType = sourceType;
                 
                 [self presentViewController:_imagePickController animated:YES completion:nil];
-                
             }
         }
-       
-       
     }];
 }
 
 #pragma mark-- imagePicker delegate 事件
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-   [picker dismissViewControllerAnimated:YES completion:^{}];
+    [picker dismissViewControllerAnimated:YES completion:^{}];
     
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     //图片存入相册
-
+    
     [self saveImage:image withName:@"IMAGE_0.jpg"];
-
+    
     NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"IMAGE_0.jpg"];
-
+    
     UIImage *savedImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
-
+    
     [self.imageView setImage:savedImage];
     
     self.imageView.tag = 100;
@@ -236,7 +228,7 @@
 // 相机选择取消按钮
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -244,7 +236,7 @@
 {
     NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
     // 获取沙盒目录
-
+    
     NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
     // 将图片写入文件
     [imageData writeToFile:fullPath atomically:NO];
@@ -306,7 +298,6 @@
                 default:
                     break;
             }
-            
         }
     }
     return cell;
@@ -386,12 +377,12 @@
                  HDCLog(@"%ld",self.selectThirdClassIndex);
              }];
         }
-    
+        
     }
     if (indexPath.row == 4)
     {
         NSArray * array = @[@"份",
-                                @"克"];
+                            @"克"];
         MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择单位" style:MHSheetStyleWeiChat itemTitles:array];
         actionSheet.cancleTitle = @"取消选择";
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
@@ -444,9 +435,9 @@
             {
                 [self.navigationController popViewControllerAnimated:YES];
             }
-                [loadView stopAnimation];
-                bottomBtn.userInteractionEnabled = YES;
-                bottomBtn.backgroundColor = greenColor;
+            [loadView stopAnimation];
+            bottomBtn.userInteractionEnabled = YES;
+            bottomBtn.backgroundColor = greenColor;
             
         } failure:^(NSError *error) {
             [loadView stopAnimation];
@@ -509,7 +500,7 @@
         }else{
             //设置视图上移动的位移
             self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + 0.3*SCREEN_HEIGHT, self.view.frame.size.width, self.view.frame.size.height);
-
+            
         }
         
         //设置动画结束

@@ -66,17 +66,15 @@
 
 - (void)buttonClick:(UIButton *)sender
 {
-//    LoadView *loadView = [[LoadView alloc] init];
-//    [loadView startAnimation];
     [MBProgressHUD showMessage:@"意见提交中..."];
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
     FeedBackParams *params = [[FeedBackParams alloc] init];
     params.userid = userInfo.marketuserid;
-    params.usertype = @"2";
+    params.usertype = userInfo.markettypeid;
     params.remark = self.textView.text;
     [RequestTool feedBack:params success:^(ResultsModel *result)
     {
-        if ([result.ErrorCode isEqualToString:@"-1"])
+        if ([result.ErrorCode isEqualToString:@"1"])
         {
             [MBProgressHUD hideHUD];
             [MBProgressHUD showSuccess:@"意见提交成功"];
@@ -87,10 +85,12 @@
             [MBProgressHUD hideHUD];
             [MBProgressHUD showError:@"意见提交失败"];
         }
-        HDCLog(@"%@", result.ErrorCode);
     } failure:^(NSError *error) {
         ;
     }];
+    
+
+    
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text

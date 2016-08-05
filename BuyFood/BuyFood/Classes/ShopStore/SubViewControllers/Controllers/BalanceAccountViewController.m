@@ -16,6 +16,7 @@
 #import "RequestTool.h"
 #import "BalanceAccountParams.h"
 #import "ResultsModel.h"
+#import "MBProgressHUD.h"
 
 @interface BalanceAccountViewController ()
 
@@ -51,15 +52,27 @@
         make.width.mas_equalTo(self.view);
     }];
     
-    
+    [MBProgressHUD showMessage:@"数据正在加载中..."];
     BalanceAccountParams *params = [[BalanceAccountParams alloc] init];
     params.userid = self.userInfo.marketuserid;
     [RequestTool balanceAccount:params success:^(ResultsModel *result)
      {
-        NSString *money = result.ModelList[0][@"totalmoney"];
-        self.headerView.withdrawMoney.text = [NSString stringWithFormat:@"%@", money];
+         if (![result.ErrorMsg isEqualToString:@"成功"])
+         {
+             [MBProgressHUD hideHUD];
+             [MBProgressHUD showSuccess:@"暂无数据..."];
+         }
+         else
+         {
+             [MBProgressHUD hideHUD];
+             [MBProgressHUD showSuccess:@"数据加载成功..."];
+             NSString *money = result.ModelList[0][@"totalmoney"];
+             HDCLog(@"%@",money);
+             self.headerView.withdrawMoney.text = [NSString stringWithFormat:@"%@", money];
+         }
     } failure:^(NSError *error) {
-        ;
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showSuccess:@"数据加载失败..."];
     }];
 }
 /** 提现按钮点击 */

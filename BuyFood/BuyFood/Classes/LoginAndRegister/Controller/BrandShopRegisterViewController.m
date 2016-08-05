@@ -204,7 +204,8 @@
                 [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
                  {
                      self.className = title;
-                     self.selectClassIndex = index;
+                     self.selectClassIndex = index + 1;
+                     HDCLog(@"%ld", self.selectClassIndex);
                      [cell setChooseTitleLabel:@"分类名称:" andContentLabel:self.className];
                  }];
                 [loadView stopAnimation];
@@ -365,6 +366,7 @@
             params.detailaddress = self.address;
             params.marketsubid = self.marketuserid;
             params.marketsubname = self.marketname;
+            params.categoryid = [NSString stringWithFormat:@"%ld", self.selectClassIndex];
             params.pic = response[@"data"][0][@"littlepic"];
             params.city = self.locationAddress.text;
             [RequestTool improveInformation:params success:^(ResultsModel *result) {

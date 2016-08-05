@@ -53,7 +53,7 @@
     OrderParams *params = [[OrderParams alloc] init];
     params.marketuserid = userInfo.marketuserid;
     params.pageindex = @"1";
-    params.pagesize = @"10";
+    params.pagesize = @"100";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [RequestTool alreadySolvedOrderList:params success:^(MarketOrderModelList *result) {
             NSLog(@"%@",result.OrderMarket);

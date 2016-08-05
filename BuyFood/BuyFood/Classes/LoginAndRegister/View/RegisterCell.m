@@ -23,7 +23,7 @@
         [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView.mas_left).offset(10);
             make.centerY.mas_equalTo(self.contentView.mas_centerY);
-            make.width.equalTo(@80);
+            make.width.equalTo(@70);
             make.height.equalTo(@30);
         }];
         
@@ -32,7 +32,7 @@
         self.contentTextField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         [self.contentView addSubview:self.contentTextField];
         [self.contentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.titleLabel.mas_right).offset(20);
+            make.left.mas_equalTo(self.titleLabel.mas_right).offset(10);
             make.top.equalTo(self.titleLabel);
             make.width.equalTo(@150);
             make.height.equalTo(@35);
@@ -53,7 +53,7 @@
         [self.chooseLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.contentView.mas_left).offset(10);
             make.centerY.mas_equalTo(self.contentView.mas_centerY);
-            make.width.equalTo(@100);
+            make.width.equalTo(@70);
             make.height.equalTo(@30);
         }];
         
@@ -62,7 +62,7 @@
         self.chooseContentLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         [self.contentView addSubview:self.chooseContentLabel];
         [self.chooseContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.chooseLabel.mas_right).offset(15);
+            make.left.mas_equalTo(self.chooseLabel.mas_right).offset(10);
             make.top.equalTo(self.chooseLabel);
             make.width.equalTo(@200);
             make.height.equalTo(self.self.chooseLabel);

@@ -11,14 +11,16 @@
 #import "ChooseBusinessTimeViewController.h"
 #import "ShopsUserInfoTool.h"
 #import "ShopsUserInfo.h"
+#import "BusinessStatusParams.h"
+#import "RequestTool.h"
+#import "ResultsModel.h"
+#import "UIImageView+WebCache.h"
 
 @interface BusinessStatusViewController ()
 
 @property (nonatomic, strong) BusinessStatusView* businessStatusView;
 @property (nonatomic, strong) ShopsUserInfo* userInfo;
 @property (nonatomic, strong) NSString* time;
-@property (nonatomic, assign) BOOL change;
-
 
 @end
 
@@ -30,26 +32,29 @@
     self.title = @"营业状态";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     self.userInfo = [ShopsUserInfoTool account];
     self.time = [[self.userInfo.openstart stringByAppendingString:@"-"] stringByAppendingString:self.userInfo.openend];
-    HDCLog(@"%@", self.time);
-    _change = YES;
     [self creatBusinessStatusView];
     [self setUpBusinessStatusBtn];
+    
 }
-
 - (void)creatBusinessStatusView
 {
     self.businessStatusView = [BusinessStatusView initBusinessStatusView];
     [self.businessStatusView creatHeaderContentView];
     
-    [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"休息中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
+    HDCLog(@"%@", self.userInfo.status);
+    
+    
+    /** 营业状态。1-正常营业；2-暂停营业；3-停业整改;4-自动接单 */
+    if ([self.userInfo.status isEqualToString:@"2"] || [self.userInfo.status isEqualToString:@"3"])
+    {
+        [self.businessStatusView setBusinessStatus:@"休息中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
+    }
+    else
+    {
+        [self.businessStatusView setBusinessStatus:@"营业中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是营业时间,接收订单"];
+    }
     [self.businessStatusView.businessTime addTarget:self action:@selector(chooseBusinessTime:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.businessStatusView];
     [self.businessStatusView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -74,6 +79,14 @@
     [businessStatusBtn setBackgroundImage:[UIImage imageNamed:@"businessStatus_Stop"] forState:UIControlStateSelected];
     [businessStatusBtn setTitle:@"停止接单" forState:UIControlStateSelected];
     [businessStatusBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+    if ([self.userInfo.status isEqualToString:@"2"] || [self.userInfo.status isEqualToString:@"3"])
+    {
+        businessStatusBtn.selected = YES;
+    }
+    else
+    {
+        businessStatusBtn.selected = NO;
+    }
     businessStatusBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:20];
     [businessStatusBtn addTarget:self action:@selector(businessStatusBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:businessStatusBtn];
@@ -90,11 +103,38 @@
     sender.selected = !sender.isSelected;
     if (!sender.selected)
     {
-        [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"休息中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
+        [self.businessStatusView setBusinessStatus:@"休息中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是休息时间,不接收订单"];
+        [MBProgressHUD showMessage:@"开启接单中..."];
+        BusinessStatusParams *params = [[BusinessStatusParams alloc] init];
+        params.marketuserid = self.userInfo.marketuserid;
+        params.status = @"1";
+        self.userInfo.status = params.status;
+        [RequestTool businessStatus:params success:^(ResultsModel *result) {
+            
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"开启成功"];
+            [ShopsUserInfoTool saveAccount:self.userInfo];
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"开启失败"];
+        }];
     }
     else
     {
-        [self.businessStatusView setHeaderImageViewName:@"headerImage" andBusinessStatus:@"营业中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是营业时间,接收订单"];
+        [self.businessStatusView setBusinessStatus:@"营业中" andBusinessTime:self.time andBusinessStatusLabel:@"现在是营业时间,接收订单"];
+        [MBProgressHUD showMessage:@"停止接单中..."];
+        BusinessStatusParams *params = [[BusinessStatusParams alloc] init];
+        params.marketuserid = self.userInfo.marketuserid;
+        params.status = @"2";
+        self.userInfo.status = params.status;
+        [RequestTool businessStatus:params success:^(ResultsModel *result) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"修改成功"];
+            [ShopsUserInfoTool saveAccount:self.userInfo];
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"修改失败"];
+        }];
     }
 }
 

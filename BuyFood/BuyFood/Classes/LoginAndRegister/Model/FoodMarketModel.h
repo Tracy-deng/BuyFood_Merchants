@@ -10,8 +10,16 @@
 
 @interface FoodMarketModel : NSObject
 
+/** 菜场详细地址 */
 @property (nonatomic, strong) NSString* detailaddress;
+/** 菜场名称 */
 @property (nonatomic, strong) NSString* marketname;
-@property (nonatomic, strong) NSString* markettypename;
+///** */
+//@property (nonatomic, strong) NSString* markettypename;
+/** 菜场经度 */
+@property (nonatomic, strong) NSString *lon;
+/** 菜场纬度 */
+@property (nonatomic, strong) NSString *lat;
+
 
 @end

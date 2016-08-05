@@ -33,9 +33,9 @@
 /** 县 / 区  */
 @property (nonatomic, strong) NSString *country;
 /** 经度 */
-@property (nonatomic, assign) CGFloat lon;
+@property (nonatomic, strong) NSString *lon;
 /** 纬度 */
-@property (nonatomic, assign) CGFloat lat;
+@property (nonatomic, strong) NSString *lat;
 
 
 @end

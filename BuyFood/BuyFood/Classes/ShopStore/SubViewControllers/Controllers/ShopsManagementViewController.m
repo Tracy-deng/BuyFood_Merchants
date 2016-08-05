@@ -23,6 +23,7 @@
 #import "GetProductParams.h"
 #import "LoadView.h"
 #import "MJRefresh.h"
+#import "MBProgressHUD.h"
 
 @interface ShopsManagementViewController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 {
@@ -63,19 +64,19 @@
     self.title = @"商品管理";
     [self.view setBackgroundColor:[UIColor colorWithWhite:0.915 alpha:1.000]];
     [self creatTableView];
-
+    
     
     [self.selectedTableView registerClass:[ShopThreeCate class] forHeaderFooterViewReuseIdentifier:@"head"];
     billData = [NSMutableDictionary new];
     [self configureData];
-
+    
     
     self.mainTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-       
+        
         [self selfReloadData];
     }];
     
-
+    
 }
 - (void)selfReloadData
 {
@@ -143,7 +144,7 @@
 // 右边的数据请求
 - (void)getMainTableDataSource
 {
-
+    
     LoadView *loadView = [LoadView new];
     [loadView startAnimation];
     GetProductParams* params = [[GetProductParams alloc] init];
@@ -154,12 +155,20 @@
     params.threecategoryid = threeProductId;
     params.pagesize = @"0";
     params.page = @"0";
-    [RequestTool getProduct:params success:^(ResultsModel *result) {
-        [self.productMainDataArray removeAllObjects];
-        for (NSDictionary *Pdic in result.ModelList) {
-            ModlistModel *model = [[ModlistModel alloc]init];
-            [model setValuesForKeysWithDictionary:Pdic];
-            [self.productMainDataArray addObject:model];
+    [RequestTool getProduct:params success:^(ResultsModel *result)
+    {
+        if ([result.totalcount isEqualToString:@"0"])
+        {
+            [MBProgressHUD showError:@"暂无数据"];
+        }
+        else
+        {
+            [self.productMainDataArray removeAllObjects];
+            for (NSDictionary *Pdic in result.ModelList) {
+                ModlistModel *model = [[ModlistModel alloc]init];
+                [model setValuesForKeysWithDictionary:Pdic];
+                [self.productMainDataArray addObject:model];
+            }
         }
         [self.mainTableView reloadData];
         [loadView stopAnimation];
@@ -190,11 +199,19 @@
     params.pagesize = @"0";
     params.page = @"0";
     [RequestTool getProduct:params success:^(ResultsModel *result) {
-        [self.productMainDataArray removeAllObjects];
-        for (NSDictionary *Pdic in result.ModelList) {
-            ModlistModel *model = [[ModlistModel alloc]init];
-            [model setValuesForKeysWithDictionary:Pdic];
-            [self.productMainDataArray addObject:model];
+        
+        if ([result.totalcount isEqualToString:@"0"])
+        {
+            [MBProgressHUD showError:@"暂无数据"];
+        }
+        else
+        {
+            [self.productMainDataArray removeAllObjects];
+            for (NSDictionary *Pdic in result.ModelList) {
+                ModlistModel *model = [[ModlistModel alloc]init];
+                [model setValuesForKeysWithDictionary:Pdic];
+                [self.productMainDataArray addObject:model];
+            }
         }
         [self.mainTableView reloadData];
         [loadView stopAnimation];
@@ -234,7 +251,7 @@
         NSLog(@"error");
         [loadView stopAnimation];
     }];
-
+    
     
 }
 - (void)didHeadBtn:(UIButton *)sender
@@ -392,17 +409,17 @@
         headLabel.frame = CGRectMake(10, 10, 100, 30);
         headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
         
-       
+        
         
         return headView;
-    }else if([tableView isEqual:_selectedTableView]){
-        
+    }
+    else if([tableView isEqual:_selectedTableView])
+    {
         NSArray *sortKeys = [self getSortedKeys:billData];
         if (sortKeys.count != 0) {
             NSString *catego = [sortKeys objectAtIndex:section];
             ShopThreeCate * headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
             headView.frame = CGRectMake(0, 0, 100, 50);
-//            headView.backgroundColor = [UIColor colorWithWhite:0.950 alpha:0.8000];
             headView.model = [[billData objectForKey:catego] firstObject];
             
             __block typeof (self) weakself = self;
@@ -410,7 +427,7 @@
             headView.touch = ^{
                 
                 NSArray *keys = [self getSortedKeys:billData];
-
+                
                 if (keys.count != 0) {
                     
                     twoID = [keys objectAtIndex:section];
@@ -420,13 +437,9 @@
                 [weakself getHeaderViewSource];
             };
             return headView;
-            
         }
-        
     }
-    
     return 0;
-    
 }
 
 
@@ -467,7 +480,7 @@
         shopCell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
         ModlistModel * model = self.productMainDataArray[indexPath.row];
         shopCell.productModel = model;
-       
+        
         return shopCell;
     }
 }
@@ -475,7 +488,7 @@
 - (void)didAddBtn:(UIButton *)sender
 {
     GoodsViewController *goodsVC = [[GoodsViewController alloc]init];
-    goodsVC.goodsDic = billData;
+//    goodsVC.goodsDic = billData;
     [self.navigationController pushViewController:goodsVC animated:YES];
 }
 
@@ -526,11 +539,19 @@
     if ([tableView isEqual:_mainTableView]) {
         
         return 40;
-    }else
-        
-        return 50;
+    }
+    else
+    {
+        if ([self.modlst.subcategoryid intValue] == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return 50;
+        }
+    }
 }
-
 
 
 #pragma mark -- 让_mainTableView 进入编辑 并且排序
@@ -551,7 +572,7 @@
 //    if (editingStyle == UITableViewCellEditingStyleDelete) {
 //        // 1.删除数据
 //        [self.productMainDataArray removeObjectAtIndex:indexPath.row];
-//        
+//
 //        // 2.更新UITableView UI界面
 ////         [tableView reloadData];
 //        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -560,7 +581,7 @@
 //
 //- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 //{
-//    
+//
 //    return YES;
 //}
 //

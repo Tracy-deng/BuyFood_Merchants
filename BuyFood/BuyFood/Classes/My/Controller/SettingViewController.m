@@ -16,6 +16,9 @@
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "UIImageView+WebCache.h"
+#import "RequestTool.h"
+#import "BusinessStatusParams.h"
+#import "ResultsModel.h"
 
 @interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -163,6 +166,15 @@
         if (indexPath.row == 0)
         {
             UISwitch* switchBtn = [[UISwitch alloc] initWithFrame:CGRectMake(self.view.width * 0.8, cell.contentView.height * 0.15, cell.contentView.width * 0.14, self.view.height * 0.04)];
+            if ([self.shopsUserInfo.status isEqualToString:@"1"])
+            {
+                switchBtn.on = NO;
+            }
+            else if ([self.shopsUserInfo.status isEqualToString:@"4"])
+            {
+                switchBtn.on = YES;
+            }
+            [switchBtn addTarget:self action:@selector(switchBtnClick:) forControlEvents:UIControlEventValueChanged];
             [cell.contentView addSubview:switchBtn];
         }
         else if (indexPath.row == 2)
@@ -183,6 +195,44 @@
         }
     }
     return cell;
+}
+
+- (void)switchBtnClick:(UISwitch *)sender
+{
+    if(sender.isOn)
+    {
+        BusinessStatusParams *params = [[BusinessStatusParams alloc] init];
+        params.status = @"4";
+        params.marketuserid = self.shopsUserInfo.marketuserid;
+        [RequestTool autoGetOrder:params success:^(ResultsModel *result)
+        {
+            [MBProgressHUD showMessage:@"开启自动接单中..."];
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"开启成功"];
+            [ShopsUserInfoTool saveAccount:self.shopsUserInfo];
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"开启失败"];
+            sender.on = NO;
+        }];
+
+    }
+    else
+    {
+        [MBProgressHUD showMessage:@"关闭接单中..."];
+        BusinessStatusParams *params = [[BusinessStatusParams alloc] init];
+        params.status = @"1";
+        params.marketuserid = self.shopsUserInfo.marketuserid;
+        [RequestTool autoGetOrder:params success:^(ResultsModel *result) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"关闭成功"];
+            [ShopsUserInfoTool saveAccount:self.shopsUserInfo];
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showSuccess:@"关闭失败"];
+            sender.on=YES;
+        }];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
