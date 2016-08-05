@@ -12,7 +12,7 @@
 #import "RequestTool.h"
 #import "RegisterParams.h"
 #import "ResultsModel.h"
-#import "OrdinaryBusinessRegisterViewController.h"
+#import "CommonShopsRegisterViewController.h"
 #import "BrandShopRegisterViewController.h"
 #import "CommunityShopRegisterViewController.h"
 #import "LoginParams.h"
@@ -281,8 +281,8 @@ static NSInteger selectNum;
                 loginParams.pswd = _passWordTF.text;
                 [RequestTool login:loginParams success:^(ResultsModel *result)
                  {
-                     NSLog(@"%@", result.ModelList[0]);
-                     OrdinaryBusinessRegisterViewController* ordinaryBusinessRegisterVC = [[OrdinaryBusinessRegisterViewController alloc] init];
+                     HDCLog(@"%@", result.ModelList[0]);
+                     CommonShopsRegisterViewController* ordinaryBusinessRegisterVC = [[CommonShopsRegisterViewController alloc] init];
                      ordinaryBusinessRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
                      [self.navigationController pushViewController:ordinaryBusinessRegisterVC animated:YES];
                  } failure:^(NSError *error) {
@@ -312,7 +312,7 @@ static NSInteger selectNum;
                 loginParams.pswd = _passWordTF.text;
                 [RequestTool login:loginParams success:^(ResultsModel *result)
                  {
-                     NSLog(@"%@", result.ModelList[0]);
+                     HDCLog(@"%@", result.ModelList[0]);
                      CommunityShopRegisterViewController* communityShopRegisterVC = [[CommunityShopRegisterViewController alloc] init];
                      communityShopRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
                      [self.navigationController pushViewController:communityShopRegisterVC animated:YES];
@@ -342,7 +342,7 @@ static NSInteger selectNum;
                 loginParams.pswd = _passWordTF.text;
                 [RequestTool login:loginParams success:^(ResultsModel *result)
                  {
-                     NSLog(@"%@", result.ModelList[0]);
+                     HDCLog(@"%@", result.ModelList[0]);
                      BrandShopRegisterViewController* brandShopRegisterVC = [[BrandShopRegisterViewController alloc] init];
                      brandShopRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
                      [self.navigationController pushViewController:brandShopRegisterVC animated:YES];

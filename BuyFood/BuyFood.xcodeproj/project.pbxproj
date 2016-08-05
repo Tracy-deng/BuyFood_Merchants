@@ -50,6 +50,7 @@
 		0E16FD021D33DD5B009AAF31 /* ShopsUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E16FCFF1D33DD5B009AAF31 /* ShopsUserInfo.m */; };
 		0E16FD031D33DD5B009AAF31 /* ShopsUserInfoTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E16FD011D33DD5B009AAF31 /* ShopsUserInfoTool.m */; };
 		0E16FD061D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E16FD051D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m */; };
+		0E2413CB1D508EF600B49F0B /* CommonShopsRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E2413CA1D508EF600B49F0B /* CommonShopsRegisterViewController.m */; };
 		0E3C1A911D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */; };
 		0E3C1A941D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A931D1B8CDD0060A7F4 /* ChooseBusinessTimeView.m */; };
 		0E3C1A9B1D1C336B0060A7F4 /* MHDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E3C1A971D1C336B0060A7F4 /* MHDatePicker.m */; };
@@ -101,6 +102,9 @@
 		0E5FEE771D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE761D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m */; };
 		0E5FEE7A1D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE791D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m */; };
 		0E5FEE7D1D4F049C00452B5D /* MyBillModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE7C1D4F049C00452B5D /* MyBillModel.m */; };
+		0E5FEE801D4F3D5500452B5D /* PricingGuidanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE7F1D4F3D5500452B5D /* PricingGuidanceModel.m */; };
+		0E5FEE831D4F513000452B5D /* BrandShopManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE821D4F513000452B5D /* BrandShopManagementViewController.m */; };
+		0E5FEE861D4F5B1300452B5D /* AddClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5FEE851D4F5B1300452B5D /* AddClassViewController.m */; };
 		0E6319B81D2567CC00D59998 /* CCLickButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B51D2567CC00D59998 /* CCLickButton.m */; };
 		0E6319B91D2567CC00D59998 /* CCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319B71D2567CC00D59998 /* CCTextField.m */; };
 		0E6319BF1D256C7300D59998 /* EvaluateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6319BE1D256C7300D59998 /* EvaluateCell.m */; };
@@ -144,7 +148,6 @@
 		0EBD08361D17EF18002DD7A4 /* OwnHaveNoSolvedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD082C1D17EF18002DD7A4 /* OwnHaveNoSolvedController.m */; };
 		0EBD08371D17EF18002DD7A4 /* OwnHaveProvideController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD082E1D17EF18002DD7A4 /* OwnHaveProvideController.m */; };
 		0EBD08381D17EF18002DD7A4 /* OwnHavePushController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */; };
-		0EEF9C131D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEF9C121D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.m */; };
 		0EEF9C161D30A7DC00CD83E9 /* BrandShopRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEF9C151D30A7DC00CD83E9 /* BrandShopRegisterViewController.m */; };
 		0EEF9C191D30A80300CD83E9 /* CommunityShopRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEF9C181D30A80300CD83E9 /* CommunityShopRegisterViewController.m */; };
 		0EEF9CE21D3166D600CD83E9 /* RegisterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EEF9CE11D3166D600CD83E9 /* RegisterCell.m */; };
@@ -333,6 +336,8 @@
 		0E16FD011D33DD5B009AAF31 /* ShopsUserInfoTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsUserInfoTool.m; sourceTree = "<group>"; };
 		0E16FD041D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopsSecAndThirdClassParams.h; sourceTree = "<group>"; };
 		0E16FD051D33F9EB009AAF31 /* ShopsSecAndThirdClassParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopsSecAndThirdClassParams.m; sourceTree = "<group>"; };
+		0E2413C91D508EF600B49F0B /* CommonShopsRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonShopsRegisterViewController.h; sourceTree = "<group>"; };
+		0E2413CA1D508EF600B49F0B /* CommonShopsRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonShopsRegisterViewController.m; sourceTree = "<group>"; };
 		0E3C1A8F1D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBusinessTimeViewController.h; sourceTree = "<group>"; };
 		0E3C1A901D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseBusinessTimeViewController.m; sourceTree = "<group>"; };
 		0E3C1A921D1B8CDD0060A7F4 /* ChooseBusinessTimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseBusinessTimeView.h; sourceTree = "<group>"; };
@@ -439,6 +444,12 @@
 		0E5FEE791D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TodayBalanceAndVolumeModel.m; sourceTree = "<group>"; };
 		0E5FEE7B1D4F049C00452B5D /* MyBillModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBillModel.h; sourceTree = "<group>"; };
 		0E5FEE7C1D4F049C00452B5D /* MyBillModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBillModel.m; sourceTree = "<group>"; };
+		0E5FEE7E1D4F3D5500452B5D /* PricingGuidanceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PricingGuidanceModel.h; sourceTree = "<group>"; };
+		0E5FEE7F1D4F3D5500452B5D /* PricingGuidanceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PricingGuidanceModel.m; sourceTree = "<group>"; };
+		0E5FEE811D4F513000452B5D /* BrandShopManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandShopManagementViewController.h; sourceTree = "<group>"; };
+		0E5FEE821D4F513000452B5D /* BrandShopManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandShopManagementViewController.m; sourceTree = "<group>"; };
+		0E5FEE841D4F5B1300452B5D /* AddClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddClassViewController.h; sourceTree = "<group>"; };
+		0E5FEE851D4F5B1300452B5D /* AddClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddClassViewController.m; sourceTree = "<group>"; };
 		0E6319B41D2567CC00D59998 /* CCLickButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLickButton.h; sourceTree = "<group>"; };
 		0E6319B51D2567CC00D59998 /* CCLickButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCLickButton.m; sourceTree = "<group>"; };
 		0E6319B61D2567CC00D59998 /* CCTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTextField.h; sourceTree = "<group>"; };
@@ -525,8 +536,6 @@
 		0EBD082E1D17EF18002DD7A4 /* OwnHaveProvideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnHaveProvideController.m; sourceTree = "<group>"; };
 		0EBD082F1D17EF18002DD7A4 /* OwnHavePushController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnHavePushController.h; sourceTree = "<group>"; };
 		0EBD08301D17EF18002DD7A4 /* OwnHavePushController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnHavePushController.m; sourceTree = "<group>"; };
-		0EEF9C111D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrdinaryBusinessRegisterViewController.h; sourceTree = "<group>"; };
-		0EEF9C121D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrdinaryBusinessRegisterViewController.m; sourceTree = "<group>"; };
 		0EEF9C141D30A7DC00CD83E9 /* BrandShopRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandShopRegisterViewController.h; sourceTree = "<group>"; };
 		0EEF9C151D30A7DC00CD83E9 /* BrandShopRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandShopRegisterViewController.m; sourceTree = "<group>"; };
 		0EEF9C171D30A80300CD83E9 /* CommunityShopRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityShopRegisterViewController.h; sourceTree = "<group>"; };
@@ -753,6 +762,10 @@
 				0E110CBA1D19B76100161ACB /* ShopsManagementViewController.m */,
 				78FFC5BD1D23690000FDE9C6 /* GoodsViewController.h */,
 				78FFC5BE1D23690000FDE9C6 /* GoodsViewController.m */,
+				0E5FEE811D4F513000452B5D /* BrandShopManagementViewController.h */,
+				0E5FEE821D4F513000452B5D /* BrandShopManagementViewController.m */,
+				0E5FEE841D4F5B1300452B5D /* AddClassViewController.h */,
+				0E5FEE851D4F5B1300452B5D /* AddClassViewController.m */,
 				78FFC5C01D23749200FDE9C6 /* ShopDetailViewController.h */,
 				78FFC5C11D23749200FDE9C6 /* ShopDetailViewController.m */,
 				0E110CBC1D19B78E00161ACB /* SaleManagementViewController.h */,
@@ -818,6 +831,8 @@
 				0EB7C77E1D4894F700172FBB /* MarketOrderModelList.m */,
 				0E5FEE7B1D4F049C00452B5D /* MyBillModel.h */,
 				0E5FEE7C1D4F049C00452B5D /* MyBillModel.m */,
+				0E5FEE7E1D4F3D5500452B5D /* PricingGuidanceModel.h */,
+				0E5FEE7F1D4F3D5500452B5D /* PricingGuidanceModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -988,8 +1003,8 @@
 				0E5259F81D1283A700AFC95B /* RealnameViewController.m */,
 				0E5259F91D1283A700AFC95B /* RegisterViewController.h */,
 				0E5259FA1D1283A700AFC95B /* RegisterViewController.m */,
-				0EEF9C111D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.h */,
-				0EEF9C121D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.m */,
+				0E2413C91D508EF600B49F0B /* CommonShopsRegisterViewController.h */,
+				0E2413CA1D508EF600B49F0B /* CommonShopsRegisterViewController.m */,
 				0EEF9C171D30A80300CD83E9 /* CommunityShopRegisterViewController.h */,
 				0EEF9C181D30A80300CD83E9 /* CommunityShopRegisterViewController.m */,
 				0EEF9C141D30A7DC00CD83E9 /* BrandShopRegisterViewController.h */,
@@ -1800,6 +1815,7 @@
 				0E12A2631D2B986A008066CC /* MJFoundation.m in Sources */,
 				788084E01D3348FB00D3FCDD /* UpLoadImageUtil.m in Sources */,
 				0E6319C41D25759000D59998 /* tapImageView.m in Sources */,
+				0E5FEE831D4F513000452B5D /* BrandShopManagementViewController.m in Sources */,
 				7802E6D71D1A87AE000B03C2 /* HeaderView.h in Sources */,
 				7802E6D61D1A8766000B03C2 /* InviteViewController.m in Sources */,
 				7802E6D51D1A86EE000B03C2 /* InviteViewController.h in Sources */,
@@ -1864,7 +1880,6 @@
 				0E3C1A911D1B89CB0060A7F4 /* ChooseBusinessTimeViewController.m in Sources */,
 				0E110CBB1D19B76100161ACB /* ShopsManagementViewController.m in Sources */,
 				0E525A4E1D1283A700AFC95B /* InputTextField.m in Sources */,
-				0EEF9C131D30A6DE00CD83E9 /* OrdinaryBusinessRegisterViewController.m in Sources */,
 				0E12A26B1D2B986A008066CC /* NSString+MJExtension.m in Sources */,
 				0EEF9D141D317EE600CD83E9 /* MHSheetCell.m in Sources */,
 				0E67E0041D22C89200E025BD /* OutdoorActivitiesViewController.m in Sources */,
@@ -1885,6 +1900,7 @@
 				0EEF9D181D317EE600CD83E9 /* MHSheetHead.m in Sources */,
 				78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */,
 				780984B81D3F1FC4009E7E84 /* UIView+WebCacheOperation.m in Sources */,
+				0E5FEE861D4F5B1300452B5D /* AddClassViewController.m in Sources */,
 				0E67E0071D22C89200E025BD /* FightGroupsManagementViewController.m in Sources */,
 				784D3EDB1D38DECA00C82C1D /* HttpRequestTool.m in Sources */,
 				0E5FEE6E1D4E2DDD00452B5D /* ChangePwdParams.m in Sources */,
@@ -1924,6 +1940,7 @@
 				0E6398F01D362B35008D9DC0 /* GetProductParams.m in Sources */,
 				0E525A501D1283A700AFC95B /* UIView+HDCExtension.m in Sources */,
 				0EEF9C161D30A7DC00CD83E9 /* BrandShopRegisterViewController.m in Sources */,
+				0E2413CB1D508EF600B49F0B /* CommonShopsRegisterViewController.m in Sources */,
 				780984F51D3F59B2009E7E84 /* MJRefreshConst.m in Sources */,
 				0E525A5D1D1283A700AFC95B /* ViewController+MASAdditions.m in Sources */,
 				780984E71D3F59B2009E7E84 /* MJRefreshBackFooter.m in Sources */,
@@ -1953,6 +1970,7 @@
 				78089F771D34C8D600DBAB88 /* ThreeCatego.m in Sources */,
 				0E12A2621D2B986A008066CC /* MJExtensionConst.m in Sources */,
 				780984B31D3F1FC4009E7E84 /* UIButton+WebCache.m in Sources */,
+				0E5FEE801D4F3D5500452B5D /* PricingGuidanceModel.m in Sources */,
 				0E67DFE81D22C86B00E025BD /* ManagementCell.m in Sources */,
 				0E12A2891D2B9898008066CC /* MBProgressHUD+MJ.m in Sources */,
 				0E525A5A1D1283A700AFC95B /* NSArray+MASAdditions.m in Sources */,

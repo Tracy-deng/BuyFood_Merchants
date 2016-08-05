@@ -17,8 +17,10 @@
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "MJExtension.h"
-#import "GetCityAndCountryParams.h"
-#import "ProvinceAndCityAndCountryModelList.h"
+
+#import "CommonShopsRegisterViewController.h"
+#import "CommunityShopRegisterViewController.h"
+#import "BrandShopRegisterViewController.h"
 
 @interface LoginViewController ()
 
@@ -136,6 +138,8 @@
 {
  
     HDCLog(@"点击登录");
+    
+    [MBProgressHUD showMessage:@"正在登录中..."];
 
 //    if (_phoneTextField.text.length != 11)
 //    {
@@ -146,8 +150,8 @@
         LoginParams* params = [[LoginParams alloc]init];
 //        params.telephone = _phoneTextField.text;
 //        params.pswd = _passwordTextField.text;
-        params.telephone = @"13055555555";
-        params.pswd = @"123456";
+        params.telephone = @"13099999999";
+        params.pswd = @"1";
         [RequestTool login:params success:^(ResultsModel *result)
          {
              HDCLog(@"%@", result.ModelList);
@@ -157,15 +161,17 @@
                  ShopsUserInfo *tmp = userInfoArray[0];
                  [ShopsUserInfoTool saveAccount:tmp];
                 [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+                 [MBProgressHUD hideHUD];
                  [MBProgressHUD showSuccess:@"登录成功"];
              }
              else
              {
+                 [MBProgressHUD hideHUD];
                  [MBProgressHUD showError:result.ErrorMsg];
              }
              
          } failure:^(NSError *error) {
-             
+             [MBProgressHUD hideHUD];
          }];
 //    }
 
@@ -195,36 +201,17 @@
 - (void)registerBtnClick:(UIButton* )sender
 {
     [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
+    
+//    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
+    
+//    [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
+//    [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.phoneTextField resignFirstResponder];
     [self.passwordTextField resignFirstResponder];
-    /** 获取省 */
-//    [RequestTool getProvinceListSuccess:^(ResultsModel *result) {
-//        HDCLog(@"%@", result.ModelList);
-//        NSArray *array = [ProvinceAndCityAndCountryModelList mj_objectArrayWithKeyValuesArray:result.ModelList];
-//        for (ProvinceAndCityAndCountryModelList *modelList in array)
-//        {
-//            HDCLog(@"%@", modelList.province);
-//        }
-//    } failure:^(NSError *error) {
-//        ;
-//    }];
-    
-    /** 获取市 */
-//    GetCityAndCountryParams *params = [[GetCityAndCountryParams alloc] init];
-//    params.province = @"北京";
-//    [RequestTool getCityList:params success:^(ResultsModel *result) {
-//        HDCLog(@"%@", result.ErrorMsg);
-////        for (NSString *str in result.ModelList)
-////        {
-////            HDCLog(@"%@", str);
-////        }
-//    } failure:^(NSError *error) {
-//        ;
-//    }];
 }
 
 

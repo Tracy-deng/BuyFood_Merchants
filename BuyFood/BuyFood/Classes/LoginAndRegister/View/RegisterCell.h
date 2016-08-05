@@ -9,12 +9,18 @@
 #import <UIKit/UIKit.h>
 
 @interface RegisterCell : UITableViewCell
-/** 左边的标题 */
-@property (nonatomic, strong) UILabel* leftTitleLabel;
-/** 前三行的textField */
+
 @property (nonatomic, strong) UITextField* contentTextField;
+@property (nonatomic, strong) UILabel* titleLabel;
 
+@property (nonatomic, strong) UILabel* chooseLabel;
+@property (nonatomic, strong) UILabel* chooseContentLabel;
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView;
-- (void)setLeftTitleLabel:(NSString* )leftTitleLabel andContentTextFieldPlaceholder:(NSString* )textFieldPlaceholder;
+- (void)setTitleLabel:(NSString* )title andContentTextFieldPlaceholder:(NSString* )contentTextFieldPlaceholder;
+
+- (void)setChooseTitleLabel:(NSString* )title andContentLabel:(NSString* )contentText;
+
+- (instancetype)initWithChooseCellStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
+
+- (instancetype)initWithInputCellStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 @end

@@ -18,4 +18,11 @@
 @property (nonatomic, assign) CGFloat lon;
 @property (nonatomic, assign) CGFloat lat;
 
+/** 省 */
+@property (nonatomic, strong) NSString *province;
+/** 市 */
+@property (nonatomic, strong) NSString *city;
+/** 区/县 */
+@property (nonatomic, strong) NSString *country;
+
 @end

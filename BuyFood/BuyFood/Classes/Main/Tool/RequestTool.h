@@ -60,7 +60,6 @@
 + (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 忘记密码 */
 + (void)forgetPwd:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-
 #pragma mark - UntreatedOrder <未处理订单>
 /** 自提订单 */
 + (void)untreatedInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
@@ -105,8 +104,10 @@
 + (void)shopsManagement:(ShopsManagementParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取所有商品一级分类 */
 + (void)shopsListAll:(ShopsManagementParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-/** 获取附近的菜场 */
+/** 根据经纬度获取附近的菜场 */
 + (void)nearbyMarketsListAll:(NearbyMarketsParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 根据城市获取区域的菜市场 */
++ (void)getMarketsListAll:(NearbyMarketsParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取根据商家注册的一级分类下边的二三级分类 */
 /** 获取所有商品二三级分类 */
 + (void)shopsSecAndThirdClass:(ShopsSecAndThirdClassParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;

@@ -15,21 +15,31 @@
 #import "ResultsModel.h"
 #import "MJExtension.h"
 #import "MHActionSheet.h"
+#import "MBProgressHUD.h"
+#import "UpLoadImageUtil.h"
+#import "LoadView.h"
+#import "ImproveinformationParams.h"
 
-@interface CommunityShopRegisterViewController ()<UITableViewDelegate, UITableViewDataSource,CLLocationManagerDelegate>
+
+@interface CommunityShopRegisterViewController ()<UITableViewDelegate, UITableViewDataSource,CLLocationManagerDelegate, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
     CLLocationManager *locationmanager;
 }
 
 @property (nonatomic, strong) UITableView* tableView;
-@property (nonatomic, strong) RegisterCell* cell;
+/** 定位地址 */
 @property (nonatomic, strong) UILabel* locationAddress;
 @property (nonatomic, strong) UIImageView* imageView;
 @property (nonatomic, strong) NSArray* classModelArray;
 @property (nonatomic, assign) NSInteger selectClassIndex;
+/** 店铺名称 */
 @property (nonatomic, strong) NSString* marketname;
+/** 电话 */
 @property (nonatomic, strong) NSString* telephone;
+/** 详细地址 */
 @property (nonatomic, strong) NSString* address;
+
+@property (nonatomic, strong) UIImagePickerController *imagePickController;
 
 @end
 
@@ -42,24 +52,33 @@
     [self setNavLeftBtn];
     [self createTableView];
     [self setShopsImageAndNextBtn];
-    if (IS_IOS8) {
+    if (IS_IOS8)
+    {
         [UIApplication sharedApplication].idleTimerDisabled = TRUE;
         locationmanager = [[CLLocationManager alloc] init];
         [locationmanager requestAlwaysAuthorization];        //NSLocationAlwaysUsageDescription
         [locationmanager requestWhenInUseAuthorization];     //NSLocationWhenInUseDescription
         locationmanager.delegate = self;
     }
+    
+    _imagePickController = [[UIImagePickerController alloc]init];
+    _imagePickController.delegate = self;
+    _imagePickController.allowsEditing = YES;
+    _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    LoadView *loadView = [[LoadView alloc] init];
+    [loadView startAnimation];
     __block __weak CommunityShopRegisterViewController *wself = self;
     
     if (IS_IOS8) {
         
         [[CCLocationManager shareLocation]getCity:^(NSString *cityString) {
             [wself setLabelText:cityString];
-            
+            [loadView stopAnimation];
         }];
     }
 }
@@ -105,40 +124,51 @@
 {
     return 4;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.cell = [RegisterCell cellWithTableView:tableView];
-    self.cell.contentTextField.tag = indexPath.row;
-    if (indexPath.row == 0)
+    NSString *ID = [NSString stringWithFormat:@"ID %ld", indexPath.row];
+    RegisterCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (!cell)
     {
-        [self.cell setLeftTitleLabel:@"店铺名称:" andContentTextFieldPlaceholder:@"请输入店铺名称"];
+        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 3)
+        {
+            cell = [[RegisterCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell.contentTextField.tag = indexPath.row;
+            cell.contentTextField.delegate = self;
+            [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
+            switch (cell.contentTextField.tag)
+            {
+                case 0:
+                    [cell setTitleLabel:@"店铺名称:" andContentTextFieldPlaceholder:@"请输入店铺名称"];
+                    break;
+                case 1:
+                    [cell setTitleLabel:@"联系电话:" andContentTextFieldPlaceholder:@"请输入联系电话"];
+                    break;
+                case 3:
+                    [cell setTitleLabel:@"详细地址" andContentTextFieldPlaceholder:@"区域/街道/门牌号"];
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            cell = [[RegisterCell alloc] initWithChooseCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+            cell.chooseContentLabel.hidden = YES;
+            self.locationAddress = [[UILabel alloc] init];
+            [cell.contentView addSubview:self.locationAddress];
+            [self.locationAddress mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.centerY.width.height.equalTo(cell.chooseContentLabel);
+            }];
+            
+            [cell setChooseTitleLabel:@"定位地址:" andContentLabel:nil];
+        }
     }
-    else if (indexPath.row == 1)
-    {
-        [self.cell setLeftTitleLabel:@"联系电话:" andContentTextFieldPlaceholder:@"请输入联系电话"];
-    }
-    else if (indexPath.row == 2)
-    {
-        self.cell.contentTextField.hidden = YES;
-        self.cell.leftTitleLabel.text = @"定位地址:";
-        self.locationAddress = [[UILabel alloc] init];
-        [self.cell.contentView addSubview:self.locationAddress];
-        [self.locationAddress mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.cell.leftTitleLabel.mas_right).offset(5);
-            make.top.equalTo(self.cell.leftTitleLabel);
-            make.width.equalTo(@180);
-            make.height.equalTo(@30);
-        }];
-    }
-    else
-    {
-        [self.cell setLeftTitleLabel:@"详细地址:" andContentTextFieldPlaceholder:@"请输入店铺详细地址"];
-    }
-    [self.cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
-    return  self.cell;
+
+    return  cell;
 }
 
+/** 设置添加图片和下一步按钮 */
 - (void)setShopsImageAndNextBtn
 {
     UIButton* nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -174,20 +204,144 @@
     // 3.将手势与具体的视图绑定在一起
     [self.imageView addGestureRecognizer:tapGR];
 }
-
-
+/** 添加图片手势 */
 - (void)tap:(UITapGestureRecognizer* )tapGesture
 {
     HDCLog(@"添加图片...");
+    NSArray *photoArray = @[@"相机拍照",@"本地上传"];
+    MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleDefault itemTitles:photoArray];
+    actionSheet.cancleTitle = @"取消选择";
+    static NSInteger sourceType = 0 ;
+    
+    [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title) {
+        if (index == 0) {
+            NSLog(@"相机拍照");
+            // 判断相机有没有权限
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+            {
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                _imagePickController.sourceType = sourceType;
+                // 进入相机
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+            else
+            {
+                UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有相机权限" message:@"请您在设置里面打开权限" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+                [selct addAction:action];
+                [self presentViewController:selct animated:YES completion:nil];
+            }
+        }
+        else
+        {
+            HDCLog(@"本地上传");
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary])
+            {
+                HDCLog(@"进去图片库");
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+            else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            {
+                HDCLog(@"进入相册");
+                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+        }
+    }];
+}
+#pragma mark-- imagePicker delegate 事件
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:^{}];
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //图片存入相册
+    
+    [self saveImage:image withName:@"IMAGE_0.jpg"];
+    
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:@"IMAGE_0.jpg"];
+    
+    UIImage *savedImage = [[UIImage alloc] initWithContentsOfFile:fullPath];
+    
+    [self.imageView setImage:savedImage];
+    
+    self.imageView.tag = 100;
+    
+}
+// 相机选择取消按钮
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+{
+    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+    // 获取沙盒目录
+    
+    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
+    // 将图片写入文件
+    [imageData writeToFile:fullPath atomically:NO];
 }
 
 - (void)nextBtnClick:(UIButton* )sender
 {
     HDCLog(@"下一步...");
+    
+    if (self.marketname.length == 0 || self.telephone.length == 0 || self.address.length == 0 || self.locationAddress.text.length == 0)
+    {
+        UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"请注意 !!!" message:@"请您填写完整的资料" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+        [selct addAction:action];
+        [self presentViewController:selct animated:YES completion:nil];
+        return;
+    }
+    else
+    {
+        LoadView *loadView = [[LoadView alloc] init];
+        [loadView startAnimation];
+        [UpLoadImageUtil upLoadImage:self.imageView.image success:^(id response) {
+            if ([response[@"success"] intValue] == 1)
+            {
+                ImproveinformationParams *params = [[ImproveinformationParams alloc] init];
+                params.marketuserid = self.marketuserid;
+                params.marketname = self.marketname;
+                params.telephone2 = self.telephone;
+                params.detailaddress = self.address;
+                params.marketsubid = self.marketuserid;
+                params.marketsubname = self.marketname;
+                params.categoryid = @"0";
+                params.pic = response[@"data"][0][@"littlepic"];
+                params.city = self.locationAddress.text;
+                [RequestTool improveInformation:params success:^(ResultsModel *result) {
+                    if ([result.ErrorCode isEqualToString:@"1"])
+                    {
+                        [loadView stopAnimation];
+                        [MBProgressHUD showSuccess:@"资料填写成功"];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
+                    }
+                    else
+                    {
+                        [loadView stopAnimation];
+                        [MBProgressHUD showError:@"资料填写失败"];
+                    }
+                } failure:^(NSError *error) {
+                    ;
+                }];
+            }
+        } failure:^{
+            
+        }];
+    }
 }
+
 - (void)changeValue:(UITextField *)textField
 {
-    HDCLog(@"%@", textField.text);
     switch (textField.tag)
     {
         case 0:
@@ -203,7 +357,16 @@
             break;
     }
 }
-
+// 点击屏幕空白  收起键盘
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 
 
 @end

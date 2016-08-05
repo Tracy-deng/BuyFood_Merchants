@@ -157,7 +157,7 @@
 }
 - (void)spendingBtnClick:(UIButton* )spendingBtn
 {
-    HDCLog(@"spendingBtn");
+    [self prepareSpendingDataSource];
     self.tag = 3;
     spendingBtn.selected = !spendingBtn.isSelected;
     self.myBillHeaderView.allBtn.selected = NO;
@@ -207,7 +207,8 @@
     else
     {
         MyBillSpendingCell* cell = [MyBillSpendingCell cellWithTableView:tableView];
-        [cell setuserHeaderImageName:@"headerImage" andUserName:@"小张" andOrderText:@"转到银行卡" andTimeLabel:@"13:13" andMoneyText:@"-120.00"];
+        cell.model = dataSource[indexPath.row];
+        [cell setuserHeaderImageName:self.userInfo.pic andUserName:self.userInfo.marketname];
         return cell;
     }
 }

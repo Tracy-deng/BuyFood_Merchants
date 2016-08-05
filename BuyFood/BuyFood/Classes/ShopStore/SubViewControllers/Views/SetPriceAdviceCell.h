@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PricingGuidanceModel.h"
 
 @interface SetPriceAdviceCell : UITableViewCell
 
+@property (nonatomic, strong) PricingGuidanceModel *model;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

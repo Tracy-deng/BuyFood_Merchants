@@ -41,9 +41,10 @@
         make.width.equalTo(self.view);
         make.height.mas_equalTo(self.view).multipliedBy(0.75);
     }];
-    UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"添加" forState:UIControlStateNormal];
+    [bottomBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
     [bottomBtn addTarget:self action:@selector(bottomBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bottomBtn];

@@ -20,6 +20,8 @@
 #import "jadeModel.h"
 #import "JADEMethods.h"
 #import "ReplyEvaluationParams.h"
+#import "MJRefresh.h"
+#import "LoadView.h"
 
 static CGFloat textFieldH = 40;
 @interface EvaluationViewController ()<UITableViewDelegate, UITableViewDataSource,UITextViewDelegate>
@@ -27,7 +29,6 @@ static CGFloat textFieldH = 40;
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) ShopsUserInfo* userInfo;
 @property (nonatomic, assign) CGRect rect;
-
 
 @end
 
@@ -46,22 +47,22 @@ static CGFloat textFieldH = 40;
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotification:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(Replay:) name:@"Replay" object:nil];
-    
+    [self createTableView];
     self.title = @"评价详情";
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
     self.userInfo = [ShopsUserInfoTool account];
     [self prepareEvaluationData];
-    
-    
+    self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self prepareEvaluationData];
+    }];
 }
--(void)prepareheadData
-{
-    
-    
-}
+
 /** 请求cell的数据 */
 -(void)prepareEvaluationData
 {
+    LoadView *loadView = [[LoadView alloc] init];
+    [loadView startAnimation];
     dataSource = [[NSMutableArray alloc]init];
     EvaluationParams *params = [[EvaluationParams alloc] init];
     params.marketuserid = self.userInfo.marketuserid;
@@ -70,11 +71,13 @@ static CGFloat textFieldH = 40;
         for (NSDictionary *dic in result.ModelList) {
             jadeModel *model = [[jadeModel alloc]initWithDic:dic];
             [dataSource addObject:model];
-            
+            [self.tableView reloadData];
+            [self.tableView.header endRefreshing];
+            [loadView stopAnimation];
         }
-        [self createTableView];
-    } failure:^(NSError *error) {
         
+    } failure:^(NSError *error) {
+        [loadView stopAnimation];
         
     }];
 }
@@ -104,7 +107,6 @@ static CGFloat textFieldH = 40;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     jadeModel *model1 = dataSource[indexPath.row];
     NSString *replay = [NSString stringWithFormat:@"%@%@",@"商家回复：",model1.charcontent2];
     return ( [JADEMethods getHeightByWidth:JADESIZE.width-10*JADESCREENSCALE title:model1.charcontent font:[UIFont systemFontOfSize:14*JADESCREENSCALE ]])+[JADEMethods getHeightByWidth:JADESIZE.width-60*JADESCREENSCALE title:replay font:[UIFont systemFontOfSize:14*JADESCREENSCALE ]]+self.view.height*0.15;
