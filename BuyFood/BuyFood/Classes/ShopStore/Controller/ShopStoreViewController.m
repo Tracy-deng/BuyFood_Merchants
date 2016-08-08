@@ -101,13 +101,13 @@
             [MBProgressHUD showSuccess:@"数据请求成功"];
             if (result.totalmoney == nil)
             {
-                [self.todayTurnoverNum createLabelText:@"0" andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.14 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
+                [self.todayTurnoverNum createLabelText:@"0" andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.18 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
                 
                 [self.todayOrderNum createLabelText:@"0" andLabelX:self.view.width * 0.72 andLabelY:self.todayTurnoverNum.y andLabelHeight:self.todayTurnoverNum.height andLabelWidth:self.todayTurnoverNum.width andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
             }
             else
             {
-                [self.todayTurnoverNum createLabelText:result.totalmoney andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.14 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
+                [self.todayTurnoverNum createLabelText:result.totalmoney andLabelX:self.view.width * 0.18 andLabelY:self.view.height * 0.14 andLabelHeight:self.view.height * 0.05 andLabelWidth:self.view.width * 0.18 andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
                 
                 [self.todayOrderNum createLabelText:result.totalordercount andLabelX:self.view.width * 0.72 andLabelY:self.todayTurnoverNum.y andLabelHeight:self.todayTurnoverNum.height andLabelWidth:self.todayTurnoverNum.width andLabelTextStytle:@"DINCondensed-Bold" andLabelFontsize:25 andtextColor:[UIColor whiteColor]];
             }

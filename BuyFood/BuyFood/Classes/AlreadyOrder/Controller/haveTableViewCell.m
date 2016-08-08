@@ -45,7 +45,7 @@
     if ([model.orderstatus isEqualToString:@"3"])
     {
         self.addOrderBtn.text = @"已接单";
-    }else if ([model.orderstatus isEqualToString:@"10"]){
+    }else if ([model.orderstatus isEqualToString:@"10"] || [model.orderstatus isEqualToString:@"8"] || [model.orderstatus isEqualToString:@"9"]){
         self.addOrderBtn.text = @"配送中";
     }else if ([model.orderstatus isEqualToString:@"12"])
     {

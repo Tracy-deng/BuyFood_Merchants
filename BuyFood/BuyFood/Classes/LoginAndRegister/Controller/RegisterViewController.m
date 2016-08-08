@@ -243,6 +243,7 @@ static NSInteger selectNum;
             if ([result.ErrorCode isEqualToString:@"1"])
             {
                 [MBProgressHUD showSuccess:@"验证码已发送"];
+                self.recive.text = result.ErrorMsg;
                 [self startTime];
             }
             else

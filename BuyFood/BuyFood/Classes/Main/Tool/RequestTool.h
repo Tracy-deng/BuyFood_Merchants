@@ -71,6 +71,9 @@
 + (void)untreatedDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 接单 */
 + (void)getOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+#warning 不接单
+/** 不接单 */
++ (void)noGetOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 #pragma mark - AlreadyOrder <已处理订单>
 /** 自提订单 */
@@ -103,8 +106,10 @@
 + (void)chnageBusinessStatus:(ChangeTimeParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 定价指导 */
 + (void)pricingGuidanceSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
-/** 获取所有商品一级分类 */
+/** 获取社区店所有商品一级分类 */
 + (void)shopsListAll:(ShopsManagementParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 品牌馆一级分类 */
++ (void)BrandShopsListAllSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 根据经纬度获取附近的菜场 */
 + (void)nearbyMarketsListAll:(NearbyMarketsParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 根据城市获取区域的菜市场 */
