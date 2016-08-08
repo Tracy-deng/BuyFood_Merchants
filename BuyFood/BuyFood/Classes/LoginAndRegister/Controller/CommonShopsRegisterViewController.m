@@ -172,7 +172,7 @@
                     [cell setChooseTitleLabel:@"所属菜场:" andContentLabel:self.foodMarket];
                     break;
                 case 7:
-                    [cell setChooseTitleLabel:@"菜场地址:" andContentLabel:self.address];
+                    [cell setChooseTitleLabel:@"菜场地址:" andContentLabel:@"点击获取地址"];
                     break;
                 default:
                     break;
@@ -345,7 +345,7 @@
         
     }
     /** 获取菜场 */
-    else if (indexPath.row == 6)
+    else if (indexPath.row == 6 || indexPath.row == 7)
     {
         if (self.country.length == 0)
         {
@@ -357,44 +357,52 @@
         }
         else
         {
-            [loadView startAnimation];
-            NearbyMarketsParams *params = [[NearbyMarketsParams alloc] init];
-            params.province = self.province;
-            params.city = self.city;
-            params.country = self.country;
-            [RequestTool getMarketsListAll:params success:^(ResultsModel *result) {
-                if ([result.ErrorCode isEqualToString:@"1"])
-                {
-                    NSMutableArray* array = [FoodMarketModel mj_objectArrayWithKeyValuesArray:result.ModelList];
-                    foodMarketDataSource = [NSMutableArray array];
-                    for (FoodMarketModel* classModel in array)
+            if (indexPath.row == 6)
+            {
+                [loadView startAnimation];
+                NearbyMarketsParams *params = [[NearbyMarketsParams alloc] init];
+                params.province = self.province;
+                params.city = self.city;
+                params.country = self.country;
+                [RequestTool getMarketsListAll:params success:^(ResultsModel *result) {
+                    if ([result.ErrorCode isEqualToString:@"1"])
                     {
-                        [foodMarketDataSource addObject:classModel.marketname];
+                        NSMutableArray* array = [FoodMarketModel mj_objectArrayWithKeyValuesArray:result.ModelList];
+                        foodMarketDataSource = [NSMutableArray array];
+                        for (FoodMarketModel* classModel in array)
+                        {
+                            [foodMarketDataSource addObject:classModel.marketname];
+                        }
+                        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择菜场" style:MHSheetStyleDefault itemTitles:foodMarketDataSource];
+                        actionSheet.cancleTitle = @"取消选择";
+                        [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
+                         {
+                             FoodMarketModel* classModel = array[index];
+                             self.lon = classModel.lon;
+                             self.lat = classModel.lat;
+                             self.address = classModel.detailaddress;
+                             self.foodMarket = title;
+                             self.selectMarketIndex = index;
+                             [cell setChooseTitleLabel:@"所属菜场:" andContentLabel:self.foodMarket];
+                             
+                             [self.tableView reloadData];
+                         }];
+                        [loadView stopAnimation];
                     }
-                    MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择菜场" style:MHSheetStyleDefault itemTitles:foodMarketDataSource];
-                    actionSheet.cancleTitle = @"取消选择";
-                    [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
-                     {
-                         FoodMarketModel* classModel = array[index];
-                         HDCLog(@"%@ %@",classModel.lon, classModel.lat);
-                         HDCLog(@"%@", classModel.detailaddress);
-                        
-                         self.address = classModel.detailaddress;
-                         self.foodMarket = title;
-                         self.selectMarketIndex = index;
-                         [cell setChooseTitleLabel:@"所属菜场:" andContentLabel:self.foodMarket];
-                         [self.tableView reloadData];
-                     }];
+                    else
+                    {
+                        [MBProgressHUD showError:@"暂无菜场数据"];
+                    }
+                    
+                } failure:^(NSError *error) {
                     [loadView stopAnimation];
-                }
-                else
-                {
-                    [MBProgressHUD showError:@"暂无菜场数据"];
-                }
-                
-            } failure:^(NSError *error) {
-                [loadView stopAnimation];
-            }];
+                }];
+            }
+            else
+            {
+                [cell setChooseTitleLabel:@"菜场地址:" andContentLabel:self.address];
+                [self.tableView reloadData];
+            }
         }
     }
 }

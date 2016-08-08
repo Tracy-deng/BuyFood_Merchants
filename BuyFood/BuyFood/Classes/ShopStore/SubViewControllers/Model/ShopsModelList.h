@@ -20,5 +20,14 @@
 @property (nonatomic, strong) NSString *productpic;
 /** 商品单位 */
 @property (nonatomic, strong) NSString *productunit;
+/** 分类id */
+@property (nonatomic, strong) NSString *threecategoryid;
+/** 商品id */
+@property (nonatomic, strong) NSString *productid;
+/** 商品重量 */
+@property (nonatomic, strong) NSString *productstock;
+/** 商品描述 */
+@property (nonatomic, strong) NSString *productremark;
+
 
 @end

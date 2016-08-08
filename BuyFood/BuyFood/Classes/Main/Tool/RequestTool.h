@@ -45,7 +45,9 @@
         GetCityAndCountryParams,
         TodayBalanceAndVolumeModel,
         AddCtcategoryParams,
-        GetBrandsAndCommunityClassifyParams;
+        GetBrandsAndCommunityClassifyParams,
+        TelephoneParams,
+        CashOutParams;
 
 @interface RequestTool : NSObject
 
@@ -143,4 +145,10 @@
 + (void)addCtcategory:(AddCtcategoryParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 社区店跟品牌馆查询分类 */
 + (void)searchCtcategory:(GetBrandsAndCommunityClassifyParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取提现验证码 */
++ (void)getCashOutMsgCode:(TelephoneParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 申请提现 */
++ (void)cashOut:(CashOutParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取提现状态 */
+
 @end

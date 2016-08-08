@@ -21,6 +21,7 @@
 #import "AddShopsViewController.h"
 #import "ShopsModelList.h"
 #import "ShopsManagementCell.h"
+#import "BrandShopDetailViewController.h"
 
 @interface BrandShopManagementViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -382,6 +383,12 @@
             [self prepareMainTableViewDataSource];
         }
         [self.mainTableView reloadData];
+    }
+    else
+    {
+        BrandShopDetailViewController *detailVC =  [[BrandShopDetailViewController alloc]init];
+        detailVC.modelList = mainDataSource[indexPath.row];
+        [self.navigationController pushViewController:detailVC animated:YES];
     }
 }
 
