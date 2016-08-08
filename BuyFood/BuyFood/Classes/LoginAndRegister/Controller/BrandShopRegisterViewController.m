@@ -72,15 +72,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    LoadView *loadView = [[LoadView alloc] init];
-    [loadView startAnimation];
+//    LoadView *loadView = [[LoadView alloc] init];
+//    [loadView startAnimation];
     __block __weak BrandShopRegisterViewController *wself = self;
     
     if (IS_IOS8) {
         
         [[CCLocationManager shareLocation] getCity:^(NSString *cityString) {
             [wself setLabelText:cityString];
-           [loadView stopAnimation];
+//           [loadView stopAnimation];
         }];
     }
 }
@@ -188,7 +188,7 @@
     if (indexPath.row == 2)
     {
         [loadView startAnimation];
-        [RequestTool shopsListAll:nil success:^(ResultsModel *result)
+        [RequestTool BrandShopsListAllSuccess:^(ResultsModel *result)
         {
             if ([result.ErrorCode isEqualToString:@"1"])
             {
@@ -204,7 +204,9 @@
                 [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
                  {
                      self.className = title;
-                     self.selectClassIndex = index + 1;
+                     ClassModel *model = self.classModelArray[index];
+                     
+                     self.selectClassIndex = [model.categoryid integerValue];
                      HDCLog(@"%ld", self.selectClassIndex);
                      [cell setChooseTitleLabel:@"分类名称:" andContentLabel:self.className];
                  }];

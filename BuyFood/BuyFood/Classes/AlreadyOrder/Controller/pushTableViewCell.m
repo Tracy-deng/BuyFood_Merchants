@@ -59,11 +59,15 @@
     if ([model.orderstatus isEqualToString:@"3"])
     {
         self.addOrderLabel.text = @"已接单";
-    }else if ([model.orderstatus isEqualToString:@"10"]){
+    }else if ([model.orderstatus isEqualToString:@"10"] || [model.orderstatus isEqualToString:@"8"] || [model.orderstatus isEqualToString:@"9"]){
         self.addOrderLabel.text = @"配送中";
     }else if ([model.orderstatus isEqualToString:@"12"])
     {
         self.addOrderLabel.text = @"已完成";
+    }
+    else if ([model.orderstatus isEqualToString:@"11"])
+    {
+        self.addOrderLabel.text = @"已送达";
     }
 }
 - (void)awakeFromNib {

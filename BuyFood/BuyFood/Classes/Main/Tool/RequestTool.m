@@ -159,7 +159,7 @@
     }];
 }
 
-/** 获取所有商品一级分类 */
+/** 获取普通商家的所有商品一级分类 */
 + (void)shopsListAll:(ShopsManagementParams* )param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productcategory/GetModelListAll"];
@@ -167,6 +167,20 @@
         if (error) {
             failure(error);
         } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 品牌馆一级分类 */
++ (void)BrandShopsListAllSuccess:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_productcategory/GetModelListForSpecitial"];
+    [HttpRequestTool GET:url parameters:nil progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -302,7 +316,7 @@
 /** 失效订单 */
 + (void)alreadySolvedOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetCusOrderListError"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketOrderListError"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
@@ -437,7 +451,6 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
             TodayBalanceAndVolumeModel *result = [TodayBalanceAndVolumeModel mj_objectWithKeyValues:model];
             success(result);
         }

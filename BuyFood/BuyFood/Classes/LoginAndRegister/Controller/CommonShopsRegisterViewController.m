@@ -392,6 +392,7 @@
                     else
                     {
                         [MBProgressHUD showError:@"暂无菜场数据"];
+                        [loadView stopAnimation];
                     }
                     
                 } failure:^(NSError *error) {
