@@ -18,6 +18,7 @@
 #import "OrderParams.h"
 #import "OrderMarketModel.h"
 #import "MarketOrderModelList.h"
+#import "MBProgressHUD.h"
 @interface OwnHaveProvideController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *haveTableView;
 @property (nonatomic, strong) NSMutableArray * inviteDataArray;
@@ -76,13 +77,14 @@
             [loadView stopAnimation];
             NSLog(@"%@",self.inviteDataArray);
             [self.haveTableView.header endRefreshing];
-            
+            [MBProgressHUD showSuccess:@"数据加载成功"];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.haveTableView reloadData];
             });
 
         } failure:^(NSError *error) {
             NSLog(@"%@",error);
+              [MBProgressHUD showError:@"数据加载失败"];
             [loadView stopAnimation];
         }];
     });
