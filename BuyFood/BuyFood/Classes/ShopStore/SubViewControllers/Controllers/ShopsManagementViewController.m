@@ -159,6 +159,7 @@
     {
         if ([result.totalcount isEqualToString:@"0"])
         {
+            [self.productMainDataArray removeAllObjects];
             [MBProgressHUD showError:@"暂无数据"];
         }
         else
@@ -198,15 +199,17 @@
     params.Productlabel = @"热销";
     params.pagesize = @"0";
     params.page = @"0";
+   
     [RequestTool getProduct:params success:^(ResultsModel *result) {
         
         if ([result.totalcount isEqualToString:@"0"])
         {
+             [self.productMainDataArray removeAllObjects];
             [MBProgressHUD showError:@"暂无数据"];
         }
         else
         {
-            [self.productMainDataArray removeAllObjects];
+             [self.productMainDataArray removeAllObjects];
             for (NSDictionary *Pdic in result.ModelList) {
                 ModlistModel *model = [[ModlistModel alloc]init];
                 [model setValuesForKeysWithDictionary:Pdic];
