@@ -22,8 +22,6 @@
 @property (nonatomic, strong) UILabel* totalMoney;
 
 
-
-
 @end
 
 
