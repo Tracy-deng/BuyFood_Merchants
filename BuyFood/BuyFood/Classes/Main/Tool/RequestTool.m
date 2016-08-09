@@ -263,6 +263,21 @@
         }
     }];
 }
+/** 不接单 */
++ (void)noGetOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/UpdateOrderForMarketRefuse"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
 
 #pragma mark - AlreadyOrder <已处理订单>
 /** 自提订单 */

@@ -19,4 +19,9 @@
     传3快递订单(接单)-后台推送给快递(用户品牌馆接单)*/
 @property (nonatomic, assign) NSInteger posttypeid;
 
+
+/** 商户拒绝接单 传用户id posttypeid这个参数就不需要传了*/
+@property (nonatomic, strong) NSString *userid;
+
+
 @end

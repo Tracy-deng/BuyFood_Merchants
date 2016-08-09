@@ -2228,7 +2228,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wenchao Li (65PE6X2W63)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenchao Li (65PE6X2W63)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2238,7 +2238,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goucaichina.shop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "05ebefbc-ab19-42d9-a169-6e16a56992f8";
 			};
 			name = Debug;
 		};
@@ -2247,7 +2247,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Wenchao Li (65PE6X2W63)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wenchao Li (65PE6X2W63)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2257,7 +2257,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goucaichina.shop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "05ebefbc-ab19-42d9-a169-6e16a56992f8";
 			};
 			name = Release;
 		};
