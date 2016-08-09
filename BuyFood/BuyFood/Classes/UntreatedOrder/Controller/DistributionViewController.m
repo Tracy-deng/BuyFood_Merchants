@@ -127,6 +127,10 @@
     // 接单
     cell.getOrderBtn.tag = indexPath.row;
     [cell.getOrderBtn addTarget:self action:@selector(didGetOrder:) forControlEvents:(UIControlEventTouchUpInside)];
+    
+    // 取消订单
+    cell.noGetOrderBtn.tag = indexPath.row;
+    [cell.noGetOrderBtn addTarget:self action:@selector(noOrderBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     return cell;
     
 }

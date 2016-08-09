@@ -15,6 +15,10 @@
 @property (nonatomic, strong) UIButton* searchListBtn;
 /** 接单按钮 */
 @property (nonatomic, strong) UIButton* getOrderBtn;
+
+@property (nonatomic, strong) UIButton* noGetOrderBtn;
+
+
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
 - (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText moneyLabel:(NSString *)moneyText;

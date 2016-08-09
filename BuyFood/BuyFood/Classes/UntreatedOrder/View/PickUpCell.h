@@ -14,6 +14,8 @@
 /** 查看详情按钮 */
 @property (nonatomic, strong) UIButton* searchListBtn;
 
+@property (nonatomic, strong) UIButton * noGetOrderBtn; // 不接单
+
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
 - (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText moneyLabel:(NSString *)moneyText;
