@@ -178,12 +178,12 @@
     }];
     
     self.noGetOrderBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.noGetOrderBtn setImage:[UIImage imageNamed:@""] forState:(UIControlStateNormal)];
+    [self.noGetOrderBtn setImage:[UIImage imageNamed:@"gb"] forState:(UIControlStateNormal)];
     [whiteView addSubview:self.noGetOrderBtn];
     [self.noGetOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(whiteView.mas_right).offset(3);
+        make.right.equalTo(whiteView.mas_right).offset(-3);
         make.top.equalTo(whiteView.mas_top).offset(5);
-        make.width.height.equalTo(@8);
+        make.width.height.equalTo(@20);
     }];
     
 }

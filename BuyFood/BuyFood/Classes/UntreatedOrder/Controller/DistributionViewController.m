@@ -170,4 +170,29 @@
     
 }
 
+-(void)noOrderBtn:(UIButton *)sender
+{
+    LoadView *loadView = [LoadView new];
+    [loadView startAnimation];
+    
+    NSLog(@"取消订单");
+    OrderMarketModel * model = self.distributionDataArray[sender.tag];
+    NSString *orderNum = model.orderno; // 订单号
+    
+    GetOrderParams *parms = [[GetOrderParams alloc]init];
+    parms.orderno = orderNum;
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    parms.marketuserid = userInfo.marketuserid;
+    [RequestTool noGetOrder:parms success:^(ResultsModel *result) {
+        NSLog(@"%@",result.ModelList);
+        [self createDistributionData];
+        [loadView stopAnimation];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [loadView stopAnimation];
+    }];
+    
+    
+}
+
 @end
