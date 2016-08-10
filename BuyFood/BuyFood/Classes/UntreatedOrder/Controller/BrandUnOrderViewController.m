@@ -10,7 +10,8 @@
 #import "DispatchCell.h"
 #import "ComplaintOrderDetailsViewController.h"
 #import "DistributionViewController.h"
-@interface BrandUnOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface BrandUnOrderViewController ()
+//<UITableViewDelegate,UITableViewDataSource>
 /** 配送订单 */
 @property (nonatomic, strong) DistributionViewController* dispatchVC;
 @property (nonatomic, strong) UITableView* tableView;
@@ -82,9 +83,6 @@
 //    
 //    [self.navigationController pushViewController:detailVC animated:YES];
 //}
-
-
-
 
 
 @end

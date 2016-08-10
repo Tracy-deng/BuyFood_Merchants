@@ -44,6 +44,7 @@
 #import "GetBrandsAndCommunityClassifyParams.h"
 #import "TelephoneParams.h"
 #import "CashOutParams.h"
+#import "AddOutDoorParams.h"
 
 @implementation RequestTool
 
@@ -215,7 +216,7 @@
 }
 
 #pragma mark - UntreatedOrder <未处理订单>
-/** 自提订单 */
+/** 普通商家和社区店自提订单 */
 + (void)untreatedInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketZT"];
@@ -231,8 +232,23 @@
     }];
 }
 
-/** 配送订单 */
+/** 普通商家和社区店配送订单 */
 + (void)untreatedDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketSender"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+/** 品牌馆配送订单 */
++ (void)untreatedBrandDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketPost"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
@@ -241,7 +257,6 @@
             failure(error);
         } else
         {
-            HDCLog(@"modelmodelmodelmodelmodelmodelmodelmodelmodel=== %@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -280,7 +295,7 @@
 }
 
 #pragma mark - AlreadyOrder <已处理订单>
-/** 自提订单 */
+/** 普通商家和社区店自提订单 */
 + (void)alreadyInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketZTFinished"];
@@ -295,10 +310,10 @@
         }
     }];
 }
-/** 配送订单 -- 配送中 */
+/** 普通商家和社区店配送订单 --配送中 */
 + (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketPostFinished"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketSenderFinished"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
@@ -312,7 +327,7 @@
     }];
 }
 
-/** 配送订单 --已完成--历史订单 */
+/** 普通商家和社区店和品牌馆配送订单 --已完成 */
 + (void)alreadyDistributionOverOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetBuyedHistoryOrderByUserID"];
@@ -328,7 +343,7 @@
         }
     }];
 }
-/** 失效订单 */
+/** 普通商家和社区店和品牌馆失效订单 */
 + (void)alreadySolvedOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketOrderListError"];
@@ -343,7 +358,7 @@
         }
     }];
 }
-/** 投诉订单 */
+/** 普通商家和社区店和品牌馆投诉订单 */
 + (void)ComplaintOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketOrderComplaint"];
@@ -742,5 +757,24 @@
         }
     }];
 }
+
+/** 添加户外活动 */
++ (void)addOutDoor:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_outdoor/Add"];
+    [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error)
+        {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else {
+            HDCLog(@"%@",model);
+            ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 获取户外活动列表 */
 
 @end

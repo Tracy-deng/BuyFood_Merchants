@@ -78,7 +78,6 @@
 
 }
 
-
 // 加载移除视图
 - (void)addCon:(UIViewController *)VC addOtherView:(UIView *)View  bringView:(UIView *)binview WdeleOtherView:(UIView *)otherView
 {
@@ -86,7 +85,6 @@
     [self.view addSubview:View];
     [self.view bringSubviewToFront:binview];
     [otherView removeFromSuperview];
-    
 }
 
 
