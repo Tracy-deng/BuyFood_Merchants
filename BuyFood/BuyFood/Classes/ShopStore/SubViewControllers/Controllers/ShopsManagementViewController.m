@@ -33,12 +33,14 @@
     NSString * headTitle;
     NSInteger isSelcted;
     NSString * twoID;
+    
 }
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
 @property (nonatomic, strong) NSMutableArray * selectArray; // 选择数据源
 @property (nonatomic, strong) NSMutableArray * productMainDataArray; // 主页面的数据源
 @property (nonatomic, strong) ModlistModel *modlst;
+
 /** */
 @property (nonatomic, strong) UIButton *headButton;
 
@@ -289,7 +291,8 @@
     
     self.headButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.headButton setTitle:@"热销" forState:(UIControlStateNormal)];
-    self.headButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
+      self.headButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.headButton.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     [self.headButton setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
     self.headButton.backgroundColor = HDCColor(215, 215, 215);
     self.headButton.titleLabel.font = [UIFont systemFontOfSize:20];
@@ -421,7 +424,7 @@
         NSArray *sortKeys = [self getSortedKeys:billData];
         if (sortKeys.count != 0) {
             NSString *catego = [sortKeys objectAtIndex:section];
-            ShopThreeCate * headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
+            ShopThreeCate *headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
             headView.frame = CGRectMake(0, 0, 100, 50);
             headView.model = [[billData objectForKey:catego] firstObject];
             
@@ -435,6 +438,7 @@
                     
                     twoID = [keys objectAtIndex:section];
                     headTitle = [[billData objectForKey:catego] firstObject].subcategoryname;
+                   
                 }
                 isSelcted = 3;
                 [weakself getHeaderViewSource];
@@ -466,12 +470,13 @@
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
             cell.textLabel.text = model.threecategoryname;
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = HDCColor(215, 215, 215);
         [tableView setSeparatorColor:[UIColor whiteColor]];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
-        // cell 选中的颜色
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+      // cell 选中的颜色
+        UIView *bgColorView = [[UIView alloc] init];
+        bgColorView.backgroundColor = HDCColor(245, 245, 245);
+        [cell setSelectedBackgroundView:bgColorView];
         return cell;
         
     }else{
@@ -568,6 +573,7 @@
     }
     
 }
+
 
 //#pragma mark 提交编辑操作时会调用这个方法(删除，添加)
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
