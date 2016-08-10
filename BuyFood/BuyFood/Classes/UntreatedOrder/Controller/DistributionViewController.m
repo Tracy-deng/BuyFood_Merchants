@@ -82,29 +82,61 @@
     params.marketuserid = userInfo.marketuserid;
     params.pageindex = @"1";
     params.pagesize = @"10";
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [RequestTool untreatedDistributionOrderList:params success:^(MarketOrderModelList *result) {
-            NSLog(@"%@",result.OrderMarket);
-            [self.distributionDataArray removeAllObjects];
-            for (NSDictionary *dict in result.OrderMarket) {
-                OrderMarketModel *model = [[OrderMarketModel alloc]init];
-                [model setValuesForKeysWithDictionary:dict];
-                [self.distributionDataArray addObject:model];
-            }
-            NSLog(@"%@",self.distributionDataArray);
-            [loadView stopAnimation];
-            [self.tableView .header endRefreshing];
+    // 判断注册是普通，社区店 还是品牌馆（1 ：普通  2；社区店 3：品牌）
+    if ([userInfo.markettypeid isEqualToString:@"1" ]|| [userInfo.markettypeid isEqualToString:@"2"] ) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [RequestTool untreatedDistributionOrderList:params success:^(MarketOrderModelList *result) {
+                NSLog(@"%@",result.OrderMarket);
+                [self.distributionDataArray removeAllObjects];
+                for (NSDictionary *dict in result.OrderMarket) {
+                    OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                    [model setValuesForKeysWithDictionary:dict];
+                    [self.distributionDataArray addObject:model];
+                }
+                NSLog(@"%@",self.distributionDataArray);
+                [loadView stopAnimation];
+                [self.tableView .header endRefreshing];
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            } failure:^(NSError *error) {
+                NSLog(@"%@",error);
+                [loadView stopAnimation];
+            }];
+            
+        });
+    }else{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [RequestTool untreatedBrandDistributionOrderList:params success:^(MarketOrderModelList *result) {
+                NSLog(@"%@",result.OrderMarket);
+                [self.distributionDataArray removeAllObjects];
+                for (NSDictionary *dict in result.OrderMarket) {
+                    OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                    [model setValuesForKeysWithDictionary:dict];
+                    [self.distributionDataArray addObject:model];
+                }
+                NSLog(@"%@",self.distributionDataArray);
+                [loadView stopAnimation];
+                [self.tableView .header endRefreshing];
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            } failure:^(NSError *error) {
+                NSLog(@"%@",error);
+                [loadView stopAnimation];
+            }];
             
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-            });
-        } failure:^(NSError *error) {
-            NSLog(@"%@",error);
-            [loadView stopAnimation];
-        }];
-
-    });
+        });
+        
+    }
+    
+   
+    
     
     
 }
@@ -158,15 +190,55 @@
     parms.orderno = orderNum;
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
     parms.marketuserid = userInfo.marketuserid;
-    parms.posttypeid = 2;
-    [RequestTool getOrder:parms success:^(ResultsModel *result) {
-        NSLog(@"%@",result.ModelList);
-        [self createDistributionData];
-        [loadView stopAnimation];
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-        [loadView stopAnimation];
-    }];
+    if ([userInfo.markettypeid isEqualToString:@"1" ]|| [userInfo.markettypeid isEqualToString:@"2"] ) {
+        
+        parms.posttypeid = 2;
+        [RequestTool getOrder:parms success:^(ResultsModel *result) {
+            NSLog(@"%@",result.ModelList);
+            [self createDistributionData];
+            [loadView stopAnimation];
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+    }else{
+        parms.posttypeid = 3;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"订单接收" message:@"输入订单号和物流公司" preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder =  @"数据快递单号";
+        }];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder =  @"数据物流公司";
+        }];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            UITextField *orderNum = alertController.textFields.firstObject;
+            UITextField *company = alertController.textFields.lastObject;
+            
+            [RequestTool getOrder:parms success:^(ResultsModel *result) {
+                NSLog(@"%@",result.ModelList);
+                [self createDistributionData];
+                [loadView stopAnimation];
+            } failure:^(NSError *error) {
+                NSLog(@"%@",error);
+                [loadView stopAnimation];
+            }];
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertController addAction:okAction];
+        [alertController addAction:cancelAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        
+    
+    }
+    
+    
+    
+  
+ 
     
 }
 
