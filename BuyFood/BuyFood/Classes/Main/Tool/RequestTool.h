@@ -47,7 +47,8 @@
         AddCtcategoryParams,
         GetBrandsAndCommunityClassifyParams,
         TelephoneParams,
-        CashOutParams;
+        CashOutParams,
+        AddOutDoorParams;
 
 @interface RequestTool : NSObject
 
@@ -65,25 +66,27 @@
 /** 忘记密码 */
 + (void)forgetPwd:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 #pragma mark - UntreatedOrder <未处理订单>
-/** 自提订单 */
+/** 普通商家和社区店自提订单 */
 + (void)untreatedInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
-/** 配送订单 */
+/** 普通商家和社区店配送订单 */
 + (void)untreatedDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
+/** 品牌馆配送订单 */
++ (void)untreatedBrandDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 接单 */
 + (void)getOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 不接单 */
 + (void)noGetOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
 #pragma mark - AlreadyOrder <已处理订单>
-/** 自提订单 */
+/** 普通商家和社区店自提订单 */
 + (void)alreadyInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
-/** 配送订单 --配送中 */
+/** 普通商家和社区店配送订单 --配送中 */
 + (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
-/** 配送订单 --已完成--历史订单 */
+/** 普通商家和社区店和品牌馆配送订单 --已完成 */
 + (void)alreadyDistributionOverOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
-/** 失效订单 */
+/** 普通商家和社区店和品牌馆失效订单 */
 + (void)alreadySolvedOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
-/** 投诉订单 */
+/** 普通商家和社区店和品牌馆投诉订单 */
 + (void)ComplaintOrderList:(OrderParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 订单详情 */
 + (void)orderDetails:(OrderDetailsParams *)param success :(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
@@ -155,4 +158,6 @@
 + (void)cashOut:(CashOutParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取提现状态 */
 
+/** 添加户外活动 */
++ (void)addOutDoor:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 @end

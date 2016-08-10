@@ -206,9 +206,9 @@
 /** 注册按钮点击 */
 - (void)registerBtnClick:(UIButton* )sender
 {
-//    [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
     
-    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
+//    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
     
 //    [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
 //    [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];

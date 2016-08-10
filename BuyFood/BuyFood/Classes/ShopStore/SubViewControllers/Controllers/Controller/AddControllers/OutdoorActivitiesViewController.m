@@ -57,6 +57,7 @@
     UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"申请" forState:UIControlStateNormal];
+    [bottomBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
     [self.view addSubview:bottomBtn];
     [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -214,12 +215,12 @@
 // 编辑结束 视图返回
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    
     [self packUpDownTextField:textField isShow:NO];
 }
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
-    if (textField.tag == 0 || textField.tag == 1 || textField.tag == 2  || textField.tag == 4) {
+    if (textField.tag == 4)
+    {
         
         //设置动画的名字
         [UIView beginAnimations:@"Animation" context:nil];
