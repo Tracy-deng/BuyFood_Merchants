@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UILabel* totalMoney;
 
 
+
 @end
 
 @implementation DispatchCell
@@ -189,6 +190,16 @@
         make.width.equalTo(@60);
         make.height.equalTo(@30);
     }];
+    
+    self.noGetOrderBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [self.noGetOrderBtn setImage:[UIImage imageNamed:@"gb"] forState:(UIControlStateNormal)];
+    [whiteView addSubview:self.noGetOrderBtn];
+    [self.noGetOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(whiteView.mas_right).offset(-3);
+        make.top.equalTo(whiteView.mas_top).offset(5);
+        make.width.height.equalTo(@20);
+    }];
+    
 }
 
 - (void)setOrderNumberLabelText:(NSString* )orderNumberLabelText andGetTimeBtnText:(NSString* )getTimeBtnText andOrderTimeLabelText:(NSString* )orderTimeLabelText andOrderAddressLabelText:(NSString* )orderAddressLabelText moneyLabel:(NSString *)moneyText

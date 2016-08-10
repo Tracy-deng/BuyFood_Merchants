@@ -16,11 +16,11 @@
     if (self) {
         
         _nameLabel = [UILabel new];
-        _nameLabel.textAlignment = NSTextAlignmentCenter;
+        _nameLabel.textAlignment = NSTextAlignmentLeft;
         _nameLabel.font = [UIFont systemFontOfSize:20];
         [self.contentView addSubview:_nameLabel];
         [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(2);
+            make.left.equalTo(self.contentView).offset(15);
             make.top.equalTo(self.contentView).offset(10);
             make.height.equalTo(@30);
             make.width.equalTo(@80);
@@ -44,5 +44,6 @@
     if (_touch ) {
         _touch();
     }
+    
 }
 @end

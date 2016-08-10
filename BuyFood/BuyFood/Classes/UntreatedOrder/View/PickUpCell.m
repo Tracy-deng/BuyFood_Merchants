@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UILabel* totalMoney;
 
 
+
 @end
 
 
@@ -85,6 +86,8 @@
         make.height.equalTo(@1.0);
         make.bottom.equalTo(whiteView.mas_bottom).offset(-30);
     }];
+    
+    
 #pragma 设置UI布局
 
     
@@ -172,6 +175,15 @@
         make.right.equalTo(whiteView).offset(-10);
         make.width.equalTo(@60);
         make.height.equalTo(@30);
+    }];
+    
+    self.noGetOrderBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [self.noGetOrderBtn setImage:[UIImage imageNamed:@"gb"] forState:(UIControlStateNormal)];
+    [whiteView addSubview:self.noGetOrderBtn];
+    [self.noGetOrderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(whiteView.mas_right).offset(-3);
+        make.top.equalTo(whiteView.mas_top).offset(5);
+        make.width.height.equalTo(@20);
     }];
     
 }
