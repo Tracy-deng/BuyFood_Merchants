@@ -48,7 +48,8 @@
         GetBrandsAndCommunityClassifyParams,
         TelephoneParams,
         CashOutParams,
-        AddOutDoorParams;
+        AddOutDoorParams,
+        InputPostInfoParams;
 
 @interface RequestTool : NSObject
 
@@ -72,8 +73,10 @@
 + (void)untreatedDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 品牌馆配送订单 */
 + (void)untreatedBrandDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
-/** 接单 */
+/** 普通商家和社区店和品牌馆接单 */
 + (void)getOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 品牌馆接单填写物流信息 */
++ (void)inputPostInfo:(InputPostInfoParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 不接单 */
 + (void)noGetOrder:(GetOrderParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 
@@ -157,7 +160,13 @@
 /** 申请提现 */
 + (void)cashOut:(CashOutParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取提现状态 */
-
++ (void)cashoutStatus:(CashOutParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 添加户外活动 */
 + (void)addOutDoor:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取户外活动列表 */
++ (void)outDoorList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 添加团购 */
++ (void)addGroupBuy:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取团购列表 */
++ (void)groupBuyList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 @end

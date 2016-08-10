@@ -86,6 +86,7 @@
 - (void)startBusinessTimeBtnClick:(UIButton* )startBtn
 {
     _selectTimePicker = [[MHDatePicker alloc] init];
+    _selectTimePicker.datePickerMode = UIDatePickerModeTime;
     __weak typeof(self) weakSelf = self;
     [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
     {
@@ -97,6 +98,7 @@
 - (void)stopBusinessTimeBtnClick:(UIButton* )stopBtn
 {
     _selectTimePicker = [[MHDatePicker alloc] init];
+    _selectTimePicker.datePickerMode = UIDatePickerModeTime;
     __weak typeof(self) weakSelf = self;
     [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
      {
