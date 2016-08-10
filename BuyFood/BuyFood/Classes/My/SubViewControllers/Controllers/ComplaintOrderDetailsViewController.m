@@ -144,7 +144,7 @@
     [shopStoreName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(headerView.mas_top).offset(10);
         make.left.equalTo(headerView.mas_left).offset(30);
-        make.width.equalTo(@68);
+        make.width.equalTo(@200);
         make.height.equalTo(@24);
     }];
 

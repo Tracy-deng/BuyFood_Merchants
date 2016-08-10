@@ -7,7 +7,7 @@
 //
 
 #import "haveTableViewCell.h"
-
+#import "orderStatus.h"
 @implementation haveTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -42,15 +42,7 @@
     self.timeLabel.text = model.ordertime;
     self.addressLabel.text = model.useraddress;
     self.moneyLabel.text = [NSString stringWithFormat:@"¥%@",model.markettotalmoney];
-    if ([model.orderstatus isEqualToString:@"3"])
-    {
-        self.addOrderBtn.text = @"已接单";
-    }else if ([model.orderstatus isEqualToString:@"10"] || [model.orderstatus isEqualToString:@"8"] || [model.orderstatus isEqualToString:@"9"]){
-        self.addOrderBtn.text = @"配送中";
-    }else if ([model.orderstatus isEqualToString:@"12"])
-    {
-        self.addOrderBtn.text = @"已完成";
-    }
+    self.addOrderBtn.text = [[orderStatus shareBillStatus]getOrderStatus:model.orderstatus];
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

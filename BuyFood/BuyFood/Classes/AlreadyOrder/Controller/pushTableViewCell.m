@@ -7,7 +7,7 @@
 //
 
 #import "pushTableViewCell.h"
-
+#import "orderStatus.h"
 @implementation pushTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -36,7 +36,7 @@
         _addOrderLabel.layer.cornerRadius = 32;
         _addOrderLabel.backgroundColor = [UIColor colorWithWhite:0.704 alpha:1.000];
         _addOrderLabel.text = @"配送中";
-        _addOrderLabel.font = [UIFont systemFontOfSize:13];
+        _addOrderLabel.font = [UIFont systemFontOfSize:11];
         _addOrderLabel.textColor = [UIColor whiteColor];
         _addOrderLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_addOrderLabel];
@@ -56,19 +56,8 @@
     self.timeLabel.text = model.ordertime;
     self.addressLabel.text = model.useraddress;
     self.moneyLabel.text = [NSString stringWithFormat:@"¥%@",model.markettotalmoney];
-    if ([model.orderstatus isEqualToString:@"3"])
-    {
-        self.addOrderLabel.text = @"已接单";
-    }else if ([model.orderstatus isEqualToString:@"10"] || [model.orderstatus isEqualToString:@"8"] || [model.orderstatus isEqualToString:@"9"]){
-        self.addOrderLabel.text = @"配送中";
-    }else if ([model.orderstatus isEqualToString:@"12"])
-    {
-        self.addOrderLabel.text = @"已完成";
-    }
-    else if ([model.orderstatus isEqualToString:@"11"])
-    {
-        self.addOrderLabel.text = @"已送达";
-    }
+    self.addOrderLabel.text = [[orderStatus shareBillStatus]getOrderStatus:model.orderstatus];
+    
 }
 - (void)awakeFromNib {
     [super awakeFromNib];

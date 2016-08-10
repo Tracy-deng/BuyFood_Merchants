@@ -20,6 +20,7 @@
 #import "MJRefresh.h"
 #import "GetOrderParams.h"
 #import "ResultsModel.h"
+#import "orderStatus.h"
 @interface DistributionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tableView;
@@ -151,7 +152,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     OrderMarketModel *model = self.distributionDataArray[indexPath.row];
-    [cell setOrderNumberLabelText:model.orderno andGetTimeBtnText:@"立即送达" andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.useraddress moneyLabel:model.markettotalmoney];
+    [cell setOrderNumberLabelText:model.orderno andGetTimeBtnText:[[orderStatus shareBillStatus]getOrderStatus:model.orderstatus] andOrderTimeLabelText:model.ordertime andOrderAddressLabelText:model.useraddress moneyLabel:model.markettotalmoney];
     
     cell.searchListBtn.tag = indexPath.row;
     [cell.searchListBtn addTarget:self action:@selector(searchListBtnClick:) forControlEvents:UIControlEventTouchUpInside];

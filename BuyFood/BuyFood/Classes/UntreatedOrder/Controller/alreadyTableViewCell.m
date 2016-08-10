@@ -7,7 +7,7 @@
 //
 
 #import "alreadyTableViewCell.h"
-
+#import "orderStatus.h"
 @implementation alreadyTableViewCell
 
 
@@ -58,15 +58,7 @@
     self.timeLabel.text = model.ordertime;
     self.addressLabel.text = model.useraddress;
     self.moneyLabel.text = [NSString stringWithFormat:@"¥%@",model.markettotalmoney];
-    if ([model.orderstatus isEqualToString:@"3"])
-    {
-        self.addOrderLabel.text = @"已接单";
-    }else if ([model.orderstatus isEqualToString:@"10"]){
-        self.addOrderLabel.text = @"配送中";
-    }else if ([model.orderstatus isEqualToString:@"12"])
-    {
-        self.addOrderLabel.text = @"已完成";
-    }
+    self.addOrderLabel.text = [[orderStatus shareBillStatus]getOrderStatus:model.orderstatus];
 }
 /*
 // Only override drawRect: if you perform custom drawing.
