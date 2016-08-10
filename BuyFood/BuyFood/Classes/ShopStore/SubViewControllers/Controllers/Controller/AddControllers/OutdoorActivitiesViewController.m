@@ -9,6 +9,9 @@
 #import "OutdoorActivitiesViewController.h"
 #import "AddShopsCell.h"
 #import "MHDatePicker.h"
+#import "AddOutDoorParams.h"
+#import "RequestTool.h"
+
 
 #define Start_X self.view.frame.size.width * 0.05           // 第一个按钮的X坐标
 #define Start_Y self.view.frame.size.height - (self.view.frame.size.height * 0.19) - (self.view.frame.size.width * 0.27)          // 第一个按钮的Y坐标
@@ -20,17 +23,25 @@
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) UIButton* imageViewBtn;
 /** 活动名称 */
-@property (nonatomic, strong) NSString *fightGroupsName;
-/** 报名费 */
-@property (nonatomic, strong) NSString *fightGroupsPrice;
+@property (nonatomic, strong) NSString *activitiesName;
+/** 活动原价 */
+@property (nonatomic, strong) NSString *activitiesPrice1;
+/** 活动现价 */
+@property (nonatomic, strong) NSString *activitiesPrice2;
 /** 人数限制 */
 @property (nonatomic, strong) NSString *peopleNum;
+/** 活动地点 */
+@property (nonatomic, strong) NSString *activitiesAdd;
 /** 活动描述 */
-@property (nonatomic, strong) NSString *fightGroupsDescribe;
-/** 活动时间 */
-@property (nonatomic, strong) NSString *fightGroupsTime;
+@property (nonatomic, strong) NSString *activitiesDescribe;
+/** 活动日期 */
+@property (nonatomic, strong) NSString *activitiesDate;
+/** 活动开始时间 */
+@property (nonatomic, strong) NSString *activitiesStartTime;
+/** 活动结束时间 */
+@property (nonatomic, strong) NSString *activitiesEndTime;
 /** 时间选择器 */
-@property (strong, nonatomic) MHDatePicker *selectTimePicker;
+@property (strong, nonatomic) MHDatePicker *selectDatePicker;
 
 @end
 
@@ -59,6 +70,7 @@
     [bottomBtn setTitle:@"申请" forState:UIControlStateNormal];
     [bottomBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
+    [bottomBtn addTarget:self action:@selector(bottomClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bottomBtn];
     [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view.mas_left).offset(21);
@@ -77,7 +89,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 9;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -85,7 +97,7 @@
     AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell)
     {
-        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 4)
+        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 || indexPath.row == 4 || indexPath.row == 8)
         {
             cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.contentTextField.tag = indexPath.row;
@@ -97,13 +109,19 @@
                     [cell setTitleLabel:@"活动名称:" andContentTextFieldPlaceholder:@"请输入活动名称"];
                     break;
                 case 1:
-                    [cell setTitleLabel:@"报名费:" andContentTextFieldPlaceholder:@"请输入活动报名费"];
+                    [cell setTitleLabel:@"活动原价:" andContentTextFieldPlaceholder:@"请输入活动原价"];
                     break;
                 case 2:
+                    [cell setTitleLabel:@"活动促销价:" andContentTextFieldPlaceholder:@"请输入活动促销价"];
+                    break;
+                case 3:
                     [cell setTitleLabel:@"人数限制:" andContentTextFieldPlaceholder:@"请输入限制人数"];
                     break;
                 case 4:
-                    [cell setTitleLabel:@"活动描述:" andContentTextFieldPlaceholder:@"二十字以内"];
+                    [cell setTitleLabel:@"活动地点:" andContentTextFieldPlaceholder:@"请输入活动地点"];
+                    break;
+                case 8:
+                    [cell setTitleLabel:@"活动描述:" andContentTextFieldPlaceholder:@"请输入活动描述"];
                     break;
                 default:
                     break;
@@ -113,7 +131,21 @@
         {
             cell = [[AddShopsCell alloc] initWithChooseCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell setChooseTitleLabel:@"活动时间:" andContentLabel:self.fightGroupsTime];
+            switch (indexPath.row)
+            {
+                case 5:
+                    [cell setChooseTitleLabel:@"活动日期:" andContentLabel:self.activitiesDate];
+                    break;
+                case 6:
+                    [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.activitiesStartTime];
+                    break;
+                case 7:
+                    [cell setChooseTitleLabel:@"活动结束时间:" andContentLabel:self.activitiesEndTime];
+                    break;
+                default:
+                    break;
+            }
+            
         }
     }
     return cell;
@@ -128,15 +160,42 @@
 {
     AddShopsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 3)
+    if (indexPath.row == 5)
     {
-        _selectTimePicker = [[MHDatePicker alloc] init];
+        _selectDatePicker = [[MHDatePicker alloc] init];
+        _selectDatePicker.isBeforeTime = YES;
+        _selectDatePicker.datePickerMode = UIDatePickerModeDate;
         __weak typeof(self) weakSelf = self;
-        [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
+        [_selectDatePicker didFinishSelectedDate:^(NSDate *selectedDate)
          {
-             //self.fightGroupsTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"YYYY/MM/dd hh:mm"];
-             self.fightGroupsTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"YYYY/MM/dd"];
-             [cell setChooseTitleLabel:@"活动时间:" andContentLabel:self.fightGroupsTime];
+             self.activitiesDate = [weakSelf dateStringWithDate:selectedDate DateFormat:@"yyyy年MM月dd日"];
+             [cell setChooseTitleLabel:@"活动日期:" andContentLabel:self.activitiesDate];
+             [self.tableView reloadData];
+         }];
+    }
+    else if (indexPath.row == 6)
+    {
+        MHDatePicker *timePicker = [[MHDatePicker alloc] init];
+        timePicker.isBeforeTime = YES;
+        timePicker.datePickerMode = UIDatePickerModeTime;
+        __weak typeof(self) weakSelf = self;
+        [timePicker didFinishSelectedDate:^(NSDate *selectedDate)
+         {
+             self.activitiesStartTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+             [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.activitiesStartTime];
+             [self.tableView reloadData];
+         }];
+    }
+    else if (indexPath.row == 7)
+    {
+        MHDatePicker *timePicker = [[MHDatePicker alloc] init];
+        timePicker.isBeforeTime = YES;
+        timePicker.datePickerMode = UIDatePickerModeTime;
+        __weak typeof(self) weakSelf = self;
+        [timePicker didFinishSelectedDate:^(NSDate *selectedDate)
+         {
+             self.activitiesEndTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+             [cell setChooseTitleLabel:@"活动结束时间:" andContentLabel:self.activitiesEndTime];
              [self.tableView reloadData];
          }];
     }
@@ -156,19 +215,47 @@
     switch (textField.tag)
     {
         case 0:
-            self.fightGroupsName = textField.text;
+            self.activitiesName = textField.text;
             break;
         case 1:
-            self.fightGroupsPrice = textField.text;
+            self.activitiesPrice1 = textField.text;
             break;
         case 2:
+            self.activitiesPrice2 = textField.text;
+            break;
+        case 3:
             self.peopleNum = textField.text;
             break;
         case 4:
-            self.fightGroupsDescribe = textField.text;
+            self.activitiesAdd = textField.text;
+            break;
+        case 8:
+            self.activitiesDescribe = textField.text;
             break;
         default:
             break;
+    }
+}
+
+#pragma bottomClick:申请按钮点击
+- (void)bottomClick:(UIButton *)sender
+{
+    if (_activitiesName.length == 0 || _activitiesPrice1.length == 0 || _activitiesPrice2.length == 0 || _peopleNum.length == 0 || _activitiesAdd.length == 0 || _activitiesDescribe.length == 0 || _activitiesDate.length == 0 || _activitiesStartTime.length == 0 || _activitiesEndTime.length == 0)
+    {
+        UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"注意！！！" message:@"请您完整填写活动信息" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+        [selct addAction:action];
+        [self presentViewController:selct animated:YES completion:nil];
+        return;
+    }
+    else
+    {
+        AddOutDoorParams *params = [[AddOutDoorParams alloc] init];
+        params.outname = self.activitiesName;
+        params.oldprice = [self.activitiesPrice1 doubleValue];
+        params.newprice = [self.activitiesPrice2 doubleValue];
+        params.personcount = [self.peopleNum integerValue];
+//        params.outtime = []
     }
 }
 
@@ -190,10 +277,11 @@
 
 - (void)imageViewBtnClick:(UIButton* )sender
 {
-    NSLog(@"%ld", sender.tag);
+    
 }
 #pragma mark -- 点击键盘上的return按钮  收起键盘
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
     
     [textField resignFirstResponder];
     
@@ -219,7 +307,7 @@
 }
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
-    if (textField.tag == 4)
+    if (textField.tag == 4 || textField.tag == 8)
     {
         
         //设置动画的名字
