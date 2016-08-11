@@ -151,13 +151,13 @@
 //    else
 //    {
         LoginParams* params = [[LoginParams alloc]init];
-//            params.telephone = _phoneTextField.text;
-//            params.pswd = _passwordTextField.text;
-            params.telephone = @"13088888888"; // 品牌馆
+            params.telephone = _phoneTextField.text;
+            params.pswd = _passwordTextField.text;
+//            params.telephone = @"13088888888"; // 品牌馆
 //            params.telephone = @"13999999999"; // 社区店
 //            params.telephone = @"13777777777";   // 普通商家
 //              params.telephone = @"13055555555";
-            params.pswd = @"1";
+//            params.pswd = @"1";
         [RequestTool login:params success:^(ResultsModel *result)
          {
              HDCLog(@"%@", result.ModelList);

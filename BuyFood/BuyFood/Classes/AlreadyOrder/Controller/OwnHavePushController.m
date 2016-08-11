@@ -72,31 +72,62 @@
     params.marketuserid = userInfo.marketuserid;
     params.pageindex = @"1";
     params.pagesize = @"0";
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        [RequestTool alreadyDistributionOrderList:params success:^(MarketOrderModelList *result) {
-            HDCLog(@"%@", result.OrderMarket);
-            [self.inviteDataArray removeAllObjects];
-            for (NSDictionary *dict in result.OrderMarket) {
-                OrderMarketModel *model = [[OrderMarketModel alloc]init];
-                [model setValuesForKeysWithDictionary:dict];
-                [self.inviteDataArray addObject:model];
-            }
-            [loadView stopAnimation];
-            NSLog(@"%@",self.inviteDataArray);
-            [self.mainPushTabview.header endRefreshing];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.mainPushTabview reloadData];
-            });
-            
-        } failure:^(NSError *error) {
-            ;
-            NSLog(@"%@",error);
-            [loadView stopAnimation];
-        }];
-        
-    });
+    
+     if ([userInfo.markettypeid isEqualToString:@"1" ]|| [userInfo.markettypeid isEqualToString:@"2"] ) {
+         
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+             
+             [RequestTool alreadyDistributionOrderList:params success:^(MarketOrderModelList *result) {
+                 HDCLog(@"%@", result.OrderMarket);
+                 [self.inviteDataArray removeAllObjects];
+                 for (NSDictionary *dict in result.OrderMarket) {
+                     OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                     [model setValuesForKeysWithDictionary:dict];
+                     [self.inviteDataArray addObject:model];
+                 }
+                 [loadView stopAnimation];
+                 NSLog(@"%@",self.inviteDataArray);
+                 [self.mainPushTabview.header endRefreshing];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.mainPushTabview reloadData];
+                 });
+                 
+             } failure:^(NSError *error) {
+                 ;
+                 NSLog(@"%@",error);
+                 [loadView stopAnimation];
+             }];
+             
+         });
+     }else{
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+             
+             [RequestTool alreadyBandDistributionOrderList:params success:^(MarketOrderModelList *result) {
+                 HDCLog(@"%@", result.OrderMarket);
+                 [self.inviteDataArray removeAllObjects];
+                 for (NSDictionary *dict in result.OrderMarket) {
+                     OrderMarketModel *model = [[OrderMarketModel alloc]init];
+                     [model setValuesForKeysWithDictionary:dict];
+                     [self.inviteDataArray addObject:model];
+                 }
+                 [loadView stopAnimation];
+                 NSLog(@"%@",self.inviteDataArray);
+                 [self.mainPushTabview.header endRefreshing];
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [self.mainPushTabview reloadData];
+                 });
+                 
+             } failure:^(NSError *error) {
+                 ;
+                 NSLog(@"%@",error);
+                 [loadView stopAnimation];
+             }];
+             
+         });
+     }
+    
 
 }
 

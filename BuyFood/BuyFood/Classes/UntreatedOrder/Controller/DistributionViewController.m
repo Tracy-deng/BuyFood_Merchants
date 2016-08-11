@@ -181,8 +181,7 @@
 - (void)didGetOrder:(UIButton *)sender
 {
     
-    LoadView *loadView = [LoadView new];
-    [loadView startAnimation];
+    
     
     NSLog(@"接单处理%ld",(long)sender.tag);
     OrderMarketModel * model = self.distributionDataArray[sender.tag];
@@ -190,7 +189,8 @@
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
    
     if ([userInfo.markettypeid isEqualToString:@"1" ]|| [userInfo.markettypeid isEqualToString:@"2"] ) {
-        
+        LoadView *loadView = [LoadView new];
+        [loadView startAnimation];
         GetOrderParams *parms = [[GetOrderParams alloc]init];
         parms.orderno = orderNum;
         parms.marketuserid = userInfo.marketuserid;
@@ -213,7 +213,7 @@
         [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder =  @"数据物流公司";
         }];
-        
+
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             UITextField *orderNum = alertController.textFields.firstObject;
             UITextField *company = alertController.textFields.lastObject;
@@ -222,10 +222,8 @@
             [RequestTool inputPostInfo:parms success:^(ResultsModel *result) {
                 NSLog(@"%@",result.ModelList);
                 [self createDistributionData];
-                [loadView stopAnimation];
             } failure:^(NSError *error) {
                 NSLog(@"%@",error);
-                [loadView stopAnimation];
             }];
         }];
         
