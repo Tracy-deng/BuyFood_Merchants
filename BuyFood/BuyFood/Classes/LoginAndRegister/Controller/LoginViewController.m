@@ -140,24 +140,24 @@
  
     HDCLog(@"点击登录");
     
-    [MBProgressHUD showMessage:@"正在登录中..."];
-
-    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1+[3578]+\\d{9}"] evaluateWithObject:_phoneTextField.text])
-    {
-        [MBProgressHUD hideHUD];
-        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
-        
-    }
-    else
-    {
+//    [MBProgressHUD showMessage:@"正在登录中..."];
+//
+//    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1+[3578]+\\d{9}"] evaluateWithObject:_phoneTextField.text])
+//    {
+//        [MBProgressHUD hideHUD];
+//        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
+//        
+//    }
+//    else
+//    {
         LoginParams* params = [[LoginParams alloc]init];
-            params.telephone = _phoneTextField.text;
-            params.pswd = _passwordTextField.text;
-//            params.telephone = @"13888888888"; // 品牌馆
+//            params.telephone = _phoneTextField.text;
+//            params.pswd = _passwordTextField.text;
+            params.telephone = @"13088888888"; // 品牌馆
 //            params.telephone = @"13999999999"; // 社区店
 //            params.telephone = @"13777777777";   // 普通商家
 //              params.telephone = @"13055555555";
-//            params.pswd = @"1";
+            params.pswd = @"1";
         [RequestTool login:params success:^(ResultsModel *result)
          {
              HDCLog(@"%@", result.ModelList);
@@ -179,7 +179,7 @@
          } failure:^(NSError *error) {
              [MBProgressHUD hideHUD];
          }];
-    }
+//    }
 
 }
 /** 切换根视图 */

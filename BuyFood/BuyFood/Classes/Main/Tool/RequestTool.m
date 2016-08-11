@@ -46,11 +46,12 @@
 #import "CashOutParams.h"
 #import "AddOutDoorParams.h"
 #import "InputPostInfoParams.h"
+#import "MarketUserIdParams.h"
 
 @implementation RequestTool
 
 #pragma mark - login
-/** 获取验证码 */
+/** 获取注册验证码 */
 +(void)getSMSCode:(GetMsgCodeParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/GetRegisterSMSCode"];
@@ -79,17 +80,45 @@
     }];
 }
 
-
-/** 实名认证 */
-+ (void)realname:(realNameParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+/** 获取忘记密码验证码 */
++ (void)getForgetPwdCode:(GetMsgCodeParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/GetUpdateSMSCode"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
 }
 /** 忘记密码 */
 + (void)forgetPwd:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/SetPassWordByYZM"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            
+            failure(error);
+        } else {
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+    /**
+     修改密码或密码重置(需要给实体类中的telephone、verifycode、pswd赋值)
+     t_marketuser/SetPassWordByYZM
+     */
 }
+
+/** 实名认证 */
++ (void)realname:(realNameParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
+{
+    /** t_marketuser/SMRZ */
+}
+
 
 /** 完善商户资料 */
 + (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
@@ -330,6 +359,23 @@
 + (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketSenderFinished"];
+    [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            HDCLog(@"%@", error.userInfo);
+            failure(error);
+        } else
+        {
+            HDCLog(@"%@", model);
+            MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
+}
+
+/** 品牌馆配送订单 --- 配送中 */
++ (void)alreadyBandDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
+{
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetMarketPostFinished"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
@@ -807,7 +853,7 @@
     }];
 }
 /** 获取户外活动列表 */
-+ (void)outDoorList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
++ (void)outDoorList:(MarketUserIdParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_outdoor/GetModelList"];
     [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
@@ -816,7 +862,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@",model);
+//            HDCLog(@"%@",model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }

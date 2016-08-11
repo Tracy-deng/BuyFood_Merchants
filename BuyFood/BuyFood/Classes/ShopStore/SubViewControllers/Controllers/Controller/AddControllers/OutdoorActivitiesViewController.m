@@ -11,17 +11,25 @@
 #import "MHDatePicker.h"
 #import "AddOutDoorParams.h"
 #import "RequestTool.h"
-
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "ResultsModel.h"
+#import "MHActionSheet.h"
+#import "picButton.h"
+#import "UpLoadImageUtil.h"
+#import "MBProgressHUD.h"
+#import "LoadView.h"
 
 #define Start_X self.view.frame.size.width * 0.05           // 第一个按钮的X坐标
 #define Start_Y self.view.frame.size.height - (self.view.frame.size.height * 0.19) - (self.view.frame.size.width * 0.27)          // 第一个按钮的Y坐标
 #define Width_Space self.view.frame.size.width * 0.05        // 2个按钮之间的横间距
 #define Button_Width self.view.frame.size.width * 0.27 //宽
 
-@interface OutdoorActivitiesViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface OutdoorActivitiesViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
 
 @property (nonatomic, strong) UITableView* tableView;
-@property (nonatomic, strong) UIButton* imageViewBtn;
+@property (nonatomic, strong) picButton* imageViewBtn;
 /** 活动名称 */
 @property (nonatomic, strong) NSString *activitiesName;
 /** 活动原价 */
@@ -43,9 +51,18 @@
 /** 时间选择器 */
 @property (strong, nonatomic) MHDatePicker *selectDatePicker;
 
+@property (nonatomic, strong) ShopsUserInfo *userInfo;
+
+@property (nonatomic, strong) UIImagePickerController *imagePickController;
+
+@property (nonatomic, strong) picButton*lastButton;
+
+@property (nonatomic, strong) NSMutableArray *picArray;
+
 @end
 
 @implementation OutdoorActivitiesViewController
+
 
 - (void)viewDidLoad
 {
@@ -53,9 +70,14 @@
     
     self.title = @"户外活动";
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    
+    self.userInfo = [ShopsUserInfoTool account];
     [self createTableViewAndBottomBtn];
     [self setAddImageView];
+    self.picArray = [NSMutableArray array];
+    _imagePickController = [[UIImagePickerController alloc]init];
+    _imagePickController.delegate = self;
+    _imagePickController.allowsEditing = YES;
+    _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
 }
 - (void)createTableViewAndBottomBtn
 {
@@ -240,34 +262,69 @@
 #pragma bottomClick:申请按钮点击
 - (void)bottomClick:(UIButton *)sender
 {
-    if (_activitiesName.length == 0 || _activitiesPrice1.length == 0 || _activitiesPrice2.length == 0 || _peopleNum.length == 0 || _activitiesAdd.length == 0 || _activitiesDescribe.length == 0 || _activitiesDate.length == 0 || _activitiesStartTime.length == 0 || _activitiesEndTime.length == 0)
+    picButton *find_btn1 = (picButton *)[self.view viewWithTag:100];
+    picButton *find_btn2 = (picButton *)[self.view viewWithTag:101];
+    picButton *find_btn3 = (picButton *)[self.view viewWithTag:102];
+    
+    if (_activitiesName.length == 0 || _activitiesPrice1.length == 0 || _activitiesPrice2.length == 0 || _peopleNum.length == 0 || _activitiesAdd.length == 0 || _activitiesDescribe.length == 0 || _activitiesDate.length == 0 || _activitiesStartTime.length == 0 || _activitiesEndTime.length == 0 || find_btn1.picString.length == 0 || find_btn2.picString.length == 0 || find_btn3.picString.length == 0)
     {
-        UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"注意！！！" message:@"请您完整填写活动信息" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
-        [selct addAction:action];
-        [self presentViewController:selct animated:YES completion:nil];
+        if (find_btn1.picString.length == 0 || find_btn2.picString.length == 0 || find_btn3.picString.length == 0) {
+            [MBProgressHUD showError:@"请等待图片上传完毕"];
+        }
+        else
+        {
+            UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"注意！！！" message:@"请您完整填写活动信息" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+            [selct addAction:action];
+            [self presentViewController:selct animated:YES completion:nil];
+        }
         return;
     }
     else
     {
+//        [self.picArray addObject:find_btn1.picString];
+//        [self.picArray addObject:find_btn2.picString];
+//        [self.picArray addObject:find_btn3.picString];
+        
         AddOutDoorParams *params = [[AddOutDoorParams alloc] init];
         params.outname = self.activitiesName;
         params.oldprice = [self.activitiesPrice1 doubleValue];
         params.newprice = [self.activitiesPrice2 doubleValue];
         params.personcount = [self.peopleNum integerValue];
-//        params.outtime = []
+        params.outtime = self.activitiesDate;
+        params.starttime = self.activitiesStartTime;
+        params.endtime = self.activitiesEndTime;
+        params.remark1 = @"预期自动退";
+        params.rule1 = @"试用规则-交通";
+        params.rule2 = @"试用规则-住宿";
+        params.rule3 = @"试用规则-用餐";
+        params.rule4 = @"试用规则-门票";
+        params.rule5 = @"试用规则-其他";
+        params.marketuserid = self.userInfo.marketuserid;
+        params.remark = self.activitiesDescribe;
+        params.outaddress = self.activitiesAdd;
+        params.pic = find_btn3.picString;
+        [params.ProductPictureList addObject:find_btn1.picString];
+        [params.ProductPictureList addObject:find_btn2.picString];
+        [params.ProductPictureList addObject:find_btn3.picString];
+        [RequestTool addOutDoor:params success:^(ResultsModel *result) {
+            HDCLog(@"%@", result.ModelList);
+            HDCLog(@"%@", result.ErrorCode);
+        } failure:^(NSError *error) {
+            ;
+        }];
     }
 }
 
 #pragma 添加图片
 - (void)setAddImageView
 {
-    for (int i = 0; i < 3; i ++ )
+    for (int i = 0; i < 3; i ++)
     {
-        self.imageViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.imageViewBtn = [picButton buttonWithType:UIButtonTypeCustom];
         NSInteger index = i % 3;
         NSInteger page = i / 3;
-        self.imageViewBtn.tag = i;
+        self.imageViewBtn.tag = i+100;
         [self.imageViewBtn setFrame:CGRectMake(index * (Button_Width + Width_Space) + Start_X, page  * (Button_Width )+Start_Y, Button_Width, Button_Width)];
         [self.imageViewBtn setBackgroundImage:[UIImage imageNamed:@"addShopsImage"] forState:UIControlStateNormal];
         [self.imageViewBtn addTarget:self action:@selector(imageViewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -275,10 +332,96 @@
     }
 }
 
-- (void)imageViewBtnClick:(UIButton* )sender
+- (void)imageViewBtnClick:(picButton* )sender
 {
+    _lastButton = sender;
+    NSArray *photoArray = @[@"相机拍照",@"本地上传"];
+    MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleDefault itemTitles:photoArray];
+    actionSheet.cancleTitle = @"取消选择";
+    static NSInteger sourceType = 0 ;
     
+    [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title) {
+        if (index == 0) {
+            NSLog(@"相机拍照");
+            // 判断相机有没有权限
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                _imagePickController.sourceType = sourceType;
+                // 进入相机
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+            else
+            {
+                
+                UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有相机权限" message:@"请您在设置里面打开权限" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+                [selct addAction:action];
+                [self presentViewController:selct animated:YES completion:nil];
+            }
+        }
+        else
+        {
+            HDCLog(@"本地上传");
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                HDCLog(@"进去图片库");
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+            else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            {
+                HDCLog(@"进入相册");
+                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+        }
+    }];
 }
+
+#pragma mark-- imagePicker delegate 事件
+/**
+ * 图像选取器的委托方法，选完图片后回调该方法
+ */
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    [_lastButton setBackgroundImage:image forState:UIControlStateNormal];
+    // 当图片不为空时显示图片并保存图片
+    if (image != nil)
+    {
+        [UpLoadImageUtil upLoadImage:image success:^(id response) {
+            if ([response[@"success"] intValue] == 1)
+            {
+                NSMutableString *str = response[@"data"][0][@"maxpic"];
+                _lastButton.picString = str;
+            }
+        } failure:^{
+            
+        }];
+    }
+    //关闭相册界面
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+// 相机选择取消按钮
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+//- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
+//{
+//    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
+//    // 获取沙盒目录
+//    
+//    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
+//    // 将图片写入文件
+//    [imageData writeToFile:fullPath atomically:NO];
+//}
+
 #pragma mark -- 点击键盘上的return按钮  收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -292,6 +435,7 @@
 // 点击屏幕空白  收起键盘
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
+    HDCLog(@"%lu", self.picArray.count);
 }
 
 // 在UITextField 编辑之前调用方法  视图上移

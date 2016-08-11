@@ -10,6 +10,11 @@
 #import "Masonry.h"
 #import "ManagementCell.h"
 #import "OutdoorActivitiesViewController.h"
+#import "RequestTool.h"
+#import "ResultsModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "MarketUserIdParams.h"
 
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
@@ -18,6 +23,8 @@
 UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tabelView;
+@property (nonatomic, strong) ShopsUserInfo *userInfo;
+
 
 @end
 
@@ -29,7 +36,20 @@ UITableViewDataSource>
     self.title = @"户外活动管理";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self createTabeleViewAndBottomBtn];
+    self.userInfo = [ShopsUserInfoTool account];
 }
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    MarketUserIdParams *params = [[MarketUserIdParams alloc] init];
+    params.marketuserid = self.userInfo.marketuserid;
+    [RequestTool outDoorList:params success:^(ResultsModel *result) {
+        HDCLog(@"%@", result.ModelList);
+    } failure:^(NSError *error) {
+        ;
+    }];
+}
+
 - (void)createTabeleViewAndBottomBtn
 {
     self.tabelView = [[UITableView alloc] init];
