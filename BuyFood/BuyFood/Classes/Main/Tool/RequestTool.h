@@ -49,12 +49,13 @@
         TelephoneParams,
         CashOutParams,
         AddOutDoorParams,
-        InputPostInfoParams;
+        InputPostInfoParams,
+        MarketUserIdParams;
 
 @interface RequestTool : NSObject
 
 #pragma mark - login 
-/** 获取验证码 */
+/** 获取注册验证码 */
 + (void)getSMSCode:(GetMsgCodeParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 注册 */
 + (void)registe:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
@@ -64,6 +65,8 @@
 + (void)login:(LoginParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 完善商户资料 */
 + (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
+/** 获取忘记密码验证码 */
++ (void)getForgetPwdCode:(GetMsgCodeParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 忘记密码 */
 + (void)forgetPwd:(RegisterParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 #pragma mark - UntreatedOrder <未处理订单>
@@ -85,6 +88,8 @@
 + (void)alreadyInviteOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 普通商家和社区店配送订单 --配送中 */
 + (void)alreadyDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
+/** 品牌馆配送订单 --- 配送中 */
++ (void)alreadyBandDistributionOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 普通商家和社区店和品牌馆配送订单 --已完成 */
 + (void)alreadyDistributionOverOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure;
 /** 普通商家和社区店和品牌馆失效订单 */
@@ -164,9 +169,9 @@
 /** 添加户外活动 */
 + (void)addOutDoor:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取户外活动列表 */
-+ (void)outDoorList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)outDoorList:(MarketUserIdParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;//marketuserid
 /** 添加团购 */
 + (void)addGroupBuy:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取团购列表 */
-+ (void)groupBuyList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
++ (void)groupBuyList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;//marketuserid
 @end

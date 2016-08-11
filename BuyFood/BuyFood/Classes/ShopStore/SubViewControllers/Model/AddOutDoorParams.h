@@ -19,7 +19,7 @@
 /** 人数限制。即活动总共参与人数上限 */
 @property (nonatomic, assign) NSInteger personcount;
 /** 活动时间 */
-@property (nonatomic, strong) NSDate *outtime;
+@property (nonatomic, strong) NSString *outtime;
 /** 活动图片（缩略图）*/
 @property (nonatomic, strong) NSString *pic;
 /** 预期自动退 */
@@ -27,9 +27,9 @@
 /** 随时退 */
 @property (nonatomic, strong) NSString *remark2;
 /** 开始时间 */
-@property (nonatomic, strong) NSDate *starttime;
+@property (nonatomic, strong) NSString *starttime;
 /** 结束时间 */
-@property (nonatomic, strong) NSDate *endtime;
+@property (nonatomic, strong) NSString *endtime;
 /** 试用规则-交通 */
 @property (nonatomic, strong) NSString *rule1;
 /** 试用规则-住宿 */

@@ -228,7 +228,6 @@
 // 相机选择取消按钮
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

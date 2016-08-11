@@ -62,6 +62,7 @@
 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {    // Required
+#warning 注册的时候向极光写入用户注册的手机号和MARKETUSER
     [JPUSHService registerDeviceToken:deviceToken];
 }
 
@@ -90,14 +91,13 @@
     //Optional
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
-
-
-
-
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    
+    // 清除图标数字
+    application.applicationIconBadgeNumber = 0;
+    [JPUSHService setBadge:0];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
