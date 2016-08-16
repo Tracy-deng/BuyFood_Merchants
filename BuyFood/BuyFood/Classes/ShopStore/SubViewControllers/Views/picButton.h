@@ -10,7 +10,7 @@
 
 @interface picButton : UIButton
 
-@property (nonatomic, strong) NSMutableString *picString;
+@property (nonatomic, strong) NSString *picString;
 
 
 @end

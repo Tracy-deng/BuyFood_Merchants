@@ -148,6 +148,7 @@
 		0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E791D4A579200C3516A /* GetOrderParams.m */; };
 		0E830E7D1D4A7AC200C3516A /* OrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E7C1D4A7AC200C3516A /* OrderParams.m */; };
 		0E830E801D4A855300C3516A /* OrderDetailsParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E7F1D4A855300C3516A /* OrderDetailsParams.m */; };
+		0EAA79C11D5DB73000CF6403 /* OutDoorModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAA79C01D5DB73000CF6403 /* OutDoorModelList.m */; };
 		0EAB1C141D4698E60025D8E3 /* AddShopsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EAB1C131D4698E60025D8E3 /* AddShopsCell.m */; };
 		0EB7C7731D47D1CA00172FBB /* SecKillStartTimeAndEndTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7C7721D47D1CA00172FBB /* SecKillStartTimeAndEndTime.m */; };
 		0EB7C77F1D4894F700172FBB /* MarketOrderModelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB7C77E1D4894F700172FBB /* MarketOrderModelList.m */; };
@@ -550,6 +551,8 @@
 		0E830E7C1D4A7AC200C3516A /* OrderParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderParams.m; sourceTree = "<group>"; };
 		0E830E7E1D4A855300C3516A /* OrderDetailsParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailsParams.h; sourceTree = "<group>"; };
 		0E830E7F1D4A855300C3516A /* OrderDetailsParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailsParams.m; sourceTree = "<group>"; };
+		0EAA79BF1D5DB73000CF6403 /* OutDoorModelList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutDoorModelList.h; sourceTree = "<group>"; };
+		0EAA79C01D5DB73000CF6403 /* OutDoorModelList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutDoorModelList.m; sourceTree = "<group>"; };
 		0EAB1C121D4698E60025D8E3 /* AddShopsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShopsCell.h; sourceTree = "<group>"; };
 		0EAB1C131D4698E60025D8E3 /* AddShopsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShopsCell.m; sourceTree = "<group>"; };
 		0EB7C7711D47D1CA00172FBB /* SecKillStartTimeAndEndTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecKillStartTimeAndEndTime.h; sourceTree = "<group>"; };
@@ -918,6 +921,8 @@
 				0EBBD3AB1D54A87800262CD7 /* CashOutParams.m */,
 				0E74834F1D59D57300239C36 /* AddOutDoorParams.h */,
 				0E7483501D59D57300239C36 /* AddOutDoorParams.m */,
+				0EAA79BF1D5DB73000CF6403 /* OutDoorModelList.h */,
+				0EAA79C01D5DB73000CF6403 /* OutDoorModelList.m */,
 				0E7483521D59DA6C00239C36 /* AddGroupBuyParams.h */,
 				0E7483531D59DA6C00239C36 /* AddGroupBuyParams.m */,
 			);
@@ -1953,6 +1958,7 @@
 				0E525A4D1D1283A700AFC95B /* SuccessViewController.m in Sources */,
 				7802E6D11D1A6207000B03C2 /* alreadyTableViewCell.m in Sources */,
 				780984B21D3F1FC4009E7E84 /* SDWebImagePrefetcher.m in Sources */,
+				0EAA79C11D5DB73000CF6403 /* OutDoorModelList.m in Sources */,
 				784D3ED91D38DECA00C82C1D /* AFURLResponseSerialization.m in Sources */,
 				780984EE1D3F59B2009E7E84 /* MJRefreshBackGifFooter.m in Sources */,
 				780984EB1D3F59B2009E7E84 /* MJRefreshAutoGifFooter.m in Sources */,
@@ -2261,6 +2267,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2268,7 +2275,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goucaichina.merchant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5887ff62-e53e-4526-9835-7e11929eee97";
+				PROVISIONING_PROFILE = "1e160cd5-66bb-4aae-a6c4-ca25fc194ba1";
 			};
 			name = Debug;
 		};
@@ -2280,6 +2287,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2287,7 +2295,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goucaichina.merchant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5887ff62-e53e-4526-9835-7e11929eee97";
+				PROVISIONING_PROFILE = "1e160cd5-66bb-4aae-a6c4-ca25fc194ba1";
 			};
 			name = Release;
 		};

@@ -19,6 +19,7 @@
 #import "OrderMarketModel.h"
 #import "MarketOrderModelList.h"
 #import "MBProgressHUD.h"
+
 @interface OwnHaveProvideController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong)UITableView *haveTableView;
 @property (nonatomic, strong) NSMutableArray * inviteDataArray;

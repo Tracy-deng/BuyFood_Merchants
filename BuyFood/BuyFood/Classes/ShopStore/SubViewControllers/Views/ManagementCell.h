@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OutDoorModelList.h"
+
 
 @interface ManagementCell : UITableViewCell
 
@@ -14,6 +16,9 @@
 @property (nonatomic, strong) UILabel* shopsWeight;
 /** 商品单位 */
 @property (nonatomic, strong) UILabel* shopsSpecifications;
+
+@property (nonatomic, strong) OutDoorModelList *modelList;
+
 
 /** 促销管理自定义cell */
 + (instancetype)cellWithSalesPromotionTableView:(UITableView *)tableView;

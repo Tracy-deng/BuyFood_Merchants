@@ -280,6 +280,22 @@
         make.height.equalTo(@(25));
     }];
 }
+
+- (void)setModelList:(OutDoorModelList *)modelList
+{
+    [self.shopsImage sd_setImageWithURL:[NSURL URLWithString:modelList.pic]];
+    self.shopsName.text = modelList.outname;
+    self.shopsPromotionPriceTitle.text = @"报名费:";
+    self.shopsPromotionPrice.text = [@"¥" stringByAppendingString:modelList.newprice];
+    self.shopsOriginalPriceTitle.text = @"人数:";
+    self.shopsOriginalPrice.text = [modelList.personcount stringByAppendingString:@"人"];
+    NSString *timeStr = modelList.outtime;
+    NSRange range = [timeStr rangeOfString:@"T"];
+    NSString *time = [timeStr substringToIndex:range.location];
+    self.time.text = time;
+    
+}
+
 - (void)setOtherShopsImage:(NSString * )shopsImage andShopsNameLabel:(NSString* )shopsName andShopsWeight:(NSString* )shopsWeight andShopsSpecifications:(NSString* )shopsSpecifications andShopsOriginalPriceTitle:(NSString* )shopsOriginalPriceTitle andShopsOriginalPrice:(NSString* )shopsOriginalPrice andShopsPromotionPriceTitle:(NSString* )shopsPromotionPriceTitle andShopsPromotionPrice:(NSString* )shopsPromotionPrice andTime:(NSString *)time
 {
 //    [self.shopsImage sd_setImageWithURL:[NSURL URLWithString:shopsImage]];

@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong) NSString *marketuserid;
 
+@property (nonatomic, strong) NSString *pagesize;
+
+
 @end

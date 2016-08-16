@@ -7,11 +7,16 @@
 //
 
 #import "GroupPurchaseViewController.h"
-
+#import "picButton.h"
 #import "AddShopsCell.h"
 #import "MHActionSheet.h"
 #import "MHDatePicker.h"
-
+#import "UpLoadImageUtil.h"
+#import "AddOutDoorParams.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "ResultsModel.h"
 
 #define Start_X self.view.frame.size.width * 0.05           // 第一个按钮的X坐标
 #define Start_Y self.view.frame.size.height - (self.view.frame.size.height * 0.19) - (self.view.frame.size.width * 0.27)          // 第一个按钮的Y坐标
@@ -19,26 +24,34 @@
 #define Button_Width self.view.frame.size.width * 0.27 //宽
 
 
-@interface GroupPurchaseViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+@interface GroupPurchaseViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 
 @property (nonatomic, strong) UITableView* tableView;
-@property (nonatomic, strong) UIButton* imageViewBtn;
 /** 商品名称 */
 @property (nonatomic, strong) NSString *productName;
-/** 秒杀价 */
-@property (nonatomic, strong) NSString *secondsKillPrice;
+/** 团购价 */
+@property (nonatomic, strong) NSString *groupPrice;
 /** 原价 */
 @property (nonatomic, strong) NSString *productPrice;
+/** 每人限购数量 */
+@property (nonatomic, strong) NSString *limitCount;
 /** 单位 */
 @property (nonatomic, strong) NSString *unitStr;
 /** 重量 */
 @property (nonatomic, strong) NSString *shopsWeight;
-/** 秒杀时间 */
-@property (nonatomic, strong) NSString *secondsKillTime;
+/** 团购开始时间 */
+@property (nonatomic, strong) NSString *groupStartTime;
+/** 团购结束时间 */
+@property (nonatomic, strong) NSString *groupEndTime;
 /** 时间选择器 */
 @property (strong, nonatomic) MHDatePicker *selectTimePicker;
 
+@property (nonatomic, strong) UIImagePickerController *imagePickController;
+@property (nonatomic, strong) picButton *imageViewBtn;
+@property (nonatomic, strong) picButton *lastButton;
+@property (nonatomic, strong) NSMutableArray *picArray;
+@property (nonatomic, strong) ShopsUserInfo *userInfo;
 @end
 
 @implementation GroupPurchaseViewController
@@ -52,6 +65,12 @@
     
     [self createTableViewAndBottomBtn];
     [self setAddImageView];
+    self.picArray = [NSMutableArray array];
+    _imagePickController = [[UIImagePickerController alloc]init];
+    _imagePickController.delegate = self;
+    _imagePickController.allowsEditing = YES;
+    _imagePickController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    self.userInfo = [ShopsUserInfoTool account];
 }
 - (void)createTableViewAndBottomBtn
 {
@@ -64,7 +83,9 @@
     UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"申请" forState:UIControlStateNormal];
+    [bottomBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
     bottomBtn.layer.cornerRadius = 3.0;
+    [bottomBtn addTarget:self action:@selector(bottomBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:bottomBtn];
     [bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view.mas_left).offset(21);
@@ -81,9 +102,82 @@
     }];
 }
 
+- (void)bottomBtnClick:(UIButton *)sender
+{
+    picButton *find_btn1 = (picButton *)[self.view viewWithTag:100];
+    picButton *find_btn2 = (picButton *)[self.view viewWithTag:101];
+    picButton *find_btn3 = (picButton *)[self.view viewWithTag:102];
+    HDCLog(@"%@", find_btn1.picString);
+    HDCLog(@"%@", find_btn2.picString);
+    HDCLog(@"%@", find_btn3.picString);
+    if (find_btn1.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第一张图片上传失败"];
+        return;
+    }
+    if (find_btn2.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第二张图片上传失败"];
+        return;
+    }
+    if (find_btn3.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第三张图片上传失败"];
+        return;
+    }
+    
+    if (self.productName.length == 0 || self.groupPrice.length == 0 || self.productPrice.length == 0 || self.limitCount.length == 0 || self.shopsWeight.length == 0 || self.unitStr.length == 0 || self.groupStartTime.length == 0 || self.groupEndTime.length == 0)
+    {
+        [MBProgressHUD showError:@"请完整填写活动信息"];
+        return;
+    }
+    else
+    {
+        [MBProgressHUD showMessage:@"正在上传中..."];
+        [self.picArray addObject:find_btn1.picString];
+        [self.picArray addObject:find_btn2.picString];
+        [self.picArray addObject:find_btn3.picString];
+        
+        AddOutDoorParams *params = [[AddOutDoorParams alloc] init];
+        params.outname = self.productName;
+        params.oldprice = [self.groupPrice doubleValue];
+        params.newprice = [self.productPrice doubleValue];
+        params.personcount = [self.limitCount integerValue];
+//        params.outtime = self.activitiesDate;
+        params.starttime = self.groupStartTime;
+        params.endtime = self.groupEndTime;
+        params.rule1 = @"试用规则-交通";
+        params.rule2 = @"试用规则-住宿";
+        params.rule3 = @"试用规则-用餐";
+        params.rule4 = @"试用规则-门票";
+        params.rule5 = @"试用规则-其他";
+        params.marketuserid = self.userInfo.marketuserid;
+//        params.remark = self.activitiesDescribe;
+//        params.outaddress = self.activitiesAdd;
+        params.pic = find_btn3.picString;
+        params.ProductPictureList = self.picArray;
+        [RequestTool addGroupBuy:params success:^(ResultsModel *result) {
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showSuccess:@"上传成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"上传失败"];
+            }
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"上传失败"];
+        }];
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 8;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -92,9 +186,8 @@
     AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell)
     {
-        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 4)
+        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 ||indexPath.row == 4)
         {
-
             cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.contentTextField.tag = indexPath.row;
             cell.contentTextField.delegate = self;
@@ -102,7 +195,6 @@
             switch (cell.contentTextField.tag)
             {
                 case 0:
-
                     [cell setTitleLabel:@"商品名称:" andContentTextFieldPlaceholder:@"输入商品名"];
                     break;
                 case 1:
@@ -110,6 +202,9 @@
                     break;
                 case 2:
                     [cell setTitleLabel:@"原价:" andContentTextFieldPlaceholder:@"请输入原价格"];
+                    break;
+                case 3:
+                    [cell setTitleLabel:@"每人限购:" andContentTextFieldPlaceholder:@"请输入限购数量"];
                     break;
                 case 4:
                     [cell setTitleLabel:@"重量:" andContentTextFieldPlaceholder:@"请输入商品重量"];
@@ -121,14 +216,15 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             switch (indexPath.row)
             {
-                case 3:
+                case 5:
                     [cell setChooseTitleLabel:@"单位:" andContentLabel:self.unitStr];
                     break;
-                case 5:
-                    [cell setChooseTitleLabel:@"活动时间:" andContentLabel:self.secondsKillTime];
+                case 6:
+                    [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.groupStartTime];
                     break;
-
-                    
+                case 7:
+                    [cell setChooseTitleLabel:@"活动结束时间:" andContentLabel:self.groupEndTime];
+                    break;
                 default:
                     break;
             }
@@ -151,10 +247,13 @@
             self.productName = textField.text;
             break;
         case 1:
-            self.secondsKillPrice = textField.text;
+            self.groupPrice = textField.text;
             break;
         case 2:
             self.productPrice = textField.text;
+            break;
+        case 3:
+            self.limitCount = textField.text;
             break;
         case 4:
             self.shopsWeight = textField.text;
@@ -168,11 +267,36 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     AddShopsCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath.row == 3)
+    if (indexPath.row == 5)
     {
-        NSArray *array = @[@"克",
-                           @"份"];
-        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品单位" style:MHSheetStyleWeiChat itemTitles:array];
+        /** 
+         份
+         公斤
+         斤
+         两
+         克
+         千克
+         条
+         只
+         瓶
+         个
+         箱
+         袋
+         次*/
+        NSArray *array = @[@"份",
+                           @"公斤",
+                           @"斤",
+                           @"两",
+                           @"克",
+                           @"千克",
+                           @"条",
+                           @"只",
+                           @"瓶",
+                           @"个",
+                           @"箱",
+                           @"袋",
+                           @"次",];
+        MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品单位" style:MHSheetStyleDefault itemTitles:array];
         actionSheet.cancleTitle = @"取消选择";
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
          {
@@ -181,14 +305,25 @@
              [self.tableView reloadData];
          }];
     }
-    if (indexPath.row == 5)
+    if (indexPath.row == 6)
     {
         _selectTimePicker = [[MHDatePicker alloc] init];
         __weak typeof(self) weakSelf = self;
         [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
          {
-             self.secondsKillTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"YYYY/MM/dd hh:mm"];
-             [cell setChooseTitleLabel:@"活动时间:" andContentLabel:self.secondsKillTime];
+             self.groupStartTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"YYYY/MM/dd hh:mm"];
+             [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.groupStartTime];
+             [self.tableView reloadData];
+         }];
+    }
+    if (indexPath.row == 7)
+    {
+        _selectTimePicker = [[MHDatePicker alloc] init];
+        __weak typeof(self) weakSelf = self;
+        [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
+         {
+             self.groupEndTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"YYYY/MM/dd hh:mm"];
+             [cell setChooseTitleLabel:@"活动结束时间:" andContentLabel:self.groupEndTime];
              [self.tableView reloadData];
          }];
     }
@@ -207,10 +342,10 @@
 {
     for (int i = 0; i < 3; i ++ )
     {
-        self.imageViewBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.imageViewBtn = [picButton buttonWithType:UIButtonTypeCustom];
         NSInteger index = i % 3;
         NSInteger page = i / 3;
-        self.imageViewBtn.tag = i;
+        self.imageViewBtn.tag = i + 100;
         [self.imageViewBtn setFrame:CGRectMake(index * (Button_Width + Width_Space) + Start_X, page  * (Button_Width )+Start_Y, Button_Width, Button_Width)];
         [self.imageViewBtn setBackgroundImage:[UIImage imageNamed:@"addShopsImage"] forState:UIControlStateNormal];
         [self.imageViewBtn addTarget:self action:@selector(imageViewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -218,11 +353,86 @@
     }
 }
 
-- (void)imageViewBtnClick:(UIButton* )sender
+- (void)imageViewBtnClick:(picButton* )sender
 {
-    NSLog(@"%ld", sender.tag);
+    _lastButton = sender;
+    NSArray *photoArray = @[@"相机拍照",@"本地上传"];
+    MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleDefault itemTitles:photoArray];
+    actionSheet.cancleTitle = @"取消选择";
+    static NSInteger sourceType = 0 ;
+    
+    [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title) {
+        if (index == 0) {
+            NSLog(@"相机拍照");
+            // 判断相机有没有权限
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                
+                sourceType = UIImagePickerControllerSourceTypeCamera;
+                _imagePickController.sourceType = sourceType;
+                // 进入相机
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+            else
+            {
+                
+                UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"抱歉,您还没有相机权限" message:@"请您在设置里面打开权限" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+                [selct addAction:action];
+                [self presentViewController:selct animated:YES completion:nil];
+            }
+        }
+        else
+        {
+            HDCLog(@"本地上传");
+            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                HDCLog(@"进去图片库");
+                sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+            else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum])
+            {
+                HDCLog(@"进入相册");
+                sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+                _imagePickController.sourceType = sourceType;
+                
+                [self presentViewController:_imagePickController animated:YES completion:nil];
+            }
+        }
+    }];
 }
-
+#pragma mark-- imagePicker delegate 事件
+/**
+ * 图像选取器的委托方法，选完图片后回调该方法
+ */
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"图片上传中...";
+    // 当图片不为空时显示图片并保存图片
+    if (image != nil)
+    {
+        [UpLoadImageUtil upLoadImage:image success:^(id response) {
+            if ([response[@"success"] intValue] == 1)
+            {
+                hud.labelText = @"图片上传成功";
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_lastButton setImage:image forState:UIControlStateNormal];
+                });
+                
+                NSString *str = response[@"data"][0][@"littlepic"];
+                _lastButton.picString = str;
+            }
+            
+        } failure:^{
+            
+        }];
+    }
+    //关闭相册界面
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
 #pragma mark -- 点击键盘上的return按钮  收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -246,7 +456,7 @@
 }
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
-    if (textField.tag == 0 || textField.tag == 1 || textField.tag == 2 || textField.tag == 4) {
+    if (textField.tag == 4) {
         
         //设置动画的名字
         [UIView beginAnimations:@"Animation" context:nil];

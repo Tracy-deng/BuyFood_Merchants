@@ -10,6 +10,11 @@
 #import "Masonry.h"
 #import "ManagementCell.h"
 #import "GroupPurchaseViewController.h"
+#import "MarketUserIdParams.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "RequestTool.h"
+#import "ResultsModel.h"
 
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
@@ -18,10 +23,15 @@
 UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tabelView;
+@property (nonatomic, strong) ShopsUserInfo *userInfo;
+
 
 @end
 
 @implementation GroupPurchaseManagementViewController
+{
+    NSMutableArray *dataSource;
+}
 
 - (void)viewDidLoad
 {
@@ -29,6 +39,42 @@ UITableViewDataSource>
     self.title = @"团购管理";
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self createTabeleViewAndBottomBtn];
+    self.userInfo = [ShopsUserInfoTool account];
+    
+    [self prepareGroupBuyDataSource];
+}
+
+- (void)prepareGroupBuyDataSource
+{
+    [MBProgressHUD showMessage:@"数据加载中..."];
+    MarketUserIdParams *params = [[MarketUserIdParams alloc] init];
+    params.marketuserid = self.userInfo.marketuserid;
+    params.pagesize = @"0";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [RequestTool groupBuyList:params success:^(ResultsModel *result) {
+            if (![result.totalcount isEqualToString:@"0"])
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showSuccess:@"数据加载成功"];
+//                dataSource = [OutDoorModelList mj_objectArrayWithKeyValuesArray:result.ModelList];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.tabelView reloadData];
+//                    [self.tabelView.header endRefreshing];
+//                });
+            }
+            else
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"暂无数据"];
+//                [self.tabelView.header endRefreshing];
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"数据加载失败"];
+//            [self.tabelView.header endRefreshing];
+        }];
+    });
 }
 
 - (void)createTabeleViewAndBottomBtn
@@ -43,6 +89,8 @@ UITableViewDataSource>
         make.width.equalTo(self.view);
         make.height.mas_equalTo(self.view).multipliedBy(0.75);
     }];
+    self.tabelView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"添加" forState:UIControlStateNormal];
@@ -65,7 +113,7 @@ UITableViewDataSource>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

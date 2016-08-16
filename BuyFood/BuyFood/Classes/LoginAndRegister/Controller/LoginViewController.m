@@ -140,16 +140,16 @@
  
     HDCLog(@"点击登录");
     
-//    [MBProgressHUD showMessage:@"正在登录中..."];
-//
-//    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1+[3578]+\\d{9}"] evaluateWithObject:_phoneTextField.text])
-//    {
-//        [MBProgressHUD hideHUD];
-//        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
-//        
-//    }
-//    else
-//    {
+    [MBProgressHUD showMessage:@"正在登录中..."];
+
+    if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1+[3578]+\\d{9}"] evaluateWithObject:_phoneTextField.text])
+    {
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
+        
+    }
+    else
+    {
         LoginParams* params = [[LoginParams alloc]init];
             params.telephone = _phoneTextField.text;
             params.pswd = _passwordTextField.text;
@@ -179,7 +179,7 @@
          } failure:^(NSError *error) {
              [MBProgressHUD hideHUD];
          }];
-//    }
+    }
 
 }
 /** 切换根视图 */

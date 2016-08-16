@@ -19,6 +19,7 @@
 #import "UpLoadImageUtil.h"
 #import "MBProgressHUD.h"
 #import "LoadView.h"
+#import "UIImageView+WebCache.h"
 
 #define Start_X self.view.frame.size.width * 0.05           // 第一个按钮的X坐标
 #define Start_Y self.view.frame.size.height - (self.view.frame.size.height * 0.19) - (self.view.frame.size.width * 0.27)          // 第一个按钮的Y坐标
@@ -199,11 +200,11 @@
     {
         MHDatePicker *timePicker = [[MHDatePicker alloc] init];
         timePicker.isBeforeTime = YES;
-        timePicker.datePickerMode = UIDatePickerModeTime;
+        timePicker.datePickerMode = UIDatePickerModeDateAndTime;
         __weak typeof(self) weakSelf = self;
         [timePicker didFinishSelectedDate:^(NSDate *selectedDate)
          {
-             self.activitiesStartTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+             self.activitiesStartTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"yyyy年MM月dd日 HH: mm"];
              [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.activitiesStartTime];
              [self.tableView reloadData];
          }];
@@ -212,11 +213,11 @@
     {
         MHDatePicker *timePicker = [[MHDatePicker alloc] init];
         timePicker.isBeforeTime = YES;
-        timePicker.datePickerMode = UIDatePickerModeTime;
+        timePicker.datePickerMode = UIDatePickerModeDateAndTime;
         __weak typeof(self) weakSelf = self;
         [timePicker didFinishSelectedDate:^(NSDate *selectedDate)
          {
-             self.activitiesEndTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"HH: mm"];
+             self.activitiesEndTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"yyyy年MM月dd日 HH: mm"];
              [cell setChooseTitleLabel:@"活动结束时间:" andContentLabel:self.activitiesEndTime];
              [self.tableView reloadData];
          }];
@@ -233,7 +234,6 @@
 #pragma textField输入
 - (void)changeValue:(UITextField *)textField
 {
-    HDCLog(@"textField输入%ld,%@",textField.tag,textField.text);
     switch (textField.tag)
     {
         case 0:
@@ -265,26 +265,36 @@
     picButton *find_btn1 = (picButton *)[self.view viewWithTag:100];
     picButton *find_btn2 = (picButton *)[self.view viewWithTag:101];
     picButton *find_btn3 = (picButton *)[self.view viewWithTag:102];
-    
-    if (_activitiesName.length == 0 || _activitiesPrice1.length == 0 || _activitiesPrice2.length == 0 || _peopleNum.length == 0 || _activitiesAdd.length == 0 || _activitiesDescribe.length == 0 || _activitiesDate.length == 0 || _activitiesStartTime.length == 0 || _activitiesEndTime.length == 0 || find_btn1.picString.length == 0 || find_btn2.picString.length == 0 || find_btn3.picString.length == 0)
+    HDCLog(@"%@", find_btn1.picString);
+    HDCLog(@"%@", find_btn2.picString);
+    HDCLog(@"%@", find_btn3.picString);
+    if (find_btn1.picString.length == 0)
     {
-        if (find_btn1.picString.length == 0 || find_btn2.picString.length == 0 || find_btn3.picString.length == 0) {
-            [MBProgressHUD showError:@"请等待图片上传完毕"];
-        }
-        else
-        {
-            UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"注意！！！" message:@"请您完整填写活动信息" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *action = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
-            [selct addAction:action];
-            [self presentViewController:selct animated:YES completion:nil];
-        }
+        [MBProgressHUD showError:@"第一张图片上传失败"];
+        return;
+    }
+    if (find_btn2.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第二张图片上传失败"];
+        return;
+    }
+    if (find_btn3.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第三张图片上传失败"];
+        return;
+    }
+    
+    if (_activitiesName.length == 0 || _activitiesPrice1.length == 0 || _activitiesPrice2.length == 0 || _peopleNum.length == 0 || _activitiesAdd.length == 0 || _activitiesDescribe.length == 0 || _activitiesDate.length == 0 || _activitiesStartTime.length == 0 || _activitiesEndTime.length == 0)
+    {
+        [MBProgressHUD showError:@"请完整填写活动信息"];
         return;
     }
     else
     {
-//        [self.picArray addObject:find_btn1.picString];
-//        [self.picArray addObject:find_btn2.picString];
-//        [self.picArray addObject:find_btn3.picString];
+        [MBProgressHUD showMessage:@"正在上传中..."];
+        [self.picArray addObject:find_btn1.picString];
+        [self.picArray addObject:find_btn2.picString];
+        [self.picArray addObject:find_btn3.picString];
         
         AddOutDoorParams *params = [[AddOutDoorParams alloc] init];
         params.outname = self.activitiesName;
@@ -304,14 +314,22 @@
         params.remark = self.activitiesDescribe;
         params.outaddress = self.activitiesAdd;
         params.pic = find_btn3.picString;
-        [params.ProductPictureList addObject:find_btn1.picString];
-        [params.ProductPictureList addObject:find_btn2.picString];
-        [params.ProductPictureList addObject:find_btn3.picString];
+        params.ProductPictureList = self.picArray;
         [RequestTool addOutDoor:params success:^(ResultsModel *result) {
-            HDCLog(@"%@", result.ModelList);
-            HDCLog(@"%@", result.ErrorCode);
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showSuccess:@"上传成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"上传失败"];
+            }
         } failure:^(NSError *error) {
-            ;
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"上传失败"];
         }];
     }
 }
@@ -324,9 +342,9 @@
         self.imageViewBtn = [picButton buttonWithType:UIButtonTypeCustom];
         NSInteger index = i % 3;
         NSInteger page = i / 3;
-        self.imageViewBtn.tag = i+100;
+        self.imageViewBtn.tag = i + 100;
         [self.imageViewBtn setFrame:CGRectMake(index * (Button_Width + Width_Space) + Start_X, page  * (Button_Width )+Start_Y, Button_Width, Button_Width)];
-        [self.imageViewBtn setBackgroundImage:[UIImage imageNamed:@"addShopsImage"] forState:UIControlStateNormal];
+        [self.imageViewBtn setImage:[UIImage imageNamed:@"addShopsImage"] forState:UIControlStateNormal];
         [self.imageViewBtn addTarget:self action:@selector(imageViewBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.imageViewBtn];
     }
@@ -388,16 +406,24 @@
  */
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
-    [_lastButton setBackgroundImage:image forState:UIControlStateNormal];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+   hud.labelText = @"图片上传中...";
     // 当图片不为空时显示图片并保存图片
     if (image != nil)
     {
         [UpLoadImageUtil upLoadImage:image success:^(id response) {
             if ([response[@"success"] intValue] == 1)
             {
-                NSMutableString *str = response[@"data"][0][@"maxpic"];
+                hud.labelText = @"图片上传成功";
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                     [_lastButton setImage:image forState:UIControlStateNormal];
+                });
+               
+                NSString *str = response[@"data"][0][@"littlepic"];
                 _lastButton.picString = str;
             }
+           
         } failure:^{
             
         }];
@@ -412,16 +438,6 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-//- (void) saveImage:(UIImage *)currentImage withName:(NSString *)imageName
-//{
-//    NSData *imageData = UIImageJPEGRepresentation(currentImage, 0.5);
-//    // 获取沙盒目录
-//    
-//    NSString *fullPath = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:imageName];
-//    // 将图片写入文件
-//    [imageData writeToFile:fullPath atomically:NO];
-//}
-
 #pragma mark -- 点击键盘上的return按钮  收起键盘
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -435,7 +451,6 @@
 // 点击屏幕空白  收起键盘
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
-    HDCLog(@"%lu", self.picArray.count);
 }
 
 // 在UITextField 编辑之前调用方法  视图上移

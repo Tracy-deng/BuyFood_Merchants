@@ -15,6 +15,10 @@
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "MarketUserIdParams.h"
+#import "MJExtension.h"
+#import "OutDoorModelList.h"
+#import "MBProgressHUD.h"
+#import "MJRefresh.h"
 
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
@@ -29,6 +33,9 @@ UITableViewDataSource>
 @end
 
 @implementation OutdoorActivitiesManagementViewController
+{
+    NSMutableArray *dataSource;
+}
 
 - (void)viewDidLoad
 {
@@ -37,17 +44,51 @@ UITableViewDataSource>
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self createTabeleViewAndBottomBtn];
     self.userInfo = [ShopsUserInfoTool account];
+    
+    
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+- (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    dataSource = [NSMutableArray array];
+    [self prepareOutDoorDataSource];
+    self.tabelView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self prepareOutDoorDataSource];
+    }];
+}
+
+- (void)prepareOutDoorDataSource
+{
+    [MBProgressHUD showMessage:@"数据加载中..."];
     MarketUserIdParams *params = [[MarketUserIdParams alloc] init];
     params.marketuserid = self.userInfo.marketuserid;
-    [RequestTool outDoorList:params success:^(ResultsModel *result) {
-        HDCLog(@"%@", result.ModelList);
-    } failure:^(NSError *error) {
-        ;
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [RequestTool outDoorList:params success:^(ResultsModel *result) {
+            if (![result.totalcount isEqualToString:@"0"])
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showSuccess:@"数据加载成功"];
+                dataSource = [OutDoorModelList mj_objectArrayWithKeyValuesArray:result.ModelList];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tabelView reloadData];
+                    [self.tabelView.header endRefreshing];
+                });
+            }
+            else
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"暂无数据"];
+                [self.tabelView.header endRefreshing];
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"数据加载失败"];
+            [self.tabelView.header endRefreshing];
+        }];
+    });
+    
 }
 
 - (void)createTabeleViewAndBottomBtn
@@ -62,6 +103,8 @@ UITableViewDataSource>
         make.width.equalTo(self.view);
         make.height.mas_equalTo(self.view).multipliedBy(0.75);
     }];
+    self.tabelView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
     UIButton* bottomBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [bottomBtn setBackgroundColor:[UIColor colorWithRed:35 / 255.0 green:194 / 255.0 blue:61 / 255.0 alpha:1]];
     [bottomBtn setTitle:@"添加" forState:UIControlStateNormal];
@@ -84,16 +127,15 @@ UITableViewDataSource>
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return dataSource.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ManagementCell *cell = [ManagementCell cellWithOtherTableView:tableView];
     cell.shopsWeight.hidden = YES;
     cell.shopsSpecifications.hidden = YES;
-    [cell setOtherShopsImage:@"rectangle9" andShopsNameLabel:@"半马" andShopsWeight:nil andShopsSpecifications:nil andShopsOriginalPriceTitle:@"人数:" andShopsOriginalPrice:@"100人" andShopsPromotionPriceTitle:@"报名费" andShopsPromotionPrice:@"¥88" andTime:@"15:00开跑"];
+    cell.modelList = dataSource[indexPath.row];
     return cell;
-
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

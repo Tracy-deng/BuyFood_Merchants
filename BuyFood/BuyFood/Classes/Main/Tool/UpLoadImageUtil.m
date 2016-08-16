@@ -81,7 +81,6 @@ typedef void (^UpLoadImageBlock)(id<AFMultipartFormData> formData);
                 NSError *jsonError;
                 
                 NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingAllowFragments) error:&jsonError];
-                HDCLog(@"dicmsg ==== %@",dic[@"msg"]);
                 HDCLog(@"dic ===== %@",dic);
                 success(dic);
                 

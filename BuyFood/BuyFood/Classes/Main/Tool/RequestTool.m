@@ -840,6 +840,11 @@
 + (void)addOutDoor:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_outdoor/Add"];
+    HDCLog(@"%@%@",url,params.ProductPictureList);
+    for (NSString *str in params.ProductPictureList)
+    {
+        HDCLog(@"%@", str);
+    }
     [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error)
         {
@@ -855,14 +860,14 @@
 /** 获取户外活动列表 */
 + (void)outDoorList:(MarketUserIdParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_outdoor/GetModelList"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_outdoor/GetModelListForMarketUser"];
     [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error)
         {
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-//            HDCLog(@"%@",model);
+            HDCLog(@"model ===== %@",model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -885,7 +890,7 @@
     }];
 }
 /** 获取团购列表 */
-+ (void)groupBuyList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
++ (void)groupBuyList:(MarketUserIdParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_groupbuy/GetModelListForMarket"];
     [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {

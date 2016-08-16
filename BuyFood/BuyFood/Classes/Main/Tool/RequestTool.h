@@ -173,5 +173,5 @@
 /** 添加团购 */
 + (void)addGroupBuy:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;
 /** 获取团购列表 */
-+ (void)groupBuyList:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;//marketuserid
++ (void)groupBuyList:(MarketUserIdParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure;//marketuserid
 @end
