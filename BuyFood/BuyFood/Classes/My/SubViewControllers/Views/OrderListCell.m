@@ -51,7 +51,7 @@
     [self.foodName mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentView.mas_top).offset(5);
         make.left.mas_equalTo(self.contentView.mas_left).offset(30);
-        make.width.equalTo(@51);
+        make.width.equalTo(@100);
         make.height.equalTo(@24);
     }];
     self.number = [[UILabel alloc] init];

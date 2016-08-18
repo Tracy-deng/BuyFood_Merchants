@@ -50,7 +50,7 @@
         orderS = @"骑士接单";
     }else if ([status isEqualToString:@"9"])
     {
-        orderS = @"骑士已从商家取货";
+        orderS = @"骑士已取货";
         
     }else if ([status isEqualToString:@"10"])
     {

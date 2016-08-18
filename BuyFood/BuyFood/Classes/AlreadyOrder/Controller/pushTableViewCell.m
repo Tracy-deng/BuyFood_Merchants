@@ -28,7 +28,7 @@
             
         }];
         
-
+        _pushAddTimeBtn.hidden = YES;
         
         
         _addOrderLabel = [[UILabel alloc]init];

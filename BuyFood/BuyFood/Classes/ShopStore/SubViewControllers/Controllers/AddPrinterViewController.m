@@ -39,8 +39,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self.manager scanPeripherals];
-    
-    [self aboutLabelHiddle:NO];
 }
 
 - (void)creatUI
@@ -100,8 +98,6 @@
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc]initWithCustomView:reSearchBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    [self aboutLabelHiddle:YES];
-    
     self.printerTableView = [[UITableView alloc]init];
     self.printerTableView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.printerTableView];
@@ -119,16 +115,13 @@
 {
     NSLog(@"点击重新搜索蓝牙设备");
     
-//    [self.dataSourceArray removeAllObjects];
-//    
-//    [self.manager scanPeripherals];
-    NSDictionary *dic = [NSDictionary dictionary];
+    [self.dataSourceArray removeAllObjects];
     
-    [self.manager printData:[PrinterFile printerWithGoodTicket:dic]];
+    [self.manager scanPeripherals];
 
 }
 
-// 搜搜到蓝牙设备
+// 搜到蓝牙设备
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral
 {
     if(peripheral.name.length > 0)
@@ -138,7 +131,7 @@
     
     [self.printerTableView reloadData];
     
-    [self aboutLabelHiddle:YES];
+    [self aboutLabelHiddle];
 }
 
 
@@ -160,6 +153,11 @@
     
     CBPeripheral *perioheral = [self.dataSourceArray objectAtIndex:indexPath.row];
     cell.textLabel.text = perioheral.name;
+ 
+    if (self.selectedPeripheral.state == 2)
+    {
+        [self  showSucceseeLink:[NSString stringWithFormat:@"%@%@",self.selectedPeripheral.name,@"连接成功"]];
+    }
     return cell;
 }
 
@@ -177,8 +175,14 @@
     
     
     NSLog(@"%@   %ld",self.selectedPeripheral.name,  self.selectedPeripheral.state);
-    
-    
+  
+    if (self.selectedPeripheral.state == 2)
+    {
+       [self  showSucceseeLink:[NSString stringWithFormat:@"%@%@",self.selectedPeripheral.name,@"连接成功"]];
+    }else if(self.selectedPeripheral.state == 0)
+    {
+       [self  showSucceseeLink:[NSString stringWithFormat:@"%@%@",self.selectedPeripheral.name,@"连接失败"]];
+    }
     
 }
 
@@ -190,33 +194,26 @@
 }
 
 
-- (void)aboutLabelHiddle:(BOOL)isShow
+- (void)aboutLabelHiddle
 {
     
     NSTimer * timer = [NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(timerField:) userInfo:nil repeats:NO];
     
     [[NSRunLoop currentRunLoop]addTimer:timer forMode:NSDefaultRunLoopMode];
-//    if (isShow == YES) {
-//        
-//        
-//        [UIView animateWithDuration:1 animations:^{
-////            _titleLabel.hidden = YES;
-//            _searchLabel.hidden = YES;
-//        }];
-//        
-//    }else
-//    {
-//        [UIView animateWithDuration:1 animations:^{
-//            _searchLabel.hidden = NO;
-////            _titleLabel.hidden = NO;
-//
-//        }];
-//        
-//    }
+
 }
 
 - (void)timerField:(NSTimer *)timer
 {
      _searchLabel.hidden = YES;
 }
+
+- (void)showSucceseeLink:(NSString *)string
+{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"温馨提示" message:string preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+    [controller addAction:okAction];
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 @end
