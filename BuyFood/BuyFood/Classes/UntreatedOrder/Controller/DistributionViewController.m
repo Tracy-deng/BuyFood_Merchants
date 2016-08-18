@@ -22,6 +22,7 @@
 #import "ResultsModel.h"
 #import "orderStatus.h"
 #import "InputPostInfoParams.h"
+#import "orderStatus.h"
 @interface DistributionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tableView;
@@ -123,7 +124,6 @@
                 [loadView stopAnimation];
                 [self.tableView .header endRefreshing];
                 
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
@@ -181,8 +181,6 @@
 - (void)didGetOrder:(UIButton *)sender
 {
     
-    
-    
     NSLog(@"接单处理%ld",(long)sender.tag);
     OrderMarketModel * model = self.distributionDataArray[sender.tag];
     NSString *orderNum = model.orderno; // 订单号
@@ -204,44 +202,58 @@
             [loadView stopAnimation];
         }];
     }else{
-        InputPostInfoParams *parms = [[InputPostInfoParams alloc]init];
+        
+        LoadView *loadView = [LoadView new];
+        [loadView startAnimation];
+        GetOrderParams *parms = [[GetOrderParams alloc]init];
         parms.orderno = orderNum;
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"订单接收" message:@"输入订单号和物流公司" preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder =  @"数据快递单号";
+        parms.marketuserid = userInfo.marketuserid;
+        parms.posttypeid = 3;
+        [RequestTool getOrder:parms success:^(ResultsModel *result) {
+            NSLog(@"%@",result.ModelList);
+            [loadView stopAnimation];
+            [sender setTitle:@"发单" forState:UIControlStateNormal];
+            [sender setBackgroundColor:HDCColor(214, 17, 27)];
+            [sender addTarget:self action:@selector(senderOrder:) forControlEvents:UIControlEventTouchUpInside];
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
         }];
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder =  @"数据物流公司";
-        }];
-
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            UITextField *orderNum = alertController.textFields.firstObject;
-            UITextField *company = alertController.textFields.lastObject;
-            parms.postnumber = orderNum.text;
-            parms.postcompany = company.text;;
-            [RequestTool inputPostInfo:parms success:^(ResultsModel *result) {
-                NSLog(@"%@",result.ModelList);
-                [self createDistributionData];
-            } failure:^(NSError *error) {
-                NSLog(@"%@",error);
-            }];
-        }];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        
-        [alertController addAction:okAction];
-        [alertController addAction:cancelAction];
-        [self presentViewController:alertController animated:YES completion:nil];
-        
-        
-    
     }
+}
+/** 品牌馆发单 */
+- (void)senderOrder:(UIButton *)sender
+{
+    OrderMarketModel * model = self.distributionDataArray[sender.tag];
+    NSString *orderNum = model.orderno; // 订单号
+    InputPostInfoParams *parms = [[InputPostInfoParams alloc]init];
+    parms.orderno = orderNum;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"订单接收" message:@"输入订单号和物流公司" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder =  @"数据快递单号";
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder =  @"数据物流公司";
+    }];
     
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *orderNum = alertController.textFields.firstObject;
+        UITextField *company = alertController.textFields.lastObject;
+        parms.postnumber = orderNum.text;
+        parms.postcompany = company.text;;
+        [RequestTool inputPostInfo:parms success:^(ResultsModel *result) {
+            NSLog(@"%@",result.ModelList);
+            [self createDistributionData];
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }];
     
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     
-  
- 
-    
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)noOrderBtn:(UIButton *)sender

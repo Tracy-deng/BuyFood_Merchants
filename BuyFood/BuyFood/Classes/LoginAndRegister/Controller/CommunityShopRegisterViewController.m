@@ -323,7 +323,11 @@
                     {
                         [loadView stopAnimation];
                         [MBProgressHUD showSuccess:@"资料填写成功"];
-                        [self.navigationController popToRootViewControllerAnimated:YES];
+                        RealnameViewController *realnameVC = [[RealnameViewController alloc] init];
+                        realnameVC.tele = self.registerTelephone;
+                        realnameVC.userType = self.usertype;
+                        realnameVC.userid = self.marketuserid;
+                        [self.navigationController pushViewController:realnameVC animated:YES];
                     }
                     else
                     {

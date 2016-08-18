@@ -143,6 +143,11 @@
 		0E67E0111D22CC0800E025BD /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0101D22CC0800E025BD /* CardListViewController.m */; };
 		0E67E01A1D22CD0E00E025BD /* AddView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E0191D22CD0E00E025BD /* AddView.m */; };
 		0E67E0201D22CFD600E025BD /* AddPrinterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */; };
+		0E6F090B1D64406C007E142E /* UIDevice+iPhoneMod.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F090A1D64406C007E142E /* UIDevice+iPhoneMod.m */; };
+		0E6F090E1D655BCB007E142E /* CheckStatusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F090D1D655BCB007E142E /* CheckStatusViewController.m */; };
+		0E6F09111D6587F2007E142E /* WeatherForecastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09101D6587F2007E142E /* WeatherForecastViewController.m */; };
+		0E6F09141D65882C007E142E /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09131D65882C007E142E /* InformationViewController.m */; };
+		0E6F09171D65885D007E142E /* PlaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09161D65885D007E142E /* PlaysViewController.m */; };
 		0E7483511D59D57300239C36 /* AddOutDoorParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7483501D59D57300239C36 /* AddOutDoorParams.m */; };
 		0E7483541D59DA6C00239C36 /* AddGroupBuyParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7483531D59DA6C00239C36 /* AddGroupBuyParams.m */; };
 		0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E791D4A579200C3516A /* GetOrderParams.m */; };
@@ -541,6 +546,16 @@
 		0E67E0191D22CD0E00E025BD /* AddView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddView.m; sourceTree = "<group>"; };
 		0E67E01E1D22CFD600E025BD /* AddPrinterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPrinterViewController.h; sourceTree = "<group>"; };
 		0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPrinterViewController.m; sourceTree = "<group>"; };
+		0E6F09091D64406C007E142E /* UIDevice+iPhoneMod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+iPhoneMod.h"; sourceTree = "<group>"; };
+		0E6F090A1D64406C007E142E /* UIDevice+iPhoneMod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+iPhoneMod.m"; sourceTree = "<group>"; };
+		0E6F090C1D655BCB007E142E /* CheckStatusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckStatusViewController.h; sourceTree = "<group>"; };
+		0E6F090D1D655BCB007E142E /* CheckStatusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckStatusViewController.m; sourceTree = "<group>"; };
+		0E6F090F1D6587F2007E142E /* WeatherForecastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherForecastViewController.h; sourceTree = "<group>"; };
+		0E6F09101D6587F2007E142E /* WeatherForecastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherForecastViewController.m; sourceTree = "<group>"; };
+		0E6F09121D65882C007E142E /* InformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationViewController.h; sourceTree = "<group>"; };
+		0E6F09131D65882C007E142E /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
+		0E6F09151D65885D007E142E /* PlaysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaysViewController.h; sourceTree = "<group>"; };
+		0E6F09161D65885D007E142E /* PlaysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaysViewController.m; sourceTree = "<group>"; };
 		0E74834F1D59D57300239C36 /* AddOutDoorParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOutDoorParams.h; sourceTree = "<group>"; };
 		0E7483501D59D57300239C36 /* AddOutDoorParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOutDoorParams.m; sourceTree = "<group>"; };
 		0E7483521D59DA6C00239C36 /* AddGroupBuyParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGroupBuyParams.h; sourceTree = "<group>"; };
@@ -848,6 +863,12 @@
 				0E110CBD1D19B78E00161ACB /* SaleManagementViewController.m */,
 				0E110CBF1D19B7D000161ACB /* PriceGuideViewController.h */,
 				0E110CC01D19B7D000161ACB /* PriceGuideViewController.m */,
+				0E6F090F1D6587F2007E142E /* WeatherForecastViewController.h */,
+				0E6F09101D6587F2007E142E /* WeatherForecastViewController.m */,
+				0E6F09121D65882C007E142E /* InformationViewController.h */,
+				0E6F09131D65882C007E142E /* InformationViewController.m */,
+				0E6F09151D65885D007E142E /* PlaysViewController.h */,
+				0E6F09161D65885D007E142E /* PlaysViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1095,6 +1116,8 @@
 				0E5259F61D1283A700AFC95B /* LoginViewController.m */,
 				0E5259F71D1283A700AFC95B /* RealnameViewController.h */,
 				0E5259F81D1283A700AFC95B /* RealnameViewController.m */,
+				0E6F090C1D655BCB007E142E /* CheckStatusViewController.h */,
+				0E6F090D1D655BCB007E142E /* CheckStatusViewController.m */,
 				0E5259F91D1283A700AFC95B /* RegisterViewController.h */,
 				0E5259FA1D1283A700AFC95B /* RegisterViewController.m */,
 				0E2413C91D508EF600B49F0B /* CommonShopsRegisterViewController.h */,
@@ -1194,6 +1217,8 @@
 				0E525A0B1D1283A700AFC95B /* HDCNavigationController.m */,
 				0E525A0C1D1283A700AFC95B /* HDCTabBarViewController.h */,
 				0E525A0D1D1283A700AFC95B /* HDCTabBarViewController.m */,
+				0E6F09091D64406C007E142E /* UIDevice+iPhoneMod.h */,
+				0E6F090A1D64406C007E142E /* UIDevice+iPhoneMod.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1871,6 +1896,11 @@
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = RXQK7RGT82;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -2004,6 +2034,7 @@
 				0E6398ED1D362677008D9DC0 /* AddProductParams.m in Sources */,
 				780984EC1D3F59B2009E7E84 /* MJRefreshAutoNormalFooter.m in Sources */,
 				7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */,
+				0E6F090B1D64406C007E142E /* UIDevice+iPhoneMod.m in Sources */,
 				0EB7C77F1D4894F700172FBB /* MarketOrderModelList.m in Sources */,
 				0E0416B01D3B8FC2007DF5AB /* BrandUnOrderViewController.m in Sources */,
 				0E525A491D1283A700AFC95B /* ForgetPwdViewController.m in Sources */,
@@ -2030,6 +2061,7 @@
 				0E7483511D59D57300239C36 /* AddOutDoorParams.m in Sources */,
 				780984B61D3F1FC4009E7E84 /* UIImageView+HighlightedWebCache.m in Sources */,
 				0E525A631D1283A700AFC95B /* Button.m in Sources */,
+				0E6F09141D65882C007E142E /* InformationViewController.m in Sources */,
 				0EEF9DB01D3359CE00CD83E9 /* GetMsgCodeParams.m in Sources */,
 				0EEF9D181D317EE600CD83E9 /* MHSheetHead.m in Sources */,
 				78FEA8611D1B8560001D23BC /* CCTitleView.m in Sources */,
@@ -2042,6 +2074,7 @@
 				0EEF9D1A1D317EE600CD83E9 /* MHSheetView.m in Sources */,
 				0E830E7D1D4A7AC200C3516A /* OrderParams.m in Sources */,
 				780984F11D3F59B2009E7E84 /* MJRefreshGifHeader.m in Sources */,
+				0E6F090E1D655BCB007E142E /* CheckStatusViewController.m in Sources */,
 				780984F31D3F59B2009E7E84 /* MJRefreshStateHeader.m in Sources */,
 				0E12A2681D2B986A008066CC /* NSObject+MJCoding.m in Sources */,
 				0E12A2641D2B986A008066CC /* MJProperty.m in Sources */,
@@ -2106,6 +2139,7 @@
 				780984F61D3F59B2009E7E84 /* UIScrollView+MJExtension.m in Sources */,
 				78089F771D34C8D600DBAB88 /* ThreeCatego.m in Sources */,
 				0E12A2621D2B986A008066CC /* MJExtensionConst.m in Sources */,
+				0E6F09171D65885D007E142E /* PlaysViewController.m in Sources */,
 				780984B31D3F1FC4009E7E84 /* UIButton+WebCache.m in Sources */,
 				0E5FEE801D4F3D5500452B5D /* PricingGuidanceModel.m in Sources */,
 				0E67DFE81D22C86B00E025BD /* ManagementCell.m in Sources */,
@@ -2156,6 +2190,7 @@
 				0E110C991D19889E00161ACB /* OrderListCell.m in Sources */,
 				78D870361D48B8AA008EAE72 /* OrderMarketModel.m in Sources */,
 				78FFC5BF1D23690000FDE9C6 /* GoodsViewController.m in Sources */,
+				0E6F09111D6587F2007E142E /* WeatherForecastViewController.m in Sources */,
 				0E2413D11D52391E00B49F0B /* GetBrandsAndCommunityClassifyParams.m in Sources */,
 				0E110CBE1D19B78E00161ACB /* SaleManagementViewController.m in Sources */,
 				0E525A551D1283A700AFC95B /* MASConstraint.m in Sources */,

@@ -13,6 +13,7 @@
 #import "CCTitleView.h"
 #import "HttpRequestTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "UIDevice+iPhoneMod.h"
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
@@ -53,7 +54,7 @@
 //#define urlPrex @"http://114.55.55.74/goucaiapi/"
 #define imgPrex @"http://114.55.55.74/goucaiapi/"
 
-
+#define iPhoneModel [UIDevice iPhonesModel]
 
 #define JADESIZE [UIScreen mainScreen].bounds.size
 #define JADESCREENSCALE JADESIZE.width/375

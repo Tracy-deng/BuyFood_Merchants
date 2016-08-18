@@ -107,18 +107,22 @@
             success(result);
         }
     }];
-    /**
-     修改密码或密码重置(需要给实体类中的telephone、verifycode、pswd赋值)
-     t_marketuser/SetPassWordByYZM
-     */
 }
 
 /** 实名认证 */
 + (void)realname:(realNameParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    /** t_marketuser/SMRZ */
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_marketuser/SMRZ"];
+    [HttpRequestTool POST:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
+        if (error) {
+            failure(error);
+        } else {
+            HDCLog(@"%@", model);
+            ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
+            success(result);
+        }
+    }];
 }
-
 
 /** 完善商户资料 */
 + (void)improveInformation:(ImproveinformationParams *)param success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure

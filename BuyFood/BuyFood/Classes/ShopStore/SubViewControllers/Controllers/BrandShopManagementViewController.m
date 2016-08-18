@@ -201,7 +201,7 @@
     [_selectedTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(0);
         make.left.equalTo(self.view);
-        make.width.equalTo(@80);
+        make.width.equalTo(@90);
         make.height.equalTo(@(SCREEN_HEIGHT));
     }];
     _selectedTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -215,7 +215,7 @@
         make.top.equalTo(self.view).offset(64);
         make.left.equalTo(_selectedTableView.mas_right);
         make.right.equalTo(self.view);
-        make.height.equalTo(@(SCREEN_HEIGHT - 200));
+        make.height.equalTo(@(SCREEN_HEIGHT - 150));
     }];
     
     UIButton * addShopsBtn = [UIButton buttonWithType:(UIButtonTypeSystem)];

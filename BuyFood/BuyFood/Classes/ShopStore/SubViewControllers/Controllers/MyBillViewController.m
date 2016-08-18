@@ -48,7 +48,18 @@
     [self createTableView];
     [self prepareAllDataSource];
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self prepareAllDataSource];
+        if (self.tag == 1)
+        {
+            [self prepareAllDataSource];
+        }
+        if (self.tag == 2)
+        {
+            [self prepareIncomeDataSource];
+        }
+        if (self.tag == 3)
+        {
+            [self prepareSpendingDataSource];
+        }
     }];
     self.tag = 1;
 }
@@ -61,7 +72,7 @@
     params.userid = self.userInfo.marketuserid;
     params.pageindex = @"1";
     params.pagesize = @"0";
-    params.billtype = @"1";
+    params.billtype = @"0";
     [RequestTool myBill:params success:^(ResultsModel *result) {
         dataSource = [NSMutableArray array];
         dataSource = [MyBillModel mj_objectArrayWithKeyValuesArray:result.ModelList];
@@ -102,7 +113,7 @@
     params.userid = self.userInfo.marketuserid;
     params.pageindex = @"1";
     params.pagesize = @"0";
-    params.billtype = @"1";
+    params.billtype = @"2";
     [RequestTool myBill:params success:^(ResultsModel *result) {
         dataSource = [NSMutableArray array];
         dataSource = [MyBillModel mj_objectArrayWithKeyValuesArray:result.ModelList];
@@ -134,8 +145,9 @@
 
 - (void)allBtnClick:(UIButton* )allBtn
 {
+    [self prepareAllDataSource];
     self.tag = 1;
-    allBtn.selected = !allBtn.isSelected;
+    allBtn.selected = YES;
     self.myBillHeaderView.incomeBtn.selected = NO;
     self.myBillHeaderView.spendingBtn.selected = NO;
     self.myBillHeaderView.view1.backgroundColor = greenColor;
@@ -147,7 +159,7 @@
 {
     [self prepareIncomeDataSource];
     self.tag = 2;
-    incomeBtn.selected = !incomeBtn.isSelected;
+    incomeBtn.selected = YES;
     self.myBillHeaderView.allBtn.selected = NO;
     self.myBillHeaderView.spendingBtn.selected = NO;
     self.myBillHeaderView.view1.backgroundColor = [UIColor whiteColor];
@@ -159,7 +171,7 @@
 {
     [self prepareSpendingDataSource];
     self.tag = 3;
-    spendingBtn.selected = !spendingBtn.isSelected;
+    spendingBtn.selected = YES;
     self.myBillHeaderView.allBtn.selected = NO;
     self.myBillHeaderView.incomeBtn.selected = NO;
     
@@ -181,6 +193,7 @@
         make.width.equalTo(self.view);
         make.height.equalTo(self.view.mas_height).multipliedBy(0.70);
     }];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

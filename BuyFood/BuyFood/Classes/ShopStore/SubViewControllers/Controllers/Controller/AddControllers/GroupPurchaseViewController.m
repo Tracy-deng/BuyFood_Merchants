@@ -26,7 +26,6 @@
 
 @interface GroupPurchaseViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
-
 @property (nonatomic, strong) UITableView* tableView;
 /** 商品名称 */
 @property (nonatomic, strong) NSString *productName;
@@ -40,10 +39,15 @@
 @property (nonatomic, strong) NSString *unitStr;
 /** 重量 */
 @property (nonatomic, strong) NSString *shopsWeight;
+/** 团购时间 */
+@property (nonatomic, strong) NSString *groupDate;
 /** 团购开始时间 */
 @property (nonatomic, strong) NSString *groupStartTime;
 /** 团购结束时间 */
 @property (nonatomic, strong) NSString *groupEndTime;
+/** 活动描述 */
+@property (nonatomic, strong) NSString *groupDescribe;
+
 /** 时间选择器 */
 @property (strong, nonatomic) MHDatePicker *selectTimePicker;
 
@@ -143,7 +147,7 @@
         params.oldprice = [self.groupPrice doubleValue];
         params.newprice = [self.productPrice doubleValue];
         params.personcount = [self.limitCount integerValue];
-//        params.outtime = self.activitiesDate;
+        params.outtime = self.groupDate;
         params.starttime = self.groupStartTime;
         params.endtime = self.groupEndTime;
         params.rule1 = @"试用规则-交通";
@@ -152,8 +156,7 @@
         params.rule4 = @"试用规则-门票";
         params.rule5 = @"试用规则-其他";
         params.marketuserid = self.userInfo.marketuserid;
-//        params.remark = self.activitiesDescribe;
-//        params.outaddress = self.activitiesAdd;
+        params.remark = self.groupDescribe;
         params.pic = find_btn3.picString;
         params.ProductPictureList = self.picArray;
         [RequestTool addGroupBuy:params success:^(ResultsModel *result) {
@@ -177,7 +180,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 10;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -186,7 +189,7 @@
     AddShopsCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell)
     {
-        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 ||indexPath.row == 4)
+        if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 3 ||indexPath.row == 4 ||indexPath.row == 9)
         {
             cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.contentTextField.tag = indexPath.row;
@@ -208,6 +211,12 @@
                     break;
                 case 4:
                     [cell setTitleLabel:@"重量:" andContentTextFieldPlaceholder:@"请输入商品重量"];
+                     break;
+                case 9:
+                    [cell setTitleLabel:@"活动描述:" andContentTextFieldPlaceholder:@"二十字以内"];
+                    break;
+                default:
+                    break;
             }
         }
         else
@@ -220,9 +229,12 @@
                     [cell setChooseTitleLabel:@"单位:" andContentLabel:self.unitStr];
                     break;
                 case 6:
-                    [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.groupStartTime];
+                    [cell setChooseTitleLabel:@"活动时间:" andContentLabel:self.groupDate];
                     break;
                 case 7:
+                    [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.groupStartTime];
+                    break;
+                case 8:
                     [cell setChooseTitleLabel:@"活动结束时间:" andContentLabel:self.groupEndTime];
                     break;
                 default:
@@ -257,6 +269,9 @@
             break;
         case 4:
             self.shopsWeight = textField.text;
+            break;
+        case 9:
+            self.groupDescribe = textField.text;
             break;
         default:
             break;
@@ -308,6 +323,19 @@
     if (indexPath.row == 6)
     {
         _selectTimePicker = [[MHDatePicker alloc] init];
+        _selectTimePicker.isBeforeTime = YES;
+        _selectTimePicker.datePickerMode = UIDatePickerModeDate;
+        __weak typeof(self) weakSelf = self;
+        [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
+         {
+             self.groupDate = [weakSelf dateStringWithDate:selectedDate DateFormat:@"yyyy年MM月dd日"];
+             [cell setChooseTitleLabel:@"活动日期:" andContentLabel:self.groupDate];
+             [self.tableView reloadData];
+         }];
+    }
+    if (indexPath.row == 7)
+    {
+        _selectTimePicker = [[MHDatePicker alloc] init];
         __weak typeof(self) weakSelf = self;
         [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
          {
@@ -316,7 +344,7 @@
              [self.tableView reloadData];
          }];
     }
-    if (indexPath.row == 7)
+    if (indexPath.row == 8)
     {
         _selectTimePicker = [[MHDatePicker alloc] init];
         __weak typeof(self) weakSelf = self;

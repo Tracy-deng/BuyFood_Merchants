@@ -23,16 +23,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
-//    if (userInfo)
-//    {
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    if (!userInfo)
+    {
         [self.window switchRootViewController];
-//    }
-//    else
-//    {
-//        [self.window setRootViewController:[[HDCTabBarViewController alloc]  init]];
-//    }
-    
+    }
+    else
+    {
+        [self.window setRootViewController:[[HDCTabBarViewController alloc]  init]];
+    }
+
     //    [self.window setRootViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]]];
     [self.window makeKeyAndVisible];
     
@@ -56,13 +56,11 @@
     //JAppKey : 是你在极光推送申请下来的appKey Jchannel : 可以直接设置默认值即可 Publish channel
     [JPUSHService setupWithOption:launchOptions appKey:appKey
                           channel:channel apsForProduction:NO]; //如果是生产环境应该设置为YES
-    
     return YES;
 }
 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {    // Required
-#warning 注册的时候向极光写入用户注册的手机号和MARKETUSER
     [JPUSHService registerDeviceToken:deviceToken];
 }
 
@@ -85,6 +83,38 @@
     // IOS 7 Support Required
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+    
+    
+    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+    {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"新任务" message:@"你有一条新的可接单" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+              [self.window setRootViewController:[[HDCTabBarViewController alloc]  init]];
+        }];
+        
+        [alertController addAction:cancelAction];
+        
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+      
+        //此时app在前台运行，我的做法是弹出一个alert，告诉用户有一条推送，用户可以选择查看或者忽略
+        //        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"您有一条新的可接单!"
+        //                                                         message:@"请刷新列表查看"
+        //                                                        delegate:self
+        //                                               cancelButtonTitle:@"确定"
+        //                                               otherButtonTitles:nil,nil];
+        //        [alert show];
+        
+    }
+    else {
+        //这里是app未运行或者在后台，通过点击手机通知栏的推送消息打开app时可以在这里进行处理，比如，拿到推送里的内容或者附加      字段(假设，推送里附加了一个url为 www.baidu.com)，那么你就可以拿到这个url，然后进行跳转到相应店web页，当然，不一定必须是web页，也可以是你app里的任意一个controll，跳转的话用navigation或者模态视图都可以
+        
+        //这里设置app的图片的角标为0，红色但角标就会消失
+        [UIApplication sharedApplication].applicationIconBadgeNumber  =  0;
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+       [self.window setRootViewController:[[HDCTabBarViewController alloc]  init]];
+        
+    }
     
 }
 

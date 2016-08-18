@@ -86,15 +86,18 @@ UITableViewDataSource>
 // 当页面出现的时候 从添加页面返回 刷新数据
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (toAddVC) {
-        toAddVC = NO;
-        [self.tabelView reloadData];
-        return;
-    }else{
-        [self.salesDataArray removeAllObjects];
-        [self getProductSalesData];
-        return;
-    }
+    
+    [self getProductSalesData];
+    
+//    if (toAddVC) {
+//        toAddVC = NO;
+//        [self.tabelView reloadData];
+//        return;
+//    }else{
+//        [self.salesDataArray removeAllObjects];
+//        [self getProductSalesData];
+//        return;
+//    }
 }
 
 - (void)getProductSalesData
@@ -124,7 +127,7 @@ UITableViewDataSource>
         [self.tabelView reloadData];
         
     } failure:^(NSError *error) {
-        NSLog(@"请求促销管理失败%@",error);
+        HDCLog(@"请求促销管理失败%@",error);
         [loadView stopAnimation];
     }];
     
@@ -147,13 +150,13 @@ UITableViewDataSource>
     ModlistModel * salesModel = self.salesDataArray[indexPath.row];
  
     CGFloat stockNumber = [salesModel.productstock floatValue];
-    NSString *stock = [NSString stringWithFormat:@"%.2f", stockNumber];
+    NSString *stock = [NSString stringWithFormat:@"%.1f", stockNumber];
     
     CGFloat originPrice = [salesModel.productoutprice floatValue];
-    NSString *oriPrice = [NSString stringWithFormat:@"%.2f",originPrice];
+    NSString *oriPrice = [NSString stringWithFormat:@"%.1f",originPrice];
     
     CGFloat nowPrice = [salesModel.productoutprice2 floatValue];
-    NSString *nowPricetring = [NSString stringWithFormat:@"%.2f",nowPrice];
+    NSString *nowPricetring = [NSString stringWithFormat:@"%.1f",nowPrice];
     [cell setShopsImage:salesModel.productpic andShopsNameLabel:salesModel.productname andShopsWeight:stock  andShopsSpecifications:[NSString stringWithFormat:@"/%@",salesModel.productunit]andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:oriPrice andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:nowPricetring];
     return cell;
 }
@@ -162,7 +165,7 @@ UITableViewDataSource>
 {
     return self.view.frame.size.height * 0.15;
 }
-
+/**
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
@@ -185,6 +188,7 @@ UITableViewDataSource>
 
     return @[deleteRowAction,topRowAction];
 }
+*/
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

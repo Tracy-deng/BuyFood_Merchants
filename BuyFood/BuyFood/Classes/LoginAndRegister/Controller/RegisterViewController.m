@@ -257,7 +257,6 @@ static NSInteger selectNum;
     }
 }
 
-
 -(void)startTime{
     __block int timeout=59; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -314,9 +313,10 @@ static NSInteger selectNum;
                 loginParams.pswd = _passWordTF.text;
                 [RequestTool login:loginParams success:^(ResultsModel *result)
                  {
-                     HDCLog(@"%@", result.ModelList[0]);
                      CommonShopsRegisterViewController* ordinaryBusinessRegisterVC = [[CommonShopsRegisterViewController alloc] init];
                      ordinaryBusinessRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
+                     ordinaryBusinessRegisterVC.usertype = result.ModelList[0][@"markettypeid"];
+                     ordinaryBusinessRegisterVC.registerTelephone = result.ModelList[0][@"telephone"];
                      [self.navigationController pushViewController:ordinaryBusinessRegisterVC animated:YES];
                  } failure:^(NSError *error) {
                      ;
@@ -345,9 +345,10 @@ static NSInteger selectNum;
                 loginParams.pswd = _passWordTF.text;
                 [RequestTool login:loginParams success:^(ResultsModel *result)
                  {
-                     HDCLog(@"%@", result.ModelList[0]);
                      CommunityShopRegisterViewController* communityShopRegisterVC = [[CommunityShopRegisterViewController alloc] init];
                      communityShopRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
+                     communityShopRegisterVC.usertype = result.ModelList[0][@"markettypeid"];
+                     communityShopRegisterVC.registerTelephone = result.ModelList[0][@"telephone"];
                      [self.navigationController pushViewController:communityShopRegisterVC animated:YES];
                  } failure:^(NSError *error) {
                      ;
@@ -375,9 +376,10 @@ static NSInteger selectNum;
                 loginParams.pswd = _passWordTF.text;
                 [RequestTool login:loginParams success:^(ResultsModel *result)
                  {
-                     HDCLog(@"%@", result.ModelList[0]);
                      BrandShopRegisterViewController* brandShopRegisterVC = [[BrandShopRegisterViewController alloc] init];
                      brandShopRegisterVC.marketuserid = result.ModelList[0][@"marketuserid"];
+                     brandShopRegisterVC.usertype = result.ModelList[0][@"markettypeid"];
+                     brandShopRegisterVC.registerTelephone = result.ModelList[0][@"telephone"];
                      [self.navigationController pushViewController:brandShopRegisterVC animated:YES];
                  } failure:^(NSError *error) {
                      ;

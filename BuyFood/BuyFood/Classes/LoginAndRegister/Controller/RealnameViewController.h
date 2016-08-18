@@ -10,4 +10,11 @@
 
 @interface RealnameViewController : UIViewController
 
+/** 注册电话 */
+@property (nonatomic, strong) NSString *tele;
+/** 注册类别 */
+@property (nonatomic, strong) NSString *userType;
+/** 用户id */
+@property (nonatomic, strong) NSString *userid;
+
 @end

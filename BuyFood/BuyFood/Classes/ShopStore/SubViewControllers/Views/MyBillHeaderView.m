@@ -52,12 +52,12 @@
     [self.allBtn setTitleColor:greenColor forState:UIControlStateSelected];
     self.allBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:14];
     [self.allBtn setTitleColor:HDCColor(102, 102, 102) forState:UIControlStateNormal];
+    [self.allBtn setTitleColor:greenColor forState:UIControlStateSelected];
     [_view1 addSubview:self.allBtn];
     [self.allBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.width.left.equalTo(_view1);
         make.height.equalTo(@(SCREEN_HEIGHT * 0.08 - 2));
     }];
-    
     
     
     self.incomeBtn = [UIButton buttonWithType:UIButtonTypeCustom];

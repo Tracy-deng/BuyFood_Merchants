@@ -17,11 +17,13 @@
 #import "ShopsUserInfo.h"
 #import "ShopsUserInfoTool.h"
 #import "MJExtension.h"
+#import "JPUSHService.h"
 
 #import "CommonShopsRegisterViewController.h"
 #import "CommunityShopRegisterViewController.h"
 #import "BrandShopRegisterViewController.h"
 #import "RealnameViewController.h"
+#import "CheckStatusViewController.h"
 
 @interface LoginViewController ()
 
@@ -40,6 +42,7 @@
     [self setPhoneInputTextFieldAndPasswordTextField];
     [self setBtn];
 }
+
 /** 设置导航条样式 */
 - (void)setUpNavigationStyle
 {
@@ -106,16 +109,18 @@
     [forgetPwdBtn addTarget:self action:@selector(forgetPwdBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:forgetPwdBtn];
     /** 登录按钮 */
-    UIButton* loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [loginBtn setBackgroundImage:[UIImage imageNamed:@"bj_biaoqian"] forState:UIControlStateNormal];
+    UIButton* loginBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [loginBtn setTitleColor:HDCColor(255, 255, 255) forState:UIControlStateNormal];
+    [loginBtn setTitleColor:WhiteColor forState:UIControlStateNormal];
+    [loginBtn setBackgroundColor:greenColor];
     loginBtn.titleLabel.font = [UIFont systemFontOfSize:20];
     loginBtn.x = 15;
     loginBtn.y = forgetPwdBtn.y + forgetPwdBtn.height + 15;
     loginBtn.height = 40;
     loginBtn.width = self.view.width - loginBtn.x * 2;
     [loginBtn addTarget:self action:@selector(loginBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [loginBtn.layer setMasksToBounds:YES];
+    [loginBtn.layer setCornerRadius:5.0];//设置矩形四个圆角半径
     [self.view addSubview:loginBtn];
     /** 注册按钮 */
     UIButton* registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -137,38 +142,50 @@
 /** 登录按钮点击 */
 - (void)loginBtnClick:(UIButton* )sender
 {
- 
-    HDCLog(@"点击登录");
-    
     [MBProgressHUD showMessage:@"正在登录中..."];
-
+    
     if (![[NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^1+[3578]+\\d{9}"] evaluateWithObject:_phoneTextField.text])
     {
         [MBProgressHUD hideHUD];
         [MBProgressHUD showSuccess:@"请输入正确的的手机号码"];
-        
     }
     else
     {
         LoginParams* params = [[LoginParams alloc]init];
-            params.telephone = _phoneTextField.text;
-            params.pswd = _passwordTextField.text;
-//            params.telephone = @"13088888888"; // 品牌馆
-//            params.telephone = @"13999999999"; // 社区店
-//            params.telephone = @"13777777777";   // 普通商家
-//              params.telephone = @"13055555555";
-//            params.pswd = @"1";
+        params.telephone = _phoneTextField.text;
+        params.pswd = _passwordTextField.text;
         [RequestTool login:params success:^(ResultsModel *result)
          {
-             HDCLog(@"%@", result.ModelList);
              if ([result.ErrorCode isEqualToString:@"1"])
              {
                  NSArray* userInfoArray = [ShopsUserInfo mj_objectArrayWithKeyValuesArray:result.ModelList];
                  ShopsUserInfo *tmp = userInfoArray[0];
-                 [ShopsUserInfoTool saveAccount:tmp];
-                [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
-                 [MBProgressHUD hideHUD];
-                 [MBProgressHUD showSuccess:@"登录成功"];
+                 if ([tmp.checkstatus isEqualToString:@"1"])
+                 {
+                     [self.navigationController pushViewController:[[CheckStatusViewController alloc] init] animated:YES];
+                 }
+                 if ([tmp.checkstatus isEqualToString:@"0"])
+                 {
+                    [ShopsUserInfoTool saveAccount:tmp];
+                     [MBProgressHUD hideHUD];
+                     [MBProgressHUD showSuccess:@"审核通过,正在登陆"];
+                     [self restoreRootViewController:[[HDCTabBarViewController alloc] init]];
+                     [JPUSHService setTags:[[NSSet alloc] initWithObjects:@"商户",tmp.telephone,nil]
+                         aliasInbackground:tmp.telephone];
+                 }
+                 if ([tmp.checkstatus isEqualToString:@"3"])
+                 {
+                     [MBProgressHUD hideHUD];
+                     [MBProgressHUD showError:@"审核未通过,请重新提交审核数据"];
+                     [self.navigationController pushViewController:[[RealnameViewController alloc] init] animated:YES];
+                 }
+                 if ([tmp.checkstatus isEqualToString:@"2"])
+                 {
+                     [MBProgressHUD hideHUD];
+                     [MBProgressHUD showError:@"请提交审核数据"];
+                     [self.navigationController pushViewController:[[RealnameViewController alloc] init] animated:YES];
+                 }
+                 
              }
              else
              {
@@ -180,7 +197,7 @@
              [MBProgressHUD hideHUD];
          }];
     }
-
+    
 }
 /** 切换根视图 */
 - (void)restoreRootViewController:(UIViewController *)rootViewController
@@ -202,19 +219,19 @@
                     animations:animation
                     completion:nil];
 }
-
 /** 注册按钮点击 */
 - (void)registerBtnClick:(UIButton* )sender
 {
     [self.navigationController pushViewController:[[RegisterViewController alloc] init] animated:YES];
     
-//    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
+    //    [self.navigationController pushViewController:[[CommonShopsRegisterViewController alloc] init] animated:YES];
     
-//    [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
-//    [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];
-//    
-//    [self.navigationController pushViewController:[[ RealnameViewController alloc] init] animated:YES];
-   
+    //    [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
+    //    [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];
+    //
+    //    [self.navigationController pushViewController:[[RealnameViewController alloc] init] animated:YES];
+    
+    //    [self.navigationController pushViewController:[[CheckStatusViewController alloc] init] animated:YES];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

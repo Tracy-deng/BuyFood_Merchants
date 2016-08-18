@@ -81,13 +81,11 @@
     [self addShopsImage];
     [self createTableViewAndBottomBtn];
     
-    
     [self creatDataSoruce];
 }
 - (void)creatDataSoruce
 {
     NSArray *sortKeys = [self getSortedKeys:self.goodsDic];
-    
     
     if (sortKeys.count != 0) {
         for(int i = 0; i < sortKeys.count; i ++)
@@ -98,7 +96,6 @@
             
         }
     }
-    
 }
 
 - (void)addShopsImage
@@ -335,10 +332,12 @@
     if (indexPath.row == 1)
     {
         MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择商品二级分类" style:MHSheetStyleWeiChat itemTitles:self.twoArray];
+     
+        
         actionSheet.cancleTitle = @"取消选择";
         [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
          {
-             self.selectSecClassIndex = [[[self getSortedKeys:self.goodsDic] objectAtIndex:index]integerValue] ;
+             self.selectSecClassIndex = [[[self getSortedKeys:self.goodsDic] objectAtIndex:index]integerValue];
              HDCLog(@"%ld", self.selectSecClassIndex);
              self.secClass = title;
              [cell setChooseTitleLabel:@"二级分类:" andContentLabel:self.secClass];

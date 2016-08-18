@@ -449,7 +449,6 @@
 /** 上传图片 */
 - (void)tap:(UITapGestureRecognizer* )tapGesture
 {
-    HDCLog(@"添加图片...");
     NSArray *photoArray = @[@"相机拍照",@"本地上传"];
     MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:nil style:MHSheetStyleDefault itemTitles:photoArray];
     actionSheet.cancleTitle = @"取消选择";
@@ -590,7 +589,11 @@
                      {
                          [loadView stopAnimation];
                          [MBProgressHUD showSuccess:result.ErrorMsg];
-                         [self.navigationController popToRootViewControllerAnimated:YES];
+                         RealnameViewController *realnameVC = [[RealnameViewController alloc] init];
+                         realnameVC.tele = self.registerTelephone;
+                         realnameVC.userType = self.usertype;
+                         realnameVC.userid = self.marketuserid;
+                         [self.navigationController pushViewController:realnameVC animated:YES];
                      }
                      else
                      {

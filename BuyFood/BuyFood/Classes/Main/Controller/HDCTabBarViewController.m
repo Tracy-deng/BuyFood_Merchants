@@ -29,16 +29,16 @@
     ShopsUserInfo* shopUserInfo = [ShopsUserInfoTool account];
     if ([shopUserInfo.markettypeid isEqualToString:@"1"] || [shopUserInfo.markettypeid isEqualToString:@"2"])
     {
-        [self addChildVc:[[UntreatedOrderViewController alloc] init] title:@"未处理" image:@"icon_tabbar_nor4" selectedImage:@"icon_tabbar_selected4"];
-        [self addChildVc:[[AlreadyOrderViewController alloc] init] title:@"已处理" image:@"icon_tabbar_nor3" selectedImage:@"icon_tabbar_selected3"];
+        [self addChildVc:[[UntreatedOrderViewController alloc] init] title:@"未处理" image:@"untreated" selectedImage:@"untreated1"];
+        [self addChildVc:[[AlreadyOrderViewController alloc] init] title:@"已处理" image:@"processed" selectedImage:@"processed1"];
     }
     else
     {
-        [self addChildVc:[[BrandUnOrderViewController alloc] init] title:@"未处理" image:@"icon_tabbar_nor4" selectedImage:@"icon_tabbar_selected4"];
-        [self addChildVc:[[BrandAlreadyOrderViewController alloc] init] title:@"已处理" image:@"icon_tabbar_nor3" selectedImage:@"icon_tabbar_selected3"];
+        [self addChildVc:[[BrandUnOrderViewController alloc] init] title:@"未处理" image:@"untreated" selectedImage:@"untreated1"];
+        [self addChildVc:[[BrandAlreadyOrderViewController alloc] init] title:@"已处理" image:@"processed" selectedImage:@"processed1"];
     }
-    [self addChildVc:[[ShopStoreViewController alloc] init] title:@"门店管理" image:@"icon_tabbar_nor2" selectedImage:@"icon_tabbar_selected2"];
-    [self addChildVc:[[SettingViewController alloc] init] title:@"我的" image:@"icon_tabbar_nor1" selectedImage:@"icon_tabbar_selected1"];
+    [self addChildVc:[[ShopStoreViewController alloc] init] title:@"门店管理" image:@"management1" selectedImage:@"management"];
+    [self addChildVc:[[SettingViewController alloc] init] title:@"我的" image:@"mine" selectedImage:@"mine1"];
 }
 
 - (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage

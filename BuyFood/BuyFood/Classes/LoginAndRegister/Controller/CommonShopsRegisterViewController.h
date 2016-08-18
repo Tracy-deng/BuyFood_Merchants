@@ -11,5 +11,7 @@
 @interface CommonShopsRegisterViewController : UIViewController
 
 @property (nonatomic, strong) NSString* marketuserid;
+@property (nonatomic, strong) NSString *usertype;
+@property (nonatomic, strong) NSString *registerTelephone;
 
 @end

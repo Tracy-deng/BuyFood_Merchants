@@ -76,11 +76,11 @@
     self.shopsWeight.textColor = [UIColor colorWithRed:153 / 255.0 green:153 / 255.0 blue:153 / 255.0 alpha:1];
     self.shopsWeight.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     [self.contentView addSubview:self.shopsWeight];
-    self.shopsWeight.textAlignment = NSTextAlignmentRight;
+    self.shopsWeight.textAlignment = NSTextAlignmentLeft;
     [self.shopsWeight mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.shopsName);
         make.top.mas_equalTo(self.shopsName.mas_bottom).offset(15);
-        make.width.equalTo(@(self.contentView.frame.size.width * 0.30 * 0.60));
+        make.width.equalTo(@(45));
         make.height.equalTo(self.shopsName);
     }];
     /** 商品单位 */
@@ -91,7 +91,7 @@
     [self.shopsSpecifications mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.shopsWeight.mas_right);
         make.top.equalTo(self.shopsWeight);
-        make.width.equalTo(@(self.contentView.frame.size.width * 0.30 * 0.35));
+        make.width.equalTo(@(40));
         make.height.equalTo(self.shopsWeight);
     }];
     /** 商品原价 */

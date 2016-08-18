@@ -22,6 +22,7 @@
 #import "AddShopsCell.h"
 #import "GetBrandsAndCommunityClassifyParams.h"
 #import "CtcategoryModelList.h"
+#import "MBProgressHUD.h"
 
 @interface SalesPromotionViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 {
@@ -107,10 +108,13 @@
 // 数据请求 二级三级分类
 - (void)configureData
 {
+    [MBProgressHUD showMessage:@"分类加载中..."];
     ShopsSecAndThirdClassParams* params = [[ShopsSecAndThirdClassParams alloc] init];
     ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
     params.categoryid = shopsInfo.categoryid;
     [RequestTool shopsSecAndThirdClass:params success:^(ResultsModel *result) {
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showSuccess:@"加载成功"];
         NSMutableArray *dataArray = [[NSMutableArray alloc]init];
         dataArray  = [ThreeCatego mj_objectArrayWithKeyValuesArray:result.ModelList];
         for (ThreeCatego *modle in dataArray) {
@@ -132,8 +136,6 @@
                 NSMutableArray<ModlistModel *> *date = [billData objectForKey:subCate];
                 [date addObject:self.modlst];
             }
-            
-            
         }
         [self addDataSales];
     } failure:^(NSError *error) {
@@ -479,8 +481,19 @@
         }
         if (indexPath.row == 5)
         {
-            NSArray * array = @[@"份",
-                                @"克"];
+            NSArray * array =  @[@"份",
+                                                 @"公斤",
+                                                 @"斤",
+                                                 @"两",
+                                                 @"克",
+                                                 @"千克",
+                                                 @"条",
+                                                 @"只",
+                                                 @"瓶",
+                                                 @"个",
+                                                 @"箱",
+                                                 @"袋",
+                                                 @"次",];
             MHActionSheet *actionSheet = [[MHActionSheet alloc] initSheetWithTitle:@"选择单位" style:MHSheetStyleWeiChat itemTitles:array];
             actionSheet.cancleTitle = @"取消选择";
             [actionSheet didFinishSelectIndex:^(NSInteger index, NSString *title)
@@ -642,12 +655,21 @@
             params.promotion = @"2";
             params.productpic = response[@"data"][0][@"littlepic"];
         }
-        else
+        if ([self.shopsInfo.markettypeid isEqualToString:@"2"])
         {
-            
+            params.marketuserid = self.shopsInfo.marketuserid;
+            params.threecategoryid = [NSString stringWithFormat:@"%ld", (long)self.selectThirdClassIndex];
+            params.productname = self.productname;
+            params.productstock = self.productstock;
+            params.productoutprice = self.productoutprice;
+            params.productoutprice2 = self.productoutprice2;
+            params.productremark = self.productremark;
+            params.Productlabel = @"促销";
+            params.productunit = self.unitStr;
+            params.promotion = @"2";
+            params.productpic = response[@"data"][0][@"littlepic"];
         }
         [RequestTool addProducts:params success:^(ResultsModel *result) {
-            HDCLog(@"%@",result);
             if ([result.ErrorCode isEqualToString:@"1"])
             {
                 [self.navigationController popViewControllerAnimated:YES];
@@ -694,12 +716,11 @@
 // 编辑结束 视图返回
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    
     [self packUpDownTextField:textField isShow:NO];
 }
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
-    if (textField.tag == 0 || textField.tag == 3 || textField.tag == 4 || textField.tag == 6 || textField.tag == 7) {
+    if (textField.tag == 3 || textField.tag == 4 || textField.tag == 6 || textField.tag == 7) {
         
         //设置动画的名字
         [UIView beginAnimations:@"Animation" context:nil];

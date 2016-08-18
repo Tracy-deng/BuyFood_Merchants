@@ -15,6 +15,8 @@
 #import "ShopsUserInfoTool.h"
 #import "RequestTool.h"
 #import "ResultsModel.h"
+#import "MJRefresh.h"
+#import "MJExtension.h"
 
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
@@ -42,6 +44,10 @@ UITableViewDataSource>
     self.userInfo = [ShopsUserInfoTool account];
     
     [self prepareGroupBuyDataSource];
+    
+    self.tabelView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self prepareGroupBuyDataSource];
+    }];
 }
 
 - (void)prepareGroupBuyDataSource
@@ -56,23 +62,23 @@ UITableViewDataSource>
             {
                 [MBProgressHUD hideHUD];
                 [MBProgressHUD showSuccess:@"数据加载成功"];
-//                dataSource = [OutDoorModelList mj_objectArrayWithKeyValuesArray:result.ModelList];
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self.tabelView reloadData];
-//                    [self.tabelView.header endRefreshing];
-//                });
+                dataSource = [OutDoorModelList mj_objectArrayWithKeyValuesArray:result.ModelList];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tabelView reloadData];
+                    [self.tabelView.header endRefreshing];
+                });
             }
             else
             {
                 [MBProgressHUD hideHUD];
                 [MBProgressHUD showError:@"暂无数据"];
-//                [self.tabelView.header endRefreshing];
+                [self.tabelView.header endRefreshing];
             }
             
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUD];
             [MBProgressHUD showError:@"数据加载失败"];
-//            [self.tabelView.header endRefreshing];
+            [self.tabelView.header endRefreshing];
         }];
     });
 }
