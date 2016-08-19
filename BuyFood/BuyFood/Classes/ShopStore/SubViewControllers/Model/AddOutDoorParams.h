@@ -48,5 +48,7 @@
 @property (nonatomic, strong) NSString *outaddress;
 /** 户外活动图片列表 */
 @property (nonatomic, strong) NSMutableArray *ProductPictureList;
+/** 团购的重量 */
+@property (nonatomic, strong) NSString *productunit;
 
 @end

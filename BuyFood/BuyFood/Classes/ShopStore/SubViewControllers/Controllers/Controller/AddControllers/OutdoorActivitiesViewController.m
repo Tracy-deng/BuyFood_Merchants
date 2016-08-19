@@ -457,7 +457,6 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self packUpDownTextField:textField isShow:YES];
-    
 }
 // 编辑结束 视图返回
 - (void)textFieldDidEndEditing:(UITextField *)textField

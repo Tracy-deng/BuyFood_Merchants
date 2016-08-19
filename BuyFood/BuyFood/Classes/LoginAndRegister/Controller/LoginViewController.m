@@ -160,6 +160,7 @@
              {
                  NSArray* userInfoArray = [ShopsUserInfo mj_objectArrayWithKeyValuesArray:result.ModelList];
                  ShopsUserInfo *tmp = userInfoArray[0];
+                 HDCLog(@"%@", tmp.checkstatus);
                  if ([tmp.checkstatus isEqualToString:@"1"])
                  {
                      [self.navigationController pushViewController:[[CheckStatusViewController alloc] init] animated:YES];

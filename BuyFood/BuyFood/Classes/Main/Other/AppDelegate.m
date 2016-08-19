@@ -79,7 +79,8 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    HDCLog(@"userInfouserInfouserInfouserInfo %@", userInfo);
+    HDCLog(@"userInfouserInfouserInfouserInfo %@", [userInfo[@"aps"] objectForKey:@"sound"]);
+    HDCLog(@"userInfouserInfouserInfouserInfo %@", [userInfo[@"aps"] objectForKey:@"alert"]);
     // IOS 7 Support Required
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);

@@ -142,6 +142,37 @@ UITableViewDataSource>
 {
     return self.view.frame.size.height * 0.15;
 }
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"是否删除这个活动" message:@"请您三思😊" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            OutDoorModelList *model = dataSource[indexPath.row];
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"proid_sep"] = model.proid_sep;
+            [HttpRequestTool GET:@"http://www.goucaichina.com:81/t_outdoor/Delete" parameters:params progress:nil completionHandler:^(id model, NSError *error) {
+                
+                if ([model[@"ErrorCode"] intValue] == 1)
+                {
+                    [dataSource removeObjectAtIndex:indexPath.row];
+                    
+                    [self.tabelView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+                
+            }];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
+        [selct addAction:alertAction];
+        [selct addAction:cancelAction];
+        [self presentViewController:selct animated:YES completion:nil];
+        return;
+        
+        
+    }];
+    return @[deleteRowAction];
+}
 
 
 
