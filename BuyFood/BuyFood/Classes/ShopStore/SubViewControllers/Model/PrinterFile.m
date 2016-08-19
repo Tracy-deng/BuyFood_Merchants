@@ -140,7 +140,7 @@
 
 
     
-    if (  dic[@"marketuseraddress"]  != nil) {
+    if (  dic[@"useraddress"]  != nil) {
         // 地址
         [commands appendBytes:"\x1B\x61\x0" length:3];     // left
         
@@ -148,7 +148,7 @@
         
         [commands appendBytes:"\x1B\x61\x2" length:3];  // right
         
-        [commands appendData:[[NSString stringWithFormat:@"%@\n",dic[@"marketuseraddress"]] dataUsingEncoding:gbk]];
+        [commands appendData:[[NSString stringWithFormat:@"%@\n",dic[@"useraddress"]] dataUsingEncoding:gbk]];
     }
    
     
