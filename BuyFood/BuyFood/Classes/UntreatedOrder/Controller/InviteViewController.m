@@ -19,6 +19,8 @@
 #import "MJRefresh.h"
 #import "GetOrderParams.h"
 #import "ResultsModel.h"
+#import "OrderDetailsParams.h"
+#import "PrinterToos.h"
 @interface InviteViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView* tableView;
@@ -149,6 +151,9 @@
     parms.posttypeid = 1;
     [RequestTool getOrder:parms success:^(ResultsModel *result) {
         NSLog(@"%@",result.ModelList);
+        if([result.ErrorCode isEqualToString:@"1"]){
+            [self creatDataDetailSource:parms.orderno];
+        }
         [self GetOrderList];
         [loadView stopAnimation];
     } failure:^(NSError *error) {
@@ -180,6 +185,26 @@
         [loadView stopAnimation];
     }];
     
+    
+}
+
+-(void)creatDataDetailSource:(NSString *)orderNum
+{
+    
+    OrderDetailsParams *parms = [[OrderDetailsParams alloc]init];
+    parms.orderno = orderNum;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [RequestTool orderDetails:parms success:^(MarketOrderModelList *result) {
+            NSLog(@"%@",result.OrderMarket);
+            
+            if (result.OrderMarket.count != 0) {
+                [[PrinterToos sharePrinterToos]printerTicket:result.OrderMarket];
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    });
     
 }
 @end

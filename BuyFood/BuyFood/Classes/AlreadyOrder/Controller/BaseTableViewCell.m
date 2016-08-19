@@ -90,7 +90,7 @@
             make.top.equalTo(_timeLabel.mas_bottom).offset(2);
             make.left.equalTo(_orderNumLabel);
             make.height.equalTo(@40);
-            make.right.equalTo(_whiteView).offset(-40);
+            make.right.equalTo(_whiteView).offset(-55);
         }];
         
     

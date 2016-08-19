@@ -253,6 +253,7 @@
 		780984F81D3F59B2009E7E84 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 780984E51D3F59B2009E7E84 /* UIView+MJExtension.m */; };
 		780984FA1D3F7574009E7E84 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 780984F91D3F7574009E7E84 /* Localizable.strings */; };
 		782C932A1D226A1E00F00DB6 /* ShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 782C93291D226A1E00F00DB6 /* ShopManager.m */; };
+		78327D9C1D66AB07009321FB /* PrinterToos.m in Sources */ = {isa = PBXBuildFile; fileRef = 78327D9B1D66AB07009321FB /* PrinterToos.m */; };
 		7833D2E31D18CBD000174C29 /* haveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E21D18CBD000174C29 /* haveTableViewCell.m */; };
 		7833D2E91D1936EA00174C29 /* pushTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2E81D1936EA00174C29 /* pushTableViewCell.m */; };
 		7833D2EC1D193E7900174C29 /* BaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7833D2EB1D193E7900174C29 /* BaseTableViewCell.m */; };
@@ -749,6 +750,8 @@
 		780984F91D3F7574009E7E84 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		782C93281D226A1D00F00DB6 /* ShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShopManager.h; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.h; sourceTree = SOURCE_ROOT; };
 		782C93291D226A1E00F00DB6 /* ShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShopManager.m; path = BuyFood/Classes/ShopStore/SubViewControllers/Controllers/ShopManager.m; sourceTree = SOURCE_ROOT; };
+		78327D9A1D66AB07009321FB /* PrinterToos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrinterToos.h; sourceTree = "<group>"; };
+		78327D9B1D66AB07009321FB /* PrinterToos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterToos.m; sourceTree = "<group>"; };
 		7833D2E11D18CBD000174C29 /* haveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = haveTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.h; sourceTree = SOURCE_ROOT; };
 		7833D2E21D18CBD000174C29 /* haveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = haveTableViewCell.m; path = BuyFood/Classes/AlreadyOrder/Controller/haveTableViewCell.m; sourceTree = SOURCE_ROOT; };
 		7833D2E71D1936EA00174C29 /* pushTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pushTableViewCell.h; path = BuyFood/Classes/AlreadyOrder/Controller/pushTableViewCell.h; sourceTree = SOURCE_ROOT; };
@@ -841,6 +844,8 @@
 				0E110CB11D19B5F700161ACB /* MyBillViewController.m */,
 				0E67E01E1D22CFD600E025BD /* AddPrinterViewController.h */,
 				0E67E01F1D22CFD600E025BD /* AddPrinterViewController.m */,
+				78327D9A1D66AB07009321FB /* PrinterToos.h */,
+				78327D9B1D66AB07009321FB /* PrinterToos.m */,
 				0E110CB31D19B6D700161ACB /* EvaluationViewController.h */,
 				0E110CB41D19B6D700161ACB /* EvaluationViewController.m */,
 				0E110CB61D19B72000161ACB /* BusinessStatusViewController.h */,
@@ -1898,7 +1903,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = RXQK7RGT82;
+						DevelopmentTeam = 2VKY6QPH98;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2179,6 +2184,7 @@
 				0E525A5E1D1283A700AFC95B /* AppDelegate.m in Sources */,
 				0E5FEE771D4E5AA300452B5D /* ProvinceAndCityAndCountryModelList.m in Sources */,
 				0E525A4B1D1283A700AFC95B /* RealnameViewController.m in Sources */,
+				78327D9C1D66AB07009321FB /* PrinterToos.m in Sources */,
 				0E525A731D1284EB00AFC95B /* UntreatedOrderViewController.m in Sources */,
 				7802E6D41D1A6AE1000B03C2 /* ownSlovedTableViewCell.m in Sources */,
 				78639ADC1D40717000D85CCE /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
@@ -2302,7 +2308,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wenchao Li (65PE6X2W63)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
@@ -2314,7 +2320,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goucaichina.merchant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1e160cd5-66bb-4aae-a6c4-ca25fc194ba1";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -2322,7 +2328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wenchao Li (65PE6X2W63)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
 				INFOPLIST_FILE = BuyFood/Info.plist;
@@ -2334,7 +2340,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.goucaichina.merchant;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1e160cd5-66bb-4aae-a6c4-ca25fc194ba1";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

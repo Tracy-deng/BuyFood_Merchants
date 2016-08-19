@@ -31,7 +31,7 @@
         }];
         
         
-        
+        _pushAddTimeBtn.hidden = YES;
         
         _addOrderLabel = [[UILabel alloc]init];
         _addOrderLabel.layer.masksToBounds = YES;

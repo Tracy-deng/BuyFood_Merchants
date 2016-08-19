@@ -23,10 +23,19 @@
 #import "orderStatus.h"
 #import "InputPostInfoParams.h"
 #import "orderStatus.h"
-@interface DistributionViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+#import "PrintSetting.h"
+#import "PrinterFile.h"
+#import "OrderDetailsParams.h"
+#import "OrderDetailModel.h"
+#import "PrinterToos.h"
+@interface DistributionViewController ()<UITableViewDelegate,UITableViewDataSource,CCPrinterSettingDelegate>
+{
+    OrderDetailModel * productEveryModel;
+}
 @property (nonatomic, strong) UITableView* tableView;
 @property (nonatomic, strong) NSMutableArray * distributionDataArray;
+@property (nonatomic, strong) PrintSetting *manager;
+@property (nonatomic, strong) NSMutableDictionary *printDic;
 @end
 
 @implementation DistributionViewController
@@ -36,11 +45,21 @@
     }
     return _distributionDataArray;
 }
+- (NSMutableDictionary *)printDic
+{
+    if (_printDic == nil) {
+        self.printDic = [NSMutableDictionary dictionaryWithCapacity:0];
+    }
+    return _printDic;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:HDCColor(238, 238, 238)];
-   
+    
+    self.manager = [PrintSetting shareManager];
+    
+    self.manager.delegate = self;
     
     UIView* view = [[UIView alloc]init];
     view.backgroundColor = greenColor;
@@ -195,6 +214,9 @@
         parms.posttypeid = 2;
         [RequestTool getOrder:parms success:^(ResultsModel *result) {
             NSLog(@"%@",result.ModelList);
+            if ([result.ErrorCode isEqualToString:@"1"]) {
+                [self creatDataDetailSource:parms.orderno];
+            }
             [self createDistributionData];
             [loadView stopAnimation];
         } failure:^(NSError *error) {
@@ -243,6 +265,9 @@
         parms.postcompany = company.text;;
         [RequestTool inputPostInfo:parms success:^(ResultsModel *result) {
             NSLog(@"%@",result.ModelList);
+            if ([result.ErrorCode isEqualToString:@"1"]) {
+                [self creatDataDetailSource:parms.orderno];
+            }
             [self createDistributionData];
         } failure:^(NSError *error) {
             NSLog(@"%@",error);
@@ -280,5 +305,23 @@
     
     
 }
+-(void)creatDataDetailSource:(NSString *)orderNum
+{
 
+    OrderDetailsParams *parms = [[OrderDetailsParams alloc]init];
+    parms.orderno = orderNum;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [RequestTool orderDetails:parms success:^(MarketOrderModelList *result) {
+            NSLog(@"%@",result.OrderMarket);
+
+            if (result.OrderMarket.count != 0) {
+                 [[PrinterToos sharePrinterToos]printerTicket:result.OrderMarket];
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    });
+    
+}
 @end
