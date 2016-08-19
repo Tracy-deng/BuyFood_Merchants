@@ -119,6 +119,7 @@
     
     [self.manager scanPeripherals];
 
+
 }
 
 // 搜到蓝牙设备
@@ -189,6 +190,15 @@
 - (void)connect:(NSTimer *)timer{
     
     [self.manager connectPeripheral:self.selectedPeripheral];
+    
+    // 连接状态存起来
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    
+    NSInteger states = self.selectedPeripheral.state;
+    
+    [user setInteger:states forKey:@"state"];
+    
+    [user synchronize];
     
     [self.printerTableView reloadData];
 }
