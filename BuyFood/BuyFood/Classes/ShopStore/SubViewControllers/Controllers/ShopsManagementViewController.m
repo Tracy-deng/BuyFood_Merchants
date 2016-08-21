@@ -75,7 +75,7 @@
     [self.view setBackgroundColor:[UIColor colorWithWhite:0.915 alpha:1.000]];
     [self creatTableView];
     
-    
+    isSelcted = 1;
     [self.selectedTableView registerClass:[ShopThreeCate class] forHeaderFooterViewReuseIdentifier:@"head"];
     billData = [NSMutableDictionary new];
     [self configureData];
@@ -524,9 +524,12 @@
     {
         HDCLog(@"点击的行数：%ld", indexPath.row);
         ShopDetailViewController *detailVC =  [[ShopDetailViewController alloc]init];
-        detailVC.detailModel = self.productMainDataArray[indexPath.row];
-        detailVC.goodsDic = billData;
-        [self.navigationController pushViewController:detailVC animated:YES];
+        if(self.productMainDataArray.count > 0){
+            detailVC.detailModel = self.productMainDataArray[indexPath.row];
+            detailVC.goodsDic = billData;
+            [self.navigationController pushViewController:detailVC animated:YES];
+        }
+        
     }
     else{// 点击selectedTableView切换数据
         HDCLog(@"indexPath.row === %ld", indexPath.row);

@@ -112,73 +112,89 @@
     picButton *find_btn1 = (picButton *)[self.view viewWithTag:100];
     picButton *find_btn2 = (picButton *)[self.view viewWithTag:101];
     picButton *find_btn3 = (picButton *)[self.view viewWithTag:102];
-    
-    
 
-    HDCLog(@"%@", self.picArray);
-    
-//    HDCLog(@"%@", find_btn1.picString);
-//    HDCLog(@"%@", find_btn2.picString);
-//    HDCLog(@"%@", find_btn3.picString);
-  
-//    if (find_btn1.picString.length == 0)
-//    {
-//        [MBProgressHUD showError:@"第一张图片上传失败"];
-//        return;
-//    }
-//    if (find_btn2.picString.length == 0)
-//    {
-//        [MBProgressHUD showError:@"第二张图片上传失败"];
-//        return;
-//    }
-//    if (find_btn3.picString.length == 0)
-//    {
-//        [MBProgressHUD showError:@"第三张图片上传失败"];
-//        return;
-//    }
-//    
-//    if (self.productName.length == 0 || self.groupPrice.length == 0 || self.productPrice.length == 0 || self.limitCount.length == 0 || self.shopsWeight.length == 0 || self.unitStr.length == 0 || self.groupStartTime.length == 0 || self.groupEndTime.length == 0)
-//    {
-//        [MBProgressHUD showError:@"请完整填写活动信息"];
-//        return;
-//    }
-//    else
-//    {
-//        [MBProgressHUD showMessage:@"正在上传中..."];
+//    for(int i = 0; i < 3; i++){
 //        
-//        AddOutDoorParams *params = [[AddOutDoorParams alloc] init];
-//        params.outname = self.productName;
-//        params.oldprice = [self.productPrice doubleValue];
-//        params.newprice = [self.groupPrice doubleValue];
-//        params.personcount = [self.limitCount integerValue];
-//        params.outtime = self.groupDate;
-//        params.starttime = self.groupStartTime;
-//        params.endtime = self.groupEndTime;
-//        params.rule1 = @"无需预约可直接上门";
-//        params.rule2 = @"最多可使用十张、不兑现、不找零";
-//        params.rule3 = @"仅限本人使用";
-//        params.productunit = self.unitStr;
-//        params.marketuserid = self.userInfo.marketuserid;
-//        params.remark = self.groupDescribe;
-//        params.pic = find_btn3.picString;
-//        params.ProductPictureList = self.picArray;
-//        [RequestTool addGroupBuy:params success:^(ResultsModel *result) {
-//            if ([result.ErrorCode isEqualToString:@"1"])
-//            {
-//                [MBProgressHUD hideHUD];
-//                [MBProgressHUD showSuccess:@"上传成功"];
-//                [self.navigationController popViewControllerAnimated:YES];
-//            }
-//            else
-//            {
-//                [MBProgressHUD hideHUD];
-//                [MBProgressHUD showError:@"上传失败"];
-//            }
-//        } failure:^(NSError *error) {
-//            [MBProgressHUD hideHUD];
-//            [MBProgressHUD showError:@"上传失败"];
-//        }];
+//        picButton *button_i = (picButton *)[self.view viewWithTag:10i];
+//        NSMutableDictionary *pic = [NSMutableDictionary dictionary];
+//        [pic setValue:button_i.picString forKey:@"littlepic"];
+//        [self.picArray addObject:pic];
 //    }
+    
+    NSMutableDictionary * pic1 = [NSMutableDictionary dictionaryWithCapacity:0];
+    [pic1 setObject:find_btn1.picString forKey:@"littlepic"];
+    [self.picArray addObject:pic1];
+    
+    NSMutableDictionary * pic2 = [NSMutableDictionary dictionaryWithCapacity:0];
+    [pic1 setObject:find_btn2.picString forKey:@"littlepic"];
+    [self.picArray addObject:pic2];
+    
+    NSMutableDictionary * pic3 = [NSMutableDictionary dictionaryWithCapacity:0];
+    [pic1 setObject:find_btn3.picString forKey:@"littlepic"];
+    [self.picArray addObject:pic3];
+
+    HDCLog(@"%@", find_btn1.picString);
+    HDCLog(@"%@", find_btn2.picString);
+    HDCLog(@"%@", find_btn3.picString);
+  
+    if (find_btn1.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第一张图片上传失败"];
+        return;
+    }
+    if (find_btn2.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第二张图片上传失败"];
+        return;
+    }
+    if (find_btn3.picString.length == 0)
+    {
+        [MBProgressHUD showError:@"第三张图片上传失败"];
+        return;
+    }
+    
+    if (self.productName.length == 0 || self.groupPrice.length == 0 || self.productPrice.length == 0 || self.limitCount.length == 0 || self.shopsWeight.length == 0 || self.unitStr.length == 0 || self.groupStartTime.length == 0 || self.groupEndTime.length == 0)
+    {
+        [MBProgressHUD showError:@"请完整填写活动信息"];
+        return;
+    }
+    else
+    {
+        [MBProgressHUD showMessage:@"正在上传中..."];
+        
+        AddOutDoorParams *params = [[AddOutDoorParams alloc] init];
+        params.outname = self.productName;
+        params.oldprice = [self.productPrice doubleValue];
+        params.newprice = [self.groupPrice doubleValue];
+        params.personcount = [self.limitCount integerValue];
+        params.outtime = self.groupDate;
+        params.starttime = self.groupStartTime;
+        params.endtime = self.groupEndTime;
+        params.rule1 = @"无需预约可直接上门";
+        params.rule2 = @"最多可使用十张、不兑现、不找零";
+        params.rule3 = @"仅限本人使用";
+        params.productunit = self.unitStr;
+        params.marketuserid = self.userInfo.marketuserid;
+        params.remark = self.groupDescribe;
+        params.pic = find_btn3.picString;
+        params.ProductPictureList = self.picArray;
+        [RequestTool addGroupBuy:params success:^(ResultsModel *result) {
+            if ([result.ErrorCode isEqualToString:@"1"])
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showSuccess:@"上传成功"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            else
+            {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"上传失败"];
+            }
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:@"上传失败"];
+        }];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
