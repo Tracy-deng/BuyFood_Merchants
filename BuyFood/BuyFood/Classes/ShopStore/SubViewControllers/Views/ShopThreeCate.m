@@ -42,6 +42,9 @@
 - (void)touchWithHeaderSource:(UITapGestureRecognizer *)tap
 {
     if (_touch ) {
+        
+//        [self.contentView setBackgroundColor:HDCColor(245, 245, 245)];
+        
         _touch();
     }
     

@@ -253,6 +253,7 @@
             cell = [[AddShopsCell alloc] initWithInputCellStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
             cell.contentTextField.tag = indexPath.row;
             cell.contentTextField.delegate = self;
+            cell.contentTextField.returnKeyType = UIReturnKeyDone;
             [cell.contentTextField addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
             switch (cell.contentTextField.tag)
             {

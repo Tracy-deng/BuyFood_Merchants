@@ -160,7 +160,8 @@
              {
                  NSArray* userInfoArray = [ShopsUserInfo mj_objectArrayWithKeyValuesArray:result.ModelList];
                  ShopsUserInfo *tmp = userInfoArray[0];
-                 HDCLog(@"%@", tmp.checkstatus);
+                 HDCLog(@"tmp.checkstatus审核状态:%@", tmp.checkstatus);
+                 HDCLog(@"tmp.status营业状态:%@", tmp.status);
                  if ([tmp.checkstatus isEqualToString:@"1"])
                  {
                      [self.navigationController pushViewController:[[CheckStatusViewController alloc] init] animated:YES];
@@ -230,7 +231,7 @@
     //    [self.navigationController pushViewController:[[CommunityShopRegisterViewController alloc] init] animated:YES];
     //    [self.navigationController pushViewController:[[BrandShopRegisterViewController alloc] init] animated:YES];
     //
-    //    [self.navigationController pushViewController:[[RealnameViewController alloc] init] animated:YES];
+//        [self.navigationController pushViewController:[[RealnameViewController alloc] init] animated:YES];
     
     //    [self.navigationController pushViewController:[[CheckStatusViewController alloc] init] animated:YES];
 }

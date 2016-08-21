@@ -93,6 +93,97 @@
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self createDistributionData];
     }];
+    
+    
+    /** 接收通知 */
+    //获取通知中心
+    NSNotificationCenter * center =[NSNotificationCenter defaultCenter];
+    
+    //添加观察者 Observer表示观察者  reciveNotice:表示接收到的消息  name表示再通知中心注册的通知名  object表示可以相应的对象 为nil的话表示所有对象都可以相应
+    [center addObserver:self selector:@selector(reciveNotice:) name:@"DistributionNotice" object:nil];
+    
+    
+}
+
+- (void)reciveNotice:(NSNotification *)notification
+{
+    NSString *str = [notification.userInfo objectForKey:@"DistributionOrderno"];
+    NSString *orderNum = str; // 订单号
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    
+    if ([userInfo.markettypeid isEqualToString:@"1" ]|| [userInfo.markettypeid isEqualToString:@"2"] ) {
+        LoadView *loadView = [LoadView new];
+        [loadView startAnimation];
+        GetOrderParams *parms = [[GetOrderParams alloc]init];
+        parms.orderno = orderNum;
+        parms.marketuserid = userInfo.marketuserid;
+        parms.posttypeid = 2;
+        [RequestTool getOrder:parms success:^(ResultsModel *result) {
+            NSLog(@"%@",result.ModelList);
+            if ([result.ErrorCode isEqualToString:@"1"]) {
+                [self creatDataDetailSource:parms.orderno];
+            }
+            [self createDistributionData];
+            [loadView stopAnimation];
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+    }else{
+        
+        LoadView *loadView = [LoadView new];
+        [loadView startAnimation];
+        GetOrderParams *parms = [[GetOrderParams alloc]init];
+        parms.orderno = orderNum;
+        parms.marketuserid = userInfo.marketuserid;
+        parms.posttypeid = 3;
+        [RequestTool getOrder:parms success:^(ResultsModel *result) {
+            
+            
+//            OrderMarketModel * model = self.distributionDataArray[sender.tag];
+            InputPostInfoParams *parms = [[InputPostInfoParams alloc]init];
+            parms.orderno = orderNum;
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"订单接收" message:@"输入订单号和物流公司" preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder =  @"数据快递单号";
+            }];
+            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder =  @"数据物流公司";
+            }];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                UITextField *orderNum = alertController.textFields.firstObject;
+                UITextField *company = alertController.textFields.lastObject;
+                parms.postnumber = orderNum.text;
+                parms.postcompany = company.text;;
+                [RequestTool inputPostInfo:parms success:^(ResultsModel *result) {
+                    NSLog(@"%@",result.ModelList);
+                    if ([result.ErrorCode isEqualToString:@"1"]) {
+                        [self creatDataDetailSource:parms.orderno];
+                    }
+                    [self createDistributionData];
+                } failure:^(NSError *error) {
+                    NSLog(@"%@",error);
+                }];
+            }];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            
+            [alertController addAction:okAction];
+            [alertController addAction:cancelAction];
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+            
+            NSLog(@"%@",result.ModelList);
+            [loadView stopAnimation];
+//            [sender setTitle:@"发单" forState:UIControlStateNormal];
+//            [sender setBackgroundColor:HDCColor(214, 17, 27)];
+//            [sender addTarget:self action:@selector(senderOrder:) forControlEvents:UIControlEventTouchUpInside];
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+            [loadView stopAnimation];
+        }];
+    }
 }
 
 - (void)createDistributionData
@@ -204,7 +295,7 @@
     OrderMarketModel * model = self.distributionDataArray[sender.tag];
     NSString *orderNum = model.orderno; // 订单号
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
-   
+    
     if ([userInfo.markettypeid isEqualToString:@"1" ]|| [userInfo.markettypeid isEqualToString:@"2"] ) {
         LoadView *loadView = [LoadView new];
         [loadView startAnimation];

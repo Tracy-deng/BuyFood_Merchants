@@ -15,4 +15,6 @@ typedef void(^touchBlcok)(void);
 
 @property(nonatomic, strong) ModlistModel *model;
 @property (nonatomic, copy) touchBlcok touch;
+
+
 @end

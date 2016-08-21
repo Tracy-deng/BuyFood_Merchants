@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TakeMoneyCell : UITableViewCell
+@property (nonatomic, strong) UITextField* inputText;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

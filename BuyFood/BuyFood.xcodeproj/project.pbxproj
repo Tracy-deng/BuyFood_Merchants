@@ -148,7 +148,6 @@
 		0E6F09111D6587F2007E142E /* WeatherForecastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09101D6587F2007E142E /* WeatherForecastViewController.m */; };
 		0E6F09141D65882C007E142E /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09131D65882C007E142E /* InformationViewController.m */; };
 		0E6F09171D65885D007E142E /* PlaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09161D65885D007E142E /* PlaysViewController.m */; };
-		0E6F09281D65BEA3007E142E /* 小艾.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0E6F09271D65BEA3007E142E /* 小艾.mp3 */; };
 		0E7483511D59D57300239C36 /* AddOutDoorParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7483501D59D57300239C36 /* AddOutDoorParams.m */; };
 		0E7483541D59DA6C00239C36 /* AddGroupBuyParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7483531D59DA6C00239C36 /* AddGroupBuyParams.m */; };
 		0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E791D4A579200C3516A /* GetOrderParams.m */; };
@@ -161,6 +160,10 @@
 		0EB830251D5B03750071DF53 /* InputPostInfoParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB830241D5B03750071DF53 /* InputPostInfoParams.m */; };
 		0EB8302B1D5C2B100071DF53 /* picButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8302A1D5C2B100071DF53 /* picButton.m */; };
 		0EB8302E1D5C515F0071DF53 /* MarketUserIdParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB8302D1D5C515F0071DF53 /* MarketUserIdParams.m */; };
+		0EB89A2C1D68437600EC6A4B /* 小艾.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0EB89A2B1D68437600EC6A4B /* 小艾.mp3 */; };
+		0EB89A2F1D68B76900EC6A4B /* ChangeAvtiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB89A2E1D68B76900EC6A4B /* ChangeAvtiveViewController.m */; };
+		0EB89A321D68B79100EC6A4B /* ChangePromotionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB89A311D68B79100EC6A4B /* ChangePromotionViewController.m */; };
+		0EB89A351D68D21300EC6A4B /* ProductPictureList.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EB89A341D68D21300EC6A4B /* ProductPictureList.m */; };
 		0EBBD3A61D54872800262CD7 /* BrandShopDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD3A51D54872800262CD7 /* BrandShopDetailViewController.m */; };
 		0EBBD3A91D54A79D00262CD7 /* TelephoneParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD3A81D54A79D00262CD7 /* TelephoneParams.m */; };
 		0EBBD3AC1D54A87800262CD7 /* CashOutParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBBD3AB1D54A87800262CD7 /* CashOutParams.m */; };
@@ -558,7 +561,6 @@
 		0E6F09131D65882C007E142E /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		0E6F09151D65885D007E142E /* PlaysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaysViewController.h; sourceTree = "<group>"; };
 		0E6F09161D65885D007E142E /* PlaysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaysViewController.m; sourceTree = "<group>"; };
-		0E6F09271D65BEA3007E142E /* 小艾.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "小艾.mp3"; sourceTree = "<group>"; };
 		0E74834F1D59D57300239C36 /* AddOutDoorParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOutDoorParams.h; sourceTree = "<group>"; };
 		0E7483501D59D57300239C36 /* AddOutDoorParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOutDoorParams.m; sourceTree = "<group>"; };
 		0E7483521D59DA6C00239C36 /* AddGroupBuyParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGroupBuyParams.h; sourceTree = "<group>"; };
@@ -583,6 +585,13 @@
 		0EB8302A1D5C2B100071DF53 /* picButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = picButton.m; sourceTree = "<group>"; };
 		0EB8302C1D5C515F0071DF53 /* MarketUserIdParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketUserIdParams.h; sourceTree = "<group>"; };
 		0EB8302D1D5C515F0071DF53 /* MarketUserIdParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketUserIdParams.m; sourceTree = "<group>"; };
+		0EB89A2B1D68437600EC6A4B /* 小艾.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "小艾.mp3"; sourceTree = "<group>"; };
+		0EB89A2D1D68B76900EC6A4B /* ChangeAvtiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeAvtiveViewController.h; sourceTree = "<group>"; };
+		0EB89A2E1D68B76900EC6A4B /* ChangeAvtiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeAvtiveViewController.m; sourceTree = "<group>"; };
+		0EB89A301D68B79100EC6A4B /* ChangePromotionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePromotionViewController.h; sourceTree = "<group>"; };
+		0EB89A311D68B79100EC6A4B /* ChangePromotionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePromotionViewController.m; sourceTree = "<group>"; };
+		0EB89A331D68D21300EC6A4B /* ProductPictureList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPictureList.h; sourceTree = "<group>"; };
+		0EB89A341D68D21300EC6A4B /* ProductPictureList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPictureList.m; sourceTree = "<group>"; };
 		0EBBD3A41D54872800262CD7 /* BrandShopDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandShopDetailViewController.h; sourceTree = "<group>"; };
 		0EBBD3A51D54872800262CD7 /* BrandShopDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandShopDetailViewController.m; sourceTree = "<group>"; };
 		0EBBD3A71D54A79D00262CD7 /* TelephoneParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TelephoneParams.h; sourceTree = "<group>"; };
@@ -953,6 +962,8 @@
 				0EAA79C01D5DB73000CF6403 /* OutDoorModelList.m */,
 				0E7483521D59DA6C00239C36 /* AddGroupBuyParams.h */,
 				0E7483531D59DA6C00239C36 /* AddGroupBuyParams.m */,
+				0EB89A331D68D21300EC6A4B /* ProductPictureList.h */,
+				0EB89A341D68D21300EC6A4B /* ProductPictureList.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1422,7 +1433,7 @@
 				0E5259E11D12810F00AFC95B /* LaunchScreen.storyboard */,
 				0EBBD4071D55D4E400262CD7 /* PushConfig.plist */,
 				0E5259E41D12810F00AFC95B /* Info.plist */,
-				0E6F09271D65BEA3007E142E /* 小艾.mp3 */,
+				0EB89A2B1D68437600EC6A4B /* 小艾.mp3 */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -1506,6 +1517,10 @@
 				0E67DFF41D22C89200E025BD /* SalesPromotionViewController.m */,
 				0E67DFF51D22C89200E025BD /* SecondsKillViewController.h */,
 				0E67DFF61D22C89200E025BD /* SecondsKillViewController.m */,
+				0EB89A2D1D68B76900EC6A4B /* ChangeAvtiveViewController.h */,
+				0EB89A2E1D68B76900EC6A4B /* ChangeAvtiveViewController.m */,
+				0EB89A301D68B79100EC6A4B /* ChangePromotionViewController.h */,
+				0EB89A311D68B79100EC6A4B /* ChangePromotionViewController.m */,
 			);
 			path = AddControllers;
 			sourceTree = "<group>";
@@ -1903,7 +1918,7 @@
 				TargetAttributes = {
 					0E5259CF1D12810F00AFC95B = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 2VKY6QPH98;
+						DevelopmentTeam = RXQK7RGT82;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1938,6 +1953,7 @@
 				0EEF9D1B1D317EE600CD83E9 /* MHSheetView.xib in Resources */,
 				780984FA1D3F7574009E7E84 /* Localizable.strings in Resources */,
 				0EEF9D191D317EE600CD83E9 /* MHSheetHead.xib in Resources */,
+				0EB89A2C1D68437600EC6A4B /* 小艾.mp3 in Resources */,
 				0E12A2611D2B986A008066CC /* Info.plist in Resources */,
 				0E3C1A9D1D1C336B0060A7F4 /* MHSelectPickerView.xib in Resources */,
 				780984A91D3F1FC4009E7E84 /* LICENSE in Resources */,
@@ -1946,7 +1962,6 @@
 				780984F41D3F59B2009E7E84 /* MJRefresh.bundle in Resources */,
 				0E5259E31D12810F00AFC95B /* LaunchScreen.storyboard in Resources */,
 				0E5259E01D12810F00AFC95B /* Assets.xcassets in Resources */,
-				0E6F09281D65BEA3007E142E /* 小艾.mp3 in Resources */,
 				0EEF9D171D317EE600CD83E9 /* MHSheetFoot.xib in Resources */,
 				0EBBD4081D55D4E400262CD7 /* PushConfig.plist in Resources */,
 			);
@@ -2092,6 +2107,7 @@
 				780984F71D3F59B2009E7E84 /* UIScrollView+MJRefresh.m in Sources */,
 				0EF5A6371D3FD6DB00053F13 /* ChangeTimeParams.m in Sources */,
 				780984AB1D3F1FC4009E7E84 /* NSData+ImageContentType.m in Sources */,
+				0EB89A2F1D68B76900EC6A4B /* ChangeAvtiveViewController.m in Sources */,
 				0E3C1AA91D1C53B40060A7F4 /* MyBillSpendingCell.m in Sources */,
 				780984E61D3F59B2009E7E84 /* MJRefreshAutoFooter.m in Sources */,
 				0E67E0031D22C89200E025BD /* GroupPurchaseViewController.m in Sources */,
@@ -2108,6 +2124,7 @@
 				0E110CAC1D199ECE00161ACB /* HeaderViews.m in Sources */,
 				0E110CB51D19B6D700161ACB /* EvaluationViewController.m in Sources */,
 				0E525A561D1283A700AFC95B /* MASConstraintMaker.m in Sources */,
+				0EB89A321D68B79100EC6A4B /* ChangePromotionViewController.m in Sources */,
 				0E525A531D1283A700AFC95B /* HDCTabBarViewController.m in Sources */,
 				0EBD08041D141E13002DD7A4 /* PickUpCell.m in Sources */,
 				0E5FEE681D4CDA4600452B5D /* ReplyEvaluationParams.m in Sources */,
@@ -2164,6 +2181,7 @@
 				0E3C1AA61D1C52AD0060A7F4 /* MyBillIncomeCell.m in Sources */,
 				780984AD1D3F1FC4009E7E84 /* SDWebImageCompat.m in Sources */,
 				0E67E00A1D22C89200E025BD /* PromotionManagementViewController.m in Sources */,
+				0EB89A351D68D21300EC6A4B /* ProductPictureList.m in Sources */,
 				0E5FEE7A1D4EF51A00452B5D /* TodayBalanceAndVolumeModel.m in Sources */,
 				0E6319CB1D25909900D59998 /* TakeMoneyCell.m in Sources */,
 				0EBBD3AC1D54A87800262CD7 /* CashOutParams.m in Sources */,
@@ -2308,6 +2326,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";
@@ -2328,6 +2347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BuyFood/PrefixHeader.pch";

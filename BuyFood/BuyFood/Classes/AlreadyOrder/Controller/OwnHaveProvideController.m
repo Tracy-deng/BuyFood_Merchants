@@ -113,7 +113,6 @@
     cell.detailBtn.tag = indexPath.row;
     // 点击进详情
     [cell.detailBtn addTarget:self action:@selector(buttonAutoDetail:) forControlEvents:(UIControlEventTouchUpInside)];
-   
     
     return cell;
     

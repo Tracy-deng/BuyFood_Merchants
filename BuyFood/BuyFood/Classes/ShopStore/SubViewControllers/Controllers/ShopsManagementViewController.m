@@ -34,6 +34,7 @@
     NSInteger isSelcted;
     NSString * twoID;
     
+    
 }
 @property (nonatomic, strong) UITableView *selectedTableView; // 选择控制器
 @property (nonatomic, strong) UITableView *mainTableView; //
@@ -43,6 +44,13 @@
 
 /** */
 @property (nonatomic, strong) UIButton *headButton;
+/** 左边区头 */
+@property (nonatomic, weak) ShopThreeCate *headView;
+/** cell的背景颜色视图 */
+@property (nonatomic, strong) UIView *bgColorView;
+
+/** UITableViewCell *cell*/
+@property (nonatomic, strong) UITableViewCell *cell;
 
 @end
 
@@ -77,7 +85,6 @@
         
         [self selfReloadData];
     }];
-    
     
 }
 - (void)selfReloadData
@@ -157,6 +164,7 @@
     params.threecategoryid = threeProductId;
     params.pagesize = @"0";
     params.page = @"0";
+    params.promotion = @"1";
     [RequestTool getProduct:params success:^(ResultsModel *result)
     {
         if ([result.totalcount isEqualToString:@"0"])
@@ -242,6 +250,7 @@
     params.subcategoryid = twoID;
     params.pagesize = @"0";
     params.page = @"0";
+    params.promotion = @"1";
     [RequestTool getProduct:params success:^(ResultsModel *result) {
         [self.productMainDataArray removeAllObjects];
         for (NSDictionary *Pdic in result.ModelList) {
@@ -261,8 +270,11 @@
 }
 - (void)didHeadBtn:(UIButton *)sender
 {
-    NSLog(@"点击热销按钮");
-    sender.backgroundColor = HDCColor(217, 217, 217);
+    NSLog(@"点击热销按钮");//HDCColor(215, 215, 215)
+//    [self.headView.contentView setBackgroundColor:HDCColor(215, 215, 215)];
+//    self.cell.contentView.backgroundColor = HDCColor(215, 215, 215);
+//    sender.backgroundColor = HDCColor(245, 245, 245);
+    
     isSelcted = 1;
     [self getHotDataBase];
 }
@@ -288,7 +300,7 @@
 }
 - (void)creatTableView
 {
-    
+    // 热销按钮 
     self.headButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.headButton setTitle:@"热销" forState:(UIControlStateNormal)];
       self.headButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
@@ -326,7 +338,6 @@
         make.right.equalTo(self.view);
         make.height.equalTo(@(SCREEN_HEIGHT - 200));
     }];
-    
     
     
     _mainTableView.dataSource = self;
@@ -416,7 +427,6 @@
         headLabel.textColor = [UIColor colorWithWhite:0.286 alpha:1.000];
         
         
-        
         return headView;
     }
     else if([tableView isEqual:_selectedTableView])
@@ -425,12 +435,15 @@
         if (sortKeys.count != 0) {
             NSString *catego = [sortKeys objectAtIndex:section];
             ShopThreeCate *headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"head"];
+//            [headView.contentView setBackgroundColor:[UIColor redColor]];
             headView.frame = CGRectMake(0, 0, 100, 50);
             headView.model = [[billData objectForKey:catego] firstObject];
             
+            self.headView = headView;
             __block typeof (self) weakself = self;
             
             headView.touch = ^{
+//                [self.headButton setBackgroundColor:HDCColor(215, 215, 215)];
                 
                 NSArray *keys = [self getSortedKeys:billData];
                 
@@ -443,8 +456,10 @@
                 isSelcted = 3;
                 [weakself getHeaderViewSource];
             };
+            
             return headView;
         }
+        
     }
     return 0;
 }
@@ -457,10 +472,10 @@
         
         static NSString *identifier = @"test";
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
+        self.cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (self.cell == nil) {
             
-            cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier
+            self.cell = [[UITableViewCell alloc]initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier
                     ];
         }
         NSArray *keys = [self getSortedKeys:billData];
@@ -468,16 +483,16 @@
             
             NSString *catego = [keys objectAtIndex:indexPath.section];
             ModlistModel *model = [[billData objectForKey:catego]objectAtIndex:indexPath.row];
-            cell.textLabel.text = model.threecategoryname;
+            self.cell.textLabel.text = model.threecategoryname;
         }
-        cell.backgroundColor = HDCColor(215, 215, 215);
-        [tableView setSeparatorColor:[UIColor whiteColor]];
-        cell.textLabel.font = [UIFont systemFontOfSize:15];
-      // cell 选中的颜色
-        UIView *bgColorView = [[UIView alloc] init];
-        bgColorView.backgroundColor = HDCColor(245, 245, 245);
-        [cell setSelectedBackgroundView:bgColorView];
-        return cell;
+        self.cell.backgroundColor = HDCColor(215, 215, 215);
+        [tableView setSeparatorColor:HDCColor(215, 215, 215)];
+        self.cell.textLabel.font = [UIFont systemFontOfSize:15];
+        // cell 选中的颜色
+//        self.bgColorView = [[UIView alloc] init];
+//        self.bgColorView.backgroundColor = HDCColor(245, 245, 245);
+//        [self.cell setSelectedBackgroundView:self.bgColorView];
+        return self.cell;
         
     }else{
         
@@ -500,13 +515,14 @@
     [self.navigationController pushViewController:goodsVC animated:YES];
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     toAddVC = YES;
+    
     // 点击 mainTableView 进入商品详情
     if([tableView isEqual:_mainTableView])
     {
+        HDCLog(@"点击的行数：%ld", indexPath.row);
         ShopDetailViewController *detailVC =  [[ShopDetailViewController alloc]init];
         detailVC.detailModel = self.productMainDataArray[indexPath.row];
         detailVC.goodsDic = billData;
@@ -514,6 +530,9 @@
     }
     else{// 点击selectedTableView切换数据
         HDCLog(@"indexPath.row === %ld", indexPath.row);
+//        [self.headButton setBackgroundColor:HDCColor(215, 215, 215)];
+//        [self.headView.contentView setBackgroundColor:[UIColor orangeColor]];
+//        
         // 点击  传入三级id  mainTableView 获取数据
         isSelcted = 2;
         [self.productMainDataArray removeAllObjects];

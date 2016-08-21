@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface AddOutDoorParams : NSObject
 
 /** 户外活动名称 */
@@ -48,7 +49,7 @@
 @property (nonatomic, strong) NSString *outaddress;
 /** 户外活动图片列表 */
 @property (nonatomic, strong) NSMutableArray *ProductPictureList;
-/** 团购的重量 */
+/** 团购的单位 */
 @property (nonatomic, strong) NSString *productunit;
 
 @end

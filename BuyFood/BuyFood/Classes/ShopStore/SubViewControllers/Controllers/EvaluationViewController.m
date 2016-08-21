@@ -96,6 +96,7 @@ static CGFloat textFieldH = 40;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _textView  = [[UITextView alloc]init];
     _textView.frame = CGRectMake(0,JADESIZE.height,JADESIZE.width, 50);
     _textView.delegate = self;

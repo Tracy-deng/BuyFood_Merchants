@@ -57,6 +57,39 @@
     self.tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self GetOrderList];
     }];
+    
+    /** 接收通知 */
+    //获取通知中心
+    NSNotificationCenter * center =[NSNotificationCenter defaultCenter];
+    
+    //添加观察者 Observer表示观察者  reciveNotice:表示接收到的消息  name表示再通知中心注册的通知名  object表示可以相应的对象 为nil的话表示所有对象都可以相应
+    [center addObserver:self selector:@selector(reciveNotice:) name:@"Invitenotice" object:nil];
+}
+
+- (void)reciveNotice:(NSNotification *)notification
+{
+    
+    HDCLog(@"收到消息啦!!!");
+    
+    NSString *str = [notification.userInfo objectForKey:@"InviteOrderno"];
+    HDCLog(@"接收到的订单号: ===== %@", str);
+    
+    GetOrderParams *parms = [[GetOrderParams alloc]init];
+    parms.orderno = str;
+    ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
+    parms.marketuserid = userInfo.marketuserid;
+    parms.posttypeid = 1;
+    [RequestTool getOrder:parms success:^(ResultsModel *result) {
+        NSLog(@"%@",result.ModelList);
+        if([result.ErrorCode isEqualToString:@"1"]){
+            [self creatDataDetailSource:parms.orderno];
+        }
+        [self GetOrderList];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        
+    }];
 }
 
 - (void)GetOrderList
@@ -71,7 +104,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         [RequestTool untreatedInviteOrderList:params success:^(MarketOrderModelList *result) {
-            HDCLog(@"%@", result.OrderMarket);
+//            HDCLog(@"%@", result.OrderMarket);
             [self.inviteDataArray removeAllObjects];
             for (NSDictionary *dict in result.OrderMarket) {
                 OrderMarketModel *model = [[OrderMarketModel alloc]init];

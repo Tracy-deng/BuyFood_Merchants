@@ -78,6 +78,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+//    NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+//    [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+    
+    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+    [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+    
     navBarHairlineImageView.hidden = YES;
 }
 - (void)viewWillDisappear:(BOOL)animated
@@ -354,4 +361,16 @@
 {
     [self.navigationController pushViewController:[[PlaysViewController alloc] init] animated:YES];
 }
+
+//// 是否可以旋转
+//- (BOOL)shouldAutorotate
+//{
+//    return NO;
+//}
+////支持的方向
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+//{
+//    return UIInterfaceOrientationMaskPortrait;
+//}
+
 @end

@@ -24,5 +24,4 @@
 @property (nonatomic, strong) NSString *outmoney;
 
 
-
 @end
