@@ -150,11 +150,10 @@
         params.outtime = self.groupDate;
         params.starttime = self.groupStartTime;
         params.endtime = self.groupEndTime;
-        params.rule1 = @"试用规则-交通";
-        params.rule2 = @"试用规则-住宿";
-        params.rule3 = @"试用规则-用餐";
-        params.rule4 = @"试用规则-门票";
-        params.rule5 = @"试用规则-其他";
+        params.rule1 = @"无需预约可直接上门";
+        params.rule2 = @"最多可使用十张、不兑现、不找零";
+        params.rule3 = @"仅限本人使用";
+        params.productunit = self.shopsWeight;
         params.marketuserid = self.userInfo.marketuserid;
         params.remark = self.groupDescribe;
         params.pic = find_btn3.picString;
@@ -337,20 +336,24 @@
     {
         _selectTimePicker = [[MHDatePicker alloc] init];
         __weak typeof(self) weakSelf = self;
+        _selectTimePicker.isBeforeTime = YES;
+        _selectTimePicker.datePickerMode = UIDatePickerModeDateAndTime;
         [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
          {
-             self.groupStartTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"YYYY/MM/dd hh:mm"];
+             self.groupStartTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"yyyy年MM月dd日 HH: mm"];
              [cell setChooseTitleLabel:@"活动开始时间:" andContentLabel:self.groupStartTime];
              [self.tableView reloadData];
          }];
     }
     if (indexPath.row == 8)
     {
-        _selectTimePicker = [[MHDatePicker alloc] init];
+        MHDatePicker *timePicker = [[MHDatePicker alloc] init];
+        timePicker.isBeforeTime = YES;
+        timePicker.datePickerMode = UIDatePickerModeDateAndTime;
         __weak typeof(self) weakSelf = self;
-        [_selectTimePicker didFinishSelectedDate:^(NSDate *selectedDate)
+        [timePicker didFinishSelectedDate:^(NSDate *selectedDate)
          {
-             self.groupEndTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"YYYY/MM/dd hh:mm"];
+             self.groupEndTime = [weakSelf dateStringWithDate:selectedDate DateFormat:@"yyyy年MM月dd日 HH: mm"];
              [cell setChooseTitleLabel:@"活动结束时间:" andContentLabel:self.groupEndTime];
              [self.tableView reloadData];
          }];
@@ -484,8 +487,8 @@
 }
 - (void)packUpDownTextField:(UITextField *)textField isShow:(BOOL)isShow
 {
-    if (textField.tag == 4) {
-        
+    if (textField.tag == 4 || textField.tag == 9)
+    {
         //设置动画的名字
         [UIView beginAnimations:@"Animation" context:nil];
         //设置动画的间隔时间

@@ -148,6 +148,7 @@
 		0E6F09111D6587F2007E142E /* WeatherForecastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09101D6587F2007E142E /* WeatherForecastViewController.m */; };
 		0E6F09141D65882C007E142E /* InformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09131D65882C007E142E /* InformationViewController.m */; };
 		0E6F09171D65885D007E142E /* PlaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E6F09161D65885D007E142E /* PlaysViewController.m */; };
+		0E6F09281D65BEA3007E142E /* 小艾.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0E6F09271D65BEA3007E142E /* 小艾.mp3 */; };
 		0E7483511D59D57300239C36 /* AddOutDoorParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7483501D59D57300239C36 /* AddOutDoorParams.m */; };
 		0E7483541D59DA6C00239C36 /* AddGroupBuyParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7483531D59DA6C00239C36 /* AddGroupBuyParams.m */; };
 		0E830E7A1D4A579200C3516A /* GetOrderParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E830E791D4A579200C3516A /* GetOrderParams.m */; };
@@ -557,6 +558,7 @@
 		0E6F09131D65882C007E142E /* InformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationViewController.m; sourceTree = "<group>"; };
 		0E6F09151D65885D007E142E /* PlaysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaysViewController.h; sourceTree = "<group>"; };
 		0E6F09161D65885D007E142E /* PlaysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaysViewController.m; sourceTree = "<group>"; };
+		0E6F09271D65BEA3007E142E /* 小艾.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "小艾.mp3"; sourceTree = "<group>"; };
 		0E74834F1D59D57300239C36 /* AddOutDoorParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddOutDoorParams.h; sourceTree = "<group>"; };
 		0E7483501D59D57300239C36 /* AddOutDoorParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddOutDoorParams.m; sourceTree = "<group>"; };
 		0E7483521D59DA6C00239C36 /* AddGroupBuyParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGroupBuyParams.h; sourceTree = "<group>"; };
@@ -1420,6 +1422,7 @@
 				0E5259E11D12810F00AFC95B /* LaunchScreen.storyboard */,
 				0EBBD4071D55D4E400262CD7 /* PushConfig.plist */,
 				0E5259E41D12810F00AFC95B /* Info.plist */,
+				0E6F09271D65BEA3007E142E /* 小艾.mp3 */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -1943,6 +1946,7 @@
 				780984F41D3F59B2009E7E84 /* MJRefresh.bundle in Resources */,
 				0E5259E31D12810F00AFC95B /* LaunchScreen.storyboard in Resources */,
 				0E5259E01D12810F00AFC95B /* Assets.xcassets in Resources */,
+				0E6F09281D65BEA3007E142E /* 小艾.mp3 in Resources */,
 				0EEF9D171D317EE600CD83E9 /* MHSheetFoot.xib in Resources */,
 				0EBBD4081D55D4E400262CD7 /* PushConfig.plist in Resources */,
 			);

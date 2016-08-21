@@ -99,7 +99,7 @@ static CGFloat textFieldH = 40;
     _textView  = [[UITextView alloc]init];
     _textView.frame = CGRectMake(0,JADESIZE.height,JADESIZE.width, 50);
     _textView.delegate = self;
-    _textView.layer.borderColor = [UIColor redColor].CGColor;
+    _textView.layer.borderColor = [UIColor grayColor].CGColor;
     _textView.hidden = YES;
     _textView.layer.borderWidth = 1;
     
@@ -169,7 +169,7 @@ static CGFloat textFieldH = 40;
     
      self.tableView.userInteractionEnabled = YES;
     _textView.hidden = NO;
-    _textView.backgroundColor = [UIColor redColor];
+    _textView.backgroundColor = [UIColor whiteColor];
     [_textView becomeFirstResponder];//弹出键盘
     NSDictionary *dic = [notifice object];
     chartID = [dic objectForKey:@"charID"];

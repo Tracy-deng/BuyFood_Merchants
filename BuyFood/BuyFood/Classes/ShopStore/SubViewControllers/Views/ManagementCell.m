@@ -276,7 +276,7 @@
     [self.time mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.contentView.mas_right).offset(-12);
         make.top.equalTo(self.shopsOriginalPriceTitle);
-        make.width.equalTo(@(80));
+        make.width.equalTo(@(90));
         make.height.equalTo(@(25));
     }];
 }
@@ -298,8 +298,7 @@
 
 - (void)setOtherShopsImage:(NSString * )shopsImage andShopsNameLabel:(NSString* )shopsName andShopsWeight:(NSString* )shopsWeight andShopsSpecifications:(NSString* )shopsSpecifications andShopsOriginalPriceTitle:(NSString* )shopsOriginalPriceTitle andShopsOriginalPrice:(NSString* )shopsOriginalPrice andShopsPromotionPriceTitle:(NSString* )shopsPromotionPriceTitle andShopsPromotionPrice:(NSString* )shopsPromotionPrice andTime:(NSString *)time
 {
-//    [self.shopsImage sd_setImageWithURL:[NSURL URLWithString:shopsImage]];
-    [self.shopsImage setImage:[UIImage imageNamed:shopsImage]];
+    [self.shopsImage sd_setImageWithURL:[NSURL URLWithString:shopsImage]];
     self.shopsName.text = shopsName;
     self.shopsWeight.text = shopsWeight;
     self.shopsSpecifications.text = shopsSpecifications;

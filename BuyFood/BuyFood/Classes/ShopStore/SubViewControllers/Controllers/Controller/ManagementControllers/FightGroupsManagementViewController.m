@@ -81,13 +81,7 @@ UITableViewDataSource>
         make.height.mas_equalTo(self.view.mas_height).multipliedBy(0.08);
     }];
 }
-/** 
- picButton *find_btn1 = (picButton *)[self.view viewWithTag:100];
- picButton *find_btn2 = (picButton *)[self.view viewWithTag:101];
- picButton *find_btn3 = (picButton *)[self.view viewWithTag:102];
- HDCLog(@"%@", find_btn1.picString);
- HDCLog(@"%@", find_btn2.picString);
- HDCLog(@"%@", find_btn3.picString);*/
+
 - (void)bottomBtnClick:(UIButton* )sender
 {
     [self.navigationController pushViewController:[[FightGroupsViewController alloc] init] animated:YES];

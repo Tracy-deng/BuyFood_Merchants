@@ -396,7 +396,7 @@
 /** 普通商家和社区店和品牌馆配送订单 --已完成 */
 + (void)alreadyDistributionOverOrderList:(OrderParams *)param success:(void(^)(MarketOrderModelList *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetBuyedHistoryOrderByUserID"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_order/GetBuyedHistoryOrderPage"];
     [HttpRequestTool GET:url parameters:param.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error) {
             HDCLog(@"%@", error.userInfo);
@@ -844,11 +844,6 @@
 + (void)addOutDoor:(AddOutDoorParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
     NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_outdoor/Add"];
-    HDCLog(@"%@%@",url,params.ProductPictureList);
-    for (NSString *str in params.ProductPictureList)
-    {
-        HDCLog(@"%@", str);
-    }
     [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error)
         {
@@ -871,7 +866,6 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"model ===== %@",model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -896,14 +890,14 @@
 /** 获取团购列表 */
 + (void)groupBuyList:(MarketUserIdParams *)params success:(void(^)(ResultsModel *result))success failure:(void (^)(NSError *error))failure
 {
-    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_groupbuy/GetModelListForMarket"];
+    NSString *url = [NSString stringWithFormat:@"%@%@",urlPrex,@"t_groupbuy/GetModelListForMarketUser"];
     [HttpRequestTool POST:url parameters:params.mj_keyValues progress:nil completionHandler:^(id model, NSError *error) {
         if (error)
         {
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@",model);
+            
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }

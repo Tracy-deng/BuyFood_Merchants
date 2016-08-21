@@ -25,5 +25,9 @@
 /** 活动时间 */
 @property (nonatomic, strong) NSString *outtime;
 
+@property (nonatomic, strong) NSString *marketname;
+
+@property (nonatomic, strong) NSString *proid_sep; //活动id 
+
 
 @end

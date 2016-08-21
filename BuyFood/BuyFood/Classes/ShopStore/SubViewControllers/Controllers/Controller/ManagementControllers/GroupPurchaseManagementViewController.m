@@ -33,6 +33,7 @@ UITableViewDataSource>
 @implementation GroupPurchaseManagementViewController
 {
     NSMutableArray *dataSource;
+    NSString *proid_sep; //活动id
 }
 
 - (void)viewDidLoad
@@ -43,6 +44,12 @@ UITableViewDataSource>
     [self createTabeleViewAndBottomBtn];
     self.userInfo = [ShopsUserInfoTool account];
     
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self prepareGroupBuyDataSource];
     
     self.tabelView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -124,7 +131,13 @@ UITableViewDataSource>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ManagementCell *cell = [ManagementCell cellWithOtherTableView:tableView];
-    [cell setOtherShopsImage:@"rectangle9" andShopsNameLabel:@"大百草" andShopsWeight:@"222.0" andShopsSpecifications:@"/千克" andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:@"18" andShopsPromotionPriceTitle:@"团购价" andShopsPromotionPrice:@"¥14" andTime:@"12:00开团"];
+    
+    OutDoorModelList *model = dataSource[indexPath.row];
+    NSString *timeStr = model.starttime;
+    NSRange range = [timeStr rangeOfString:@"T"];
+    NSString *time = [[timeStr substringFromIndex:range.location + 1] stringByAppendingString:@"开团"];
+    [cell setOtherShopsImage:model.pic andShopsNameLabel:model.outname andShopsWeight:@"" andShopsSpecifications:@"" andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:model.oldprice andShopsPromotionPriceTitle:@"团购价" andShopsPromotionPrice:model.newprice  andTime:time];
+    
     return cell;
 }
 
@@ -132,9 +145,42 @@ UITableViewDataSource>
 {
     return self.view.frame.size.height * 0.15;
 }
+/** 
+ 
+ 
+ 
+ */
 
-
-
-
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        
+        UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"是否删除这个活动" message:@"请您三思😊" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            OutDoorModelList *model = dataSource[indexPath.row];
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"proid_sep"] = model.proid_sep;
+            [HttpRequestTool GET:@"http://www.goucaichina.com:81/t_groupbuy/Delete" parameters:params progress:nil completionHandler:^(id model, NSError *error) {
+                
+                if ([model[@"ErrorCode"] intValue] == 1)
+                {
+                    [dataSource removeObjectAtIndex:indexPath.row];
+                    
+                    [self.tabelView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+                
+            }];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
+        [selct addAction:alertAction];
+        [selct addAction:cancelAction];
+        [self presentViewController:selct animated:YES completion:nil];
+        return;
+        
+    }];
+    return @[deleteRowAction];
+}
 
 @end
