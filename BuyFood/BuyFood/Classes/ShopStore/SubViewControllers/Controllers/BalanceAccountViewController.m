@@ -60,7 +60,6 @@
          if ([result.totalcount isEqualToString:@"0"])
          {
              [MBProgressHUD hideHUD];
-             [MBProgressHUD showSuccess:@"暂无数据..."];
              self.headerView.withdrawMoney.text = @"0";
          }
          else

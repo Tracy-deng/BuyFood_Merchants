@@ -117,7 +117,7 @@
         if (error) {
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -215,7 +215,7 @@
         if (error) {
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -369,7 +369,7 @@
             failure(error);
         } else
         {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -386,7 +386,7 @@
             failure(error);
         } else
         {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -403,7 +403,7 @@
             failure(error);
         } else
         {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -450,6 +450,7 @@
             failure(error);
         } else
         {
+            HDCLog(@"%@", model);
             MarketOrderModelList *result = [MarketOrderModelList  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -497,7 +498,8 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+            HDCLog(@"商户账户余额%@", model);
+            HDCLog(@"商户账户余额%@", model[@"ErrorMsg"]);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -513,7 +515,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -530,7 +532,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -562,7 +564,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -578,7 +580,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel  mj_objectWithKeyValues:model];
             success(result);
         }
@@ -736,7 +738,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -752,7 +754,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -769,7 +771,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            HDCLog(@"%@", model);
+//            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }
@@ -897,7 +899,7 @@
             HDCLog(@"%@", error.userInfo);
             failure(error);
         } else {
-            
+            HDCLog(@"%@", model);
             ResultsModel *result = [ResultsModel mj_objectWithKeyValues:model];
             success(result);
         }

@@ -29,4 +29,7 @@
 
 @property (nonatomic, strong) NSString *page;
 
+@property (nonatomic, strong) NSString *promotion;
+
+
 @end

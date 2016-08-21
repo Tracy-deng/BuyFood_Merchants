@@ -115,7 +115,7 @@
             NSString *c = [shopArray[i] objectForKey:@"productcount"];
             NSString *d = [shopArray[i] objectForKey:@"productprice"];
             
-            [commands appendData:[[NSString stringWithFormat:@"%@         %@         %@\n",a,c,d] dataUsingEncoding:gbk]];
+            [commands appendData:[[NSString stringWithFormat:@"%@        %@            %@\n",a,c,d] dataUsingEncoding:gbk]];
             
             [commands appendData:[@"--------------------------------\r\n" dataUsingEncoding:gbk]];
         }

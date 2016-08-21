@@ -67,6 +67,7 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = self.sourceArray[indexPath.row];
     cell.textLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
     cell.textLabel.textColor = HDCColor(102, 102, 102);
@@ -75,5 +76,8 @@
     cell.detailTextLabel.textColor = HDCColor(153, 153, 153);
     return cell;
 }
+
+
+
 
 @end

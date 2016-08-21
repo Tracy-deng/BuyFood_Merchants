@@ -17,7 +17,7 @@
 #import "MBProgressHUD.h"
 #import "CheckStatusViewController.h"
 
-@interface RealnameViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface RealnameViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 
 @property (nonatomic, strong) userTextField * nameTF;
@@ -104,6 +104,8 @@
     [scrollView addSubview:backGround];
     
     _nameTF = [userTextField textFieldWithheight:10];
+    _nameTF.returnKeyType = UIReturnKeyDone;
+    _nameTF.delegate = self;
     [backGround addSubview:_nameTF];
     
     UILabel *nameLabel = [UILabel new];
@@ -137,6 +139,8 @@
     
     
     _cardTF = [userTextField textFieldWithheight:58];
+    _cardTF.returnKeyType = UIReturnKeyDone;
+    _cardTF.delegate = self;
     [backGround addSubview:_cardTF];
     
     UILabel * cardLabel = [UILabel new];
@@ -394,6 +398,12 @@
     }];
     
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 /** 添加第一张 */
 - (void)firstImageIntoPhoto:(UITapGestureRecognizer *)tap
 {

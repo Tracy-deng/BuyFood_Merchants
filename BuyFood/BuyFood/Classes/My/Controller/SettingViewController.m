@@ -90,8 +90,15 @@
 {
     // 设置店铺头像
     UIImageView* headerImageView = [[UIImageView alloc] init];
-    
-    [headerImageView sd_setImageWithURL:[NSURL URLWithString:self.shopsUserInfo.pic]];
+
+    if (self.shopsUserInfo.pic.length == 0)
+    {
+        [headerImageView setImage:[UIImage imageNamed:@"oval1"]];
+    }
+    else
+    {
+        [headerImageView sd_setImageWithURL:[NSURL URLWithString:self.shopsUserInfo.pic]];
+    }
     [self.view addSubview:headerImageView];
     [headerImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view.mas_centerX);
@@ -108,7 +115,14 @@
     UILabel *shopName = [[UILabel alloc] init];
     [shopName setFont:[UIFont fontWithName:@"PingFangSC-Regular" size:16]];
     [shopName setTextColor:HDCColor(246, 246, 246)];
-    shopName.text = self.shopsUserInfo.marketname;
+    if (self.shopsUserInfo.marketname.length == 0)
+    {
+        shopName.text = @"店铺名称";
+    }
+    else
+    {
+        shopName.text = self.shopsUserInfo.marketname;
+    }
     shopName.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:shopName];
     [shopName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -209,7 +223,9 @@
             [MBProgressHUD showMessage:@"开启自动接单中..."];
             [MBProgressHUD hideHUD];
             [MBProgressHUD showSuccess:@"开启成功"];
+            self.shopsUserInfo.status = @"4";
             [ShopsUserInfoTool saveAccount:self.shopsUserInfo];
+            HDCLog(@"修改营业状态:%@", self.shopsUserInfo.status);
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUD];
             [MBProgressHUD showError:@"开启失败"];
@@ -226,7 +242,9 @@
         [RequestTool autoGetOrder:params success:^(ResultsModel *result) {
             [MBProgressHUD hideHUD];
             [MBProgressHUD showSuccess:@"关闭成功"];
+            self.shopsUserInfo.status = @"1";
             [ShopsUserInfoTool saveAccount:self.shopsUserInfo];
+            HDCLog(@"修改营业状态:%@", self.shopsUserInfo.status);
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUD];
             [MBProgressHUD showSuccess:@"关闭失败"];

@@ -11,6 +11,8 @@
 @interface HeaderViews : UIView
 
 @property (nonatomic, strong) UILabel* withdrawMoney;
+@property (nonatomic, strong) UILabel *totalMoney;
+
 @property (nonatomic, strong) UIButton* withdrawMoneyBtn;
 
 

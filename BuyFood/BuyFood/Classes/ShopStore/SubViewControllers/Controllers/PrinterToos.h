@@ -14,4 +14,5 @@
 +(instancetype) sharePrinterToos;
 
 - (void)printerTicket:(NSArray *)array;
+
 @end

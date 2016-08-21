@@ -30,12 +30,20 @@
 /** 加载网页 */
 - (void)loadWebView
 {
-    webView  = [[ WKWebView alloc] initWithFrame:CGRectMake(0, 100, self.view.width, 300)];
+    webView  = [[ WKWebView alloc] init];
+    
     [webView setUserInteractionEnabled:YES];  //是否支持交互
     
     [webView setOpaque:NO];  //透明
     
     [self.view  addSubview:webView];  //加载到自己的view
+    
+    [webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.top.equalTo(self.view);
+        make.width.equalTo(self.view);
+        make.height.equalTo(self.view);
+    }];
     
     [webView setNavigationDelegate:self];
     
@@ -70,6 +78,32 @@
     [MBProgressHUD hideAllHUDsForView:view animated:YES];
     view.hidden = YES;
 }
+//支持的方向
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskLandscapeLeft;
+}
 
+//是否可以旋转
+- (BOOL)shouldAutorotate
+{
+    return YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    NSNumber *orientationUnknown = [NSNumber numberWithInt:UIInterfaceOrientationUnknown];
+//    [[UIDevice currentDevice] setValue:orientationUnknown forKey:@"orientation"];
+    
+    NSNumber *orientationTarget = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:orientationTarget forKey:@"orientation"];
+}
+
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:YES];
+//    [webView removeFromSuperview];
+//}
 
 @end

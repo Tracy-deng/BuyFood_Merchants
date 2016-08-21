@@ -18,6 +18,10 @@
 #import "ModlistModel.h"
 #import "ResultsModel.h"
 #import "MJRefresh.h"
+#import "DeleteProductParams.h"
+#import "MBProgressHUD.h"
+#import "ChangePromotionViewController.h"
+
 #define SCREEN_WIDTH  [[UIScreen mainScreen] bounds].size.width
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
@@ -108,9 +112,9 @@ UITableViewDataSource>
     [loadView startAnimation];
     SalesProductParams *params = [[SalesProductParams alloc]init];
     ShopsUserInfo* shopsInfo = [ShopsUserInfoTool account];
-
+    
     params.marketuserid = shopsInfo.marketuserid;
-
+    
     [RequestTool getSalesProduce:params success:^(ResultsModel *result) {
         
         NSLog(@"请求促销管理数据成功 %@",result.ModelList);
@@ -153,10 +157,10 @@ UITableViewDataSource>
     NSString *stock = [NSString stringWithFormat:@"%.1f", stockNumber];
     
     CGFloat originPrice = [salesModel.productoutprice floatValue];
-    NSString *oriPrice = [NSString stringWithFormat:@"%.1f",originPrice];
+    NSString *oriPrice = [[NSString stringWithFormat:@"%.1f",originPrice] stringByAppendingString:salesModel.productunit];
     
     CGFloat nowPrice = [salesModel.productoutprice2 floatValue];
-    NSString *nowPricetring = [NSString stringWithFormat:@"%.1f",nowPrice];
+    NSString *nowPricetring = [[NSString stringWithFormat:@"%.1f",nowPrice] stringByAppendingString:salesModel.productunit];
     [cell setShopsImage:salesModel.productpic andShopsNameLabel:salesModel.productname andShopsWeight:stock  andShopsSpecifications:[NSString stringWithFormat:@"/%@",salesModel.productunit]andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:oriPrice andShopsPromotionPriceTitle:@"促销价" andShopsPromotionPrice:nowPricetring];
     return cell;
 }
@@ -165,35 +169,52 @@ UITableViewDataSource>
 {
     return self.view.frame.size.height * 0.15;
 }
-/**
+
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
         
-//        [self.tabelView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         
-    }];
-    
-    UITableViewRowAction *topRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"置顶" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UIAlertController *selct = [UIAlertController alertControllerWithTitle:@"是否删除这个活动" message:@"请您三思😊" preferredStyle:UIAlertControllerStyleAlert];
         
-        
-        NSIndexPath *firstIndexPath = [NSIndexPath indexPathForRow:0 inSection:indexPath.section];
-        
-        [tableView moveRowAtIndexPath:indexPath toIndexPath:firstIndexPath];
-        
-    }];
-    
-    topRowAction.backgroundColor = [UIColor colorWithRed:46/255.0 green:192/255.0 blue:70/255.0 alpha:1];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            ModlistModel *model = self.salesDataArray[indexPath.row];
 
-    return @[deleteRowAction,topRowAction];
+            DeleteProductParams* params = [[DeleteProductParams alloc] init];
+            params.proid = model.productid;
+            [RequestTool deleteProduct:params success:^(ResultsModel *result) {
+
+                if([result.ErrorCode isEqualToString:@"1"])
+                {
+                    [MBProgressHUD showSuccess:@"删除成功"];
+                    [self.salesDataArray removeObjectAtIndex:indexPath.row];
+                    
+                    [self.tabelView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+            }failure:^(NSError *error) {
+                NSLog(@"删除失败 %@",error);
+                
+            }];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:nil];
+        [selct addAction:alertAction];
+        [selct addAction:cancelAction];
+        [self presentViewController:selct animated:YES completion:nil];
+        return;
+        
+        
+    }];
+    
+
+    return @[deleteRowAction];
 }
-*/
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController pushViewController:[[ChangePromotionViewController alloc] init] animated:YES];
 }
-
 
 @end

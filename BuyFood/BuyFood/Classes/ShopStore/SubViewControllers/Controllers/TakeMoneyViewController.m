@@ -8,12 +8,28 @@
 
 #import "TakeMoneyViewController.h"
 #import "TakeMoneyCell.h"
+#import "TelephoneParams.h"
+#import "RequestTool.h"
+#import "ResultsModel.h"
+#import "ShopsUserInfo.h"
+#import "ShopsUserInfoTool.h"
+#import "MBProgressHUD.h"
+#import "CashOutParams.h"
 
-@interface TakeMoneyViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface TakeMoneyViewController ()<UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 {
     UIButton *button;
 }
 @property (nonatomic, strong) UITableView* tableView;
+@property (nonatomic, strong) ShopsUserInfo *userInfo;
+/** 支付宝号或者银行卡号 */
+@property (nonatomic, strong) NSString *cardNum;
+/** 姓名 */
+@property (nonatomic, strong) NSString *name;
+/** 提现金额 */
+@property (nonatomic, strong) NSString *money;
+/** 验证码 */
+@property (nonatomic, strong) NSString *msgCode;
 
 @end
 
@@ -25,6 +41,7 @@
     [self.view setBackgroundColor:WhiteColor];
     self.title = @"取现";
     [self setUpTableViewAndBtn];
+    self.userInfo = [ShopsUserInfoTool account];
 }
 
 - (void)setUpTableViewAndBtn
@@ -58,11 +75,39 @@
 
 - (void)btnClick:(UIButton* )sender
 {
+    [MBProgressHUD showSuccess:@"正在提交中"];
+    CashOutParams *params = [[CashOutParams alloc] init];
+    params.telephone = self.userInfo.telephone;
+    params.verifycode = self.msgCode;
+    if (self.selectIndex == 0)
+    {
+        params.allipay = self.cardNum;
+    }
+    else
+    {
+        params.bankname = self.cardNum;
+    }
+    params.userid = self.userInfo.marketuserid;
+    params.outmoney = self.money;
+    [RequestTool cashOut:params success:^(ResultsModel *result)
+    {
+        if ([result.ErrorCode isEqualToString:@"0"])
+        {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showError:result.ErrorMsg];
+        }
+        else
+        {
+            
+        }
+        
+    } failure:^(NSError *error) {
+        ;
+    }];
     HDCLog(@"提交审核");
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     return 4;
 }
 
@@ -70,6 +115,10 @@
 {
     
     TakeMoneyCell* cell = [TakeMoneyCell cellWithTableView:tableView];
+    cell.inputText.tag = indexPath.row;
+    cell.inputText.delegate = self;
+    cell.inputText.returnKeyType = UIReturnKeyDone;
+    [cell.inputText addTarget:self action:@selector(changeValue:) forControlEvents:UIControlEventEditingChanged];
     if (indexPath.row == 0)
     {
         if (self.selectIndex == 0)
@@ -108,20 +157,48 @@
             make.height.equalTo(@(40));
         }];
         [cell setUpTitleText:@"验证码:" andInputTextPlaceholder:@"请输入验证码" andInputText:@""];
+        
     }
     
     return cell;
 }
 
-- (void)buttonClick:(UIButton *)sender
+- (void)changeValue:(UITextField *)textField
 {
-    button.userInteractionEnabled = NO;
-    HDCLog(@"发送验证码");
-    [self startTime];
+    switch (textField.tag)
+    {
+        case 0:
+            self.cardNum = textField.text;
+            break;
+        case 1:
+            self.name = textField.text;
+            break;
+        case 2:
+            self.money = textField.text;
+            break;
+        case 3:
+            self.msgCode = textField.text;
+            break;
+        default:
+            break;
+    }
 }
 
+- (void)buttonClick:(UIButton *)sender
+{
+    TelephoneParams *params = [[TelephoneParams alloc] init];
+    params.telephone = self.userInfo.telephone;
+    [RequestTool getCashOutMsgCode:params success:^(ResultsModel *result) {
+        button.userInteractionEnabled = NO;
+        [MBProgressHUD showSuccess:@"验证码已发送"];
+        [self startTime];
+    } failure:^(NSError *error) {
+        ;
+    }];
+    
+}
 
-
+/** 倒计时 */
 -(void)startTime{
     __block int timeout=59; //倒计时时间
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -152,5 +229,10 @@
     dispatch_resume(_timer);
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 
 @end

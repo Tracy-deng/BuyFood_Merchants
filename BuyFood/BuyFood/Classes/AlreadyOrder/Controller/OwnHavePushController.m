@@ -32,6 +32,10 @@
 @end
 
 @implementation OwnHavePushController
+{
+    NSInteger pageSize;
+    NSInteger pageIndex;
+}
 - (NSMutableArray *)inviteDataArray{
     if (_inviteDataArray == nil) {
         self.inviteDataArray = [NSMutableArray arrayWithCapacity:0];
@@ -50,10 +54,26 @@
     [self addSegmentControl];
     self.view.backgroundColor = HDCColor(238, 238, 238);
     [self creatTableView];
+    pageIndex = 1;
+    pageSize = 2;
     _isSelected = YES;
     [self getHavePushedDataSource];
     
     self.mainPushTabview.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        pageIndex = 1;
+        pageSize = 2;
+        if (_isSelected == YES) {
+            [self getHavePushedDataSource];
+        }else{
+            [self getPushedData];
+        }
+    }];
+    
+    self.mainPushTabview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        
+        pageSize += 5;
+        HDCLog(@"pageIndex == %ld", pageIndex);
+        HDCLog(@"pageIndex == %ld", pageSize);
         if (_isSelected == YES) {
             [self getHavePushedDataSource];
         }else{
@@ -70,8 +90,8 @@
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
     OrderParams *params = [[OrderParams alloc] init];
     params.marketuserid = userInfo.marketuserid;
-    params.pageindex = @"1";
-    params.pagesize = @"0";
+    params.pageindex = [NSString stringWithFormat:@"%ld", pageIndex];
+    params.pagesize = [NSString stringWithFormat:@"%ld", pageSize];;
     
      if ([userInfo.markettypeid isEqualToString:@"1" ]|| [userInfo.markettypeid isEqualToString:@"2"] ) {
          
@@ -88,7 +108,7 @@
                  [loadView stopAnimation];
                  NSLog(@"%@",self.inviteDataArray);
                  [self.mainPushTabview.header endRefreshing];
-                 
+                 [self.mainPushTabview.footer endRefreshing];
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.mainPushTabview reloadData];
                  });
@@ -114,7 +134,7 @@
                  [loadView stopAnimation];
                  NSLog(@"%@",self.inviteDataArray);
                  [self.mainPushTabview.header endRefreshing];
-                 
+                 [self.mainPushTabview.footer endRefreshing];
                  dispatch_async(dispatch_get_main_queue(), ^{
                      [self.mainPushTabview reloadData];
                  });
@@ -140,8 +160,8 @@
     ShopsUserInfo *userInfo = [ShopsUserInfoTool account];
     OrderParams *params = [[OrderParams alloc] init];
     params.marketuserid = userInfo.marketuserid;
-    params.pageindex = @"1";
-    params.pagesize = @"10";
+    params.pageindex = [NSString stringWithFormat:@"%ld", pageIndex];
+    params.pagesize = [NSString stringWithFormat:@"%ld", pageSize];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         [RequestTool alreadyDistributionOverOrderList:params success:^(MarketOrderModelList *result) {
@@ -155,7 +175,7 @@
             [loadView stopAnimation];
             NSLog(@"%@",self.havePushedDataArray);
             [self.mainPushTabview.header endRefreshing];
-            
+            [self.mainPushTabview.footer endRefreshing];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.mainPushTabview reloadData];
             });

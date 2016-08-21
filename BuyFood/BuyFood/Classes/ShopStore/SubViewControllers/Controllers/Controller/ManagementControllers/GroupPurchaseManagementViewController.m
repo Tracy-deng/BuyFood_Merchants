@@ -55,6 +55,8 @@ UITableViewDataSource>
     self.tabelView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self prepareGroupBuyDataSource];
     }];
+    
+    
 }
 
 - (void)prepareGroupBuyDataSource
@@ -136,7 +138,7 @@ UITableViewDataSource>
     NSString *timeStr = model.starttime;
     NSRange range = [timeStr rangeOfString:@"T"];
     NSString *time = [[timeStr substringFromIndex:range.location + 1] stringByAppendingString:@"开团"];
-    [cell setOtherShopsImage:model.pic andShopsNameLabel:model.outname andShopsWeight:@"" andShopsSpecifications:@"" andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:model.oldprice andShopsPromotionPriceTitle:@"团购价" andShopsPromotionPrice:model.newprice  andTime:time];
+    [cell setOtherShopsImage:model.pic andShopsNameLabel:model.outname andShopsWeight:[model.newprice stringByAppendingString:@"/"] andShopsSpecifications:model.productunit andShopsOriginalPriceTitle:@"原价" andShopsOriginalPrice:model.oldprice andShopsPromotionPriceTitle:@"团购价" andShopsPromotionPrice:model.newprice  andTime:time];
     
     return cell;
 }
@@ -147,10 +149,7 @@ UITableViewDataSource>
 }
 /** 
  
- 
- 
  */
-
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {

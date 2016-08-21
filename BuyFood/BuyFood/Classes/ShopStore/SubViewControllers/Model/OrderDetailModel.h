@@ -30,4 +30,6 @@
 @property (nonatomic, strong) NSString * useraddress; //下单地址
 @property (nonatomic, assign) CGFloat markettotalmoney; // 钱总数
 @property (nonatomic, assign) NSInteger telephone;
+@property (nonatomic, strong) NSString *posttypeid;
+
 @end

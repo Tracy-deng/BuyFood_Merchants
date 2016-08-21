@@ -10,7 +10,7 @@
 
 @interface TakeMoneyCell ()
 @property (nonatomic, strong) UILabel* titleLabel;
-@property (nonatomic, strong) UITextField* inputText;
+
 
 
 @end

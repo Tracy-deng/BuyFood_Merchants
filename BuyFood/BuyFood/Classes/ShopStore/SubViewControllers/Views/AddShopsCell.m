@@ -28,6 +28,7 @@
         }];
         
         self.contentTextField = [[UITextField alloc] init];
+        self.contentTextField.returnKeyType = UIReturnKeyDone;
         self.contentTextField.textColor = [UIColor colorWithRed:102 / 255.0 green:102 / 255.0 blue:102 / 255.0 alpha:1];
         self.contentTextField.font = [UIFont fontWithName:@"PingFangSC-Regular" size:15];
         [self.contentView addSubview:self.contentTextField];
